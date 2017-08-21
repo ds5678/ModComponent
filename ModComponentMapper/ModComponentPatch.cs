@@ -141,7 +141,7 @@ namespace ModComponentMapper
 
             modComponent.Implementation = implementation;
 
-            ModUtils.SetFieldValue(implementation, "GameObject", modComponent.gameObject);
+            ModUtils.SetFieldValue(implementation, "ModComponent", modComponent);
 
             modComponent.OnEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnEquipped");
             modComponent.OnUnequipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnUnequipped");
