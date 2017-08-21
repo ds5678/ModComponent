@@ -40,7 +40,6 @@ namespace ModComponentMapper
         }
     }
 
-
     [HarmonyPatch(typeof(PlayerManager), "OnEquipItemBegin")]
     class PlayerManagerOnEquipItemBeginPatch
     {
