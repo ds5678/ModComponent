@@ -32,19 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\Harmony.dll</HintPath>
-    </Reference>
+    <Reference Include="Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GearSpawner.cs" />
     <Compile Include="InputManagerPatch.cs" />
     <Compile Include="ItemDescriptionPagePatch.cs" />
     <Compile Include="ModComponentPatch.cs" />
     <Compile Include="PanelLoadingPatch.cs" />
     <Compile Include="PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SandboxManagerPatch.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

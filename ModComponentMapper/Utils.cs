@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
 using Harmony;
@@ -38,6 +39,39 @@ namespace ModComponentMapper
             {
                 GameAudioManager.PlaySound(audioName, InterfaceManager.GetSoundEmitter());
             }
+        }
+
+        public static void InsertIntoLootTable(string lootTableName, GameObject prefab, int weight)
+        {
+            LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
+            LootTable lootTable = lootTables.First(l => l.name == lootTableName);
+            if (lootTable == null)
+            {
+                Debug.Log("Could not find LootTable '" + lootTableName + "'.");
+                return;
+            }
+
+            Debug.Log("Inserting '" + prefab.name + "' into LootTable '" + lootTable.name + "' with weight " + weight);
+
+            for (int i = 0; i < lootTable.m_Prefabs.Count; i++)
+            {
+                if (lootTable.m_Weights[i] >= weight)
+                {
+                    lootTable.m_Prefabs.Insert(i, prefab);
+                    lootTable.m_Weights.Insert(i, weight);
+                    return;
+                }
+            }
+
+            // append to the end
+            lootTable.m_Prefabs.Add(prefab);
+            lootTable.m_Weights.Add(weight);
+        }
+
+        public static void RegisterConsoleGearName(string displayName, string prefabName)
+        {
+            ConsoleManager.Initialize();
+            ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName, prefabName });
         }
 
         public static void ExecuteStaticMethod(Type type, string methodName, object[] parameters)
