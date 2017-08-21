@@ -23,6 +23,7 @@ namespace ModComponentMapper
 
         public static void FreezePlayer()
         {
+            GameManager.GetVpFPSPlayer().Controller.m_Controller.SimpleMove(Vector3.zero);
             GameManager.GetPlayerManagerComponent().DisableCharacterController();
         }
 
