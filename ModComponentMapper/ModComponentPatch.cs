@@ -149,8 +149,6 @@ namespace ModComponentMapper
             modComponent.OnPrimaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnPrimaryAction");
             modComponent.OnSecondaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnSecondaryAction");
 
-            modComponent.OnUse = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnUse");
-
             modComponent.OnControlModeChangedWhileEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnControlModeChangedWhileEquipped");
         }
     }

@@ -51,8 +51,6 @@ namespace ModComponentAPI
         public Action OnPrimaryAction;
         public Action OnSecondaryAction;
 
-        public Action OnUse;
-
         public Action OnControlModeChangedWhileEquipped;
 
     }
