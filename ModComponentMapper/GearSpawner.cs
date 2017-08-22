@@ -18,8 +18,6 @@ namespace ModComponentMapper
 
         internal static void SpawnGearForScene(string sceneName)
         {
-            Debug.Log("Spawning gear for scene '" + sceneName + "'.");
-
             IEnumerable<GearSpawnInfo> sceneGearSpawnInfos = GetSpawnInfos(sceneName);
             if (sceneGearSpawnInfos == null)
             {
