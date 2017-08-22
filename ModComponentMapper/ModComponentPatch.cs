@@ -12,12 +12,11 @@ namespace ModComponentMapper
     {
         public static void Postfix(ModComponent __instance)
         {
-            ConfiguredGearItem(__instance);
             ConfigureInspect(__instance);
             ConfigureFood(__instance);
             ConfigureTool(__instance);
 
-            __instance.GetComponent<GearItem>().Awake();
+            ConfigureGearItem(__instance);
 
             PostProcess(__instance);
         }
@@ -30,7 +29,7 @@ namespace ModComponentMapper
             gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers);
         }
 
-        private static void ConfiguredGearItem(ModComponent modComponent)
+        private static void ConfigureGearItem(ModComponent modComponent)
         {
             GameObject gameObject = modComponent.gameObject;
 
@@ -39,7 +38,7 @@ namespace ModComponentMapper
             gearItem.m_WeightKG = modComponent.WeightKG;
             gearItem.m_MaxHP = modComponent.MaxHP;
             gearItem.m_DailyHPDecay = modComponent.DaysToDecay > 0 ? modComponent.MaxHP / modComponent.DaysToDecay : 0;
-            gearItem.m_StartCondition = GearStartCondition.Random;
+            gearItem.OverrideGearCondition(GearStartCondition.Random);
 
             gearItem.m_LocalizedDisplayName = new LocalizedString();
             gearItem.m_LocalizedDisplayName.m_LocalizationID = modComponent.DisplayNameLocalizationId;
