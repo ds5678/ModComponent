@@ -71,7 +71,7 @@ namespace ModComponentMapper
         public static void RegisterConsoleGearName(string displayName, string prefabName)
         {
             ConsoleManager.Initialize();
-            ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName, prefabName });
+            ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName.ToLower(), prefabName.ToLower() });
         }
 
         public static void ExecuteStaticMethod(Type type, string methodName, object[] parameters)
