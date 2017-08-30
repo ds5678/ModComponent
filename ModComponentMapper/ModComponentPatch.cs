@@ -14,7 +14,8 @@ namespace ModComponentMapper
         {
             ConfigureInspect(__instance);
             ConfigureFood(__instance);
-            ConfigureTool(__instance);
+
+            ConfigureEquippable(__instance);
 
             ConfigureGearItem(__instance);
 
@@ -118,37 +119,37 @@ namespace ModComponentMapper
             inspect.m_Angles = modComponent.InspectAngles;
         }
 
-        private static void ConfigureTool(ModComponent modComponent)
+        private static void ConfigureEquippable(ModComponent modComponent)
         {
-            ModToolComponent modToolComponent = modComponent as ModToolComponent;
-            if (modToolComponent == null)
+            EquippableModComponent equippable = modComponent as EquippableModComponent;
+            if (equippable == null)
             {
                 return;
             }
 
-            if (modToolComponent.ImplementationType == null || modToolComponent.ImplementationType == string.Empty)
+            if (equippable.ImplementationType == null || equippable.ImplementationType == string.Empty)
             {
                 return;
             }
 
-            Type implementationType = Type.GetType(modToolComponent.ImplementationType);
+            Type implementationType = Type.GetType(equippable.ImplementationType);
             object implementation = Activator.CreateInstance(implementationType);
             if (implementation == null)
             {
                 return;
             }
 
-            modComponent.Implementation = implementation;
-
             ModUtils.SetFieldValue(implementation, "ModComponent", modComponent);
 
-            modComponent.OnEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnEquipped");
-            modComponent.OnUnequipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnUnequipped");
+            equippable.Implementation = implementation;
 
-            modComponent.OnPrimaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnPrimaryAction");
-            modComponent.OnSecondaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnSecondaryAction");
+            equippable.OnEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnEquipped");
+            equippable.OnUnequipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnUnequipped");
 
-            modComponent.OnControlModeChangedWhileEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnControlModeChangedWhileEquipped");
+            equippable.OnPrimaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnPrimaryAction");
+            equippable.OnSecondaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnSecondaryAction");
+
+            equippable.OnControlModeChangedWhileEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnControlModeChangedWhileEquipped");
         }
     }
 }

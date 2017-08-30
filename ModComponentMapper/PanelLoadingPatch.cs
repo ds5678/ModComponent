@@ -12,13 +12,7 @@ namespace ModComponentMapper
             if (enable)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModToolComponent modToolComponent = ModUtils.GetModComponent<ModToolComponent>(playerManager.m_ItemInHands);
-                if (modToolComponent == null)
-                {
-                    return;
-                }
-
-                modToolComponent.OnUnequipped?.Invoke();
+                GearEquipper.Unequip(ModUtils.GetModComponent<EquippableModComponent>(playerManager.m_ItemInHands));
             }
         }
     }

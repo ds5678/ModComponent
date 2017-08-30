@@ -15,13 +15,13 @@ namespace ModComponentMapper
                 return true;
             }
 
-            ModComponent modComponent = ModUtils.GetModComponent(playerManager.m_ItemInHands);
-            if (modComponent == null)
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
+            if (equippable == null)
             {
                 return true;
             }
 
-            modComponent.OnPrimaryAction?.Invoke();
+            equippable.OnPrimaryAction?.Invoke();
             return false;
         }
     }
@@ -44,13 +44,13 @@ namespace ModComponentMapper
                 return true;
             }
 
-            ModComponent modComponent = ModUtils.GetModComponent(playerManager.m_ItemInHands);
-            if (modComponent == null)
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
+            if (equippable == null)
             {
                 return true;
             }
 
-            modComponent.OnSecondaryAction?.Invoke();
+            equippable.OnSecondaryAction?.Invoke();
             return false;
         }
     }

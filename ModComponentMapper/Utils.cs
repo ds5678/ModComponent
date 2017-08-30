@@ -106,6 +106,16 @@ namespace ModComponentMapper
             return default(T);
         }
 
+        internal static EquippableModComponent GetEquippableModComponent(Component component)
+        {
+            return GetModComponent<EquippableModComponent>(component);
+        }
+
+        internal static EquippableModComponent GetEquippableModComponent(GameObject gameObject)
+        {
+            return GetModComponent<EquippableModComponent>(gameObject);
+        }
+
         internal static T GetModComponent<T>(Component component) where T : ModComponent
         {
             return GetModComponent<T>(component ? component.gameObject : null);

@@ -19,10 +19,10 @@ namespace ModComponentMapper
             lastMode = mode;
 
             GearItem gi = __instance.m_ItemInHands;
-            ModComponent modComponent = ModUtils.GetModComponent(gi);
-            if (modComponent != null)
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(gi);
+            if (equippable != null)
             {
-                modComponent.OnControlModeChangedWhileEquipped?.Invoke();
+                equippable.OnControlModeChangedWhileEquipped?.Invoke();
             }
         }
     }
@@ -32,8 +32,8 @@ namespace ModComponentMapper
     {
         public static void Prefix(PlayerManager __instance, GearItem gi)
         {
-            ModComponent modComponent = ModUtils.GetModComponent(__instance.m_ItemInHands);
-            if (modComponent != null)
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(__instance.m_ItemInHands);
+            if (equippable != null)
             {
                 __instance.UnequipItemInHands();
             }
@@ -45,12 +45,7 @@ namespace ModComponentMapper
     {
         public static void Postfix(PlayerManager __instance)
         {
-            ModComponent modComponent = ModUtils.GetModComponent(__instance.m_ItemInHands);
-            if (modComponent != null)
-            {
-                modComponent.OnEquipped?.Invoke();
-                ModUtils.PlayAudio(modComponent.PickUpAudio);
-            }
+            GearEquipper.Equip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
 
@@ -59,13 +54,7 @@ namespace ModComponentMapper
     {
         public static void Postfix(PlayerManager __instance)
         {
-            ModComponent modComponent = ModUtils.GetModComponent(__instance.m_ItemInHands);
-            if (modComponent != null)
-            {
-                __instance.UnequipItemInHandsSkipAnimation();
-                modComponent.OnUnequipped?.Invoke();
-                ModUtils.PlayAudio(modComponent.StowAudio);
-            }
+            GearEquipper.Unequip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
 
@@ -74,8 +63,8 @@ namespace ModComponentMapper
     {
         public static bool Prefix(PlayerManager __instance, GearItem gi)
         {
-            ModToolComponent modToolComponent = ModUtils.GetModComponent<ModToolComponent>(gi);
-            if (modToolComponent == null)
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(gi);
+            if (equippable == null)
             {
                 return true;
             }

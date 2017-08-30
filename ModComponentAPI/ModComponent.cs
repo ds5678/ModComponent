@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ModComponentAPI
 {
@@ -38,20 +37,8 @@ namespace ModComponentAPI
         [Tooltip("Each vector component stands for a rotation by the given degrees around the corresponding axis.")]
         public Vector3 InspectAngles;
 
-        [HideInInspector]
-        public object Implementation;
-
         public void Awake()
         {
         }
-
-        public Action OnEquipped;
-        public Action OnUnequipped;
-
-        public Action OnPrimaryAction;
-        public Action OnSecondaryAction;
-
-        public Action OnControlModeChangedWhileEquipped;
-
     }
 }
