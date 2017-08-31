@@ -5,13 +5,13 @@ namespace ModComponentAPI
     public class ModFoodComponent : ModComponent
     {
         [Header("Decay")]
-        [Tooltip("0 means 'Never'")]
+        [Tooltip("0 means 'Never'. This overrides the Basic Property 'DaysToDecay'.")]
         public int DaysToDecayOutdoors;
-        [Tooltip("0 means 'Never'")]
+        [Tooltip("0 means 'Never'. This overrides the Basic Property 'DaysToDecay'.")]
         public int DaysToDecayIndoors;
 
         [Header("Calories")]
-        [Tooltip("For a complete item. Calories remaining will scale with weight.")]
+        [Tooltip("For one complete item. Calories remaining will scale with weight.")]
         public int Calories;
 
         [Header("Eating")]

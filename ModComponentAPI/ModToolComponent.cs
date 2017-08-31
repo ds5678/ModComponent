@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace ModComponentAPI
+﻿namespace ModComponentAPI
 {
     public class ModToolComponent : EquippableModComponent
     {
