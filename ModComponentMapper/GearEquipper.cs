@@ -5,29 +5,23 @@ namespace ModComponentMapper
 {
     internal class GearEquipper
     {
-        public static void Equip(EquippableModComponent modComponent)
+        public static void Equip(EquippableModComponent equippable)
         {
-            if (modComponent == null)
+            if (equippable == null)
             {
                 return;
             }
 
-            if (modComponent.EquippedModelPrefab != null)
+            if (equippable.EquippedModelPrefab != null)
             {
-                modComponent.EquippedModel = UnityEngine.Object.Instantiate(modComponent.EquippedModelPrefab, GameManager.GetWeaponCamera().transform);
-                modComponent.EquippedModel.layer = vp_Layer.Weapon;
-
-                Collider[] colliders = modComponent.EquippedModel.GetComponents<Collider>();
-                foreach (Collider eachCollider in colliders)
-                {
-                    Object.Destroy(eachCollider);
-                }
+                equippable.EquippedModel = Object.Instantiate(equippable.EquippedModelPrefab, GameManager.GetWeaponCamera().transform);
+                equippable.EquippedModel.layer = vp_Layer.Weapon;
             }
 
-            modComponent.OnEquipped?.Invoke();
+            equippable.OnEquipped?.Invoke();
 
             InterfaceManager.QuitCurrentScreens();
-            ModUtils.PlayAudio(modComponent.PickUpAudio);
+            ModUtils.PlayAudio(equippable.PickUpAudio);
         }
 
         public static void Unequip(EquippableModComponent modComponent)
