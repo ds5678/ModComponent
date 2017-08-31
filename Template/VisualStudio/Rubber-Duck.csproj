@@ -30,15 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="AssetLoader, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Assembly-CSharp" />
+    <Reference Include="AssetLoader, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ModComponentAPI, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ModComponentMapper, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation.cs" />
-    <Compile Include="Initializer.cs" />
+    <Compile Include="src\Implementation.cs" />
+    <Compile Include="src\Initializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
