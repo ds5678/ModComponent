@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RubberDuck
 {
-    internal class InitializeAssetBundle
+    internal class Initializer
     {
         private const string PREFAB_RUBBER_DUCK = "GEAR_RubberDuck";
         private const string DISPLAY_NAME_RUBBER_DUCK = "RubberDuck";
