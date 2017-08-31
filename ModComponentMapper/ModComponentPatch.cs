@@ -24,7 +24,7 @@ namespace ModComponentMapper
 
         private static void PostProcess(ModComponent modComponent)
         {
-            modComponent.gameObject.layer = 17;
+            modComponent.gameObject.layer = vp_Layer.Gear;
 
             GearItem gearItem = modComponent.GetComponent<GearItem>();
             gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers);
@@ -125,6 +125,11 @@ namespace ModComponentMapper
             if (equippable == null)
             {
                 return;
+            }
+
+            if (string.IsNullOrEmpty(modComponent.InventoryActionLocalizationId))
+            {
+                modComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
             }
 
             if (equippable.ImplementationType == null || equippable.ImplementationType == string.Empty)
