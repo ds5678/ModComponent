@@ -37,16 +37,16 @@
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GearEquipper.cs" />
-    <Compile Include="GearSpawner.cs" />
-    <Compile Include="InputManagerPatch.cs" />
-    <Compile Include="ItemDescriptionPagePatch.cs" />
-    <Compile Include="ModComponentPatch.cs" />
-    <Compile Include="PanelLoadingPatch.cs" />
-    <Compile Include="PlayerManagerPatch.cs" />
+    <Compile Include="src\GearEquipper.cs" />
+    <Compile Include="src\GearSpawner.cs" />
+    <Compile Include="src\InputManagerPatch.cs" />
+    <Compile Include="src\ItemDescriptionPagePatch.cs" />
+    <Compile Include="src\ModComponentPatch.cs" />
+    <Compile Include="src\PanelLoadingPatch.cs" />
+    <Compile Include="src\PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SceneManagerPatch.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="src\SceneManagerPatch.cs" />
+    <Compile Include="src\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModComponentAPI\ModComponentAPI.csproj">
