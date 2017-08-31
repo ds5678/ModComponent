@@ -4,11 +4,12 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-public class CreateAssetBundle : MonoBehaviour
+public class BuildAssetBundles : MonoBehaviour
 {
+    private const string TARGET_DIRECTORY = "AssetBundles";
 
-    [MenuItem("Assets/Build Asset Bundles")]
-    static void ExportResource()
+    [MenuItem("Assets/Build AssetBundles")]
+    public static void ExportResource()
     {
         string[] assetBundleNames = AssetDatabase.GetAllAssetBundleNames();
         foreach (string eachAssetBundleName in assetBundleNames)
@@ -28,12 +29,12 @@ public class CreateAssetBundle : MonoBehaviour
                 Debug.Log("  " + eachAssetPath);
             }
 
-            if (!Directory.Exists("./Assets/AssetBundles"))
+            if (!Directory.Exists(TARGET_DIRECTORY))
             {
-                Directory.CreateDirectory("./Assets/AssetBundles");
+                Directory.CreateDirectory(TARGET_DIRECTORY);
             }
 
-            BuildPipeline.BuildAssetBundles("Assets/AssetBundles", new AssetBundleBuild[] { build }, BuildAssetBundleOptions.ForceRebuildAssetBundle, BuildTarget.StandaloneWindows);
+            BuildPipeline.BuildAssetBundles(TARGET_DIRECTORY, new AssetBundleBuild[] { build }, BuildAssetBundleOptions.ForceRebuildAssetBundle, BuildTarget.StandaloneWindows);
         }
     }
 }
