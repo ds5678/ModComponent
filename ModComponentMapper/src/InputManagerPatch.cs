@@ -16,7 +16,7 @@ namespace ModComponentMapper
             }
 
             EquippableModComponent equippable = ModUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
-            if (equippable == null)
+            if (equippable == null || equippable.Implementation == null)
             {
                 return true;
             }
@@ -34,12 +34,6 @@ namespace ModComponentMapper
         {
             PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
             if (playerManager == null || InterfaceManager.IsOverlayActive() || !InputManager.GetAltFirePressed() || InputManager.GetAltFireReleased() || playerManager.InPlaceMeshMode() || playerManager.ItemInHandsPlaceable())
-            {
-                return true;
-            }
-
-            GearItem gi = playerManager.m_ItemInHands;
-            if (gi == null)
             {
                 return true;
             }
