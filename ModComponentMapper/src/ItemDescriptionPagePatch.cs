@@ -5,7 +5,7 @@ using ModComponentAPI;
 namespace ModComponentMapper
 {
     [HarmonyPatch(typeof(ItemDescriptionPage), "GetEquipButtonLocalizationId")]
-    class ItemDescriptionPagePatch
+    class ItemDescriptionPageGetEquipButtonLocalizationIdPatch
     {
         public static void Postfix(GearItem gi, ref string __result)
         {
@@ -19,6 +19,16 @@ namespace ModComponentMapper
             {
                 __result = modComponent.InventoryActionLocalizationId;
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]
+    class ItemDescriptionPageCanExaminePatch
+    {
+        public static void Postfix(GearItem gi, ref bool __result)
+        {
+            // guns can always be examined
+            __result |= ModUtils.GetComponent<GunItem>(gi) != null;
         }
     }
 }

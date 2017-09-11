@@ -15,7 +15,7 @@ namespace RubberDuck
             ModSoundBankManager.RegisterSoundBank("Rubber-Duck/rubber_duck.bnk");
 
             ModUtils.RegisterConsoleGearName(DISPLAY_NAME_RUBBER_DUCK, PREFAB_RUBBER_DUCK);
-            ModUtils.InsertIntoLootTable("LootTableBathroomCabinet", (GameObject)Resources.Load(PREFAB_RUBBER_DUCK), 10);
+            ModUtils.InsertIntoLootTable(LootTableName.LootTableBathroomCabinet, (GameObject)Resources.Load(PREFAB_RUBBER_DUCK), 10);
         }
     }
 }

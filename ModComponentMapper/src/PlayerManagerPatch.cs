@@ -1,6 +1,6 @@
 ﻿using Harmony;
-
 using ModComponentAPI;
+using static PlayerAnimation;
 
 namespace ModComponentMapper
 {
@@ -18,8 +18,7 @@ namespace ModComponentMapper
 
             lastMode = mode;
 
-            GearItem gi = __instance.m_ItemInHands;
-            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(gi);
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(__instance.m_ItemInHands);
             if (equippable != null)
             {
                 equippable.OnControlModeChangedWhileEquipped?.Invoke();
@@ -45,6 +44,14 @@ namespace ModComponentMapper
     {
         public static void Postfix(PlayerManager __instance)
         {
+            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(__instance.m_ItemInHands);
+            if (animation != null)
+            {
+                animation.TransitionTo(State.Equipping);
+                GameManager.GetPlayerAnimationComponent().m_EnableAnimationDrivenZoom = false;
+                return;
+            }
+
             GearEquipper.Equip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
@@ -54,6 +61,14 @@ namespace ModComponentMapper
     {
         public static void Postfix(PlayerManager __instance)
         {
+            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(__instance.m_ItemInHands);
+            if (animation != null)
+            {
+                animation.TransitionTo(State.Dequipping);
+                GameManager.GetPlayerAnimationComponent().m_EnableAnimationDrivenZoom = true;
+                return;
+            }
+
             GearEquipper.Unequip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
@@ -63,8 +78,12 @@ namespace ModComponentMapper
     {
         public static bool Prefix(PlayerManager __instance, GearItem gi)
         {
-            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(gi);
-            if (equippable == null)
+            if (ModUtils.GetComponent<FirstPersonItem>(gi) != null)
+            {
+                return true;
+            }
+
+            if (ModUtils.GetEquippableModComponent(gi) == null)
             {
                 return true;
             }

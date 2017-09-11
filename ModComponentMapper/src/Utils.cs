@@ -10,6 +10,34 @@ using ModComponentAPI;
 
 namespace ModComponentMapper
 {
+    public enum LootTableName
+    {
+        LootTableHumanCorpse,
+        LootTableBackPack,
+        LootTableBathroomCabinet,
+        LootTableCabinet,
+        LootTableCashRegister,
+        LootTableDresser,
+        LootTableFileCabinet,
+        LootTableFirstAidKit,
+        LootTableFishingDrawer,
+        LootTableFreezer,
+        LootTableFridge,
+        LootTableKitchenCupboard,
+        LootTableLaundry,
+        LootTableLocker,
+        LootTableLockerLocked,
+        LootTableMetalBox,
+        LootTableOven,
+        LootTablePlasticBox,
+        LootTableSafe,
+        LootTableToolChest_sml,
+        LootTableToolChest,
+        LootTableToolChestDrawer,
+        LootTableWardrobe_regular,
+        LootTableWorkbench,
+    }
+
     public class ModUtils
     {
         public static T[] NotNull<T>(T[] array)
@@ -41,29 +69,17 @@ namespace ModComponentMapper
             }
         }
 
-        public static void InsertIntoLootTable(string lootTableName, GameObject prefab, int weight)
+        public static void InsertIntoLootTable(LootTableName lootTableName, GameObject prefab, int weight)
         {
             LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
-            LootTable lootTable = lootTables.First(l => l.name == lootTableName);
+            LootTable lootTable = lootTables.First(l => l.name == lootTableName.ToString());
             if (lootTable == null)
             {
-                Debug.Log("Could not find LootTable '" + lootTableName + "'.");
+                Debug.Log("Could not find LootTable '" + lootTable + "'.");
                 return;
             }
 
             Debug.Log("Inserting '" + prefab.name + "' into LootTable '" + lootTable.name + "' with weight " + weight);
-
-            for (int i = 0; i < lootTable.m_Prefabs.Count; i++)
-            {
-                if (lootTable.m_Weights[i] >= weight)
-                {
-                    lootTable.m_Prefabs.Insert(i, prefab);
-                    lootTable.m_Weights.Insert(i, weight);
-                    return;
-                }
-            }
-
-            // append to the end
             lootTable.m_Prefabs.Add(prefab);
             lootTable.m_Weights.Add(weight);
         }
@@ -80,7 +96,7 @@ namespace ModComponentMapper
             methodInfo.Invoke(null, parameters);
         }
 
-        public static void ExecuteMethod(object instance, string methodName, object[] parameters)
+        public static void ExecuteMethod(object instance, string methodName, params object[] parameters)
         {
             MethodInfo methodInfo = AccessTools.Method(instance.GetType(), methodName, AccessTools.GetTypes(parameters));
             methodInfo.Invoke(instance, parameters);
@@ -95,6 +111,17 @@ namespace ModComponentMapper
             }
         }
 
+        public static T GetStaticFieldValue<T>(Type type, string fieldName)
+        {
+            FieldInfo fieldInfo = AccessTools.Field(type, fieldName);
+            if (fieldInfo != null)
+            {
+                return (T)fieldInfo.GetValue(null);
+            }
+
+            return default(T);
+        }
+
         public static T GetFieldValue<T>(object target, string fieldName)
         {
             FieldInfo fieldInfo = AccessTools.Field(target.GetType(), fieldName);
@@ -106,26 +133,36 @@ namespace ModComponentMapper
             return default(T);
         }
 
+        public static string NormalizeName(string name)
+        {
+            if (name == null)
+            {
+                return null;
+            }
+
+            return name.Replace("(Clone)", "").Trim();
+        }
+
         internal static EquippableModComponent GetEquippableModComponent(Component component)
         {
-            return GetModComponent<EquippableModComponent>(component);
+            return GetComponent<EquippableModComponent>(component);
         }
 
         internal static EquippableModComponent GetEquippableModComponent(GameObject gameObject)
         {
-            return GetModComponent<EquippableModComponent>(gameObject);
+            return GetComponent<EquippableModComponent>(gameObject);
         }
 
-        internal static T GetModComponent<T>(Component component) where T : ModComponent
+        public static T GetComponent<T>(Component component)
         {
-            return GetModComponent<T>(component ? component.gameObject : null);
+            return GetComponent<T>(component ? component.gameObject : null);
         }
 
-        internal static T GetModComponent<T>(GameObject gameObject) where T : ModComponent
+        public static T GetComponent<T>(GameObject gameObject)
         {
             if (gameObject == null)
             {
-                return null;
+                return default(T);
             }
 
             return gameObject.GetComponent<T>();
@@ -138,12 +175,7 @@ namespace ModComponentMapper
 
         internal static ModComponent GetModComponent(GameObject gameObject)
         {
-            if (gameObject == null)
-            {
-                return null;
-            }
-
-            return gameObject.GetComponent<ModComponent>();
+            return GetComponent<ModComponent>(gameObject);
         }
 
         internal static Delegate CreateDelegate(Type delegateType, object target, string methodName)
@@ -218,6 +250,20 @@ namespace ModComponentMapper
         internal static void ShowItemIcons(EquipItemPopup equipItemPopup, String primaryAction, String secondaryAction, bool showAmmo, bool showDuration)
         {
             ModUtils.ExecuteMethod(equipItemPopup, "ShowItemIcons", new object[] { primaryAction, secondaryAction, showAmmo, showDuration });
+        }
+    }
+
+    public class LogUtils
+    {
+        public static void Log(string component, string message)
+        {
+            Debug.LogFormat("[{0}] {1}", component, message);
+        }
+
+        public static void Log(string component, string message, object[] parameters)
+        {
+            string preformattedMessage = string.Format("[{0}] {1}", component, message);
+            Debug.LogFormat(preformattedMessage, parameters);
         }
     }
 }

@@ -33,7 +33,6 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp" />
     <Reference Include="Harmony" />
-    <Reference Include="System" />
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
@@ -42,11 +41,16 @@
     <Compile Include="src\InputManagerPatch.cs" />
     <Compile Include="src\ItemDescriptionPagePatch.cs" />
     <Compile Include="src\ModComponentPatch.cs" />
+    <Compile Include="src\ModWeaponManager.cs" />
+    <Compile Include="src\ModPlayerAnimation.cs" />
+    <Compile Include="src\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\PanelLoadingPatch.cs" />
+    <Compile Include="src\PlayerAnimationPatch.cs" />
     <Compile Include="src\PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\SceneManagerPatch.cs" />
     <Compile Include="src\Utils.cs" />
+    <Compile Include="src\vp_FPSPlayerPatch.cs" />
+    <Compile Include="src\vp_FPSShooterPatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModComponentAPI\ModComponentAPI.csproj">
@@ -56,8 +60,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>cmd /C IF DEFINED TLD_MOD_DIR copy "$(TargetPath)" %25TLD_MOD_DIR%25</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

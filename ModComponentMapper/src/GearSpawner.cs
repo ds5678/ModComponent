@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ModComponentMapper
 {
@@ -29,7 +30,7 @@ namespace ModComponentMapper
                 Object prefab = Resources.Load(eachGearSpawnInfo.PrefabName);
                 if (prefab == null)
                 {
-                    Debug.LogError("Could not find prefab '" + eachGearSpawnInfo.PrefabName + "' to spawn in scene '" + sceneName + "'.");
+                    Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
                     continue;
                 }
 
@@ -59,6 +60,32 @@ namespace ModComponentMapper
             List<GearSpawnInfo> result;
             gearSpawnInfos.TryGetValue(sceneName, out result);
             return result;
+        }
+
+        private static void Log(string message)
+        {
+            LogUtils.Log("GearSpawner", message);
+        }
+
+        private static void Log(string message, params object[] parameters)
+        {
+            LogUtils.Log("GearSpawner", message, parameters);
+        }
+    }
+
+    internal class SceneManagerPatch
+    {
+        public static void OnLoad()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene != null && !string.IsNullOrEmpty(scene.name) && mode == LoadSceneMode.Single)
+            {
+                GearSpawner.SpawnGearForScene(scene.name);
+            }
         }
     }
 }

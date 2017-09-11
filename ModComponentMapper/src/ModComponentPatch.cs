@@ -1,9 +1,7 @@
-﻿using System;
-
-using Harmony;
-using UnityEngine;
-
+﻿using Harmony;
 using ModComponentAPI;
+using System;
+using UnityEngine;
 
 namespace ModComponentMapper
 {
@@ -12,10 +10,11 @@ namespace ModComponentMapper
     {
         public static void Postfix(ModComponent __instance)
         {
-            ConfigureInspect(__instance);
-            ConfigureFood(__instance);
-
             ConfigureEquippable(__instance);
+            ConfigureInspect(__instance);
+
+            ConfigureFood(__instance);
+            ConfigureRifle(__instance);
 
             ConfigureGearItem(__instance);
 
@@ -87,6 +86,65 @@ namespace ModComponentMapper
             foodItem.m_IsRawMeat = modFoodComponent.Raw;
             foodItem.m_IsNatural = modFoodComponent.Natural;
             foodItem.m_ParasiteRiskPercentIncrease = ModUtils.NotNull(modFoodComponent.ParasiteRiskIncrements);
+        }
+
+        private static void ConfigureRifle(ModComponent modComponent)
+        {
+            ModRifleComponent modRifleComponent = modComponent as ModRifleComponent;
+            if (modRifleComponent == null)
+            {
+                return;
+            }
+
+            GunItem gunItem = modRifleComponent.gameObject.AddComponent<GunItem>();
+
+            gunItem.m_GunType = GunType.Rifle;
+            gunItem.m_AmmoPrefab = (GameObject)Resources.Load("GEAR_RifleAmmoSingle");
+            gunItem.m_AmmoSpriteName = "ico_units_ammo";
+
+            gunItem.m_AccuracyRange = modRifleComponent.Range;
+            gunItem.m_ClipSize = modRifleComponent.ClipSize;
+            gunItem.m_DamageHP = modRifleComponent.DamagePerShot;
+            gunItem.m_FiringRateSeconds = modRifleComponent.FiringDelay;
+            gunItem.m_MuzzleFlash_FlashDelay = modRifleComponent.MuzzleFlashDelay;
+            gunItem.m_MuzzleFlash_SmokeDelay = modRifleComponent.MuzzleSmokeDelay;
+            gunItem.m_ReloadCoolDownSeconds = modRifleComponent.ReloadDelay;
+
+            gunItem.m_DryFireAudio = "Play_RifleDryFire";
+            gunItem.m_ImpactAudio = "Play_BulletImpacts";
+
+            gunItem.m_SwayIncreasePerSecond = modRifleComponent.SwayIncrement;
+            gunItem.m_SwayValueZeroFatigue = modRifleComponent.MinSway;
+            gunItem.m_SwayValueMaxFatigue = modRifleComponent.MaxSway;
+
+            Cleanable cleanable = modRifleComponent.gameObject.AddComponent<Cleanable>();
+            cleanable.m_ConditionIncreaseMin = 2;
+            cleanable.m_ConditionIncreaseMin = 5;
+            cleanable.m_DurationMinutesMin = 15;
+            cleanable.m_DurationMinutesMax = 5;
+            cleanable.m_CleanAudio = "Play_RifleCleaning";
+            cleanable.m_RequiresToolToClean = true;
+            cleanable.m_CleanToolChoices = new ToolsItem[] { Resources.Load<GameObject>("GEAR_RifleCleaningKit").GetComponent<ToolsItem>() };
+
+            FirstPersonItem firstPersonItem = ConfiguredRifleFirstPersonItem(modRifleComponent);
+
+            ModAnimationStateMachine animation = modRifleComponent.gameObject.AddComponent<ModAnimationStateMachine>();
+            animation.SetTransitions(firstPersonItem.m_PlayerStateTransitions);
+        }
+
+        private static FirstPersonItem ConfiguredRifleFirstPersonItem(ModRifleComponent modRifleComponent)
+        {
+            FirstPersonItem result = modRifleComponent.gameObject.AddComponent<FirstPersonItem>();
+
+            FirstPersonItem template = Resources.Load<GameObject>("GEAR_Rifle").GetComponent<FirstPersonItem>();
+
+            result.m_FirstPersonObjectName = ModUtils.NormalizeName(modRifleComponent.name);
+            result.m_UnWieldAudio = template.m_UnWieldAudio;
+            result.m_WieldAudio = template.m_WieldAudio;
+            result.m_PlayerStateTransitions = UnityEngine.Object.Instantiate(template.m_PlayerStateTransitions);
+            result.Awake();
+
+            return result;
         }
 
         private static GearTypeEnum GetGearType(ModComponent modComponent)
