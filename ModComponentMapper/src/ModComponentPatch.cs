@@ -86,6 +86,22 @@ namespace ModComponentMapper
             foodItem.m_IsRawMeat = modFoodComponent.Raw;
             foodItem.m_IsNatural = modFoodComponent.Natural;
             foodItem.m_ParasiteRiskPercentIncrease = ModUtils.NotNull(modFoodComponent.ParasiteRiskIncrements);
+
+            if (modFoodComponent.AffectRest)
+            {
+                FatigueBuff fatigueBuff = foodItem.gameObject.AddComponent<FatigueBuff>();
+                fatigueBuff.m_InitialPercentDecrease = modFoodComponent.InstantRestChange;
+                fatigueBuff.m_RateOfIncreaseScale = modFoodComponent.RestFactor;
+                fatigueBuff.m_DurationHours = modFoodComponent.RestFactorMinutes / 60f;
+            }
+
+            if (modFoodComponent.ContainsAlcohol)
+            {
+                AlcoholComponent alcohol = foodItem.gameObject.AddComponent<AlcoholComponent>();
+                alcohol.AmountTotal = modFoodComponent.WeightKG * modFoodComponent.AlcoholPercentage * 0.01f;
+                alcohol.AmountRemaining = alcohol.AmountTotal;
+                alcohol.UptakeSeconds = modFoodComponent.AlcoholUptakeMinutes * 60;
+            }
         }
 
         private static void ConfigureRifle(ModComponent modComponent)
@@ -175,6 +191,7 @@ namespace ModComponentMapper
             inspect.m_DistanceFromCamera = modComponent.InspectDistance;
             inspect.m_Scale = modComponent.InspectScale;
             inspect.m_Angles = modComponent.InspectAngles;
+            inspect.m_Offset = modComponent.InspectOffset;
         }
 
         private static void ConfigureEquippable(ModComponent modComponent)

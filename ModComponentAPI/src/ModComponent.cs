@@ -39,7 +39,9 @@ namespace ModComponentAPI
         [Tooltip("Scales the item during inspect.")]
         public Vector3 InspectScale = Vector3.one;
         [Tooltip("Each vector component stands for a rotation by the given degrees around the corresponding axis.")]
-        public Vector3 InspectAngles;
+        public Vector3 InspectAngles = Vector3.zero;
+        [Tooltip("Moves the item during inspect.")]
+        public Vector3 InspectOffset = Vector3.zero;
 
         // this is required for patching with Harmony - do not remove!
         public void Awake()

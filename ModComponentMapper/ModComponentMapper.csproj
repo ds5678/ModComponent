@@ -32,15 +32,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" />
+    <Reference Include="Assembly-CSharp-firstpass" />
     <Reference Include="Harmony" />
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\AfflictionButtonPatch.cs" />
+    <Compile Include="src\AlcoholComponent.cs" />
+    <Compile Include="src\ExecutionValve.cs" />
     <Compile Include="src\GearEquipper.cs" />
+    <Compile Include="src\BuffCauseTracker.cs" />
     <Compile Include="src\GearSpawner.cs" />
     <Compile Include="src\InputManagerPatch.cs" />
     <Compile Include="src\ItemDescriptionPagePatch.cs" />
     <Compile Include="src\ModComponentPatch.cs" />
+    <Compile Include="src\ModHealthManager.cs" />
     <Compile Include="src\ModWeaponManager.cs" />
     <Compile Include="src\ModPlayerAnimation.cs" />
     <Compile Include="src\vp_MuzzleFlashPatch.cs" />
