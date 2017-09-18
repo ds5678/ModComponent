@@ -79,6 +79,11 @@ namespace ModComponentMapper
                 return;
             }
 
+            if (prefab.GetComponent<GearItem>() == null)
+            {
+                prefab.AddComponent<GearItem>();
+            }
+
             Debug.Log("Inserting '" + prefab.name + "' into LootTable '" + lootTable.name + "' with weight " + weight);
             lootTable.m_Prefabs.Add(prefab);
             lootTable.m_Weights.Add(weight);

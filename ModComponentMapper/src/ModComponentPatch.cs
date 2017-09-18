@@ -33,7 +33,13 @@ namespace ModComponentMapper
         {
             GameObject gameObject = modComponent.gameObject;
 
-            GearItem gearItem = gameObject.AddComponent<GearItem>();
+            GearItem gearItem = gameObject.GetComponent<GearItem>();
+            if (gearItem != null)
+            {
+                GameObject.Destroy(gearItem);
+            }
+
+            gearItem = gameObject.AddComponent<GearItem>();
             gearItem.m_Type = GetGearType(modComponent);
             gearItem.m_WeightKG = modComponent.WeightKG;
             gearItem.m_MaxHP = modComponent.MaxHP;
