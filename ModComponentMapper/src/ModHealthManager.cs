@@ -29,7 +29,7 @@ namespace ModComponentMapper
 
         ModHealthManager()
         {
-            thirstMonitor.hourlyBaseline = GameManager.GetThirstComponent().m_ThirstIncreasePerDay / 24;
+            thirstMonitor.hourlyBaseline = GameManager.GetThirstComponent().m_ThirstIncreasePerDay / 24 * GameManager.GetExperienceModeManagerComponent().GetThirstRateScale();
             thirstMonitor.scale = 0.2f;
         }
 
@@ -221,7 +221,7 @@ namespace ModComponentMapper
             {
                 var thirstMonitor = ModHealthManager.GetThirstMonitor();
                 __result = thirstMonitor.getRateOfChange();
-                
+
                 return false;
             }
 
@@ -245,7 +245,7 @@ namespace ModComponentMapper
 
         public float getRateOfChange()
         {
-            return (hourlyChange - hourlyBaseline) * scale;
+            return 1 + (hourlyChange - hourlyBaseline) * scale;
         }
     }
 
