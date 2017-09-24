@@ -37,26 +37,27 @@
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\AfflictionButtonPatch.cs" />
+    <Compile Include="src\patches\AfflictionButtonPatch.cs" />
     <Compile Include="src\AlcoholComponent.cs" />
     <Compile Include="src\ExecutionValve.cs" />
     <Compile Include="src\GearEquipper.cs" />
     <Compile Include="src\BuffCauseTracker.cs" />
     <Compile Include="src\GearSpawner.cs" />
-    <Compile Include="src\InputManagerPatch.cs" />
-    <Compile Include="src\ItemDescriptionPagePatch.cs" />
-    <Compile Include="src\ModComponentPatch.cs" />
+    <Compile Include="src\patches\HungerPatch.cs" />
+    <Compile Include="src\patches\InputManagerPatch.cs" />
+    <Compile Include="src\patches\ItemDescriptionPagePatch.cs" />
+    <Compile Include="src\Mapper.cs" />
     <Compile Include="src\ModHealthManager.cs" />
     <Compile Include="src\ModWeaponManager.cs" />
     <Compile Include="src\ModPlayerAnimation.cs" />
-    <Compile Include="src\vp_MuzzleFlashPatch.cs" />
-    <Compile Include="src\PanelLoadingPatch.cs" />
-    <Compile Include="src\PlayerAnimationPatch.cs" />
-    <Compile Include="src\PlayerManagerPatch.cs" />
+    <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
+    <Compile Include="src\patches\PanelLoadingPatch.cs" />
+    <Compile Include="src\patches\PlayerAnimationPatch.cs" />
+    <Compile Include="src\patches\PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Utils.cs" />
-    <Compile Include="src\vp_FPSPlayerPatch.cs" />
-    <Compile Include="src\vp_FPSShooterPatch.cs" />
+    <Compile Include="src\patches\vp_FPSPlayerPatch.cs" />
+    <Compile Include="src\patches\vp_FPSShooterPatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModComponentAPI\ModComponentAPI.csproj">

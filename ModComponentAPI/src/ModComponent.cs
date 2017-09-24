@@ -42,10 +42,5 @@ namespace ModComponentAPI
         public Vector3 InspectAngles = Vector3.zero;
         [Tooltip("Moves the item during inspect.")]
         public Vector3 InspectOffset = Vector3.zero;
-
-        // this is required for patching with Harmony - do not remove!
-        public void Awake()
-        {
-        }
     }
 }

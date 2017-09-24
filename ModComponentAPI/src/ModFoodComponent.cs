@@ -13,6 +13,9 @@ namespace ModComponentAPI
         [Header("Calories")]
         [Tooltip("For one complete item. Calories remaining will scale with weight.")]
         public int Calories;
+        [Tooltip("The number of servings contained in this item. Each consumation will be limited to one serving. 1 means 'Comsume completely' - the way all pre-existing food items work.")]
+        [Range(1, 10)]
+        public int Servings = 1;
 
         [Header("Eating")]
         [Tooltip("Realtime seconds it takes to eat one complete item.")]
@@ -53,7 +56,31 @@ namespace ModComponentAPI
         public bool Fish;
 
         [Header("Cooking")]
-        public bool CanBeHeated;
+        [Tooltip("Can this be cooked/heated. If not enabled, the other settings in this section will be ignored.")]
+        public bool Cooking;
+        [Tooltip("How many in-game minutes does it take to cook/heat this item?")]
+        [Range(1,60)]
+        public int CookingMinutes = 1;
+        [Range(0, 5)]
+        [Tooltip("How many liters of water are required for cooking this item? Only potable water applies.")]
+        public float CookingWaterRequired;
+        [Range(1, 100)]
+        [Tooltip("How many units of this item are required for cooking?")]
+        public int CookingUnitsRequired = 1;
+        [Tooltip("Sound to use when cooking/heating the item. Leave empty for a sensible default.")]
+        public string CookingAudio;
+
+        [Header("Opening")]
+        [Tooltip("Does this item require a tool for opening it? If not enabled, the other settings in this section will be ignored.")]
+        public bool Opening;
+        [Tooltip("Can it be opened with a can opener?")]
+        public bool OpeningWithCanOpener;
+        [Tooltip("Can it be opened with a knife?")]
+        public bool OpeningWithKnife;
+        [Tooltip("Can it be opened with a hatchet?")]
+        public bool OpeningWithHatchet;
+        [Tooltip("Can it be opened by smashing?")]
+        public bool OpeningWithSmashing;
 
         [Header("Fatigue")]
         [Tooltip("Does this item affect 'Rest'? If not enabled, the other settings in this section will be ignored.")]
@@ -71,10 +98,10 @@ namespace ModComponentAPI
         [Header("Alcohol")]
         [Tooltip("Does this item contain Alcohol? If not enabled, the other settings in this section will be ignored.")]
         public bool ContainsAlcohol;
-        [Tooltip("How much of the item's weight is alcohol")]
+        [Tooltip("How much of the item's weight is alcohol?")]
         [Range(0, 100)]
         public float AlcoholPercentage;
-        [Tooltip("How many in-game minutes does it take for the alcohol to be fully absorbed. This is scaled by current hunger level (the hungrier the faster). The simulated blood alcohol level will slowly raise over this time. Real-life value is around 45 mins for liquids.")]
+        [Tooltip("How many in-game minutes does it take for the alcohol to be fully absorbed? This is scaled by current hunger level (the hungrier the faster). The simulated blood alcohol level will slowly raise over this time. Real-life value is around 45 mins for liquids.")]
         [Range(15, 120)]
         public float AlcoholUptakeMinutes = 45;
     }

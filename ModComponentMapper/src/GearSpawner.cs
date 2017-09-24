@@ -44,7 +44,7 @@ namespace ModComponentMapper
             }
         }
 
-        public static void AddGearSpawnInfo(string sceneName, GearSpawnInfo gearSpawnInfo)
+        internal static void AddGearSpawnInfo(string sceneName, GearSpawnInfo gearSpawnInfo)
         {
             if (!gearSpawnInfos.ContainsKey(sceneName))
             {

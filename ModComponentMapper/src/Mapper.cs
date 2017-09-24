@@ -1,24 +1,35 @@
-﻿using Harmony;
-using ModComponentAPI;
+﻿using ModComponentAPI;
 using System;
 using UnityEngine;
 
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(ModComponent), "Awake")]
-    internal class ModComponentPatch
+    public class Mapper
     {
-        public static void Postfix(ModComponent __instance)
+        public static MappedItem Map(string prefabName)
         {
-            ConfigureEquippable(__instance);
-            ConfigureInspect(__instance);
+            return Map((GameObject)Resources.Load(prefabName));
+        }
 
-            ConfigureFood(__instance);
-            ConfigureRifle(__instance);
+        public static MappedItem Map(GameObject prefab)
+        {
+            ModComponent modComponent = ModUtils.GetModComponent(prefab);
+            if (modComponent == null)
+            {
+                throw new ArgumentException("Given prefab does not contain a ModComponent.");
+            }
 
-            ConfigureGearItem(__instance);
+            Log("Mapping {0}", prefab.name);
 
-            PostProcess(__instance);
+            ConfigureEquippable(modComponent);
+            ConfigureInspect(modComponent);
+            ConfigureFood(modComponent);
+            ConfigureRifle(modComponent);
+            ConfigureGearItem(modComponent);
+
+            PostProcess(modComponent);
+
+            return new MappedItem(prefab);
         }
 
         private static void PostProcess(ModComponent modComponent)
@@ -34,12 +45,11 @@ namespace ModComponentMapper
             GameObject gameObject = modComponent.gameObject;
 
             GearItem gearItem = gameObject.GetComponent<GearItem>();
-            if (gearItem != null)
+            if (gearItem == null)
             {
-                GameObject.Destroy(gearItem);
+                gearItem = gameObject.AddComponent<GearItem>();
             }
 
-            gearItem = gameObject.AddComponent<GearItem>();
             gearItem.m_Type = GetGearType(modComponent);
             gearItem.m_WeightKG = modComponent.WeightKG;
             gearItem.m_MaxHP = modComponent.MaxHP;
@@ -77,14 +87,40 @@ namespace ModComponentMapper
             foodItem.m_DailyHPDecayInside = modFoodComponent.DaysToDecayIndoors > 0 ? modFoodComponent.MaxHP / modFoodComponent.DaysToDecayIndoors : 0;
             foodItem.m_DailyHPDecayOutside = modFoodComponent.DaysToDecayOutdoors > 0 ? modFoodComponent.MaxHP / modFoodComponent.DaysToDecayOutdoors : 0;
 
-            foodItem.m_EatingAudio = modFoodComponent.EatingAudio;
             foodItem.m_TimeToEatSeconds = Mathf.Clamp(1, modFoodComponent.EatingTime, 10);
+            foodItem.m_EatingAudio = modFoodComponent.EatingAudio;
             foodItem.m_OpenAndEatingAudio = modFoodComponent.EatingPackagedAudio;
-            foodItem.m_Packaged = foodItem.m_OpenAndEatingAudio != null;
+            foodItem.m_Packaged = !string.IsNullOrEmpty(foodItem.m_OpenAndEatingAudio);
 
-            foodItem.m_HeatedWhenCooked = modFoodComponent.CanBeHeated;
-            foodItem.m_PercentHeatLossPerMinuteIndoors = 1;
-            foodItem.m_PercentHeatLossPerMinuteOutdoors = 2;
+            if (modFoodComponent.Cooking)
+            {
+                foodItem.m_HeatedWhenCooked = true;
+                foodItem.m_PercentHeatLossPerMinuteIndoors = 1;
+                foodItem.m_PercentHeatLossPerMinuteOutdoors = 2;
+
+                Cookable cookable = foodItem.gameObject.AddComponent<Cookable>();
+                cookable.m_CookTimeMinutes = modFoodComponent.CookingMinutes;
+                cookable.m_NumUnitsRequired = modFoodComponent.CookingUnitsRequired;
+                cookable.m_PotableWaterRequiredLiters = modFoodComponent.CookingWaterRequired;
+                cookable.m_CookAudio = modFoodComponent.CookingAudio ?? "PLAY_BOILINGLIGHT";
+            }
+
+            if (modFoodComponent.Opening)
+            {
+                foodItem.m_GearRequiredToOpen = true;
+                foodItem.m_OpenedWithCanOpener = modFoodComponent.OpeningWithCanOpener;
+                foodItem.m_OpenedWithHatchet = modFoodComponent.OpeningWithHatchet;
+                foodItem.m_OpenedWithKnife = modFoodComponent.OpeningWithKnife;
+
+                if (modFoodComponent.OpeningWithSmashing)
+                {
+                    SmashableItem smashableItem = foodItem.gameObject.AddComponent<SmashableItem>();
+                    smashableItem.m_MinPercentLoss = 10;
+                    smashableItem.m_MaxPercentLoss = 30;
+                    smashableItem.m_TimeToSmash = 6;
+                    smashableItem.m_SmashAudio = "Play_EatingSmashCan";
+                }
+            }
 
             foodItem.m_IsDrink = modFoodComponent.Drink;
             foodItem.m_IsFish = modFoodComponent.Fish;
@@ -236,6 +272,47 @@ namespace ModComponentMapper
             equippable.OnSecondaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnSecondaryAction");
 
             equippable.OnControlModeChangedWhileEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnControlModeChangedWhileEquipped");
+        }
+
+        private static void Log(string message, params object[] parameters)
+        {
+            LogUtils.Log("ModComponentMapper", message, parameters);
+        }
+    }
+
+    public class MappedItem
+    {
+        private GameObject gameObject;
+
+        internal MappedItem(GameObject gameObject)
+        {
+            this.gameObject = gameObject;
+        }
+
+        public MappedItem RegisterInConsole(string displayName)
+        {
+            ModUtils.RegisterConsoleGearName(displayName, gameObject.name);
+
+            return this;
+        }
+
+        public MappedItem AddToLootTable(LootTableName lootTableName, int weight)
+        {
+            ModUtils.InsertIntoLootTable(lootTableName, gameObject, weight);
+
+            return this;
+        }
+
+        public MappedItem SpawnAt(SceneName sceneName, Vector3 position, Quaternion rotation, float chance = 1)
+        {
+            GearSpawnInfo spawnInfo = new GearSpawnInfo();
+            spawnInfo.PrefabName = gameObject.name;
+            spawnInfo.Position = position;
+            spawnInfo.Rotation = rotation;
+            spawnInfo.SpawnChance = chance;
+            GearSpawner.AddGearSpawnInfo(sceneName.ToString(), spawnInfo);
+
+            return this;
         }
     }
 }

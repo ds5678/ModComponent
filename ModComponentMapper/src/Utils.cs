@@ -38,6 +38,17 @@ namespace ModComponentMapper
         LootTableWorkbench,
     }
 
+    public enum SceneName
+    {
+        FarmhouseA,
+        SafeHouseA,
+        QuonsetGasStation,
+        CoastalHouseD,
+        CoastalHouseE,
+        CoastalRegion,
+        RadioControlHut,
+    }
+
     public class ModUtils
     {
         public static T[] NotNull<T>(T[] array)
@@ -69,7 +80,7 @@ namespace ModComponentMapper
             }
         }
 
-        public static void InsertIntoLootTable(LootTableName lootTableName, GameObject prefab, int weight)
+        internal static void InsertIntoLootTable(LootTableName lootTableName, GameObject prefab, int weight)
         {
             LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
             LootTable lootTable = lootTables.First(l => l.name == lootTableName.ToString());
@@ -89,7 +100,7 @@ namespace ModComponentMapper
             lootTable.m_Weights.Add(weight);
         }
 
-        public static void RegisterConsoleGearName(string displayName, string prefabName)
+        internal static void RegisterConsoleGearName(string displayName, string prefabName)
         {
             ConsoleManager.Initialize();
             ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName.ToLower(), prefabName.ToLower() });
@@ -192,6 +203,11 @@ namespace ModComponentMapper
             }
 
             return Delegate.CreateDelegate(delegateType, target, methodInfo);
+        }
+
+        internal static bool AlmostZero(float value)
+        {
+            return Mathf.Abs(value) < 0.001f;
         }
     }
 

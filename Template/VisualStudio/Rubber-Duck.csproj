@@ -32,8 +32,8 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp" />
     <Reference Include="AssetLoader, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="ModComponentAPI, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="ModComponentMapper, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ModComponentAPI, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="ModComponentMapper, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
