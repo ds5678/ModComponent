@@ -169,12 +169,29 @@ namespace ModComponentMapper
             return GetComponent<EquippableModComponent>(gameObject);
         }
 
-        public static T GetComponent<T>(Component component)
+        public static T GetOrCreateComponent<T>(Component component) where T : Component
+        {
+            return GetOrCreateComponent<T>(component ? component.gameObject : null);
+        }
+
+        public static T GetOrCreateComponent<T>(GameObject gameObject) where T : Component
+        {
+            T result = GetComponent<T>(gameObject);
+
+            if (result == null)
+            {
+                result = gameObject.AddComponent<T>();
+            }
+
+            return result;
+        }
+
+        public static T GetComponent<T>(Component component) where T : Component
         {
             return GetComponent<T>(component ? component.gameObject : null);
         }
 
-        public static T GetComponent<T>(GameObject gameObject)
+        public static T GetComponent<T>(GameObject gameObject) where T : Component
         {
             if (gameObject == null)
             {
@@ -182,6 +199,11 @@ namespace ModComponentMapper
             }
 
             return gameObject.GetComponent<T>();
+        }
+
+        public static string DefaultIfEmpty(string value, string defaultValue)
+        {
+            return string.IsNullOrEmpty(value) ? defaultValue : value;
         }
 
         internal static ModComponent GetModComponent(Component component)

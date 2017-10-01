@@ -32,10 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\EquippableModComponent.cs" />
+    <Compile Include="src\ModCookableComponent.cs" />
     <Compile Include="src\ModFoodComponent.cs" />
     <Compile Include="src\ModComponent.cs" />
     <Compile Include="src\ModRifleComponent.cs" />
