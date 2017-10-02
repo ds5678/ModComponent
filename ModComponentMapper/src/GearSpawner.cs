@@ -19,6 +19,7 @@ namespace ModComponentMapper
 
         internal static void SpawnGearForScene(string sceneName)
         {
+            Log("Spawning gear for scene {0} ", sceneName);
             IEnumerable<GearSpawnInfo> sceneGearSpawnInfos = GetSpawnInfos(sceneName);
             if (sceneGearSpawnInfos == null)
             {
@@ -27,6 +28,7 @@ namespace ModComponentMapper
 
             foreach (GearSpawnInfo eachGearSpawnInfo in sceneGearSpawnInfos)
             {
+                Log("Spawning gear {0} ", eachGearSpawnInfo.PrefabName);
                 Object prefab = Resources.Load(eachGearSpawnInfo.PrefabName);
                 if (prefab == null)
                 {
@@ -36,6 +38,7 @@ namespace ModComponentMapper
 
                 if (Random.Range(0, 1) > eachGearSpawnInfo.SpawnChance)
                 {
+                    Log("RNG said NO ");
                     continue;
                 }
 

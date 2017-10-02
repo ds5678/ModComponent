@@ -36,6 +36,7 @@
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\AutoMapperComponent.cs" />
     <Compile Include="src\EquippableModComponent.cs" />
     <Compile Include="src\ModCookableComponent.cs" />
     <Compile Include="src\ModFoodComponent.cs" />

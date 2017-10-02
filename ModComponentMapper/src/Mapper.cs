@@ -1,6 +1,7 @@
 ﻿using ModComponentAPI;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
@@ -11,6 +12,11 @@ namespace ModComponentMapper
         internal MappedItem(GameObject gameObject)
         {
             this.gameObject = gameObject;
+        }
+
+        public AutoMapperComponent GetAutoMapperComponent()
+        {
+            return ModUtils.GetComponent<AutoMapperComponent>(gameObject);
         }
 
         public MappedItem AddToLootTable(LootTableName lootTableName, int weight)
@@ -26,6 +32,7 @@ namespace ModComponentMapper
 
             return this;
         }
+
         public MappedItem SpawnAt(SceneName sceneName, Vector3 position, Quaternion rotation, float chance = 1)
         {
             GearSpawnInfo spawnInfo = new GearSpawnInfo();
@@ -41,6 +48,8 @@ namespace ModComponentMapper
 
     public class Mapper
     {
+        private static List<ModComponent> mappedItems = new List<ModComponent>();
+
         public static MappedItem Map(string prefabName)
         {
             return Map((GameObject)Resources.Load(prefabName));
@@ -69,6 +78,8 @@ namespace ModComponentMapper
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureGearItem(modComponent);
+
+                mappedItems.Add(modComponent);
             }
 
             PostProcess(modComponent);

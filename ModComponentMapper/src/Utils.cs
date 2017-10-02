@@ -1,54 +1,12 @@
-﻿using System;
+﻿using Harmony;
+using ModComponentAPI;
+using System;
 using System.Linq;
 using System.Reflection;
-
-using Harmony;
-
 using UnityEngine;
-
-using ModComponentAPI;
 
 namespace ModComponentMapper
 {
-    public enum LootTableName
-    {
-        LootTableHumanCorpse,
-        LootTableBackPack,
-        LootTableBathroomCabinet,
-        LootTableCabinet,
-        LootTableCashRegister,
-        LootTableDresser,
-        LootTableFileCabinet,
-        LootTableFirstAidKit,
-        LootTableFishingDrawer,
-        LootTableFreezer,
-        LootTableFridge,
-        LootTableKitchenCupboard,
-        LootTableLaundry,
-        LootTableLocker,
-        LootTableLockerLocked,
-        LootTableMetalBox,
-        LootTableOven,
-        LootTablePlasticBox,
-        LootTableSafe,
-        LootTableToolChest_sml,
-        LootTableToolChest,
-        LootTableToolChestDrawer,
-        LootTableWardrobe_regular,
-        LootTableWorkbench,
-    }
-
-    public enum SceneName
-    {
-        FarmhouseA,
-        SafeHouseA,
-        QuonsetGasStation,
-        CoastalHouseD,
-        CoastalHouseE,
-        CoastalRegion,
-        RadioControlHut,
-    }
-
     public class ModUtils
     {
         public static T[] NotNull<T>(T[] array)
@@ -102,6 +60,8 @@ namespace ModComponentMapper
 
         internal static void RegisterConsoleGearName(string displayName, string prefabName)
         {
+            Debug.Log("AddCustomGearName(" + displayName + ", " + prefabName + ")");
+
             ConsoleManager.Initialize();
             ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName.ToLower(), prefabName.ToLower() });
         }
