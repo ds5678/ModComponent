@@ -240,6 +240,9 @@ namespace ModComponentMapper
                 alcohol.AmountRemaining = alcohol.AmountTotal;
                 alcohol.UptakeSeconds = modFoodComponent.AlcoholUptakeMinutes * 60;
             }
+
+            HoverIconsToShow hoverIconsToShow = ModUtils.GetOrCreateComponent<HoverIconsToShow>(modFoodComponent);
+            hoverIconsToShow.m_HoverIcons = new HoverIconsToShow.HoverIcons[] { HoverIconsToShow.HoverIcons.Food };
         }
 
         private static void ConfigureGearItem(ModComponent modComponent)
@@ -262,6 +265,8 @@ namespace ModComponentMapper
             gearItem.m_StowAudio = modComponent.StowAudio;
             gearItem.m_PutBackAudio = modComponent.PickUpAudio;
             gearItem.m_WornOutAudio = modComponent.WornOutAudio;
+
+            gearItem.m_ConditionTableType = GetConditionTableType(modComponent);
         }
 
         private static void ConfigureInspect(ModComponent modComponent)
@@ -340,6 +345,32 @@ namespace ModComponentMapper
             }
 
             return GearTypeEnum.Other;
+        }
+
+        private static ConditionTableManager.ConditionTableType GetConditionTableType(ModComponent modComponent)
+        {
+            if (modComponent is ModFoodComponent)
+            {
+                ModFoodComponent modFoodComponent = (ModFoodComponent)modComponent;
+                if (modFoodComponent.Canned)
+                {
+                    return ConditionTableManager.ConditionTableType.CannedFood;
+                }
+
+                if (modFoodComponent.Meat)
+                {
+                    return ConditionTableManager.ConditionTableType.Meat;
+                }
+
+                if (!modFoodComponent.Natural && !modFoodComponent.Drink)
+                {
+                    return ConditionTableManager.ConditionTableType.DryFood;
+                }
+
+                return ConditionTableManager.ConditionTableType.Unknown;
+            }
+
+            return ConditionTableManager.ConditionTableType.Unknown;
         }
 
         private static void Log(string message, params object[] parameters)
