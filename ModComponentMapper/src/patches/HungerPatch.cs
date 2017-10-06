@@ -15,7 +15,6 @@ namespace ModComponentMapper
             {
                 float requestedCalories = calories;
                 calories = Math.Min(calories, (float)modFoodComponent.Calories / modFoodComponent.Servings);
-                UnityEngine.Debug.Log("Consuming multi-serving food item: adjusted consumed calories from " + requestedCalories + " to " + calories + " (of " + fi.m_CaloriesRemaining + " calories remaining)");
             }
         }
     }
