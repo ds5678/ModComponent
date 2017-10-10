@@ -38,30 +38,8 @@ namespace ModComponentMapper
             }
         }
 
-        internal static void InsertIntoLootTable(LootTableName lootTableName, GameObject prefab, int weight)
-        {
-            LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
-            LootTable lootTable = lootTables.First(l => l.name == lootTableName.ToString());
-            if (lootTable == null)
-            {
-                Debug.Log("Could not find LootTable '" + lootTable + "'.");
-                return;
-            }
-
-            if (prefab.GetComponent<GearItem>() == null)
-            {
-                prefab.AddComponent<GearItem>();
-            }
-
-            Debug.Log("Inserting '" + prefab.name + "' into LootTable '" + lootTable.name + "' with weight " + weight);
-            lootTable.m_Prefabs.Add(prefab);
-            lootTable.m_Weights.Add(weight);
-        }
-
         internal static void RegisterConsoleGearName(string displayName, string prefabName)
         {
-            Debug.Log("AddCustomGearName(" + displayName + ", " + prefabName + ")");
-
             ConsoleManager.Initialize();
             ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName.ToLower(), prefabName.ToLower() });
         }

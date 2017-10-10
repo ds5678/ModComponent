@@ -9,15 +9,33 @@ namespace ModComponentMapper
 {
     public class AutoMapper
     {
-        private const string AUTO_MAPPER_DIRECTORY_NAME = "auto-mapper";
+        private const string AUTO_MAPPER_DIRECTORY_NAME = "auto-mapped";
 
         public static void OnLoad()
         {
             string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string autoMapperDirectory = Path.Combine(modDirectory, AUTO_MAPPER_DIRECTORY_NAME);
+
+            if (!Directory.Exists(autoMapperDirectory))
+            {
+                Log("Directory '{0}' does not exist. Skipping ...", autoMapperDirectory);
+                return;
+            }
+
             Log("Loading files from '{0}' ...", autoMapperDirectory);
 
-            string[] files = Directory.GetFiles(autoMapperDirectory);
+            AutoMapDirectory(autoMapperDirectory, modDirectory);
+        }
+
+        private static void AutoMapDirectory(string directory, string modDirectory)
+        {
+            string[] directories = Directory.GetDirectories(directory);
+            foreach (string eachDirectory in directories)
+            {
+                AutoMapDirectory(eachDirectory, modDirectory);
+            }
+
+            string[] files = Directory.GetFiles(directory);
             foreach (string eachFile in files)
             {
                 string relativePath = GetRelativePath(eachFile, modDirectory);
@@ -34,60 +52,42 @@ namespace ModComponentMapper
                     continue;
                 }
 
+                if (relativePath.ToLower().EndsWith(".dll"))
+                {
+                    LoadDll(eachFile);
+                    continue;
+                }
+
                 Log("Ignoring '{0}' - Don't know how to handle this file type.", eachFile);
             }
         }
 
-        private static void AutoMap(string prefabName)
+        private static void AutoMapPrefab(string prefabName)
         {
             GameObject prefab = (GameObject)Resources.Load(prefabName);
 
-            AutoMapperComponent autoMapperComponent = ModUtils.GetComponent<AutoMapperComponent>(prefab);
-            if (autoMapperComponent == null)
+            ModComponent modComponent = ModUtils.GetModComponent(prefab);
+            if (modComponent == null)
             {
-                Log("Ignoring prefab '{0}', because it does not contain an AutoMapperComponent", prefabName);
+                Log("Ignoring prefab '{0}', because it does not contain a ModComponent", prefabName);
                 return;
             }
 
-            Log(DumpData.Utils.FormatGameObject(prefab.name, prefab));
+            MappedItem mappedItem = Mapper.Map(prefab);
 
-            Log("{0}: autoMapperComponent.Entries = {1}", prefabName, autoMapperComponent.Entries);
+            mappedItem.RegisterInConsole(ModUtils.DefaultIfEmpty(modComponent.ConsoleName, GetDefaultConsoleName(prefab.name)));
 
-            //MappedItem mappedItem = Mapper.Map(prefab);
+            foreach (ModLootTableEntryComponent eachLootTableEntry in modComponent.GetComponents<ModLootTableEntryComponent>())
+            {
+                mappedItem.AddToLootTable(eachLootTableEntry.LootTable, eachLootTableEntry.Weight);
+                UnityEngine.Object.Destroy(eachLootTableEntry);
+            }
 
-            //Log("ConsoleName for {0} = {1}", autoMapperComponent.name, autoMapperComponent.ConsoleName);
-            //mappedItem.RegisterInConsole(ModUtils.DefaultIfEmpty(autoMapperComponent.ConsoleName, GetDefaultConsoleName(prefab.name)));
-
-            //Log("Value for {0} = {1}", autoMapperComponent.name, autoMapperComponent.value);
-            //if (autoMapperComponent.value != null)
-            //{
-            //    Log("Value.name for {0} = {1}", autoMapperComponent.name, autoMapperComponent.value.name);
-            //}
-
-            //Log("Values for {0} = {1}", autoMapperComponent.name, autoMapperComponent.values);
-            //if (autoMapperComponent.values != null)
-            //{
-            //    Log("Values count for {0} = {1}", autoMapperComponent.name, autoMapperComponent.values.Length);
-            //}
-
-
-            //Log("LootTableWeights for {0} = {1}", autoMapperComponent.name, autoMapperComponent.LootTableWeights);
-            //if (autoMapperComponent.LootTableWeights != null)
-            //{
-            //    foreach (LootTableWeight eachLootTableWeight in autoMapperComponent.LootTableWeights)
-            //    {
-            //        mappedItem.AddToLootTable(eachLootTableWeight.LootTable, eachLootTableWeight.Chance);
-            //    }
-            //}
-
-            //Log("Spawn locations for {0} = {1}", autoMapperComponent.name, autoMapperComponent.SpawnLocations);
-            //if (autoMapperComponent.SpawnLocations != null)
-            //{
-            //    //foreach (SpawnLocation eachSpawnLocation in autoMapperComponent.SpawnLocations)
-            //    //{
-            //    //    mappedItem.SpawnAt(eachSpawnLocation.Scene, eachSpawnLocation.Position, Quaternion.Euler(eachSpawnLocation.Rotation), eachSpawnLocation.Probability / 100f);
-            //    //}
-            //}
+            foreach (ModSpawnLocationComponent eachSpawnLocation in modComponent.GetComponents<ModSpawnLocationComponent>())
+            {
+                mappedItem.SpawnAt(eachSpawnLocation.Scene, eachSpawnLocation.Position, Quaternion.Euler(eachSpawnLocation.Rotation), eachSpawnLocation.SpawnChance);
+                UnityEngine.Object.Destroy(eachSpawnLocation);
+            }
         }
 
         private static string GetDefaultConsoleName(string gameObjectName)
@@ -107,16 +107,26 @@ namespace ModComponentMapper
 
         private static void LoadAssetBundle(string relativePath)
         {
-            AssetBundle assetBundle = ModAssetBundleManager.RegisterAssetBundle(relativePath);
+            ModAssetBundleManager.RegisterAssetBundle(relativePath);
+            AssetBundle assetBundle = ModAssetBundleManager.GetAssetBundle(relativePath);
 
             string[] assetNames = assetBundle.GetAllAssetNames();
             foreach (string eachAssetName in assetNames)
             {
                 if (eachAssetName.EndsWith(".prefab"))
                 {
-                    AutoMap(eachAssetName);
+                    AutoMapPrefab(eachAssetName);
                 }
             }
+        }
+
+        private static void LoadDll(string relativePath)
+        {
+            Log("Loading '{0}' ...", relativePath);
+
+            string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string absolutePath = Path.Combine(modDirectory, relativePath);
+            Assembly.LoadFrom(absolutePath);
         }
 
         private static void LoadSoundBank(string relativePath)
