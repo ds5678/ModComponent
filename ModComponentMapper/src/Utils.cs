@@ -1,54 +1,12 @@
-﻿using System;
+﻿using Harmony;
+using ModComponentAPI;
+using System;
 using System.Linq;
 using System.Reflection;
-
-using Harmony;
-
 using UnityEngine;
-
-using ModComponentAPI;
 
 namespace ModComponentMapper
 {
-    public enum LootTableName
-    {
-        LootTableHumanCorpse,
-        LootTableBackPack,
-        LootTableBathroomCabinet,
-        LootTableCabinet,
-        LootTableCashRegister,
-        LootTableDresser,
-        LootTableFileCabinet,
-        LootTableFirstAidKit,
-        LootTableFishingDrawer,
-        LootTableFreezer,
-        LootTableFridge,
-        LootTableKitchenCupboard,
-        LootTableLaundry,
-        LootTableLocker,
-        LootTableLockerLocked,
-        LootTableMetalBox,
-        LootTableOven,
-        LootTablePlasticBox,
-        LootTableSafe,
-        LootTableToolChest_sml,
-        LootTableToolChest,
-        LootTableToolChestDrawer,
-        LootTableWardrobe_regular,
-        LootTableWorkbench,
-    }
-
-    public enum SceneName
-    {
-        FarmhouseA,
-        SafeHouseA,
-        QuonsetGasStation,
-        CoastalHouseD,
-        CoastalHouseE,
-        CoastalRegion,
-        RadioControlHut,
-    }
-
     public class ModUtils
     {
         public static T[] NotNull<T>(T[] array)
@@ -78,26 +36,6 @@ namespace ModComponentMapper
             {
                 GameAudioManager.PlaySound(audioName, InterfaceManager.GetSoundEmitter());
             }
-        }
-
-        internal static void InsertIntoLootTable(LootTableName lootTableName, GameObject prefab, int weight)
-        {
-            LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
-            LootTable lootTable = lootTables.First(l => l.name == lootTableName.ToString());
-            if (lootTable == null)
-            {
-                Debug.Log("Could not find LootTable '" + lootTable + "'.");
-                return;
-            }
-
-            if (prefab.GetComponent<GearItem>() == null)
-            {
-                prefab.AddComponent<GearItem>();
-            }
-
-            Debug.Log("Inserting '" + prefab.name + "' into LootTable '" + lootTable.name + "' with weight " + weight);
-            lootTable.m_Prefabs.Add(prefab);
-            lootTable.m_Weights.Add(weight);
         }
 
         internal static void RegisterConsoleGearName(string displayName, string prefabName)

@@ -1,7 +1,7 @@
 ﻿using AssetLoader;
 using ModComponentMapper;
 
-using static ModComponentMapper.LootTableName;
+using static ModComponentAPI.LootTableName;
 
 namespace RubberDuck
 {

@@ -1,6 +1,7 @@
 ﻿using ModComponentAPI;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
@@ -15,7 +16,7 @@ namespace ModComponentMapper
 
         public MappedItem AddToLootTable(LootTableName lootTableName, int weight)
         {
-            ModUtils.InsertIntoLootTable(lootTableName, gameObject, weight);
+            GearSpawner.AddLootTableEntry(GetHinterlandLootTableName(lootTableName), gameObject, weight);
 
             return this;
         }
@@ -26,7 +27,8 @@ namespace ModComponentMapper
 
             return this;
         }
-        public MappedItem SpawnAt(SceneName sceneName, Vector3 position, Quaternion rotation, float chance = 1)
+
+        public MappedItem SpawnAt(SceneName sceneName, Vector3 position, Quaternion rotation, float chance = 100)
         {
             GearSpawnInfo spawnInfo = new GearSpawnInfo();
             spawnInfo.PrefabName = gameObject.name;
@@ -37,10 +39,22 @@ namespace ModComponentMapper
 
             return this;
         }
+
+        private static string GetHinterlandLootTableName(LootTableName lootTableName)
+        {
+            if (lootTableName.ToString().StartsWith("Cargo"))
+            {
+                return "Loot" + lootTableName.ToString();
+            }
+
+            return "LootTable" + lootTableName.ToString();
+        }
     }
 
     public class Mapper
     {
+        private static List<ModComponent> mappedItems = new List<ModComponent>();
+
         public static MappedItem Map(string prefabName)
         {
             return Map((GameObject)Resources.Load(prefabName));
@@ -69,6 +83,8 @@ namespace ModComponentMapper
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureGearItem(modComponent);
+
+                mappedItems.Add(modComponent);
             }
 
             PostProcess(modComponent);
@@ -155,6 +171,11 @@ namespace ModComponentMapper
             }
 
             Type implementationType = Type.GetType(equippableModComponent.ImplementationType);
+            if (implementationType == null)
+            {
+                throw new ArgumentException("Could not find implementation type '" + equippableModComponent.ImplementationType + "'.\nAre you missing a DLL?");
+            }
+
             object implementation = Activator.CreateInstance(implementationType);
             if (implementation == null)
             {
