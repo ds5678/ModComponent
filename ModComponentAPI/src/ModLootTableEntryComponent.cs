@@ -75,6 +75,7 @@ namespace ModComponentAPI
 
     public class ModLootTableEntryComponent : MonoBehaviour
     {
+        [Tooltip("Insert the item into this LootTable.")]
         public LootTableName LootTable;
 
         [Tooltip("'1' is very unlikely (e.g. MRE), '20' is very likely (e.g. Cotton Socks).")]

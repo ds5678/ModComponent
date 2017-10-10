@@ -32,7 +32,7 @@ namespace ModComponentAPI
         public float DaysToDecay;
 
         [Header("Inspecting")]
-        [Tooltip("Will the item be inspected when picked up? If false, the item will go straight to the inventory.")]
+        [Tooltip("Will the item be inspected when picked up? If not enabled, the item will go straight to the inventory.")]
         public bool InspectOnPickup;
         [Tooltip("Distance from the camera during inspect.")]
         public float InspectDistance = 0.4f;
@@ -40,7 +40,7 @@ namespace ModComponentAPI
         public Vector3 InspectScale = Vector3.one;
         [Tooltip("Each vector component stands for a rotation by the given degrees around the corresponding axis.")]
         public Vector3 InspectAngles = Vector3.zero;
-        [Tooltip("Moves the item during inspect.")]
+        [Tooltip("Offset from the center during inspect.")]
         public Vector3 InspectOffset = Vector3.zero;
     }
 }

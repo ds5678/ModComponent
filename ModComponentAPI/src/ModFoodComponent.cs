@@ -11,21 +11,21 @@ namespace ModComponentAPI
         public int DaysToDecayIndoors;
 
         [Header("Food/Calories")]
-        [Tooltip("For one complete item. Calories remaining will scale with weight.")]
+        [Tooltip("For one complete item with all servings. Calories remaining will scale with weight.")]
         public int Calories;
         [Tooltip("The number of servings contained in this item. Each consumation will be limited to one serving. 1 means 'Comsume completely' - the way all pre-existing food items work.")]
         [Range(1, 10)]
         public int Servings = 1;
 
         [Header("Food/Eating")]
-        [Tooltip("Realtime seconds it takes to eat one complete item.")]
+        [Tooltip("Realtime seconds it takes to eat one complete serving.")]
         [Range(1, 10)]
         public int EatingTime = 1;
         [Tooltip("Sound to use when the item is either unpackaged or already open")]
         public string EatingAudio;
         [Tooltip("Sound to use when the item is still packaged and unopened. Leave empty for unpackaged food")]
         public string EatingPackagedAudio;
-        [Tooltip("How does this affect your thirst? Negative values increase thirst, positive values reduce thirst.")]
+        [Tooltip("How does this affect your thirst? Represents change in percentage points. Negative values increase thirst, positive values reduce thirst.")]
         [Range(-100, 100)]
         public int ThirstEffect;
 
@@ -38,7 +38,7 @@ namespace ModComponentAPI
         public int FoodPoisoningLowCondition;
 
         [Header("Food/Parasites")]
-        [Tooltip("Parasite Risk increments in percent for each unit eaten. Leave empty for no parasite risk at all.")]
+        [Tooltip("Parasite Risk increments in percent for each unit eaten. Leave empty for no parasite risk.")]
         public float[] ParasiteRiskIncrements;
 
         [Header("Food/Type")]
@@ -71,14 +71,14 @@ namespace ModComponentAPI
         [Tooltip("Does this item affect 'Rest'? If not enabled, the other settings in this section will be ignored.")]
         public bool AffectRest;
         [Range(-100, 100)]
-        [Tooltip("How much 'Rest' is restored/drained immediately after consuming the item. -100 means 'Drain all', 0 means 'None', 100 means 'Restore all'.")]
+        [Tooltip("How much 'Rest' is restored/drained immediately after consuming the item. Represents change in percentage points. Negative values drain rest, positive values restore rest.")]
         public float InstantRestChange;
-        [Tooltip("Factor for scaling how fast 'Rest' is drained after the item was consumed. Values below 1 drain less 'Rest' than normal; values above 1 drain more 'Rest' than normal. Applies to standing, sprinting, ...")]
+        [Tooltip("Factor for scaling how fast 'Rest' is drained after the item was consumed. Values below 1 drain less 'Rest' than normal, values above 1 drain more 'Rest' than normal. Applies to standing, sprinting, ...")]
         [Range(0, 10)]
-        public float RestFactor;
-        [Tooltip("Amount of in-game minutes the 'RestScale' will be applied.")]
-        [Range(0, 600)]
-        public int RestFactorMinutes;
+        public float RestFactor = 1;
+        [Tooltip("Amount of in-game minutes the 'RestFactor' will be applied.")]
+        [Range(1, 600)]
+        public int RestFactorMinutes = 60;
 
         [Header("Food/Alcohol")]
         [Tooltip("Does this item contain Alcohol? If not enabled, the other settings in this section will be ignored.")]

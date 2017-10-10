@@ -108,7 +108,7 @@ namespace ModComponentAPI
         [Tooltip("Name of the scene in which to spawn this item.")]
         public SceneName Scene;
 
-        [Tooltip("Position inside the scene.")]
+        [Tooltip("Position in the scene.")]
         public Vector3 Position;
 
         [Tooltip("Rotation of the item.")]

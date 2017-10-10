@@ -33,10 +33,7 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp" />
     <Reference Include="Assembly-CSharp-firstpass" />
-    <Reference Include="AssetLoader, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Steam\SteamApps\common\TheLongDark\mods\AssetLoader.dll</HintPath>
-    </Reference>
+    <Reference Include="AssetLoader, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Harmony" />
     <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="UnityEngine" />
@@ -66,10 +63,6 @@
     <Compile Include="src\patches\vp_FPSShooterPatch.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DumpData\DumpData.csproj">
-      <Project>{c82ef606-5c1c-4f03-bf55-c990ac8dc424}</Project>
-      <Name>DumpData</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ModComponentAPI\ModComponentAPI.csproj">
       <Project>{5f848c8f-150c-4e70-8d85-071e694e9e2a}</Project>
       <Name>ModComponentAPI</Name>
