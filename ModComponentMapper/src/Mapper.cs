@@ -254,6 +254,14 @@ namespace ModComponentMapper
                 fatigueBuff.m_DurationHours = modFoodComponent.RestFactorMinutes / 60f;
             }
 
+            if (modFoodComponent.AffectCold)
+            {
+                FreezingBuff freezingBuff = ModUtils.GetOrCreateComponent<FreezingBuff>(modFoodComponent);
+                freezingBuff.m_InitialPercentDecrease = modFoodComponent.InstantColdChange;
+                freezingBuff.m_RateOfIncreaseScale = modFoodComponent.ColdFactor;
+                freezingBuff.m_DurationHours = modFoodComponent.ColdFactorMinutes / 60f;
+            }
+
             if (modFoodComponent.ContainsAlcohol)
             {
                 AlcoholComponent alcohol = ModUtils.GetOrCreateComponent<AlcoholComponent>(modFoodComponent);

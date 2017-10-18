@@ -80,6 +80,19 @@ namespace ModComponentAPI
         [Range(1, 600)]
         public int RestFactorMinutes = 60;
 
+        [Header("Food/Cold")]
+        [Tooltip("Does this item affect 'Cold'? If not enabled, the other settings in this section will be ignored.")]
+        public bool AffectCold;
+        [Range(-100, 100)]
+        [Tooltip("How much 'Cold' is restored/drained immediately after consuming the item. Represents change in percentage points. Negative values make it feel colder, positive values make it feel warmer.")]
+        public float InstantColdChange = 20;
+        [Tooltip("Factor for scaling how fast 'Cold' is drained after the item was consumed. Values below 1 drain less 'Cold' than normal, values above 1 drain more 'Cold' than normal.")]
+        [Range(0, 10)]
+        public float ColdFactor = 0.5f;
+        [Tooltip("Amount of in-game minutes the 'ColdFactor' will be applied.")]
+        [Range(1, 600)]
+        public int ColdFactorMinutes = 60;
+
         [Header("Food/Alcohol")]
         [Tooltip("Does this item contain Alcohol? If not enabled, the other settings in this section will be ignored.")]
         public bool ContainsAlcohol;
