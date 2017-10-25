@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ModComponentMapper
 {
@@ -77,8 +78,10 @@ namespace ModComponentMapper
             {
                 Log("Mapping {0}", prefab.name);
 
-                ConfigureEquippable(modComponent);
                 ConfigureInspect(modComponent);
+                ConfigureHarvestable(modComponent);
+
+                ConfigureEquippable(modComponent);
                 ConfigureFood(modComponent);
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
@@ -90,6 +93,49 @@ namespace ModComponentMapper
             PostProcess(modComponent);
 
             return new MappedItem(prefab);
+        }
+
+        private static void ConfigureHarvestable(ModComponent modComponent)
+        {
+            ModHarvestable modHarvestable = modComponent.GetComponent<ModHarvestable>();
+            if (modHarvestable == null)
+            {
+                return;
+            }
+
+            Harvest harvest = modComponent.gameObject.AddComponent<Harvest>();
+            harvest.m_Audio = modHarvestable.Audio;
+            harvest.m_DurationMinutes = modHarvestable.Minutes;
+
+            Dictionary<GearItem, int> counts = new Dictionary<GearItem, int>();
+            Dictionary<string, GearItem> items = new Dictionary<string, GearItem>();
+
+            foreach (string eachYield in modHarvestable.Yield)
+            {
+                GearItem gearItem = null;
+
+                if (!items.ContainsKey(eachYield))
+                {
+                    GameObject gameObject = Resources.Load(eachYield) as GameObject;
+                    if (gameObject == null)
+                    {
+                        continue;
+                    }
+
+                    gearItem = gameObject.GetComponent<GearItem>();
+                    if (gearItem == null)
+                    {
+                        continue;
+                    }
+
+                    counts.Add(gearItem, 0);
+                }
+
+                counts[gearItem]++;
+            }
+
+            harvest.m_YieldGear = counts.Keys.ToArray();
+            harvest.m_YieldGearUnits = counts.Values.ToArray();
         }
 
         private static void ConfigureCookable(ModComponent modComponent)
@@ -160,14 +206,14 @@ namespace ModComponentMapper
                 return;
             }
 
+            if (string.IsNullOrEmpty(equippableModComponent.ImplementationType))
+            {
+                return;
+            }
+
             if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId))
             {
                 equippableModComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
-            }
-
-            if (equippableModComponent.ImplementationType == null || equippableModComponent.ImplementationType == string.Empty)
-            {
-                return;
             }
 
             Type implementationType = Type.GetType(equippableModComponent.ImplementationType);

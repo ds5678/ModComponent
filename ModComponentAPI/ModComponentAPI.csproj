@@ -36,6 +36,7 @@
     <Reference Include="UnityEngine" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Harvestable.cs" />
     <Compile Include="src\ModLootTableEntryComponent.cs" />
     <Compile Include="src\EquippableModComponent.cs" />
     <Compile Include="src\ModCookableComponent.cs" />
