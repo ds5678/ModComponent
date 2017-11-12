@@ -90,7 +90,7 @@ namespace ModComponentMapper
                 }
 
                 var trimmedLine = eachLine.ToLower().Trim();
-                if (trimmedLine.StartsWith("#"))
+                if (trimmedLine.Length == 0 || trimmedLine.StartsWith("#"))
                 {
                     continue;
                 }
