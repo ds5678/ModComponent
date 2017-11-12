@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AutoMapper.cs" />
+    <Compile Include="src\GearSpawnReader.cs" />
     <Compile Include="src\patches\AfflictionButtonPatch.cs" />
     <Compile Include="src\AlcoholComponent.cs" />
     <Compile Include="src\ExecutionValve.cs" />

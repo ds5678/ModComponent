@@ -20,12 +20,13 @@ namespace ModComponentMapper
 
         internal static void AddGearSpawnInfo(string sceneName, GearSpawnInfo gearSpawnInfo)
         {
-            if (!gearSpawnInfos.ContainsKey(sceneName))
+            string normalizedSceneName = GetNormalizedSceneName(sceneName);
+            if (!gearSpawnInfos.ContainsKey(normalizedSceneName))
             {
-                gearSpawnInfos.Add(sceneName, new List<GearSpawnInfo>());
+                gearSpawnInfos.Add(normalizedSceneName, new List<GearSpawnInfo>());
             }
 
-            List<GearSpawnInfo> sceneGearSpawnInfos = gearSpawnInfos[sceneName];
+            List<GearSpawnInfo> sceneGearSpawnInfos = gearSpawnInfos[normalizedSceneName];
             sceneGearSpawnInfos.Add(gearSpawnInfo);
         }
 
@@ -47,56 +48,12 @@ namespace ModComponentMapper
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
 
-            ConfigureLootTables(sceneName);
-            SpawnGearForScene(sceneName);
+            string normalizedSceneName = GetNormalizedSceneName(sceneName);
+            ConfigureLootTables(normalizedSceneName);
+            SpawnGearForScene(normalizedSceneName);
 
             stopwatch.Stop();
             Log("Prepared scene '{0}' in {1} ms", sceneName, stopwatch.ElapsedMilliseconds);
-        }
-
-        private static void ConfigureLootTables(string sceneName)
-        {
-            LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
-            foreach (LootTable eachLootTable in lootTables)
-            {
-                List<LootTableEntry> entries;
-                if (lootTableEntries.TryGetValue(eachLootTable.name, out entries))
-                {
-                    AddEntries(eachLootTable, entries);
-                }
-            }
-        }
-
-        private static IEnumerable<GearSpawnInfo> GetSpawnInfos(string sceneName)
-        {
-            List<GearSpawnInfo> result;
-            gearSpawnInfos.TryGetValue(sceneName, out result);
-            return result;
-        }
-
-        private static void SpawnGearForScene(string sceneName)
-        {
-            IEnumerable<GearSpawnInfo> sceneGearSpawnInfos = GetSpawnInfos(sceneName);
-            if (sceneGearSpawnInfos == null)
-            {
-                return;
-            }
-
-            foreach (GearSpawnInfo eachGearSpawnInfo in sceneGearSpawnInfos)
-            {
-                Object prefab = Resources.Load(eachGearSpawnInfo.PrefabName);
-                if (prefab == null)
-                {
-                    Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
-                    continue;
-                }
-
-                if (Utils.RollChance(eachGearSpawnInfo.SpawnChance))
-                {
-                    Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
-                    gear.name = prefab.name;
-                }
-            }
         }
 
         private static void AddEntries(LootTable lootTable, List<LootTableEntry> entries)
@@ -116,6 +73,19 @@ namespace ModComponentMapper
             }
         }
 
+        private static void ConfigureLootTables(string sceneName)
+        {
+            LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
+            foreach (LootTable eachLootTable in lootTables)
+            {
+                List<LootTableEntry> entries;
+                if (lootTableEntries.TryGetValue(eachLootTable.name, out entries))
+                {
+                    AddEntries(eachLootTable, entries);
+                }
+            }
+        }
+
         private static int GetIndex(LootTable lootTable, GameObject prefab)
         {
             for (int i = 0; i < lootTable.m_Prefabs.Count; i++)
@@ -129,6 +99,28 @@ namespace ModComponentMapper
             return -1;
         }
 
+        private static string GetNormalizedGearName(string gearName)
+        {
+            if (gearName != null && !gearName.ToLower().StartsWith("gear_"))
+            {
+                return "gear_" + gearName;
+            }
+
+            return gearName;
+        }
+
+        private static string GetNormalizedSceneName(string sceneName)
+        {
+            return sceneName.ToLower();
+        }
+
+        private static IEnumerable<GearSpawnInfo> GetSpawnInfos(string sceneName)
+        {
+            List<GearSpawnInfo> result;
+            gearSpawnInfos.TryGetValue(sceneName, out result);
+            return result;
+        }
+
         private static void Log(string message)
         {
             LogUtils.Log("GearSpawner", message);
@@ -137,6 +129,33 @@ namespace ModComponentMapper
         private static void Log(string message, params object[] parameters)
         {
             LogUtils.Log("GearSpawner", message, parameters);
+        }
+
+        private static void SpawnGearForScene(string sceneName)
+        {
+            IEnumerable<GearSpawnInfo> sceneGearSpawnInfos = GetSpawnInfos(sceneName);
+            if (sceneGearSpawnInfos == null)
+            {
+                return;
+            }
+
+            foreach (GearSpawnInfo eachGearSpawnInfo in sceneGearSpawnInfos)
+            {
+                string normalizedGearName = GetNormalizedGearName(eachGearSpawnInfo.PrefabName);
+                Object prefab = Resources.Load(normalizedGearName);
+
+                if (prefab == null)
+                {
+                    Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
+                    continue;
+                }
+
+                if (Utils.RollChance(eachGearSpawnInfo.SpawnChance))
+                {
+                    Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
+                    gear.name = prefab.name;
+                }
+            }
         }
 
         private struct LootTableEntry
