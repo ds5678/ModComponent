@@ -7,7 +7,7 @@ namespace ModComponentMapper
 {
     internal class GearSpawnReader
     {
-        private const string NUMBER = @"\d+(?:\.\d+)?";
+        private const string NUMBER = @"-?\d+(?:\.\d+)?";
         private const string VECTOR = NUMBER + @"\s*,\s*" + NUMBER + @"\s*,\s*" + NUMBER;
 
         private static readonly Regex SCENE_REGEX = new Regex(@"^scene\s*=\s*(\w+)$");
