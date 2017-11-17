@@ -1,11 +1,62 @@
 ﻿using Harmony;
 using ModComponentAPI;
+
 using static PlayerAnimation;
 
 namespace ModComponentMapper
 {
+    [HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]
+    internal class PlayerManager_PutOnClothingItem
+    {
+        public static void Postfix(GearItem gi)
+        {
+            ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
+            modClothingComponent?.OnPutOn?.Invoke();
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "TakeOffClothingItem")]
+    internal class PlayerManager_TakeOffClothingItem
+    {
+        public static void Postfix(GearItem gi)
+        {
+            ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
+            modClothingComponent?.OnTakeOff?.Invoke();
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "EquipItem")]
+    internal class PlayerManagerEquipItemPatch
+    {
+        public static void Prefix(PlayerManager __instance, GearItem gi)
+        {
+            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(__instance.m_ItemInHands);
+            if (equippable != null)
+            {
+                __instance.UnequipItemInHands();
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "OnEquipItemBegin")]
+    internal class PlayerManagerOnEquipItemBeginPatch
+    {
+        public static void Postfix(PlayerManager __instance)
+        {
+            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(__instance.m_ItemInHands);
+            if (animation != null)
+            {
+                animation.TransitionTo(State.Equipping);
+                GameManager.GetPlayerAnimationComponent().m_EnableAnimationDrivenZoom = false;
+                return;
+            }
+
+            GearEquipper.Equip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+        }
+    }
+
     [HarmonyPatch(typeof(PlayerManager), "SetControlMode")]
-    class PlayerManagerSetControlModePatch
+    internal class PlayerManagerSetControlModePatch
     {
         private static PlayerControlMode lastMode;
 
@@ -26,38 +77,8 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "EquipItem")]
-    class PlayerManagerEquipItemPatch
-    {
-        public static void Prefix(PlayerManager __instance, GearItem gi)
-        {
-            EquippableModComponent equippable = ModUtils.GetEquippableModComponent(__instance.m_ItemInHands);
-            if (equippable != null)
-            {
-                __instance.UnequipItemInHands();
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "OnEquipItemBegin")]
-    class PlayerManagerOnEquipItemBeginPatch
-    {
-        public static void Postfix(PlayerManager __instance)
-        {
-            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(__instance.m_ItemInHands);
-            if (animation != null)
-            {
-                animation.TransitionTo(State.Equipping);
-                GameManager.GetPlayerAnimationComponent().m_EnableAnimationDrivenZoom = false;
-                return;
-            }
-
-            GearEquipper.Equip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
-        }
-    }
-
     [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]
-    class PlayerManagerUnequipItemInHandsInternalPatch
+    internal class PlayerManagerUnequipItemInHandsInternalPatch
     {
         public static void Postfix(PlayerManager __instance)
         {
@@ -74,7 +95,7 @@ namespace ModComponentMapper
     }
 
     [HarmonyPatch(typeof(PlayerManager), "UseInventoryItem")]
-    class PlayerManagerUseInventoryItemPatch
+    internal class PlayerManagerUseInventoryItemPatch
     {
         public static bool Prefix(PlayerManager __instance, GearItem gi)
         {

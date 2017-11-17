@@ -1,8 +1,8 @@
 ﻿using ModComponentAPI;
 using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace ModComponentMapper
 {
@@ -85,6 +85,7 @@ namespace ModComponentMapper
                 ConfigureFood(modComponent);
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
+                ConfigureClothing(modComponent);
                 ConfigureGearItem(modComponent);
 
                 mappedItems.Add(modComponent);
@@ -95,47 +96,38 @@ namespace ModComponentMapper
             return new MappedItem(prefab);
         }
 
-        private static void ConfigureHarvestable(ModComponent modComponent)
+        private static void ConfigureClothing(ModComponent modComponent)
         {
-            ModHarvestable modHarvestable = modComponent.GetComponent<ModHarvestable>();
-            if (modHarvestable == null)
+            ModClothingComponent modClothingItem = modComponent as ModClothingComponent;
+            if (modClothingItem == null)
             {
                 return;
             }
 
-            Harvest harvest = modComponent.gameObject.AddComponent<Harvest>();
-            harvest.m_Audio = modHarvestable.Audio;
-            harvest.m_DurationMinutes = modHarvestable.Minutes;
+            ClothingItem clothingItem = ModUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
 
-            Dictionary<GearItem, int> counts = new Dictionary<GearItem, int>();
-            Dictionary<string, GearItem> items = new Dictionary<string, GearItem>();
+            clothingItem.m_DailyHPDecayWhenWornInside = GetDailyDecay(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
+            clothingItem.m_DailyHPDecayWhenWornOutside = GetDailyDecay(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
+            clothingItem.m_DryBonusWhenNotWorn = 1.5f;
+            clothingItem.m_DryPercentPerHour = 100f / modClothingItem.HoursToDryNearFire;
+            clothingItem.m_DryPercentPerHourNoFire = 100f / modClothingItem.HoursToDryWithoutFire;
+            clothingItem.m_FreezePercentPerHour = 100f / modClothingItem.HoursToFreeze;
 
-            foreach (string eachYield in modHarvestable.Yield)
-            {
-                GearItem gearItem = null;
+            clothingItem.m_Region = ModUtils.TranslateEnumValue<ClothingRegion, Region>(modClothingItem.Region);
+            clothingItem.m_MaxLayer = ModUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MaxLayer);
+            clothingItem.m_MinLayer = ModUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MinLayer);
+            clothingItem.m_FootwearType = ModUtils.TranslateEnumValue<FootwearType, Footwear>(modClothingItem.Footwear);
+            clothingItem.m_WornMovementSoundCategory = ModUtils.TranslateEnumValue<ClothingMovementSound, MovementSound>(modClothingItem.MovementSound);
 
-                if (!items.ContainsKey(eachYield))
-                {
-                    GameObject gameObject = Resources.Load(eachYield) as GameObject;
-                    if (gameObject == null)
-                    {
-                        continue;
-                    }
+            clothingItem.m_PaperDollTextureName = modClothingItem.MainTexture;
+            clothingItem.m_PaperDollBlendmapName = modClothingItem.BlendTexture;
 
-                    gearItem = gameObject.GetComponent<GearItem>();
-                    if (gearItem == null)
-                    {
-                        continue;
-                    }
-
-                    counts.Add(gearItem, 0);
-                }
-
-                counts[gearItem]++;
-            }
-
-            harvest.m_YieldGear = counts.Keys.ToArray();
-            harvest.m_YieldGearUnits = counts.Values.ToArray();
+            clothingItem.m_Warmth = modClothingItem.Warmth;
+            clothingItem.m_WarmthWhenWet = modClothingItem.WarmthWhenWet;
+            clothingItem.m_Waterproofness = modClothingItem.Waterproofness / 100f;
+            clothingItem.m_Windproof = modClothingItem.Windproof;
+            clothingItem.m_SprintBarReductionPercent = modClothingItem.SprintBarReduction;
+            clothingItem.m_Toughness = modClothingItem.Toughness;
         }
 
         private static void ConfigureCookable(ModComponent modComponent)
@@ -206,39 +198,10 @@ namespace ModComponentMapper
                 return;
             }
 
-            if (string.IsNullOrEmpty(equippableModComponent.ImplementationType))
-            {
-                return;
-            }
-
             if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId))
             {
                 equippableModComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
             }
-
-            Type implementationType = Type.GetType(equippableModComponent.ImplementationType);
-            if (implementationType == null)
-            {
-                throw new ArgumentException("Could not find implementation type '" + equippableModComponent.ImplementationType + "'.\nAre you missing a DLL?");
-            }
-
-            object implementation = Activator.CreateInstance(implementationType);
-            if (implementation == null)
-            {
-                return;
-            }
-
-            ModUtils.SetFieldValue(implementation, "ModComponent", modComponent);
-
-            equippableModComponent.Implementation = implementation;
-
-            equippableModComponent.OnEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnEquipped");
-            equippableModComponent.OnUnequipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnUnequipped");
-
-            equippableModComponent.OnPrimaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnPrimaryAction");
-            equippableModComponent.OnSecondaryAction = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnSecondaryAction");
-
-            equippableModComponent.OnControlModeChangedWhileEquipped = (Action)ModUtils.CreateDelegate(typeof(Action), implementation, "OnControlModeChangedWhileEquipped");
         }
 
         private static void ConfigureFood(ModComponent modComponent)
@@ -344,6 +307,49 @@ namespace ModComponentMapper
             gearItem.m_ConditionTableType = GetConditionTableType(modComponent);
         }
 
+        private static void ConfigureHarvestable(ModComponent modComponent)
+        {
+            ModHarvestable modHarvestable = modComponent.GetComponent<ModHarvestable>();
+            if (modHarvestable == null)
+            {
+                return;
+            }
+
+            Harvest harvest = modComponent.gameObject.AddComponent<Harvest>();
+            harvest.m_Audio = modHarvestable.Audio;
+            harvest.m_DurationMinutes = modHarvestable.Minutes;
+
+            Dictionary<GearItem, int> counts = new Dictionary<GearItem, int>();
+            Dictionary<string, GearItem> items = new Dictionary<string, GearItem>();
+
+            foreach (string eachYield in modHarvestable.Yield)
+            {
+                GearItem gearItem = null;
+
+                if (!items.ContainsKey(eachYield))
+                {
+                    GameObject gameObject = Resources.Load(eachYield) as GameObject;
+                    if (gameObject == null)
+                    {
+                        continue;
+                    }
+
+                    gearItem = gameObject.GetComponent<GearItem>();
+                    if (gearItem == null)
+                    {
+                        continue;
+                    }
+
+                    counts.Add(gearItem, 0);
+                }
+
+                counts[gearItem]++;
+            }
+
+            harvest.m_YieldGear = counts.Keys.ToArray();
+            harvest.m_YieldGearUnits = counts.Values.ToArray();
+        }
+
         private static void ConfigureInspect(ModComponent modComponent)
         {
             if (!modComponent.InspectOnPickup)
@@ -402,26 +408,6 @@ namespace ModComponentMapper
             animation.SetTransitions(firstPersonItem.m_PlayerStateTransitions);
         }
 
-        private static GearTypeEnum GetGearType(ModComponent modComponent)
-        {
-            if (modComponent is ModToolComponent)
-            {
-                return GearTypeEnum.Tool;
-            }
-
-            if (modComponent is ModFoodComponent)
-            {
-                return GearTypeEnum.Food;
-            }
-
-            if (modComponent is ModCookableComponent)
-            {
-                return GearTypeEnum.Food;
-            }
-
-            return GearTypeEnum.Other;
-        }
-
         private static ConditionTableManager.ConditionTableType GetConditionTableType(ModComponent modComponent)
         {
             if (modComponent is ModFoodComponent)
@@ -448,9 +434,39 @@ namespace ModComponentMapper
             return ConditionTableManager.ConditionTableType.Unknown;
         }
 
+        private static GearTypeEnum GetGearType(ModComponent modComponent)
+        {
+            if (modComponent is ModToolComponent)
+            {
+                return GearTypeEnum.Tool;
+            }
+
+            if (modComponent is ModFoodComponent)
+            {
+                return GearTypeEnum.Food;
+            }
+
+            if (modComponent is ModCookableComponent)
+            {
+                return GearTypeEnum.Food;
+            }
+
+            return GearTypeEnum.Other;
+        }
+
         private static void Log(string message, params object[] parameters)
         {
             LogUtils.Log("ModComponentMapper", message, parameters);
+        }
+
+        private static float GetDailyDecay(float daysToDecay, float maxHP)
+        {
+            if (daysToDecay > 0)
+            {
+                return maxHP / daysToDecay;
+            }
+
+            return 0;
         }
 
         private static void PostProcess(ModComponent modComponent)

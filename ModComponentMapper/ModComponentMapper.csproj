@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AutoMapper.cs" />
+    <Compile Include="src\GammaChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />
     <Compile Include="src\patches\AfflictionButtonPatch.cs" />
     <Compile Include="src\AlcoholComponent.cs" />
@@ -47,6 +48,8 @@
     <Compile Include="src\GearEquipper.cs" />
     <Compile Include="src\BuffCauseTracker.cs" />
     <Compile Include="src\GearSpawner.cs" />
+    <Compile Include="src\patches\CameraStatusEffectsPatch.cs" />
+    <Compile Include="src\patches\ClothingSlotPatch.cs" />
     <Compile Include="src\patches\HungerPatch.cs" />
     <Compile Include="src\patches\InputManagerPatch.cs" />
     <Compile Include="src\patches\ItemDescriptionPagePatch.cs" />

@@ -169,6 +169,11 @@ namespace ModComponentMapper
         {
             return Mathf.Abs(value) < 0.001f;
         }
+
+        internal static T TranslateEnumValue<T, E>(E value)
+        {
+            return (T) Enum.Parse(typeof(T), Enum.GetName(typeof(E), value));
+        }
     }
 
     public class UIUtils
