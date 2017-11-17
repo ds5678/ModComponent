@@ -19,7 +19,7 @@ namespace RubberDuck
         {
             Mapper.Map("GEAR_RubberDuck")
                 .RegisterInConsole("RubberDuck")
-                .AddToLootTable(LootTableBathroomCabinet, 10);
+                .AddToLootTable(BathroomCabinet, 10);
         }
     }
 }

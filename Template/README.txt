@@ -2,7 +2,7 @@ DISCLAIMER
 --------------------------------------------------------------------------------
 It is very likely, that this README is incomplete, incorrect or simply outdated.
 
-This description is intended for people comfortable with writing/modify/compiling code, reading online manuals and finding answers by using Google.
+This description is intended for people comfortable with writing/modifying/compiling code, reading online manuals and finding answers by using Google (or whatever search engine you prefer).
 
 While my goal with creating ModComponent is to make creating new items for The Long Dark as easy as possible, this cannot be a subsitute for learning how to do modding.
 You will need to understand how The Long Dark works. ("You can't change what you don't understand")
