@@ -13,6 +13,12 @@ namespace ModComponentMapper
         public float SpawnChance;
     }
 
+    public struct LootTableEntry
+    {
+        public string PrefabName;
+        public int Weight;
+    }
+
     public class GearSpawner
     {
         private static Dictionary<string, List<GearSpawnInfo>> gearSpawnInfos = new Dictionary<string, List<GearSpawnInfo>>();
@@ -30,17 +36,19 @@ namespace ModComponentMapper
             sceneGearSpawnInfos.Add(gearSpawnInfo);
         }
 
-        internal static void AddLootTableEntry(string lootTable, GameObject prefab, int weight)
+        internal static void AddLootTableEntry(string lootTable, LootTableEntry entry)
         {
-            if (!lootTableEntries.ContainsKey(lootTable))
+            string normalizedLootTableName = GetNormalizedLootTableName(lootTable);
+
+            if (!lootTableEntries.ContainsKey(normalizedLootTableName))
             {
-                lootTableEntries.Add(lootTable, new List<LootTableEntry>());
+                lootTableEntries.Add(normalizedLootTableName, new List<LootTableEntry>());
             }
 
-            LootTableEntry entry = new LootTableEntry();
-            entry.Prefab = prefab;
-            entry.Weight = weight;
-            lootTableEntries[lootTable].Add(entry);
+            entry.PrefabName = NormalizePrefabName(entry.PrefabName);
+            entry.Weight = Mathf.Clamp(entry.Weight, 0, int.MaxValue);
+
+            lootTableEntries[normalizedLootTableName].Add(entry);
         }
 
         internal static void PrepareScene(string sceneName)
@@ -60,16 +68,22 @@ namespace ModComponentMapper
         {
             foreach (LootTableEntry eachEntry in entries)
             {
-                int index = GetIndex(lootTable, eachEntry.Prefab);
-                if (index == -1)
-                {
-                    lootTable.m_Prefabs.Add(eachEntry.Prefab);
-                    lootTable.m_Weights.Add(eachEntry.Weight);
-                }
-                else
+                int index = GetIndex(lootTable, eachEntry.PrefabName);
+                if (index != -1)
                 {
                     lootTable.m_Weights[index] = eachEntry.Weight;
+                    continue;
                 }
+
+                GameObject prefab = (GameObject)Resources.Load(eachEntry.PrefabName);
+                if (prefab == null)
+                {
+                    Debug.LogError("Could not find prefab '" + eachEntry.PrefabName + "'.");
+                    continue;
+                }
+
+                lootTable.m_Prefabs.Add(prefab);
+                lootTable.m_Weights.Add(eachEntry.Weight);
             }
         }
 
@@ -79,18 +93,18 @@ namespace ModComponentMapper
             foreach (LootTable eachLootTable in lootTables)
             {
                 List<LootTableEntry> entries;
-                if (lootTableEntries.TryGetValue(eachLootTable.name, out entries))
+                if (lootTableEntries.TryGetValue(eachLootTable.name.ToLower(), out entries))
                 {
                     AddEntries(eachLootTable, entries);
                 }
             }
         }
 
-        private static int GetIndex(LootTable lootTable, GameObject prefab)
+        private static int GetIndex(LootTable lootTable, string prefabName)
         {
             for (int i = 0; i < lootTable.m_Prefabs.Count; i++)
             {
-                if (lootTable.m_Prefabs[i] != null && lootTable.m_Prefabs[i].name == prefab.name)
+                if (lootTable.m_Prefabs[i] != null && lootTable.m_Prefabs[i].name.Equals(prefabName, System.StringComparison.InvariantCultureIgnoreCase))
                 {
                     return i;
                 }
@@ -107,6 +121,21 @@ namespace ModComponentMapper
             }
 
             return gearName;
+        }
+
+        private static string GetNormalizedLootTableName(string lootTable)
+        {
+            if (lootTable.StartsWith("Loot", System.StringComparison.InvariantCultureIgnoreCase))
+            {
+                return lootTable.ToLower();
+            }
+
+            if (lootTable.StartsWith("Cargo", System.StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "loot" + lootTable.ToLower();
+            }
+
+            return "loottable" + lootTable.ToLower();
         }
 
         private static string GetNormalizedSceneName(string sceneName)
@@ -129,6 +158,16 @@ namespace ModComponentMapper
         private static void Log(string message, params object[] parameters)
         {
             LogUtils.Log("GearSpawner", message, parameters);
+        }
+
+        private static string NormalizePrefabName(string prefabName)
+        {
+            if (!prefabName.StartsWith("gear_", System.StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "gear_" + prefabName;
+            }
+
+            return prefabName;
         }
 
         private static void SpawnGearForScene(string sceneName)
@@ -156,12 +195,6 @@ namespace ModComponentMapper
                     gear.name = prefab.name;
                 }
             }
-        }
-
-        private struct LootTableEntry
-        {
-            public GameObject Prefab;
-            public int Weight;
         }
     }
 

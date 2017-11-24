@@ -17,7 +17,10 @@ namespace ModComponentMapper
 
         public MappedItem AddToLootTable(LootTableName lootTableName, int weight)
         {
-            GearSpawner.AddLootTableEntry(GetHinterlandLootTableName(lootTableName), gameObject, weight);
+            LootTableEntry entry = new LootTableEntry();
+            entry.PrefabName = gameObject.name;
+            entry.Weight = weight;
+            GearSpawner.AddLootTableEntry(lootTableName.ToString(), entry);
 
             return this;
         }
@@ -39,16 +42,6 @@ namespace ModComponentMapper
             GearSpawner.AddGearSpawnInfo(sceneName.ToString(), spawnInfo);
 
             return this;
-        }
-
-        private static string GetHinterlandLootTableName(LootTableName lootTableName)
-        {
-            if (lootTableName.ToString().StartsWith("Cargo"))
-            {
-                return "Loot" + lootTableName.ToString();
-            }
-
-            return "LootTable" + lootTableName.ToString();
         }
     }
 
@@ -434,6 +427,16 @@ namespace ModComponentMapper
             return ConditionTableManager.ConditionTableType.Unknown;
         }
 
+        private static float GetDailyDecay(float daysToDecay, float maxHP)
+        {
+            if (daysToDecay > 0)
+            {
+                return maxHP / daysToDecay;
+            }
+
+            return 0;
+        }
+
         private static GearTypeEnum GetGearType(ModComponent modComponent)
         {
             if (modComponent is ModToolComponent)
@@ -457,16 +460,6 @@ namespace ModComponentMapper
         private static void Log(string message, params object[] parameters)
         {
             LogUtils.Log("ModComponentMapper", message, parameters);
-        }
-
-        private static float GetDailyDecay(float daysToDecay, float maxHP)
-        {
-            if (daysToDecay > 0)
-            {
-                return maxHP / daysToDecay;
-            }
-
-            return 0;
         }
 
         private static void PostProcess(ModComponent modComponent)
