@@ -457,6 +457,11 @@ namespace ModComponentMapper
                 return GearTypeEnum.Food;
             }
 
+            if (modComponent is ModClothingComponent)
+            {
+                return GearTypeEnum.Clothing;
+            }
+
             return GearTypeEnum.Other;
         }
 
