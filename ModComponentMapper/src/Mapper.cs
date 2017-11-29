@@ -1,7 +1,6 @@
 ﻿using ModComponentAPI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace ModComponentMapper
@@ -73,6 +72,7 @@ namespace ModComponentMapper
 
                 ConfigureInspect(modComponent);
                 ConfigureHarvestable(modComponent);
+                ConfigureRepairable(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureFood(modComponent);
@@ -302,45 +302,23 @@ namespace ModComponentMapper
 
         private static void ConfigureHarvestable(ModComponent modComponent)
         {
-            ModHarvestable modHarvestable = modComponent.GetComponent<ModHarvestable>();
-            if (modHarvestable == null)
+            ModHarvestableComponent modHarvestableComponent = ModUtils.GetComponent<ModHarvestableComponent>(modComponent);
+            if (modHarvestableComponent == null)
             {
                 return;
             }
 
-            Harvest harvest = modComponent.gameObject.AddComponent<Harvest>();
-            harvest.m_Audio = modHarvestable.Audio;
-            harvest.m_DurationMinutes = modHarvestable.Minutes;
+            Harvest harvest = ModUtils.GetOrCreateComponent<Harvest>(modHarvestableComponent);
+            harvest.m_Audio = modHarvestableComponent.Audio;
+            harvest.m_DurationMinutes = modHarvestableComponent.Minutes;
 
-            Dictionary<GearItem, int> counts = new Dictionary<GearItem, int>();
-            Dictionary<string, GearItem> items = new Dictionary<string, GearItem>();
-
-            foreach (string eachYield in modHarvestable.Yield)
+            if (modHarvestableComponent.YieldNames.Length != modHarvestableComponent.YieldCounts.Length)
             {
-                GearItem gearItem = null;
-
-                if (!items.ContainsKey(eachYield))
-                {
-                    GameObject gameObject = Resources.Load(eachYield) as GameObject;
-                    if (gameObject == null)
-                    {
-                        continue;
-                    }
-
-                    gearItem = gameObject.GetComponent<GearItem>();
-                    if (gearItem == null)
-                    {
-                        continue;
-                    }
-
-                    counts.Add(gearItem, 0);
-                }
-
-                counts[gearItem]++;
+                throw new ArgumentException("YieldNames and YieldCounts do not have the same length on gear item '" + modHarvestableComponent.name + "'.");
             }
 
-            harvest.m_YieldGear = counts.Keys.ToArray();
-            harvest.m_YieldGearUnits = counts.Values.ToArray();
+            harvest.m_YieldGear = GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
+            harvest.m_YieldGearUnits = modHarvestableComponent.YieldCounts;
         }
 
         private static void ConfigureInspect(ModComponent modComponent)
@@ -355,6 +333,31 @@ namespace ModComponentMapper
             inspect.m_Scale = modComponent.InspectScale;
             inspect.m_Angles = modComponent.InspectAngles;
             inspect.m_Offset = modComponent.InspectOffset;
+        }
+
+        private static void ConfigureRepairable(ModComponent modComponent)
+        {
+            ModRepairableComponent modRepairableComponent = modComponent.GetComponent<ModRepairableComponent>();
+            if (modRepairableComponent == null)
+            {
+                return;
+            }
+
+            Repairable repairable = ModUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
+            repairable.m_RepairAudio = modRepairableComponent.Audio;
+            repairable.m_DurationMinutes = modRepairableComponent.Minutes;
+            repairable.m_ConditionIncrease = modRepairableComponent.Condition;
+
+            if (modRepairableComponent.MaterialNames.Length != modRepairableComponent.MaterialCounts.Length)
+            {
+                throw new ArgumentException("MaterialNames and MaterialCounts do not have the same length on gear item '" + modRepairableComponent.name + "'.");
+            }
+
+            repairable.m_RequiredGear = GetItems<GearItem>(modRepairableComponent.MaterialNames, modRepairableComponent.name);
+            repairable.m_RequiredGearUnits = modRepairableComponent.MaterialCounts;
+
+            repairable.m_RepairToolChoices = GetItems<ToolsItem>(modRepairableComponent.RequiredTools, modRepairableComponent.name);
+            repairable.m_RequiresToolToRepair = repairable.m_RepairToolChoices.Length > 0;
         }
 
         private static void ConfigureRifle(ModComponent modComponent)
@@ -455,6 +458,30 @@ namespace ModComponentMapper
             }
 
             return GearTypeEnum.Other;
+        }
+
+        private static T[] GetItems<T>(string[] names, string reference = null)
+        {
+            T[] result = new T[names.Length];
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                GameObject gameObject = Resources.Load(names[i]) as GameObject;
+                if (gameObject == null)
+                {
+                    throw new ArgumentException("Could not load '" + names[i] + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
+                }
+
+                T targetType = gameObject.GetComponent<T>();
+                if (targetType == null)
+                {
+                    throw new ArgumentException("'" + names[i] + "'" + (reference != null ? " referenced by '" + reference : "'") + " is not a '" + typeof(T).Name + "'.");
+                }
+
+                result[i] = targetType;
+            }
+
+            return result;
         }
 
         private static void Log(string message, params object[] parameters)
