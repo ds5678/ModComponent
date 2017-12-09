@@ -247,12 +247,12 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]
     internal class SaveGameSystem_SaveGlobalData
     {
-        public static void Postfix(string name)
+        public static void Postfix(SaveSlotType gameMode, string name)
         {
             SaveProxy proxy = new SaveProxy();
             proxy.data = JsonConvert.SerializeObject(ModHealthManager.GetData());
 
-            SaveGameSlots.SaveDataToSlot(name, "ModHealthManager", JsonConvert.SerializeObject(proxy));
+            SaveGameSlots.SaveDataToSlot(gameMode, SaveGameSystem.m_CurrentEpisode, SaveGameSystem.m_CurrentGameId,name, "ModHealthManager", JsonConvert.SerializeObject(proxy));
         }
     }
 
