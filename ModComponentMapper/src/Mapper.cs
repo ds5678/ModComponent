@@ -80,6 +80,7 @@ namespace ModComponentMapper
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
                 ConfigureGearItem(modComponent);
+                ConfigureFireStarter(modComponent);
 
                 mappedItems.Add(modComponent);
             }
@@ -87,6 +88,27 @@ namespace ModComponentMapper
             PostProcess(modComponent);
 
             return new MappedItem(prefab);
+        }
+
+        private static void ConfigureFireStarter(ModComponent modComponent)
+        {
+            ModFireStarterComponent modFireStarterComponent = modComponent as ModFireStarterComponent;
+            if(modFireStarterComponent == null)
+            {
+                return;
+            }
+
+            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
+
+            fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
+            fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;
+            fireStarterItem.m_RequiresSunLight = modFireStarterComponent.RequiresSunLight;
+            fireStarterItem.m_IsAccelerant = modFireStarterComponent.IsAccelerant;
+            fireStarterItem.m_FireStartDurationModifier = modFireStarterComponent.FireStartDurationModifier;
+            fireStarterItem.m_FireStartSkillModifier = modFireStarterComponent.FireStartSkillModifier;
+            fireStarterItem.m_ConsumeOnUse = modFireStarterComponent.ConsumeOnUse;
+            fireStarterItem.m_OnUseSoundEvent = modFireStarterComponent.OnUseSoundEvent;
+                
         }
 
         private static void ConfigureClothing(ModComponent modComponent)
