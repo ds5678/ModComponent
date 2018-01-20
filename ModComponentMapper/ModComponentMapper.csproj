@@ -43,6 +43,10 @@
     <Reference Include="Harmony">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\Harmony.dll</HintPath>
     </Reference>
+    <Reference Include="ModComponentAPI, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ModComponentAPI\bin\Debug\ModComponentAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\UnityEngine.dll</HintPath>
@@ -67,6 +71,7 @@
     <Compile Include="src\ModHealthManager.cs" />
     <Compile Include="src\ModWeaponManager.cs" />
     <Compile Include="src\ModPlayerAnimation.cs" />
+    <Compile Include="src\patches\Panel_LogPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\patches\PanelLoadingPatch.cs" />
     <Compile Include="src\patches\PlayerAnimationPatch.cs" />
@@ -75,12 +80,6 @@
     <Compile Include="src\Utils.cs" />
     <Compile Include="src\patches\vp_FPSPlayerPatch.cs" />
     <Compile Include="src\patches\vp_FPSShooterPatch.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ModComponentAPI\ModComponentAPI.csproj">
-      <Project>{5f848c8f-150c-4e70-8d85-071e694e9e2a}</Project>
-      <Name>ModComponentAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

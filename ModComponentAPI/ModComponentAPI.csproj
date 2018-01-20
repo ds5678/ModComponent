@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AddTag.cs" />
+    <Compile Include="src\ModBlueprint.cs" />
     <Compile Include="src\ModFireStarterComponent.cs" />
     <Compile Include="src\ModHarvestableComponent.cs" />
     <Compile Include="src\ModClothingComponent.cs" />
