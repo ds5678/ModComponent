@@ -4,6 +4,7 @@ using ModComponentAPI;
 
 namespace ModComponentMapper
 {
+    
     [HarmonyPatch(typeof(InputManager), "ProcessFireAction")]
     class InputManagerProcessFireActionPatch
     {

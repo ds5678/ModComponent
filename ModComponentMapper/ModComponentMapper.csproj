@@ -71,7 +71,7 @@
     <Compile Include="src\ModHealthManager.cs" />
     <Compile Include="src\ModWeaponManager.cs" />
     <Compile Include="src\ModPlayerAnimation.cs" />
-    <Compile Include="src\patches\Panel_LogPatch.cs" />
+    <Compile Include="src\patches\GameManagerPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\patches\PanelLoadingPatch.cs" />
     <Compile Include="src\patches\PlayerAnimationPatch.cs" />
