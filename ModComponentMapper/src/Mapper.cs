@@ -191,7 +191,7 @@ namespace ModComponentMapper
                 return;
             }
 
-            if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId))
+            if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId) && string.IsNullOrEmpty(equippableModComponent.ImplementationType))
             {
                 equippableModComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
             }
