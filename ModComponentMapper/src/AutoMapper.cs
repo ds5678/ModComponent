@@ -25,6 +25,8 @@ namespace ModComponentMapper
             Log("Loading files from '{0}' ...", autoMapperDirectory);
 
             AutoMapDirectory(autoMapperDirectory, modDirectory);
+
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
         }
 
         private static void AutoMapDirectory(string directory, string modDirectory)
@@ -132,6 +134,20 @@ namespace ModComponentMapper
         private static void LoadSoundBank(string relativePath)
         {
             ModSoundBankManager.RegisterSoundBank(relativePath);
+        }
+
+        private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
+        {
+            Assembly executingAssembly = Assembly.GetExecutingAssembly();
+
+            AssemblyName requestedAssemblyName = new AssemblyName(args.Name);
+            if (requestedAssemblyName.Name != executingAssembly.GetName().Name)
+            {
+                return null;
+            }
+
+            Debug.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + executingAssembly.GetName());
+            return executingAssembly;
         }
 
         private static void Log(string message, params object[] parameters)
