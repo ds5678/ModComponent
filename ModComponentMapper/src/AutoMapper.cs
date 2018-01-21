@@ -64,14 +64,12 @@ namespace ModComponentMapper
             }
         }
 
-        private static void AutoMapPrefab(string prefabName)
+        private static void MapModComponent(GameObject prefab)
         {
-            GameObject prefab = (GameObject)Resources.Load(prefabName);
-
             ModComponent modComponent = ModUtils.GetModComponent(prefab);
             if (modComponent == null)
             {
-                Log("Ignoring prefab '{0}', because it does not contain a ModComponent", prefabName);
+                Log("Ignoring prefab '{0}', because it does not contain a ModComponent", prefab.name);
                 return;
             }
 
@@ -90,6 +88,27 @@ namespace ModComponentMapper
                 mappedItem.SpawnAt(eachSpawnLocation.Scene, eachSpawnLocation.Position, Quaternion.Euler(eachSpawnLocation.Rotation), eachSpawnLocation.SpawnChance);
                 UnityEngine.Object.Destroy(eachSpawnLocation);
             }
+        }
+
+        private static void MapBluePrint(GameObject prefab)
+        {
+            ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
+            if(modBlueprint == null)
+            {
+                Log("Ignoring prefab '{0}', because it does not contain a BLUEPRINT", prefab.name);
+                return;
+            }
+            // since whent he mod is laoded the blueprint object is not created yet we have to add all the blueprints to a list and load them once the game has started and the first set of blueprints loaded.
+            Mapper.AddBluePrint(modBlueprint);
+
+        }
+
+        private static void AutoMapPrefab(string prefabName)
+        {
+            GameObject prefab = (GameObject)Resources.Load(prefabName);
+            MapModComponent(prefab);
+            MapBluePrint(prefab);
+            
         }
 
         private static string GetDefaultConsoleName(string gameObjectName)

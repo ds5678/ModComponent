@@ -47,6 +47,7 @@ namespace ModComponentMapper
     public class Mapper
     {
         private static List<ModComponent> mappedItems = new List<ModComponent>();
+        private static List<ModBlueprint> bluePrints = new List<ModBlueprint>();
 
         public static MappedItem Map(string prefabName)
         {
@@ -80,6 +81,7 @@ namespace ModComponentMapper
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
                 ConfigureGearItem(modComponent);
+                ConfigureFireStarter(modComponent);
 
                 mappedItems.Add(modComponent);
             }
@@ -87,6 +89,75 @@ namespace ModComponentMapper
             PostProcess(modComponent);
 
             return new MappedItem(prefab);
+        }
+
+        public static void AddBluePrint(ModBlueprint modBlueprint)
+        {
+            bluePrints.Add(modBlueprint);
+        }
+
+        public static void MapBluePrints()
+        {
+            foreach (ModBlueprint modBlueprint in bluePrints)
+            {
+                MapBlueprint(modBlueprint);
+            }
+        }
+
+        public static void MapBlueprint(ModBlueprint modBlueprint)
+        {
+            
+            if(GameManager.GetBlueprints() == null)
+            {
+                throw new Exception("The Blueprints have not been loaded yet.");
+            }
+            BlueprintItem bpItem = GameManager.GetBlueprints().AddComponent(typeof(BlueprintItem)) as BlueprintItem;
+
+            if(bpItem == null)
+            {
+
+                throw new Exception("Error creating Blueprint");
+            }
+
+          
+            bpItem.m_DurationMinutes = modBlueprint.DurationMinutes;
+            bpItem.m_CraftingAudio = modBlueprint.CraftingAudio;
+
+            bpItem.m_RequiresForge = modBlueprint.RequiresForge;
+            bpItem.m_RequiresWorkbench = modBlueprint.RequiresWorkbench;
+            bpItem.m_RequiresLight = modBlueprint.RequiresLight;
+
+            bpItem.m_Locked = modBlueprint.Locked;
+
+            bpItem.m_CraftedResultCount = modBlueprint.CraftedResultCount;
+            bpItem.m_CraftedResult = GetItem<GearItem>(modBlueprint.CraftedResult);
+
+            bpItem.m_RequiredTool = GetItem<ToolsItem>(modBlueprint.RequiredTool);
+            bpItem.m_RequiredGear = GetItems<GearItem>(modBlueprint.RequiredGear);
+            bpItem.m_OptionalTools = GetItems<ToolsItem>(modBlueprint.OptionalTools);
+            bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
+
+        }
+
+        private static void ConfigureFireStarter(ModComponent modComponent)
+        {
+            ModFireStarterComponent modFireStarterComponent = modComponent as ModFireStarterComponent;
+            if(modFireStarterComponent == null)
+            {
+                return;
+            }
+
+            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
+
+            fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
+            fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;
+            fireStarterItem.m_RequiresSunLight = modFireStarterComponent.RequiresSunLight;
+            fireStarterItem.m_IsAccelerant = modFireStarterComponent.IsAccelerant;
+            fireStarterItem.m_FireStartDurationModifier = modFireStarterComponent.FireStartDurationModifier;
+            fireStarterItem.m_FireStartSkillModifier = modFireStarterComponent.FireStartSkillModifier;
+            fireStarterItem.m_ConsumeOnUse = modFireStarterComponent.ConsumeOnUse;
+            fireStarterItem.m_OnUseSoundEvent = modFireStarterComponent.OnUseSoundEvent;
+                
         }
 
         private static void ConfigureClothing(ModComponent modComponent)
@@ -462,7 +533,26 @@ namespace ModComponentMapper
                 return GearTypeEnum.Clothing;
             }
 
+            
+
             return GearTypeEnum.Other;
+        }
+
+        private static T GetItem<T>(string name, string reference = null)
+        {
+            GameObject gameObject = Resources.Load(name) as GameObject;
+            if (gameObject == null)
+            {
+                throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
+            }
+
+            T targetType = gameObject.GetComponent<T>();
+            if (targetType == null)
+            {
+                throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference : "'") + " is not a '" + typeof(T).Name + "'.");
+            }
+
+            return targetType;
         }
 
         private static T[] GetItems<T>(string[] names, string reference = null)
@@ -471,19 +561,9 @@ namespace ModComponentMapper
 
             for (int i = 0; i < names.Length; i++)
             {
-                GameObject gameObject = Resources.Load(names[i]) as GameObject;
-                if (gameObject == null)
-                {
-                    throw new ArgumentException("Could not load '" + names[i] + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
-                }
 
-                T targetType = gameObject.GetComponent<T>();
-                if (targetType == null)
-                {
-                    throw new ArgumentException("'" + names[i] + "'" + (reference != null ? " referenced by '" + reference : "'") + " is not a '" + typeof(T).Name + "'.");
-                }
 
-                result[i] = targetType;
+                result[i] = GetItem<T>(names[i]);
             }
 
             return result;

@@ -236,7 +236,7 @@ namespace ModComponentMapper
     }
 
     [HarmonyPatch(typeof(GameManager), "Start")]
-    internal class GameManagerPatch
+    internal class GameManagerStartPatch
     {
         public static void Postfix(PlayerManager __instance)
         {
