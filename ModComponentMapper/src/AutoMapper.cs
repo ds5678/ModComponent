@@ -13,6 +13,8 @@ namespace ModComponentMapper
 
         public static void OnLoad()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+
             string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string autoMapperDirectory = Path.Combine(modDirectory, AUTO_MAPPER_DIRECTORY_NAME);
 
@@ -25,8 +27,6 @@ namespace ModComponentMapper
             Log("Loading files from '{0}' ...", autoMapperDirectory);
 
             AutoMapDirectory(autoMapperDirectory, modDirectory);
-
-            AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
         }
 
         private static void AutoMapDirectory(string directory, string modDirectory)
@@ -64,51 +64,11 @@ namespace ModComponentMapper
             }
         }
 
-        private static void MapModComponent(GameObject prefab)
-        {
-            ModComponent modComponent = ModUtils.GetModComponent(prefab);
-            if (modComponent == null)
-            {
-                Log("Ignoring prefab '{0}', because it does not contain a ModComponent", prefab.name);
-                return;
-            }
-
-            MappedItem mappedItem = Mapper.Map(prefab);
-
-            mappedItem.RegisterInConsole(ModUtils.DefaultIfEmpty(modComponent.ConsoleName, GetDefaultConsoleName(prefab.name)));
-
-            foreach (ModLootTableEntryComponent eachLootTableEntry in modComponent.GetComponents<ModLootTableEntryComponent>())
-            {
-                mappedItem.AddToLootTable(eachLootTableEntry.LootTable, eachLootTableEntry.Weight);
-                UnityEngine.Object.Destroy(eachLootTableEntry);
-            }
-
-            foreach (ModSpawnLocationComponent eachSpawnLocation in modComponent.GetComponents<ModSpawnLocationComponent>())
-            {
-                mappedItem.SpawnAt(eachSpawnLocation.Scene, eachSpawnLocation.Position, Quaternion.Euler(eachSpawnLocation.Rotation), eachSpawnLocation.SpawnChance);
-                UnityEngine.Object.Destroy(eachSpawnLocation);
-            }
-        }
-
-        private static void MapBluePrint(GameObject prefab)
-        {
-            ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
-            if(modBlueprint == null)
-            {
-                Log("Ignoring prefab '{0}', because it does not contain a BLUEPRINT", prefab.name);
-                return;
-            }
-            // since whent he mod is laoded the blueprint object is not created yet we have to add all the blueprints to a list and load them once the game has started and the first set of blueprints loaded.
-            Mapper.AddBluePrint(modBlueprint);
-
-        }
-
         private static void AutoMapPrefab(string prefabName)
         {
             GameObject prefab = (GameObject)Resources.Load(prefabName);
             MapModComponent(prefab);
-            MapBluePrint(prefab);
-            
+            MapBlueprint(prefab);
         }
 
         private static string GetDefaultConsoleName(string gameObjectName)
@@ -155,6 +115,50 @@ namespace ModComponentMapper
             ModSoundBankManager.RegisterSoundBank(relativePath);
         }
 
+        private static void Log(string message, params object[] parameters)
+        {
+            LogUtils.Log("AutoMapper", message, parameters);
+        }
+
+        private static void MapBlueprint(GameObject prefab)
+        {
+            ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
+            if (modBlueprint == null)
+            {
+                Log("Ignoring prefab '{0}', because it does not contain a ModBlueprint", prefab.name);
+                return;
+            }
+
+            // since when the mod is loaded the blueprint object is not created yet we have to add all the blueprints to a list and load them once the game has started and the first set of blueprints loaded.
+            Mapper.AddBlueprint(modBlueprint);
+        }
+
+        private static void MapModComponent(GameObject prefab)
+        {
+            ModComponent modComponent = ModUtils.GetModComponent(prefab);
+            if (modComponent == null)
+            {
+                Log("Ignoring prefab '{0}', because it does not contain a ModComponent", prefab.name);
+                return;
+            }
+
+            MappedItem mappedItem = Mapper.Map(prefab);
+
+            mappedItem.RegisterInConsole(ModUtils.DefaultIfEmpty(modComponent.ConsoleName, GetDefaultConsoleName(prefab.name)));
+
+            foreach (ModLootTableEntryComponent eachLootTableEntry in modComponent.GetComponents<ModLootTableEntryComponent>())
+            {
+                mappedItem.AddToLootTable(eachLootTableEntry.LootTable, eachLootTableEntry.Weight);
+                UnityEngine.Object.Destroy(eachLootTableEntry);
+            }
+
+            foreach (ModSpawnLocationComponent eachSpawnLocation in modComponent.GetComponents<ModSpawnLocationComponent>())
+            {
+                mappedItem.SpawnAt(eachSpawnLocation.Scene, eachSpawnLocation.Position, Quaternion.Euler(eachSpawnLocation.Rotation), eachSpawnLocation.SpawnChance);
+                UnityEngine.Object.Destroy(eachSpawnLocation);
+            }
+        }
+
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
         {
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
@@ -167,11 +171,6 @@ namespace ModComponentMapper
 
             Debug.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + executingAssembly.GetName());
             return executingAssembly;
-        }
-
-        private static void Log(string message, params object[] parameters)
-        {
-            LogUtils.Log("AutoMapper", message, parameters);
         }
     }
 }

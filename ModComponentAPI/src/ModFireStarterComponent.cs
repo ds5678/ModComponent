@@ -2,26 +2,18 @@
 
 namespace ModComponentAPI
 {
-    public class ModFireStarterComponent : ModComponent
+    public class ModFireStarterComponent : ModFireStartingComponent
     {
-        [Header("Fire Starter Item")]
-        [Tooltip("How long will this item take in seconds to ligth the tinder")]
+        [Tooltip("How many in-game seconds this item will take to ignite tinder.")]
         public float SecondsToIgniteTinder;
-        [Tooltip("How long will this item take in seconds to ligth the Torch")]
+        [Tooltip("How many in-game seconds this item will take to ignite a torch.")]
         public float SecondsToIgniteTorch;
-        [Tooltip("Not really sure what this does yet")]
-        public float FireStartSkillModifier;
-        [Tooltip("Also not sure what this does")]
-        public float FireStartDurationModifier;
-        [Tooltip("How much does the item degrade on each use")]
-        public float ConditionDegradeOnUse;
-        [Tooltip("Does the item get consumed on use?")]
-        public bool ConsumeOnUse;
+
+        [Tooltip("How many times can this item be used?")]
+        public float NumberOfUses;
         [Tooltip("Does the item require sunlight to work?")]
         public bool RequiresSunLight;
-        [Tooltip("Is this istem an Accelerant")]
-        public bool IsAccelerant;
-        [Tooltip("What sound to play during usage")]
+        [Tooltip("What sound to play during usage. Not used for accelerants.")]
         public string OnUseSoundEvent;
     }
 }

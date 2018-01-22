@@ -46,8 +46,8 @@ namespace ModComponentMapper
 
     public class Mapper
     {
+        private static List<ModBlueprint> blueprints = new List<ModBlueprint>();
         private static List<ModComponent> mappedItems = new List<ModComponent>();
-        private static List<ModBlueprint> bluePrints = new List<ModBlueprint>();
 
         public static MappedItem Map(string prefabName)
         {
@@ -80,8 +80,9 @@ namespace ModComponentMapper
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
-                ConfigureGearItem(modComponent);
                 ConfigureFireStarter(modComponent);
+                ConfigureAccelerant(modComponent);
+                ConfigureGearItem(modComponent);
 
                 mappedItems.Add(modComponent);
             }
@@ -91,35 +92,19 @@ namespace ModComponentMapper
             return new MappedItem(prefab);
         }
 
-        public static void AddBluePrint(ModBlueprint modBlueprint)
-        {
-            bluePrints.Add(modBlueprint);
-        }
-
-        public static void MapBluePrints()
-        {
-            foreach (ModBlueprint modBlueprint in bluePrints)
-            {
-                MapBlueprint(modBlueprint);
-            }
-        }
-
         public static void MapBlueprint(ModBlueprint modBlueprint)
         {
-            
-            if(GameManager.GetBlueprints() == null)
+            if (GameManager.GetBlueprints() == null)
             {
                 throw new Exception("The Blueprints have not been loaded yet.");
             }
-            BlueprintItem bpItem = GameManager.GetBlueprints().AddComponent(typeof(BlueprintItem)) as BlueprintItem;
 
-            if(bpItem == null)
+            BlueprintItem bpItem = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
+            if (bpItem == null)
             {
-
                 throw new Exception("Error creating Blueprint");
             }
 
-          
             bpItem.m_DurationMinutes = modBlueprint.DurationMinutes;
             bpItem.m_CraftingAudio = modBlueprint.CraftingAudio;
 
@@ -136,28 +121,35 @@ namespace ModComponentMapper
             bpItem.m_RequiredGear = GetItems<GearItem>(modBlueprint.RequiredGear);
             bpItem.m_OptionalTools = GetItems<ToolsItem>(modBlueprint.OptionalTools);
             bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
-
         }
 
-        private static void ConfigureFireStarter(ModComponent modComponent)
+        internal static void AddBlueprint(ModBlueprint modBlueprint)
         {
-            ModFireStarterComponent modFireStarterComponent = modComponent as ModFireStarterComponent;
-            if(modFireStarterComponent == null)
+            blueprints.Add(modBlueprint);
+        }
+
+        internal static void MapBlueprints()
+        {
+            foreach (ModBlueprint modBlueprint in blueprints)
+            {
+                MapBlueprint(modBlueprint);
+            }
+        }
+
+        private static void ConfigureAccelerant(ModComponent modComponent)
+        {
+            ModAccelerantComponent modAccelerantComponent = ModUtils.GetComponent<ModAccelerantComponent>(modComponent);
+            if (modAccelerantComponent == null)
             {
                 return;
             }
 
-            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
+            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modAccelerantComponent);
 
-            fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
-            fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;
-            fireStarterItem.m_RequiresSunLight = modFireStarterComponent.RequiresSunLight;
-            fireStarterItem.m_IsAccelerant = modFireStarterComponent.IsAccelerant;
-            fireStarterItem.m_FireStartDurationModifier = modFireStarterComponent.FireStartDurationModifier;
-            fireStarterItem.m_FireStartSkillModifier = modFireStarterComponent.FireStartSkillModifier;
-            fireStarterItem.m_ConsumeOnUse = modFireStarterComponent.ConsumeOnUse;
-            fireStarterItem.m_OnUseSoundEvent = modFireStarterComponent.OnUseSoundEvent;
-                
+            fireStarterItem.m_IsAccelerant = true;
+            fireStarterItem.m_FireStartDurationModifier = modAccelerantComponent.DurationOffset;
+            fireStarterItem.m_FireStartSkillModifier = modAccelerantComponent.SuccessModifier;
+            fireStarterItem.m_ConsumeOnUse = modAccelerantComponent.DestroyedOnUse;
         }
 
         private static void ConfigureClothing(ModComponent modComponent)
@@ -170,8 +162,8 @@ namespace ModComponentMapper
 
             ClothingItem clothingItem = ModUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
 
-            clothingItem.m_DailyHPDecayWhenWornInside = GetDailyDecay(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
-            clothingItem.m_DailyHPDecayWhenWornOutside = GetDailyDecay(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
+            clothingItem.m_DailyHPDecayWhenWornInside = GetDecayPerStep(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
+            clothingItem.m_DailyHPDecayWhenWornOutside = GetDecayPerStep(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
             clothingItem.m_DryBonusWhenNotWorn = 1.5f;
             clothingItem.m_DryPercentPerHour = 100f / modClothingItem.HoursToDryNearFire;
             clothingItem.m_DryPercentPerHourNoFire = 100f / modClothingItem.HoursToDryWithoutFire;
@@ -268,6 +260,27 @@ namespace ModComponentMapper
             }
         }
 
+        private static void ConfigureFireStarter(ModComponent modComponent)
+        {
+            ModFireStarterComponent modFireStarterComponent = ModUtils.GetComponent<ModFireStarterComponent>(modComponent);
+            if (modFireStarterComponent == null)
+            {
+                return;
+            }
+
+            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
+
+            fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
+            fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;
+
+            fireStarterItem.m_FireStartSkillModifier = modFireStarterComponent.SuccessModifier;
+
+            fireStarterItem.m_ConditionDegradeOnUse = GetDecayPerStep(modFireStarterComponent.NumberOfUses, modComponent.MaxHP);
+            fireStarterItem.m_ConsumeOnUse = modFireStarterComponent.DestroyedOnUse;
+            fireStarterItem.m_RequiresSunLight = modFireStarterComponent.RequiresSunLight;
+            fireStarterItem.m_OnUseSoundEvent = modFireStarterComponent.OnUseSoundEvent;
+        }
+
         private static void ConfigureFood(ModComponent modComponent)
         {
             ModFoodComponent modFoodComponent = modComponent as ModFoodComponent;
@@ -284,8 +297,8 @@ namespace ModComponentMapper
 
             foodItem.m_ChanceFoodPoisoning = Mathf.Clamp01(modFoodComponent.FoodPoisoning / 100f);
             foodItem.m_ChanceFoodPoisoningLowCondition = Mathf.Clamp01(modFoodComponent.FoodPoisoningLowCondition / 100f);
-            foodItem.m_DailyHPDecayInside = modFoodComponent.DaysToDecayIndoors > 0 ? modFoodComponent.MaxHP / modFoodComponent.DaysToDecayIndoors : 0;
-            foodItem.m_DailyHPDecayOutside = modFoodComponent.DaysToDecayOutdoors > 0 ? modFoodComponent.MaxHP / modFoodComponent.DaysToDecayOutdoors : 0;
+            foodItem.m_DailyHPDecayInside = GetDecayPerStep(modFoodComponent.DaysToDecayIndoors, modFoodComponent.MaxHP);
+            foodItem.m_DailyHPDecayOutside = GetDecayPerStep(modFoodComponent.DaysToDecayOutdoors, modFoodComponent.MaxHP);
 
             foodItem.m_TimeToEatSeconds = Mathf.Clamp(1, modFoodComponent.EatingTime, 10);
             foodItem.m_EatingAudio = modFoodComponent.EatingAudio;
@@ -354,7 +367,7 @@ namespace ModComponentMapper
             gearItem.m_Type = GetGearType(modComponent);
             gearItem.m_WeightKG = modComponent.WeightKG;
             gearItem.m_MaxHP = modComponent.MaxHP;
-            gearItem.m_DailyHPDecay = modComponent.DaysToDecay > 0 ? modComponent.MaxHP / modComponent.DaysToDecay : 0;
+            gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
             gearItem.OverrideGearCondition(GearStartCondition.Random);
 
             gearItem.m_LocalizedDisplayName = new LocalizedString();
@@ -501,11 +514,11 @@ namespace ModComponentMapper
             return ConditionTableManager.ConditionTableType.Unknown;
         }
 
-        private static float GetDailyDecay(float daysToDecay, float maxHP)
+        private static float GetDecayPerStep(float steps, float maxHP)
         {
-            if (daysToDecay > 0)
+            if (steps > 0)
             {
-                return maxHP / daysToDecay;
+                return maxHP / steps;
             }
 
             return 0;
@@ -533,7 +546,10 @@ namespace ModComponentMapper
                 return GearTypeEnum.Clothing;
             }
 
-            
+            if (ModUtils.GetComponent<ModFireStartingComponent>(modComponent) != null)
+            {
+                return GearTypeEnum.Firestarting;
+            }
 
             return GearTypeEnum.Other;
         }
@@ -561,8 +577,6 @@ namespace ModComponentMapper
 
             for (int i = 0; i < names.Length; i++)
             {
-
-
                 result[i] = GetItem<T>(names[i]);
             }
 
