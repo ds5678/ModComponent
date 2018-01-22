@@ -14,31 +14,9 @@ namespace ModComponentMapper
             this.gameObject = gameObject;
         }
 
-        public MappedItem AddToLootTable(LootTableName lootTableName, int weight)
-        {
-            LootTableEntry entry = new LootTableEntry();
-            entry.PrefabName = gameObject.name;
-            entry.Weight = weight;
-            GearSpawner.AddLootTableEntry(lootTableName.ToString(), entry);
-
-            return this;
-        }
-
         public MappedItem RegisterInConsole(string displayName)
         {
             ModUtils.RegisterConsoleGearName(displayName, gameObject.name);
-
-            return this;
-        }
-
-        public MappedItem SpawnAt(SceneName sceneName, Vector3 position, Quaternion rotation, float chance = 100)
-        {
-            GearSpawnInfo spawnInfo = new GearSpawnInfo();
-            spawnInfo.PrefabName = gameObject.name;
-            spawnInfo.Position = position;
-            spawnInfo.Rotation = rotation;
-            spawnInfo.SpawnChance = chance;
-            GearSpawner.AddGearSpawnInfo(sceneName.ToString(), spawnInfo);
 
             return this;
         }

@@ -145,18 +145,6 @@ namespace ModComponentMapper
             MappedItem mappedItem = Mapper.Map(prefab);
 
             mappedItem.RegisterInConsole(ModUtils.DefaultIfEmpty(modComponent.ConsoleName, GetDefaultConsoleName(prefab.name)));
-
-            foreach (ModLootTableEntryComponent eachLootTableEntry in modComponent.GetComponents<ModLootTableEntryComponent>())
-            {
-                mappedItem.AddToLootTable(eachLootTableEntry.LootTable, eachLootTableEntry.Weight);
-                UnityEngine.Object.Destroy(eachLootTableEntry);
-            }
-
-            foreach (ModSpawnLocationComponent eachSpawnLocation in modComponent.GetComponents<ModSpawnLocationComponent>())
-            {
-                mappedItem.SpawnAt(eachSpawnLocation.Scene, eachSpawnLocation.Position, Quaternion.Euler(eachSpawnLocation.Rotation), eachSpawnLocation.SpawnChance);
-                UnityEngine.Object.Destroy(eachSpawnLocation);
-            }
         }
 
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)

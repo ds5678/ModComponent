@@ -46,14 +46,12 @@
     <Compile Include="src\ModGenericItemComponent.cs" />
     <Compile Include="src\ModHarvestableComponent.cs" />
     <Compile Include="src\ModClothingComponent.cs" />
-    <Compile Include="src\ModLootTableEntryComponent.cs" />
     <Compile Include="src\EquippableModComponent.cs" />
     <Compile Include="src\ModCookableComponent.cs" />
     <Compile Include="src\ModFoodComponent.cs" />
     <Compile Include="src\ModComponent.cs" />
     <Compile Include="src\ModRepairableComponent.cs" />
     <Compile Include="src\ModRifleComponent.cs" />
-    <Compile Include="src\ModSpawnLocationComponent.cs" />
     <Compile Include="src\ModToolComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
