@@ -31,31 +31,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
-    <Reference Include="AssetLoader, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\mods\AssetLoader.dll</HintPath>
-    </Reference>
-    <Reference Include="Harmony">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="ModComponentAPI, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ModComponentAPI\bin\Debug\ModComponentAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="AssetLoader, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="ModComponentAPI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AutoMapper.cs" />
+    <Compile Include="src\BlueprintReader.cs" />
     <Compile Include="src\GammaChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />
+    <Compile Include="src\Implementation.cs" />
     <Compile Include="src\patches\AfflictionButtonPatch.cs" />
     <Compile Include="src\AlcoholComponent.cs" />
     <Compile Include="src\ExecutionValve.cs" />
@@ -72,6 +76,7 @@
     <Compile Include="src\ModWeaponManager.cs" />
     <Compile Include="src\ModPlayerAnimation.cs" />
     <Compile Include="src\patches\GameManagerPatch.cs" />
+    <Compile Include="src\patches\PlayAkSoundPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\patches\PanelLoadingPatch.cs" />
     <Compile Include="src\patches\PlayerAnimationPatch.cs" />

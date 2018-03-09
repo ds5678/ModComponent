@@ -23,19 +23,19 @@ namespace ModComponentMapper
             @"(?:\W+r\s*=\s*(" + VECTOR + "))?" +
             @"(?:\W+\s*c\s*=\s*(\d+))?$");
 
-        public static void OnLoad()
+        internal static void ReadDefinitions()
         {
             string gearSpawnDirectory = GetGearSpawnsDirectory();
             if (!Directory.Exists(gearSpawnDirectory))
             {
-                Debug.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist.");
+                LogUtils.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist.");
                 return;
             }
 
             string[] files = Directory.GetFiles(gearSpawnDirectory, "*.txt");
             foreach (string eachFile in files)
             {
-                Debug.Log("Processing spawn file '" + eachFile + "'.");
+                LogUtils.Log("Processing spawn file '" + eachFile + "'.");
                 ProcessFile(eachFile);
             }
         }

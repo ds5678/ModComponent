@@ -13,7 +13,6 @@ namespace ModComponentMapper
 
             if (modFoodComponent != null && modFoodComponent.Servings > 1)
             {
-                float requestedCalories = calories;
                 calories = Math.Min(calories, (float)modFoodComponent.Calories / modFoodComponent.Servings);
             }
         }

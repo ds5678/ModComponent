@@ -11,7 +11,7 @@ namespace ModComponentMapper
     {
         private const string AUTO_MAPPER_DIRECTORY_NAME = "auto-mapped";
 
-        public static void OnLoad()
+        internal static void Initialize()
         {
             AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
 
@@ -20,11 +20,11 @@ namespace ModComponentMapper
 
             if (!Directory.Exists(autoMapperDirectory))
             {
-                Log("Directory '{0}' does not exist. Skipping ...", autoMapperDirectory);
+                LogUtils.Log("Directory '{0}' does not exist. Skipping ...", autoMapperDirectory);
                 return;
             }
 
-            Log("Loading files from '{0}' ...", autoMapperDirectory);
+            LogUtils.Log("Loading files from '{0}' ...", autoMapperDirectory);
 
             AutoMapDirectory(autoMapperDirectory, modDirectory);
         }
@@ -60,13 +60,13 @@ namespace ModComponentMapper
                     continue;
                 }
 
-                Log("Ignoring '{0}' - Don't know how to handle this file type.", eachFile);
+                LogUtils.Log("Ignoring '{0}' - Don't know how to handle this file type.", eachFile);
             }
         }
 
         private static void AutoMapPrefab(string prefabName)
         {
-            GameObject prefab = (GameObject)Resources.Load(prefabName);
+            GameObject prefab = Resources.Load(prefabName) as GameObject;
             MapModComponent(prefab);
             MapBlueprint(prefab);
         }
@@ -103,7 +103,7 @@ namespace ModComponentMapper
 
         private static void LoadDll(string relativePath)
         {
-            Log("Loading '{0}' ...", relativePath);
+            LogUtils.Log("Loading '{0}' ...", relativePath);
 
             string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string absolutePath = Path.Combine(modDirectory, relativePath);
@@ -115,22 +115,15 @@ namespace ModComponentMapper
             ModSoundBankManager.RegisterSoundBank(relativePath);
         }
 
-        private static void Log(string message, params object[] parameters)
-        {
-            LogUtils.Log("AutoMapper", message, parameters);
-        }
-
         private static void MapBlueprint(GameObject prefab)
         {
             ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
             if (modBlueprint == null)
             {
-                Log("Ignoring prefab '{0}', because it does not contain a ModBlueprint", prefab.name);
                 return;
             }
 
-            // since when the mod is loaded the blueprint object is not created yet we have to add all the blueprints to a list and load them once the game has started and the first set of blueprints loaded.
-            Mapper.AddBlueprint(modBlueprint);
+            Mapper.RegisterBlueprint(modBlueprint);
         }
 
         private static void MapModComponent(GameObject prefab)
@@ -138,13 +131,10 @@ namespace ModComponentMapper
             ModComponent modComponent = ModUtils.GetModComponent(prefab);
             if (modComponent == null)
             {
-                Log("Ignoring prefab '{0}', because it does not contain a ModComponent", prefab.name);
                 return;
             }
 
-            MappedItem mappedItem = Mapper.Map(prefab);
-
-            mappedItem.RegisterInConsole(ModUtils.DefaultIfEmpty(modComponent.ConsoleName, GetDefaultConsoleName(prefab.name)));
+            Mapper.Map(prefab);
         }
 
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
@@ -152,12 +142,19 @@ namespace ModComponentMapper
             Assembly executingAssembly = Assembly.GetExecutingAssembly();
 
             AssemblyName requestedAssemblyName = new AssemblyName(args.Name);
-            if (requestedAssemblyName.Name != executingAssembly.GetName().Name)
+            AssemblyName executingAssemblyName = executingAssembly.GetName();
+            if (requestedAssemblyName.Name != executingAssemblyName.Name)
             {
                 return null;
             }
 
-            Debug.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + executingAssembly.GetName());
+            if (requestedAssemblyName.Version.Major != executingAssemblyName.Version.Major)
+            {
+                Debug.Log("Incompatible version of ModComponentMapper requested (" + requestedAssemblyName.Version + " vs " + executingAssemblyName.Version + ")");
+                return null;
+            }
+
+            LogUtils.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + executingAssemblyName);
             return executingAssembly;
         }
     }

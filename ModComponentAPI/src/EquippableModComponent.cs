@@ -14,7 +14,10 @@ namespace ModComponentAPI
         [Tooltip("The name of the type implementing the specific game logic of this item. Use 'Namespace.TypeName,AssemblyName', e.g. 'RubberDuck.Implementation,Rubber-Duck'. Leave empty if this item needs no special game logic.")]
         public string ImplementationType;
 
-        public GameObject EquippedModel { get; set; }
+        public string EquippingAudio;
+
+        [HideInInspector]
+        public GameObject EquippedModel;
 
         [HideInInspector]
         public object Implementation;

@@ -21,7 +21,7 @@ namespace ModComponentMapper
             equippable.OnEquipped?.Invoke();
 
             InterfaceManager.QuitCurrentScreens();
-            ModUtils.PlayAudio(equippable.PickUpAudio);
+            ModUtils.PlayAudio(equippable.EquippingAudio);
         }
 
         public static void Unequip(EquippableModComponent modComponent)

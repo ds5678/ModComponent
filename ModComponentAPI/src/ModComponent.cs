@@ -42,5 +42,15 @@ namespace ModComponentAPI
         public Vector3 InspectAngles = Vector3.zero;
         [Tooltip("Offset from the center during inspect.")]
         public Vector3 InspectOffset = Vector3.zero;
+
+        public string GetEffectiveConsoleName()
+        {
+            if (string.IsNullOrEmpty(this.ConsoleName))
+            {
+                return this.name.Replace("GEAR_", ""); ;
+            }
+
+            return this.ConsoleName;
+        }
     }
 }

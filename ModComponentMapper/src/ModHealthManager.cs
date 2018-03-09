@@ -1,5 +1,4 @@
 ﻿using Harmony;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +6,82 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
+    public class AlcoholUptake
+    {
+        public float amountPerGameSecond;
+
+        public float remainingGameSeconds;
+
+        public static AlcoholUptake Create(float amount, float gameSeconds)
+        {
+            AlcoholUptake result = new AlcoholUptake();
+
+            result.amountPerGameSecond = amount / gameSeconds;
+            result.remainingGameSeconds = gameSeconds;
+
+            return result;
+        }
+    }
+
+    public class ModHealthManagerData
+    {
+        public float alcoholPermille;
+        public AlcoholUptake[] uptakes;
+    }
+
+    public class SaveProxy
+    {
+        public string data;
+    }
+
+    [HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]
+    internal class Condition_UpdateBlurEffect
+    {
+        public static void Prefix(Condition __instance, ref float percentCondition, ref bool lowHealthStagger)
+        {
+            lowHealthStagger = percentCondition <= __instance.m_HPToStartBlur || ModHealthManager.ShouldStagger();
+            percentCondition = Math.Min(percentCondition, __instance.m_HPToStartBlur * (1 - ModHealthManager.GetAlcoholBlurValue()) + 0.01f);
+
+            if (!lowHealthStagger)
+            {
+                GameManager.GetVpFPSCamera().m_BasePitch = Mathf.Lerp(GameManager.GetVpFPSCamera().m_BasePitch, 0.0f, 0.01f);
+                GameManager.GetVpFPSCamera().m_BaseRoll = Mathf.Lerp(GameManager.GetVpFPSCamera().m_BaseRoll, 0.0f, 0.01f);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]
+    internal class Freezing_CalculateBodyTemperature
+    {
+        public static void Postfix(ref float __result)
+        {
+            __result += ModHealthManager.GetBodyTempBonus();
+        }
+    }
+
+    [HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]
+    internal class Frostbite_CalculateBodyTemperatureWithoutClothing
+    {
+        public static void Postfix(ref float __result)
+        {
+            __result += ModHealthManager.GetFrostbiteTempBonus();
+        }
+    }
+
+    [HarmonyPatch(typeof(GameManager), "Start")]
+    internal class GameManagerStartPatch
+    {
+        public static void Postfix(PlayerManager __instance)
+        {
+            ModHealthManager.instance = __instance.gameObject.AddComponent<ModHealthManager>();
+        }
+    }
+
     internal class ModHealthManager : MonoBehaviour
     {
         private const float MIN_PERMILLE_FOR_BLUR = 0.5f;
         private const float MAX_PERMILLE_FOR_BLUR = 2.5f;
-        private const float MIN_PErMILLE_FOR_STAGGERING = 1f;
+        private const float MIN_PERMILLE_FOR_STAGGERING = 1f;
 
         private const float ALCOHOL_TO_PERMILLE = 18;
         private const float MIN_UPTAKE_SCALE = 0.1f;
@@ -30,50 +100,9 @@ namespace ModComponentMapper
         private StatMonitor thirstMonitor = new StatMonitor();
         private StatMonitor fatigueMonitor = new StatMonitor();
 
-        public static void OnLoad()
-        {
-            // two commands, because apparently english and european languages don't express this in the same unit
-            uConsole.RegisterCommand("set_alcohol_permille", new uConsole.DebugCommand(SetAlcoholPermille));
-            uConsole.RegisterCommand("set_alcohol_percent", new uConsole.DebugCommand(SetAlcoholPercent));
-        }
-
-        private static void SetAlcoholPermille()
-        {
-            if (uConsole.GetNumParameters() != 1)
-            {
-                Debug.Log("  exactly one parameter required");
-                return;
-            }
-
-            instance.permille = uConsole.GetFloat();
-        }
-
-        private static void SetAlcoholPercent()
-        {
-            if (uConsole.GetNumParameters() != 1)
-            {
-                Debug.Log("  exactly one parameter required");
-                return;
-            }
-
-            instance.permille = uConsole.GetFloat() * 10f;
-        }
-
-        ModHealthManager()
+        private ModHealthManager()
         {
             ResetStatMonitors();
-        }
-
-        void Update()
-        {
-            float elapsedGameSeconds = GameManager.GetTimeOfDayComponent().GetTODSeconds(Time.deltaTime);
-            if (elapsedGameSeconds <= 0)
-            {
-                return;
-            }
-
-            UpdateStatMonitors(elapsedGameSeconds);
-            ProcessAlcohol(elapsedGameSeconds);
         }
 
         public static void DrankAlcohol(float amount, float uptakeGameSeconds)
@@ -90,14 +119,9 @@ namespace ModComponentMapper
             instance.alcoholUptakes.Add(AlcoholUptake.Create(amount, scaledUptakeGameSeconds));
         }
 
-        public static float GetAlcoholPromille()
+        public static float GetAlcoholPermille()
         {
             return instance.permille;
-        }
-
-        public static StatMonitor GetThirstMonitor()
-        {
-            return instance.thirstMonitor;
         }
 
         public static StatMonitor GetFatigueMonitor()
@@ -105,14 +129,9 @@ namespace ModComponentMapper
             return instance.fatigueMonitor;
         }
 
-        internal static float GetFrostbiteTempBonus()
+        public static StatMonitor GetThirstMonitor()
         {
-            return instance.permille * FROSTBITE_TEMP_BONUS_PER_PERMILLE;
-        }
-
-        internal static float GetBodyTempBonus()
-        {
-            return instance.permille * BODY_TEMP_BONUS_PER_PERMILLE;
+            return instance.thirstMonitor;
         }
 
         internal static float GetAlcoholBlurValue()
@@ -120,35 +139,88 @@ namespace ModComponentMapper
             return Mathf.Clamp01((instance.permille - MIN_PERMILLE_FOR_BLUR) / (MAX_PERMILLE_FOR_BLUR - MIN_PERMILLE_FOR_BLUR));
         }
 
+        internal static float GetBodyTempBonus()
+        {
+            return instance.permille * BODY_TEMP_BONUS_PER_PERMILLE;
+        }
+
+        internal static ModHealthManagerData GetData()
+        {
+            ModHealthManagerData result = new ModHealthManagerData();
+
+            result.alcoholPermille = instance.permille;
+            result.uptakes = instance.alcoholUptakes.ToArray<AlcoholUptake>();
+
+            return result;
+        }
+
+        internal static float GetFrostbiteTempBonus()
+        {
+            return instance.permille * FROSTBITE_TEMP_BONUS_PER_PERMILLE;
+        }
+
+        internal static void Initialize()
+        {
+            // two commands, because apparently different regions don't express this in the same unit
+            uConsole.RegisterCommand("set_alcohol_permille", new uConsole.DebugCommand(SetAlcoholPermille));
+            uConsole.RegisterCommand("set_alcohol_percent", new uConsole.DebugCommand(SetAlcoholPercent));
+        }
+
+        internal static void SetData(ModHealthManagerData data)
+        {
+            if (data == null)
+            {
+                return;
+            }
+
+            instance.permille = data.alcoholPermille;
+
+            instance.alcoholUptakes.Clear();
+            if (data.uptakes != null)
+            {
+                instance.alcoholUptakes.AddRange(data.uptakes);
+            }
+
+            instance.ResetStatMonitors();
+        }
+
         internal static bool ShouldStagger()
         {
-            return GetAlcoholPromille() >= MIN_PErMILLE_FOR_STAGGERING;
+            return GetAlcoholPermille() >= MIN_PERMILLE_FOR_STAGGERING;
         }
 
-        private void ResetStatMonitors()
+        internal void Update()
         {
-            thirstMonitor.value = GameManager.GetThirstComponent().m_CurrentThirst;
-            thirstMonitor.hourlyBaseline = GameManager.GetThirstComponent().m_ThirstIncreasePerDay / 24 * GameManager.GetExperienceModeManagerComponent().GetThirstRateScale();
-            thirstMonitor.hourlyChange = 0;
-            thirstMonitor.offset = 1;
-            thirstMonitor.scale = 0.2f;
-            thirstMonitor.debug = true;
+            float elapsedGameSeconds = GameManager.GetTimeOfDayComponent().GetTODSeconds(Time.deltaTime);
+            if (elapsedGameSeconds <= 0)
+            {
+                return;
+            }
 
-            fatigueMonitor.value = GameManager.GetFatigueComponent().m_CurrentFatigue;
-            fatigueMonitor.hourlyBaseline = GameManager.GetFatigueComponent().m_FatigueIncreasePerHourStanding * GameManager.GetExperienceModeManagerComponent().GetFatigueRateScale();
-            fatigueMonitor.hourlyBaseline = 0;
-            fatigueMonitor.hourlyChange = 0;
-            fatigueMonitor.offset = 0;
-            fatigueMonitor.scale = 1;
-            fatigueMonitor.scale = GameManager.GetExperienceModeManagerComponent().GetFatigueRateScale();
+            UpdateStatMonitors(elapsedGameSeconds);
+            ProcessAlcohol(elapsedGameSeconds);
         }
 
-        private void UpdateStatMonitors(float elapsedGameSeconds)
+        private static void SetAlcoholPercent()
         {
-            thirstMonitor.Update(GameManager.GetThirstComponent().m_CurrentThirst, elapsedGameSeconds);
-            fatigueMonitor.Update(GameManager.GetFatigueComponent().m_CurrentFatigue, elapsedGameSeconds);
+            if (uConsole.GetNumParameters() != 1)
+            {
+                Debug.Log("  exactly one parameter required");
+                return;
+            }
 
-            //ShowMessage.Messages.AddMessage("Fatigue = " + fatigueMonitor.value.ToString("F1") + ", baseLine = " + fatigueMonitor.hourlyBaseline.ToString("F3") + ", change = " + fatigueMonitor.hourlyChange.ToString("F3") + ", rate = " + fatigueMonitor.getRateOfChange().ToString("F3") + ", m_CurrentFatigueBurnPerHour = " + GameManager.GetFatigueComponent().m_CurrentFatigueBurnPerHour.ToString("F3"));
+            instance.permille = uConsole.GetFloat() * 10f;
+        }
+
+        private static void SetAlcoholPermille()
+        {
+            if (uConsole.GetNumParameters() != 1)
+            {
+                Debug.Log("  exactly one parameter required");
+                return;
+            }
+
+            instance.permille = uConsole.GetFloat();
         }
 
         private void ProcessAlcohol(float elapsedGameSeconds)
@@ -174,85 +246,28 @@ namespace ModComponentMapper
             GameManager.GetFatigueComponent().AddFatigue(elapsedGameSeconds * permille * FATIGUE_PER_PERMILLE_SECOND);
         }
 
-        internal static ModHealthManagerData GetData()
+        private void ResetStatMonitors()
         {
-            ModHealthManagerData result = new ModHealthManagerData();
+            thirstMonitor.value = GameManager.GetThirstComponent().m_CurrentThirst;
+            thirstMonitor.hourlyBaseline = GameManager.GetThirstComponent().m_ThirstIncreasePerDay / 24 * GameManager.GetExperienceModeManagerComponent().GetThirstRateScale();
+            thirstMonitor.hourlyChange = 0;
+            thirstMonitor.offset = 1;
+            thirstMonitor.scale = 0.2f;
+            thirstMonitor.debug = true;
 
-            result.alcoholPromille = instance.permille;
-            result.uptakes = instance.alcoholUptakes.ToArray<AlcoholUptake>();
-
-            return result;
+            fatigueMonitor.value = GameManager.GetFatigueComponent().m_CurrentFatigue;
+            fatigueMonitor.hourlyBaseline = GameManager.GetFatigueComponent().m_FatigueIncreasePerHourStanding * GameManager.GetExperienceModeManagerComponent().GetFatigueRateScale();
+            fatigueMonitor.hourlyBaseline = 0;
+            fatigueMonitor.hourlyChange = 0;
+            fatigueMonitor.offset = 0;
+            fatigueMonitor.scale = 1;
+            fatigueMonitor.scale = GameManager.GetExperienceModeManagerComponent().GetFatigueRateScale();
         }
 
-        internal static void SetData(ModHealthManagerData data)
+        private void UpdateStatMonitors(float elapsedGameSeconds)
         {
-            if (data == null)
-            {
-                return;
-            }
-
-            instance.permille = data.alcoholPromille;
-
-            instance.alcoholUptakes.Clear();
-            if (data.uptakes != null)
-            {
-                instance.alcoholUptakes.AddRange(data.uptakes);
-            }
-
-            instance.ResetStatMonitors();
-        }
-    }
-
-    public class AlcoholUptake
-    {
-        public static AlcoholUptake Create(float amount, float gameSeconds)
-        {
-            AlcoholUptake result = new AlcoholUptake();
-
-            result.amountPerGameSecond = amount / gameSeconds;
-            result.remainingGameSeconds = gameSeconds;
-
-            return result;
-        }
-
-        public float amountPerGameSecond;
-        public float remainingGameSeconds;
-    }
-
-    [HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]
-    internal class Condition_UpdateBlurEffect
-    {
-        public static void Prefix(Condition __instance, ref float percentCondition, ref bool lowHealthStagger)
-        {
-            lowHealthStagger = percentCondition <= __instance.m_HPToStartBlur || ModHealthManager.ShouldStagger();
-            percentCondition = Math.Min(percentCondition, __instance.m_HPToStartBlur * (1 - ModHealthManager.GetAlcoholBlurValue()) + 0.01f);
-
-            if (!lowHealthStagger)
-            {
-                GameManager.GetVpFPSCamera().m_BasePitch = Mathf.Lerp(GameManager.GetVpFPSCamera().m_BasePitch, 0.0f, 0.01f);
-                GameManager.GetVpFPSCamera().m_BaseRoll = Mathf.Lerp(GameManager.GetVpFPSCamera().m_BaseRoll, 0.0f, 0.01f);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(GameManager), "Start")]
-    internal class GameManagerStartPatch
-    {
-        public static void Postfix(PlayerManager __instance)
-        {
-            ModHealthManager.instance = __instance.gameObject.AddComponent<ModHealthManager>();
-        }
-    }
-
-    [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]
-    internal class SaveGameSystem_SaveGlobalData
-    {
-        public static void Postfix(SaveSlotType gameMode, string name)
-        {
-            SaveProxy proxy = new SaveProxy();
-            proxy.data = JsonConvert.SerializeObject(ModHealthManager.GetData());
-
-            SaveGameSlots.SaveDataToSlot(gameMode, SaveGameSystem.m_CurrentEpisode, SaveGameSystem.m_CurrentGameId,name, "ModHealthManager", JsonConvert.SerializeObject(proxy));
+            thirstMonitor.Update(GameManager.GetThirstComponent().m_CurrentThirst, elapsedGameSeconds);
+            fatigueMonitor.Update(GameManager.GetFatigueComponent().m_CurrentFatigue, elapsedGameSeconds);
         }
     }
 
@@ -262,7 +277,7 @@ namespace ModComponentMapper
         public static void Postfix(string name)
         {
             string serializedProxy = SaveGameSlots.LoadDataFromSlot(name, "ModHealthManager");
-            SaveProxy proxy = JsonConvert.DeserializeObject<SaveProxy>(serializedProxy);
+            SaveProxy proxy = Utils.DeserializeObject<SaveProxy>(serializedProxy);
             ModHealthManager.SetData(GetData(proxy));
         }
 
@@ -273,68 +288,30 @@ namespace ModComponentMapper
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<ModHealthManagerData>(proxy.data);
+            return Utils.DeserializeObject<ModHealthManagerData>(proxy.data);
         }
     }
 
-    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeThirst")]
-    internal class StatusBarGetRateOfChangeThirst
+    [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]
+    internal class SaveGameSystem_SaveGlobalData
     {
-        public static bool Prefix(StatusBar __instance, ref float __result)
+        public static void Postfix(SaveSlotType gameMode, string name)
         {
-            var thirstMonitor = ModHealthManager.GetThirstMonitor();
-            __result = thirstMonitor.getRateOfChange();
+            SaveProxy proxy = new SaveProxy();
+            proxy.data = Utils.SerializeObject(ModHealthManager.GetData());
 
-            return false;
-        }
-    }
-
-    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeFatigue")]
-    internal class StatusBarGetRateOfChangeFatigue
-    {
-        public static bool Prefix(StatusBar __instance, ref float __result)
-        {
-            var fatigueMonitor = ModHealthManager.GetFatigueMonitor();
-            __result = fatigueMonitor.getRateOfChange();
-
-            return false;
-        }
-    }
-
-    [HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]
-    internal class Frostbite_CalculateBodyTemperatureWithoutClothing
-    {
-        public static void Postfix(ref float __result)
-        {
-            __result += ModHealthManager.GetFrostbiteTempBonus();
-        }
-    }
-
-    [HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]
-    internal class Freezing_CalculateBodyTemperature
-    {
-        public static void Postfix(ref float __result)
-        {
-            __result += ModHealthManager.GetBodyTempBonus();
+            SaveGameSlots.SaveDataToSlot(gameMode, SaveGameSystem.m_CurrentEpisode, SaveGameSystem.m_CurrentGameId, name, "ModHealthManager", Utils.SerializeObject(proxy));
         }
     }
 
     internal class StatMonitor
     {
+        public bool debug;
         public float hourlyBaseline;
+        public float hourlyChange;
         public float offset;
         public float scale;
         public float value;
-        public float hourlyChange;
-        public bool debug;
-
-        public void Update(float currentValue, float elapsedGameSeconds)
-        {
-            float delta = currentValue - value;
-
-            hourlyChange = Mathf.Lerp(hourlyChange, 3600f * delta / elapsedGameSeconds, 0.05f);
-            value = currentValue;
-        }
 
         public float getRateOfChange()
         {
@@ -354,16 +331,37 @@ namespace ModComponentMapper
 
             return result;
         }
+
+        public void Update(float currentValue, float elapsedGameSeconds)
+        {
+            float delta = currentValue - value;
+
+            hourlyChange = Mathf.Lerp(hourlyChange, 3600f * delta / elapsedGameSeconds, 0.05f);
+            value = currentValue;
+        }
     }
 
-    public class ModHealthManagerData
+    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeFatigue")]
+    internal class StatusBarGetRateOfChangeFatigue
     {
-        public float alcoholPromille;
-        public AlcoholUptake[] uptakes;
+        public static bool Prefix(StatusBar __instance, ref float __result)
+        {
+            var fatigueMonitor = ModHealthManager.GetFatigueMonitor();
+            __result = fatigueMonitor.getRateOfChange();
+
+            return false;
+        }
     }
 
-    public class SaveProxy
+    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeThirst")]
+    internal class StatusBarGetRateOfChangeThirst
     {
-        public string data;
+        public static bool Prefix(StatusBar __instance, ref float __result)
+        {
+            var thirstMonitor = ModHealthManager.GetThirstMonitor();
+            __result = thirstMonitor.getRateOfChange();
+
+            return false;
+        }
     }
 }

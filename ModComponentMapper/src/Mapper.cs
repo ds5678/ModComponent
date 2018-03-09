@@ -47,7 +47,7 @@ namespace ModComponentMapper
 
             if (prefab.GetComponent<GearItem>() == null)
             {
-                Log("Mapping {0}", prefab.name);
+                LogUtils.Log("Mapping {0}", prefab.name);
 
                 ConfigureInspect(modComponent);
                 ConfigureHarvestable(modComponent);
@@ -70,13 +70,8 @@ namespace ModComponentMapper
             return new MappedItem(prefab);
         }
 
-        public static void MapBlueprint(ModBlueprint modBlueprint)
+        internal static void MapBlueprint(ModBlueprint modBlueprint)
         {
-            if (GameManager.GetBlueprints() == null)
-            {
-                throw new Exception("The Blueprints have not been loaded yet.");
-            }
-
             BlueprintItem bpItem = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
             if (bpItem == null)
             {
@@ -93,17 +88,12 @@ namespace ModComponentMapper
             bpItem.m_Locked = modBlueprint.Locked;
 
             bpItem.m_CraftedResultCount = modBlueprint.CraftedResultCount;
-            bpItem.m_CraftedResult = GetItem<GearItem>(modBlueprint.CraftedResult);
+            bpItem.m_CraftedResult = ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
 
-            bpItem.m_RequiredTool = GetItem<ToolsItem>(modBlueprint.RequiredTool);
-            bpItem.m_RequiredGear = GetItems<GearItem>(modBlueprint.RequiredGear);
-            bpItem.m_OptionalTools = GetItems<ToolsItem>(modBlueprint.OptionalTools);
+            bpItem.m_RequiredTool = ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+            bpItem.m_OptionalTools = ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
+            bpItem.m_RequiredGear = ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
             bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
-        }
-
-        internal static void AddBlueprint(ModBlueprint modBlueprint)
-        {
-            blueprints.Add(modBlueprint);
         }
 
         internal static void MapBlueprints()
@@ -112,6 +102,11 @@ namespace ModComponentMapper
             {
                 MapBlueprint(modBlueprint);
             }
+        }
+
+        internal static void RegisterBlueprint(ModBlueprint modBlueprint)
+        {
+            blueprints.Add(modBlueprint);
         }
 
         private static void ConfigureAccelerant(ModComponent modComponent)
@@ -232,7 +227,7 @@ namespace ModComponentMapper
                 return;
             }
 
-            if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId) && string.IsNullOrEmpty(equippableModComponent.ImplementationType))
+            if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId) && !string.IsNullOrEmpty(equippableModComponent.ImplementationType))
             {
                 equippableModComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
             }
@@ -379,7 +374,7 @@ namespace ModComponentMapper
                 throw new ArgumentException("YieldNames and YieldCounts do not have the same length on gear item '" + modHarvestableComponent.name + "'.");
             }
 
-            harvest.m_YieldGear = GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
+            harvest.m_YieldGear = ModUtils.GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
             harvest.m_YieldGearUnits = modHarvestableComponent.YieldCounts;
         }
 
@@ -415,10 +410,10 @@ namespace ModComponentMapper
                 throw new ArgumentException("MaterialNames and MaterialCounts do not have the same length on gear item '" + modRepairableComponent.name + "'.");
             }
 
-            repairable.m_RequiredGear = GetItems<GearItem>(modRepairableComponent.MaterialNames, modRepairableComponent.name);
+            repairable.m_RequiredGear = ModUtils.GetItems<GearItem>(modRepairableComponent.MaterialNames, modRepairableComponent.name);
             repairable.m_RequiredGearUnits = modRepairableComponent.MaterialCounts;
 
-            repairable.m_RepairToolChoices = GetItems<ToolsItem>(modRepairableComponent.RequiredTools, modRepairableComponent.name);
+            repairable.m_RepairToolChoices = ModUtils.GetItems<ToolsItem>(modRepairableComponent.RequiredTools, modRepairableComponent.name);
             repairable.m_RequiresToolToRepair = repairable.m_RepairToolChoices.Length > 0;
         }
 
@@ -532,46 +527,14 @@ namespace ModComponentMapper
             return GearTypeEnum.Other;
         }
 
-        private static T GetItem<T>(string name, string reference = null)
-        {
-            GameObject gameObject = Resources.Load(name) as GameObject;
-            if (gameObject == null)
-            {
-                throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
-            }
-
-            T targetType = gameObject.GetComponent<T>();
-            if (targetType == null)
-            {
-                throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference : "'") + " is not a '" + typeof(T).Name + "'.");
-            }
-
-            return targetType;
-        }
-
-        private static T[] GetItems<T>(string[] names, string reference = null)
-        {
-            T[] result = new T[names.Length];
-
-            for (int i = 0; i < names.Length; i++)
-            {
-                result[i] = GetItem<T>(names[i]);
-            }
-
-            return result;
-        }
-
-        private static void Log(string message, params object[] parameters)
-        {
-            LogUtils.Log("ModComponentMapper", message, parameters);
-        }
-
         private static void PostProcess(ModComponent modComponent)
         {
             modComponent.gameObject.layer = vp_Layer.Gear;
 
             GearItem gearItem = modComponent.GetComponent<GearItem>();
             gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers);
+
+            ModUtils.RegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ModComponentMapper
                 return;
             }
 
-            Log("Registering '{0}'", name);
+            LogUtils.Log("Registering '{0}'", name);
 
             GameObject template = weaponViewTransform.Find("Rifle").gameObject;
             GameObject weapon = Object.Instantiate(template, weaponViewTransform);
@@ -52,16 +52,6 @@ namespace ModComponentMapper
             GameObject equippedModel = Object.Instantiate(modRifleComponent.EquippedModelPrefab, weapon.transform);
             equippedModel.name = (name + "_rig").ToLower();
 
-        }
-
-        private static void Log(string message)
-        {
-            LogUtils.Log("ModWeaponManager", message);
-        }
-
-        private static void Log(string message, params object[] parameters)
-        {
-            LogUtils.Log("ModWeaponManager", message, parameters);
         }
     }
 

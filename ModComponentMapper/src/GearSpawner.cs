@@ -51,17 +51,11 @@ namespace ModComponentMapper
             lootTableEntries[normalizedLootTableName].Add(entry);
         }
 
-        internal static void PrepareScene(string sceneName)
+        internal static void Initialize()
         {
-            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-            stopwatch.Start();
+            SceneManager.sceneLoaded += OnSceneLoaded;
 
-            string normalizedSceneName = GetNormalizedSceneName(sceneName);
-            ConfigureLootTables(normalizedSceneName);
-            SpawnGearForScene(normalizedSceneName);
-
-            stopwatch.Stop();
-            Log("Prepared scene '{0}' in {1} ms", sceneName, stopwatch.ElapsedMilliseconds);
+            GearSpawnReader.ReadDefinitions();
         }
 
         private static void AddEntries(LootTable lootTable, List<LootTableEntry> entries)
@@ -78,7 +72,7 @@ namespace ModComponentMapper
                 GameObject prefab = (GameObject)Resources.Load(eachEntry.PrefabName);
                 if (prefab == null)
                 {
-                    Debug.LogError("Could not find prefab '" + eachEntry.PrefabName + "'.");
+                    LogUtils.Log("Could not find prefab '" + eachEntry.PrefabName + "'.");
                     continue;
                 }
 
@@ -150,16 +144,6 @@ namespace ModComponentMapper
             return result;
         }
 
-        private static void Log(string message)
-        {
-            LogUtils.Log("GearSpawner", message);
-        }
-
-        private static void Log(string message, params object[] parameters)
-        {
-            LogUtils.Log("GearSpawner", message, parameters);
-        }
-
         private static string NormalizePrefabName(string prefabName)
         {
             if (!prefabName.StartsWith("gear_", System.StringComparison.InvariantCultureIgnoreCase))
@@ -168,6 +152,27 @@ namespace ModComponentMapper
             }
 
             return prefabName;
+        }
+
+        private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene != null && !string.IsNullOrEmpty(scene.name) && scene.name != "Empty" && mode == LoadSceneMode.Single)
+            {
+                PrepareScene(scene.name);
+            }
+        }
+
+        private static void PrepareScene(string sceneName)
+        {
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            string normalizedSceneName = GetNormalizedSceneName(sceneName);
+            ConfigureLootTables(normalizedSceneName);
+            SpawnGearForScene(normalizedSceneName);
+
+            stopwatch.Stop();
+            LogUtils.Log("Prepared scene '{0}' in {1} ms", sceneName, stopwatch.ElapsedMilliseconds);
         }
 
         private static void SpawnGearForScene(string sceneName)
@@ -185,7 +190,7 @@ namespace ModComponentMapper
 
                 if (prefab == null)
                 {
-                    Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
+                    LogUtils.Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
                     continue;
                 }
 
@@ -194,22 +199,6 @@ namespace ModComponentMapper
                     Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
                     gear.name = prefab.name;
                 }
-            }
-        }
-    }
-
-    internal class SceneManagerPatch
-    {
-        public static void OnLoad()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-
-        public static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (scene != null && !string.IsNullOrEmpty(scene.name) && scene.name != "Empty" && mode == LoadSceneMode.Single)
-            {
-                GearSpawner.PrepareScene(scene.name);
             }
         }
     }
