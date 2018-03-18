@@ -11,7 +11,7 @@ namespace ModComponentMapper
         public static bool Prefix()
         {
             PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-            if (playerManager == null || InterfaceManager.IsOverlayActive() || !InputManager.GetFirePressed() || InputManager.GetFireReleased())
+            if (playerManager == null || GameManager.ControlsLocked() || InterfaceManager.IsOverlayActive() || !InputManager.GetFirePressed() || InputManager.GetFireReleased())
             {
                 return true;
             }

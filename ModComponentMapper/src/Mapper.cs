@@ -26,6 +26,7 @@ namespace ModComponentMapper
     {
         private static List<ModBlueprint> blueprints = new List<ModBlueprint>();
         private static List<ModComponent> mappedItems = new List<ModComponent>();
+        private static List<ModSkill> skills = new List<ModSkill>();
 
         public static MappedItem Map(string prefabName)
         {
@@ -98,15 +99,57 @@ namespace ModComponentMapper
 
         internal static void MapBlueprints()
         {
+            GameObject blueprintsManager = GameManager.GetBlueprints();
+            if (blueprintsManager == null)
+            {
+                return;
+            }
+
             foreach (ModBlueprint modBlueprint in blueprints)
             {
                 MapBlueprint(modBlueprint);
             }
         }
 
+        internal static void MapSkill(ModSkill modSkill)
+        {
+            SerializableSkill skill = new GameObject().AddComponent<SerializableSkill>();
+
+            skill.name = modSkill.name;
+            skill.m_LocalizedDisplayName = CreateLocalizedString(modSkill.DisplayName);
+            skill.m_SkillType = (SkillType)GameManager.GetSkillsManager().GetNumSkills();
+            skill.m_SkillIcon = modSkill.Icon;
+            skill.m_SkillIconBackground = modSkill.Image;
+            skill.m_SkillImage = modSkill.Image;
+            skill.m_TierPoints = new int[] { 0, modSkill.PointsLevel2, modSkill.PointsLevel3, modSkill.PointsLevel4, modSkill.PointsLevel5 };
+            skill.m_TierLocalizedBenefits = CreateLocalizedStrings(modSkill.EffectsLevel1, modSkill.EffectsLevel2, modSkill.EffectsLevel3, modSkill.EffectsLevel4, modSkill.EffectsLevel5);
+            skill.m_TierLocalizedDescriptions = CreateLocalizedStrings(modSkill.DescriptionLevel1, modSkill.DescriptionLevel2, modSkill.DescriptionLevel3, modSkill.DescriptionLevel4, modSkill.DescriptionLevel5);
+
+            ModUtils.ExecuteMethod(GameManager.GetSkillsManager(), "InstantiateSkillPrefab", skill.gameObject);
+        }
+
+        internal static void MapSkills()
+        {
+            SkillsManager skillsManager = GameManager.GetSkillsManager();
+            if (skillsManager == null)
+            {
+                return;
+            }
+
+            foreach (ModSkill eachModSkill in skills)
+            {
+                MapSkill(eachModSkill);
+            }
+        }
+
         internal static void RegisterBlueprint(ModBlueprint modBlueprint)
         {
             blueprints.Add(modBlueprint);
+        }
+
+        internal static void RegisterSkill(ModSkill modSkill)
+        {
+            skills.Add(modSkill);
         }
 
         private static void ConfigureAccelerant(ModComponent modComponent)
@@ -461,6 +504,26 @@ namespace ModComponentMapper
             animation.SetTransitions(firstPersonItem.m_PlayerStateTransitions);
         }
 
+        private static LocalizedString CreateLocalizedString(string key)
+        {
+            return new LocalizedString()
+            {
+                m_LocalizationID = key
+            };
+        }
+
+        private static LocalizedString[] CreateLocalizedStrings(params string[] keys)
+        {
+            LocalizedString[] result = new LocalizedString[keys.Length];
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = CreateLocalizedString(keys[i]);
+            }
+
+            return result;
+        }
+
         private static ConditionTableManager.ConditionTableType GetConditionTableType(ModComponent modComponent)
         {
             if (modComponent is ModFoodComponent)
@@ -535,6 +598,11 @@ namespace ModComponentMapper
             gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers);
 
             ModUtils.RegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name);
+
+            if (modComponent.Radial != Radial.None)
+            {
+                RadialConfigurator.RegisterGear(modComponent.Radial, modComponent.name);
+            }
         }
     }
 }

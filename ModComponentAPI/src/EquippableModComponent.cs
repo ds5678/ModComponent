@@ -58,6 +58,12 @@ namespace ModComponentAPI
             OnSecondaryAction = CreateImplementationActionDelegate("OnSecondaryAction");
 
             OnControlModeChangedWhileEquipped = CreateImplementationActionDelegate("OnControlModeChangedWhileEquipped");
+
+            FieldInfo fieldInfo = implementationType.GetField("EquippableModComponent");
+            if (fieldInfo != null && fieldInfo.FieldType == typeof(EquippableModComponent))
+            {
+                fieldInfo.SetValue(Implementation, this);
+            }
         }
 
         private Action CreateImplementationActionDelegate(string methodName)

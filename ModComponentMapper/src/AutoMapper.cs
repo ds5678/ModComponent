@@ -69,6 +69,7 @@ namespace ModComponentMapper
             GameObject prefab = Resources.Load(prefabName) as GameObject;
             MapModComponent(prefab);
             MapBlueprint(prefab);
+            MapSkill(prefab);
         }
 
         private static string GetDefaultConsoleName(string gameObjectName)
@@ -115,15 +116,22 @@ namespace ModComponentMapper
             ModSoundBankManager.RegisterSoundBank(relativePath);
         }
 
+        private static void MapSkill(GameObject prefab)
+        {
+            ModSkill modSkill = ModUtils.GetComponent<ModSkill>(prefab);
+            if (modSkill != null)
+            {
+                Mapper.RegisterSkill(modSkill);
+            }
+        }
+
         private static void MapBlueprint(GameObject prefab)
         {
             ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
-            if (modBlueprint == null)
+            if (modBlueprint != null)
             {
-                return;
+                Mapper.RegisterBlueprint(modBlueprint);
             }
-
-            Mapper.RegisterBlueprint(modBlueprint);
         }
 
         private static void MapModComponent(GameObject prefab)

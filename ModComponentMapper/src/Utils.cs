@@ -79,6 +79,12 @@ namespace ModComponentMapper
             methodInfo.Invoke(instance, parameters);
         }
 
+        public static T ExecuteMethod<T>(object instance, string methodName, params object[] parameters)
+        {
+            MethodInfo methodInfo = AccessTools.Method(instance.GetType(), methodName, AccessTools.GetTypes(parameters));
+            return (T)methodInfo.Invoke(instance, parameters);
+        }
+
         public static void ExecuteStaticMethod(Type type, string methodName, object[] parameters)
         {
             MethodInfo methodInfo = AccessTools.Method(type, methodName, AccessTools.GetTypes(parameters));
@@ -132,6 +138,31 @@ namespace ModComponentMapper
             }
 
             return result;
+        }
+
+        public static Skill GetSkillByName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return null;
+            }
+
+            SkillsManager skillsManager = GameManager.GetSkillsManager();
+            if (skillsManager == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < skillsManager.GetNumSkills(); i++)
+            {
+                Skill skill = skillsManager.GetSkillFromIndex(i);
+                if (name == skill.name)
+                {
+                    return skill;
+                }
+            }
+
+            return null;
         }
 
         public static T GetStaticFieldValue<T>(Type type, string fieldName)

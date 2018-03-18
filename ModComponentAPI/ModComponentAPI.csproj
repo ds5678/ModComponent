@@ -55,9 +55,11 @@
     <Compile Include="src\ModComponent.cs" />
     <Compile Include="src\ModRepairableComponent.cs" />
     <Compile Include="src\ModRifleComponent.cs" />
+    <Compile Include="src\ModSkill.cs" />
     <Compile Include="src\ModToolComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\PlayAkSound.cs" />
+    <Compile Include="src\Radial.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

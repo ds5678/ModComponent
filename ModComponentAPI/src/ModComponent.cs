@@ -8,6 +8,8 @@ namespace ModComponentAPI
         [Header("Description")]
         [Tooltip("How this item will be called in the DeveloperConsole. Leave empty for a sensible default.")]
         public string ConsoleName;
+        [Tooltip("To which radial submenu should this item be added?")]
+        public Radial Radial = Radial.None;
         [Tooltip("Localization key to be used for the in-game name of the item.")]
         public string DisplayNameLocalizationId;
         [Tooltip("Localization key to be used for the in-game description of the item.")]

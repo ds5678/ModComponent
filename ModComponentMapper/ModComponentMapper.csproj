@@ -76,12 +76,16 @@
     <Compile Include="src\ModWeaponManager.cs" />
     <Compile Include="src\ModPlayerAnimation.cs" />
     <Compile Include="src\patches\GameManagerPatch.cs" />
+    <Compile Include="src\patches\Panel_ActionsRadialPatch.cs" />
     <Compile Include="src\patches\PlayAkSoundPatch.cs" />
+    <Compile Include="src\patches\SkillsManagerPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\patches\PanelLoadingPatch.cs" />
     <Compile Include="src\patches\PlayerAnimationPatch.cs" />
     <Compile Include="src\patches\PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\SerializableSkill.cs" />
+    <Compile Include="src\RadialConfigurator.cs" />
     <Compile Include="src\Utils.cs" />
     <Compile Include="src\patches\vp_FPSPlayerPatch.cs" />
     <Compile Include="src\patches\vp_FPSShooterPatch.cs" />
