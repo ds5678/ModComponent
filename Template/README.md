@@ -44,7 +44,7 @@ The DLL will be created in the usual "bin/Release" directory.
 
 The DLL and the AssetBundle need to be packaged together to be installed.
 
-The template project makes use of the [[Auto-Mapper|https://github.com/WulfMarius/ModComponent/wiki/Auto-Mapper]] feature of ModComponent, so no glue code is required.  
+The template project makes use of the [Auto-Mapper](https://github.com/WulfMarius/ModComponent/wiki/Auto-Mapper) feature of ModComponent, so no glue code is required.  
 Instead the files only need to be put into the `auto-mapped` folder and will be loaded automatically.
 
 The SoundBank is already pre-created (This process involves using the right version of WWise and audio files. I might explain this process later).
