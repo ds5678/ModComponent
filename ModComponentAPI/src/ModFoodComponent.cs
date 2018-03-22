@@ -14,7 +14,7 @@ namespace ModComponentAPI
         [Tooltip("For one complete item with all servings. Calories remaining will scale with weight.")]
         public int Calories;
         [Tooltip("The number of servings contained in this item. Each consumation will be limited to one serving. 1 means 'Comsume completely' - the way all pre-existing food items work.")]
-        [Range(1, 10)]
+        [Range(1, 50)]
         public int Servings = 1;
 
         [Header("Food/Eating")]

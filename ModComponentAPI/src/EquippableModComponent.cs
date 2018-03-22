@@ -59,7 +59,7 @@ namespace ModComponentAPI
 
             OnControlModeChangedWhileEquipped = CreateImplementationActionDelegate("OnControlModeChangedWhileEquipped");
 
-            FieldInfo fieldInfo = implementationType.GetField("EquippableModComponent");
+            FieldInfo fieldInfo = implementationType.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             if (fieldInfo != null && fieldInfo.FieldType == typeof(EquippableModComponent))
             {
                 fieldInfo.SetValue(Implementation, this);
@@ -68,7 +68,7 @@ namespace ModComponentAPI
 
         private Action CreateImplementationActionDelegate(string methodName)
         {
-            MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             if (methodInfo == null)
             {
                 return null;
