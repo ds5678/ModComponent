@@ -14,7 +14,7 @@ namespace RubberDuck
 
         public void OnPrimaryAction()
         {
-            GameAudioManager.PlaySound("Play_UseRubberDuck", InterfaceManager.GetSoundEmitter());
+            ModUtils.PlayAudio("Play_UseRubberDuck");
         }
 
         private static void ShowButtonPopups()

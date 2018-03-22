@@ -1,5 +1,5 @@
-DISCLAIMER
---------------------------------------------------------------------------------
+# DISCLAIMER
+
 It is very likely, that this README is incomplete, incorrect or simply outdated.
 
 This description is intended for people comfortable with writing/modifying/compiling code, reading online manuals and finding answers by using Google (or whatever search engine you prefer).
@@ -9,14 +9,10 @@ You will need to understand how The Long Dark works. ("You can't change what you
 You will need to understand how Unity works.
 You will need to understand how C# works.
 
-Having said that:
-By all means ask how to do certain things before spending weeks trying to figure it out all on your own.
-If you think this README or the sample project or ModComponent contains an error or could/should be improved: I'd love to hear that.
---------------------------------------------------------------------------------
+> By all means ask how to do certain things before spending weeks trying to figure it out all on your own.  
+> If you think this README or the template project or ModComponent contains an error or could/should be improved: I'd love to hear that.
 
-
-
-Sample Project "Rubber Duck"
+# Template Project "Rubber Duck"
 
 This sample project demonstrates how to use ModComponent to create new in-game items.
 
@@ -25,10 +21,7 @@ The two parts are
 - the Unity project, containing the 3D model, Localization, Icons and Prefabs required.
 - the Visual Studio project, containing all the game logic and glue code.
 
-
-
-Unity Project
--------------
+## Unity Project
 
 The Unity project will create an AssetBundle that contains all assets for the mod to work.
 
@@ -38,10 +31,7 @@ Everything can be configured with the Editor UI and clicking that menu entry is 
 
 All configured AssetBundles will be created in a directory "AssetBundles" (as a sibling to "Assets")
 
-
-
-Visual Studio Project
----------------------
+## Visual Studio Project
 
 The Visual Studio project will create a DLL that contains all game logic and glue code for the mod to work.
 
@@ -50,19 +40,20 @@ The DLL will be created in the usual "bin/Release" directory.
 
 
 
-Distribution / Installation
----------------------------
+## Distribution / Installation
 
 The DLL and the AssetBundle need to be packaged together to be installed.
 
-The glue code from the DLL expects the AssetBundle "rubber_duck.unity3d" and the SoundBank "rubber_duck.bnk" in a subdirectory "Rubber-Duck". (See class "Initializer")
+The template project makes use of the [[Auto-Mapper|https://github.com/WulfMarius/ModComponent/wiki/Auto-Mapper]] feature of ModComponent, so no glue code is required.  
+Instead the files only need to be put into the `auto-mapped` folder and will be loaded automatically.
+
 The SoundBank is already pre-created (This process involves using the right version of WWise and audio files. I might explain this process later).
 
 When you update the AssetBundle or the DLL you will need to copy those manually (or create your own tool/script for doing this).
 The final layout can be seen in directory "Distributable":
 
-	Rubber-Duck.dll
-	Rubber-Duck/rubber_duck.unity3d
-	Rubber-Duck/rubber_duck.bnk
+	auto-mapped/Rubber-Duck/Rubber-Duck.dll
+	auto-mapped/Rubber-Duck/Rubber-Duck.unity3d
+	auto-mapped/Rubber-Duck/Rubber-Duck.bnk
 
 To install this mod, you need to copy the contents of the "Distributable" folder to "TheLongDark/mods".
