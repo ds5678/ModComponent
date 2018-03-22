@@ -33,7 +33,7 @@ Unity Project
 The Unity project will create an AssetBundle that contains all assets for the mod to work.
 
 The AssetBundle is created using the Editor Script "Assets/Editor/BuildAssetBundles", which creates the new menu entry "Assets > Build AssetBundles".
-There's need to edit or understand that script in any way.
+There's no need to edit or understand that script in any way.
 Everything can be configured with the Editor UI and clicking that menu entry is entirely sufficient.
 
 All configured AssetBundles will be created in a directory "AssetBundles" (as a sibling to "Assets")
