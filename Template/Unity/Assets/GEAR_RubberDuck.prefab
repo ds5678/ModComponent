@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4991102523200388}
   - component: {fileID: 33075776406519306}
   - component: {fileID: 23684834003867668}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4108755419755902}
   - component: {fileID: 114899100276084280}
   - component: {fileID: 65326090075059054}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: GEAR_RubberDuck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,9 +81,10 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: 37457c838a47575429519427ef8e04b7, type: 2}
   m_StaticBatchInfo:
@@ -96,6 +97,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -134,20 +136,25 @@ MonoBehaviour:
   m_Script: {fileID: 1344635434, guid: cf5f2c8efb027b3428c08def532eea40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ConsoleName: 
+  Radial: 0
   DisplayNameLocalizationId: GAMEPLAY_RubberDuck
   DescriptionLocalizatonId: GAMEPLAY_RubberDuckDescription
   InventoryActionLocalizationId: 
-  WeightKG: 0.1
-  MaxHP: 100
-  DaysToDecay: 0
   PickUpAudio: Play_DrawRubberDuck
   StowAudio: Play_InventoryStow
   PutBackAudio: Play_DrawRubberDuck
   WornOutAudio: 
+  WeightKG: 0.1
+  MaxHP: 100
+  DaysToDecay: 0
   InspectOnPickup: 1
   InspectDistance: 0.4
   InspectScale: {x: 1, y: 1, z: 1}
   InspectAngles: {x: 20, y: 135, z: -15}
+  InspectOffset: {x: 0, y: 0, z: 0}
   EquippedModelPrefab: {fileID: 1334007787735594, guid: 1c658d1d1b7525042a2544c5d21de017,
     type: 2}
   ImplementationType: RubberDuck.Implementation,Rubber-Duck
+  EquippingAudio: 
+  EquippedModel: {fileID: 0}
