@@ -4,56 +4,52 @@ It is very likely, that this README is incomplete, incorrect or simply outdated.
 
 This description is intended for people comfortable with writing/modifying/compiling code, reading online manuals and finding answers by using Google (or whatever search engine you prefer).
 
-While my goal with creating ModComponent is to make creating new items for The Long Dark as easy as possible, this cannot be a subsitute for learning how to do modding.
-You will need to understand how The Long Dark works. ("You can't change what you don't understand")
-You will need to understand how Unity works.
-You will need to understand how C# works.
+While my goal with creating ModComponent is to make creating new items for The Long Dark as easy as possible, this cannot be a substitute for learning how to do modding.
+
+* You will need to understand how The Long Dark works.
+* You will need to understand how Unity works.
+* You will need to understand how C# works.
 
 > By all means ask how to do certain things before spending weeks trying to figure it out all on your own.  
 > If you think this README or the template project or ModComponent contains an error or could/should be improved: I'd love to hear that.
 
-# Template Project "Rubber Duck"
+# Template Project
 
-This sample project demonstrates how to use ModComponent to create new in-game items.
+This is a template project for the Unity Editor for creating new item mods.
 
-
-The two parts are
-- the Unity project, containing the 3D model, Localization, Icons and Prefabs required.
-- the Visual Studio project, containing all the game logic and glue code.
-
-## Unity Project
-
-The Unity project will create an AssetBundle that contains all assets for the mod to work.
-
-The AssetBundle is created using the Editor Script "Assets/Editor/BuildAssetBundles", which creates the new menu entry "Assets > Build AssetBundles".
-There's no need to edit or understand that script in any way.
-Everything can be configured with the Editor UI and clicking that menu entry is entirely sufficient.
-
-All configured AssetBundles will be created in a directory "AssetBundles" (as a sibling to "Assets")
-
-## Visual Studio Project
-
-The Visual Studio project will create a DLL that contains all game logic and glue code for the mod to work.
-
-You will need to set reference paths to both "TheLongDark/tld_Data/Managed" and "TheLongDark/mods" and have the ModLoader and prerequisite mods ("AssetLoader", "ModComponent") installed.
-The DLL will be created in the usual "bin/Release" directory.
+It contains the basic folder structure and minimal assets and scene hierarchy suitable for such a project.
 
 
+# Folder Structure
 
-## Distribution / Installation
+- **ClothingPaperDoll** - The folder for the textures to be used for clothing on the paper doll.
 
-The DLL and the AssetBundle need to be packaged together to be installed.
+- **Editor** - This folder contains editor scripts. The contents of this folder will not be exported by Unity.
+  - **BuildAssetBundles.cs** - This script is for exporting Asset Bundles and creates the menu item "Assets > Build AssetBundles".  
+It should cover all your needs and there is probably no need for you to adjust it.
 
-The template project makes use of the [Auto-Mapper](https://github.com/WulfMarius/ModComponent/wiki/Auto-Mapper) feature of ModComponent, so no glue code is required.  
-Instead the files only need to be put into the `auto-mapped` folder and will be loaded automatically.
+- **InventoryGridItems** - The folder for the textures to be used as inventory icons of the items.
 
-The SoundBank is already pre-created (This process involves using the right version of WWise and audio files. I might explain this process later).
+- **Models** - The folder for importing 3d models, materials, textures, shaders, etc.
 
-When you update the AssetBundle or the DLL you will need to copy those manually (or create your own tool/script for doing this).
-The final layout can be seen in directory "Distributable":
+- **Plugins** - This folder contains external libraries providing Components that can be used in the Editor. The contents of this folder will not be exported by Unity.
+  - **ModComponentAPI.dll** - The API of ModComponent that is to be used for defining new items.
 
-	auto-mapped/Rubber-Duck/Rubber-Duck.dll
-	auto-mapped/Rubber-Duck/Rubber-Duck.unity3d
-	auto-mapped/Rubber-Duck/Rubber-Duck.bnk
+- **Prefabs** - The folder for the actual prefabs of the items.
 
-To install this mod, you need to copy the contents of the "Distributable" folder to "TheLongDark/mods".
+- **Localization.csv** - An empty CSV to be used for in-game texts. The header declares the languages for which this mods provides texts.
+
+- **Template.unity** - The template scene containing "Main Camera" for creating item icons and "Weapon Camera" for creating equippable items.
+
+
+# Exporting Asset Bundles
+
+The editor script "BuildAssetBundles.cs" creates the menu item "Assets > Build AssetBundles" and selecting this menu item will export all assets into their assigned asset bundle.  
+If you use the suggested folder structure, you will only need to export the folders "ClothingPaperDoll", IventoryGridItems", and "Prefabs", as well as "Localization.csv".
+
+Assign each of those items the asset bundle name that you want to use. (See [AssetBundles and the AssetBundle Manager](https://unity3d.com/learn/tutorials/topics/scripting/assetbundles-and-assetbundle-manager) - especially "Working with AssetBundles" - for how to do this.)  
+The export script will automatically append the file extension ".unity3d", which is necessary if you want to use the asset bundle with the [Auto-Mapper](https://github.com/WulfMarius/ModComponent/wiki/Auto-Mapper) of ModComponent.
+
+The asset bundle is exported to the folder "AssetBundles" next to the folder "Assets". You can right-click on the "Assets" node in the "Project" view and select "Show in Explorer" to easily navigate to the "AssetBundle" folder.
+
+When your asset bundle was built, you need to copy it into the folder "TheLongDark/mods/auto-mapped" for the Auto-Mapper to find and load it.
