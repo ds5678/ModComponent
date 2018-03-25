@@ -94,6 +94,15 @@ namespace ModComponentMapper
         }
     }
 
+    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]
+    internal class PlayerManager_UnequipItemInHandsSkipAnimation
+    {
+        public static void Prefix(PlayerManager __instance)
+        {
+            GearEquipper.OnUnequipped(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+        }
+    }
+
     [HarmonyPatch(typeof(PlayerManager), "UseInventoryItem")]
     internal class PlayerManagerUseInventoryItemPatch
     {

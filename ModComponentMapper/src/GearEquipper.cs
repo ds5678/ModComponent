@@ -31,13 +31,22 @@ namespace ModComponentMapper
                 return;
             }
 
+            GameManager.GetPlayerManagerComponent().UnequipItemInHandsSkipAnimation();
+        }
+
+        internal static void OnUnequipped(EquippableModComponent modComponent)
+        {
+            if (modComponent == null)
+            {
+                return;
+            }
+
             if (modComponent.EquippedModel != null)
             {
                 Object.Destroy(modComponent.EquippedModel);
                 modComponent.EquippedModel = null;
             }
 
-            GameManager.GetPlayerManagerComponent().UnequipItemInHandsSkipAnimation();
             modComponent.OnUnequipped?.Invoke();
             ModUtils.PlayAudio(modComponent.StowAudio);
         }
