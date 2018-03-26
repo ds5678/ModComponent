@@ -64,11 +64,11 @@ namespace ModComponentMapper
             }
         }
 
-        private static void AutoMapPrefab(string prefabName)
+        private static void AutoMapPrefab(string prefabName, string assetBundlePath)
         {
             GameObject prefab = Resources.Load(prefabName) as GameObject;
             MapModComponent(prefab);
-            MapBlueprint(prefab);
+            MapBlueprint(prefab, assetBundlePath);
             MapSkill(prefab);
         }
 
@@ -97,7 +97,7 @@ namespace ModComponentMapper
             {
                 if (eachAssetName.EndsWith(".prefab"))
                 {
-                    AutoMapPrefab(eachAssetName);
+                    AutoMapPrefab(eachAssetName, relativePath);
                 }
             }
         }
@@ -125,12 +125,12 @@ namespace ModComponentMapper
             }
         }
 
-        private static void MapBlueprint(GameObject prefab)
+        private static void MapBlueprint(GameObject prefab, string sourcePath)
         {
             ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
             if (modBlueprint != null)
             {
-                Mapper.RegisterBlueprint(modBlueprint);
+                Mapper.RegisterBlueprint(modBlueprint, sourcePath);
             }
         }
 

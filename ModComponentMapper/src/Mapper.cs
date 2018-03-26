@@ -92,8 +92,8 @@ namespace ModComponentMapper
             bpItem.m_CraftedResult = ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
 
             bpItem.m_RequiredTool = ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
-            bpItem.m_OptionalTools = ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
-            bpItem.m_RequiredGear = ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
+            bpItem.m_OptionalTools = ModUtils.NotNull(ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools));
+            bpItem.m_RequiredGear = ModUtils.NotNull(ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear));
             bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
         }
 
@@ -142,14 +142,31 @@ namespace ModComponentMapper
             }
         }
 
-        internal static void RegisterBlueprint(ModBlueprint modBlueprint)
+        internal static void RegisterBlueprint(ModBlueprint modBlueprint, string sourcePath)
         {
+            ValidateBlueprint(modBlueprint, sourcePath);
+
             blueprints.Add(modBlueprint);
         }
 
         internal static void RegisterSkill(ModSkill modSkill)
         {
             skills.Add(modSkill);
+        }
+
+        internal static void ValidateBlueprint(ModBlueprint modBlueprint, string sourcePath)
+        {
+            try
+            {
+                ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
+                ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+                ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
+                ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Validation of blueprint " + modBlueprint.name + " failed: " + e.Message + "\nThe blueprint was provided by '" + sourcePath + "', which may be out-of-date or installed incorrectly.");
+            }
         }
 
         private static void ConfigureAccelerant(ModComponent modComponent)

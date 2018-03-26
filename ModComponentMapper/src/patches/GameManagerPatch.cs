@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using UnityEngine;
 
 namespace ModComponentMapper
 {
@@ -7,8 +8,15 @@ namespace ModComponentMapper
     {
         public static void Postfix()
         {
-            Mapper.MapBlueprints();
-            Mapper.MapSkills();
+            try
+            {
+                Mapper.MapBlueprints();
+                Mapper.MapSkills();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log("Mapping failed: " + e);
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace ModComponentMapper
             try
             {
                 ModBlueprint blueprint = FastJson.Deserialize<ModBlueprint>(text);
-                Mapper.RegisterBlueprint(blueprint);
+                Mapper.RegisterBlueprint(blueprint, path);
             }
             catch (Exception e)
             {
