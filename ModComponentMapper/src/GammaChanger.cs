@@ -2,7 +2,7 @@
 {
     public class GammaChanger
     {
-        private static float gamma;
+        private static float gamma = 1;
 
         public static float GetGamma()
         {
