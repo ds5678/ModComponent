@@ -53,14 +53,16 @@ namespace ModComponentMapper
                 ConfigureInspect(modComponent);
                 ConfigureHarvestable(modComponent);
                 ConfigureRepairable(modComponent);
+                ConfigureFireStarter(modComponent);
+                ConfigureAccelerant(modComponent);
+                ConfigureStackable(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureFood(modComponent);
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
-                ConfigureFireStarter(modComponent);
-                ConfigureAccelerant(modComponent);
+
                 ConfigureGearItem(modComponent);
 
                 mappedItems.Add(modComponent);
@@ -401,7 +403,7 @@ namespace ModComponentMapper
             gearItem.m_WeightKG = modComponent.WeightKG;
             gearItem.m_MaxHP = modComponent.MaxHP;
             gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
-            gearItem.OverrideGearCondition(GearStartCondition.Random);
+            gearItem.OverrideGearCondition(ModUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition));
 
             gearItem.m_LocalizedDisplayName = new LocalizedString();
             gearItem.m_LocalizedDisplayName.m_LocalizationID = modComponent.DisplayNameLocalizationId;
@@ -519,6 +521,26 @@ namespace ModComponentMapper
 
             ModAnimationStateMachine animation = ModUtils.GetOrCreateComponent<ModAnimationStateMachine>(modRifleComponent);
             animation.SetTransitions(firstPersonItem.m_PlayerStateTransitions);
+        }
+
+        private static void ConfigureStackable(ModComponent modComponent)
+        {
+            ModStackableComponent modStackableComponent = ModUtils.GetComponent<ModStackableComponent>(modComponent);
+            if (modStackableComponent == null)
+            {
+                return;
+            }
+
+            StackableItem stackableItem = ModUtils.GetOrCreateComponent<StackableItem>(modComponent);
+
+            stackableItem.m_LocalizedMultipleUnitText = new LocalizedString { m_LocalizationID = modStackableComponent.MultipleUnitText };
+            stackableItem.m_LocalizedSingleUnitText = new LocalizedString { m_LocalizationID = modComponent.DisplayNameLocalizationId };
+
+            stackableItem.m_StackSpriteName = modStackableComponent.StackSprite;
+
+            stackableItem.m_ShareStackWithGear = new StackableItem[0];
+            stackableItem.m_Units = 1;
+            stackableItem.m_UnitsPerItem = 1;
         }
 
         private static LocalizedString CreateLocalizedString(string key)

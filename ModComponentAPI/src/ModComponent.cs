@@ -32,6 +32,8 @@ namespace ModComponentAPI
         public float MaxHP;
         [Tooltip("The number of days it takes for this item to decay - without use - from 100% to 0%. Leave at 0 if the item should not decay over time.")]
         public float DaysToDecay;
+        [Tooltip("The initial condition of the item when found or crafted.")]
+        public InitialCondition InitialCondition;
 
         [Header("Inspecting")]
         [Tooltip("Will the item be inspected when picked up? If not enabled, the item will go straight to the inventory.")]
