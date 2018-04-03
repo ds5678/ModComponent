@@ -288,6 +288,8 @@ namespace ModComponentMapper
 
         internal static T[] GetMatchingItems<T>(string[] names, string reference = null)
         {
+            names = ModUtils.NotNull(names);
+
             List<T> values = new List<T>();
 
             for (int i = 0; i < names.Length; i++)

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="src\AutoMapper.cs" />
     <Compile Include="src\BlueprintReader.cs" />
+    <Compile Include="src\ChangeLayer.cs" />
     <Compile Include="src\GammaChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />
     <Compile Include="src\Implementation.cs" />

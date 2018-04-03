@@ -62,6 +62,7 @@ namespace ModComponentMapper
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
+                ConfigureBurnable(modComponent);
 
                 ConfigureGearItem(modComponent);
 
@@ -93,7 +94,11 @@ namespace ModComponentMapper
             bpItem.m_CraftedResultCount = modBlueprint.CraftedResultCount;
             bpItem.m_CraftedResult = ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
 
-            bpItem.m_RequiredTool = ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+            if (!string.IsNullOrEmpty(modBlueprint.RequiredTool))
+            {
+                bpItem.m_RequiredTool = ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+            }
+
             bpItem.m_OptionalTools = ModUtils.NotNull(ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools));
             bpItem.m_RequiredGear = ModUtils.NotNull(ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear));
             bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
@@ -161,8 +166,17 @@ namespace ModComponentMapper
             try
             {
                 ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
-                ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
-                ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
+
+                if (!string.IsNullOrEmpty(modBlueprint.RequiredTool))
+                {
+                    ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+                }
+
+                if (modBlueprint.OptionalTools != null)
+                {
+                    ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
+                }
+
                 ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
             }
             catch (Exception e)
@@ -185,6 +199,23 @@ namespace ModComponentMapper
             fireStarterItem.m_FireStartDurationModifier = modAccelerantComponent.DurationOffset;
             fireStarterItem.m_FireStartSkillModifier = modAccelerantComponent.SuccessModifier;
             fireStarterItem.m_ConsumeOnUse = modAccelerantComponent.DestroyedOnUse;
+        }
+
+        private static void ConfigureBurnable(ModComponent modComponent)
+        {
+            ModBurnableComponent modBurnableComponent = ModUtils.GetComponent<ModBurnableComponent>(modComponent);
+            if (modBurnableComponent == null)
+            {
+                return;
+            }
+
+            FuelSourceItem fuelSourceItem = ModUtils.GetOrCreateComponent<FuelSourceItem>(modComponent);
+            fuelSourceItem.m_BurnDurationHours = modBurnableComponent.BurningMinutes / 60f;
+            fuelSourceItem.m_FireAgeMinutesBeforeAdding = modBurnableComponent.BurningMinutesBeforeAllowedToAdd;
+            fuelSourceItem.m_FireStartSkillModifier = modBurnableComponent.SuccessModifier;
+            fuelSourceItem.m_HeatIncrease = modBurnableComponent.TempIncrease;
+            fuelSourceItem.m_HeatInnerRadius = 2.5f;
+            fuelSourceItem.m_HeatOuterRadius = 6f;
         }
 
         private static void ConfigureClothing(ModComponent modComponent)
@@ -606,12 +637,7 @@ namespace ModComponentMapper
                 return GearTypeEnum.Tool;
             }
 
-            if (modComponent is ModFoodComponent)
-            {
-                return GearTypeEnum.Food;
-            }
-
-            if (modComponent is ModCookableComponent)
+            if (modComponent is ModFoodComponent || modComponent is ModCookableComponent)
             {
                 return GearTypeEnum.Food;
             }
@@ -621,7 +647,7 @@ namespace ModComponentMapper
                 return GearTypeEnum.Clothing;
             }
 
-            if (ModUtils.GetComponent<ModFireStartingComponent>(modComponent) != null)
+            if (ModUtils.GetComponent<ModFireStartingComponent>(modComponent) != null || ModUtils.GetComponent<ModBurnableComponent>(modComponent) != null)
             {
                 return GearTypeEnum.Firestarting;
             }
