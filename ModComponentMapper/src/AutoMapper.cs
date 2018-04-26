@@ -147,23 +147,33 @@ namespace ModComponentMapper
 
         private static Assembly ResolveAssembly(object sender, ResolveEventArgs args)
         {
-            Assembly executingAssembly = Assembly.GetExecutingAssembly();
-
             AssemblyName requestedAssemblyName = new AssemblyName(args.Name);
-            AssemblyName executingAssemblyName = executingAssembly.GetName();
-            if (requestedAssemblyName.Name != executingAssemblyName.Name)
+
+            Assembly modComponentMapper = Assembly.GetExecutingAssembly();
+            if (IsCompatible(requestedAssemblyName, modComponentMapper.GetName()))
             {
-                return null;
+                LogUtils.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentMapper.GetName());
+                return Assembly.GetExecutingAssembly();
             }
 
-            if (requestedAssemblyName.Version.Major != executingAssemblyName.Version.Major)
+            Assembly modComponentAPI = typeof(ModComponent).Assembly;
+            if (IsCompatible(requestedAssemblyName, modComponentAPI.GetName()))
             {
-                Debug.Log("Incompatible version of ModComponentMapper requested (" + requestedAssemblyName.Version + " vs " + executingAssemblyName.Version + ")");
-                return null;
+                LogUtils.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentAPI.GetName());
+                return modComponentAPI;
             }
 
-            LogUtils.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + executingAssemblyName);
-            return executingAssembly;
+            return null;
+        }
+
+        private static bool IsCompatible(AssemblyName requested, AssemblyName available)
+        {
+            if (requested.Name != available.Name || requested.Version.Major != available.Version.Major)
+            {
+                return false;
+            }
+
+            return requested.Version.CompareTo(available.Version) <= 0;
         }
     }
 }

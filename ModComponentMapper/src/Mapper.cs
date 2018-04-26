@@ -58,6 +58,7 @@ namespace ModComponentMapper
                 ConfigureStackable(modComponent);
 
                 ConfigureEquippable(modComponent);
+                ConfigureLiquidItem(modComponent);
                 ConfigureFood(modComponent);
                 ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
@@ -326,6 +327,23 @@ namespace ModComponentMapper
             }
         }
 
+        private static void ConfigureLiquidItem(ModComponent modComponent)
+        {
+            ModLiquidItemComponent modLiquidItemComponent = modComponent as ModLiquidItemComponent;
+            if (modLiquidItemComponent == null)
+            {
+                return;
+            }
+
+            LiquidItem liquidItem = ModUtils.GetOrCreateComponent<LiquidItem>(modComponent);
+            liquidItem.m_LiquidCapacityLiters = modLiquidItemComponent.MaxLiters;
+            liquidItem.m_LiquidType = ModUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidItemComponent.LiquidType);
+            liquidItem.m_RandomizeQuantity = false;
+            liquidItem.m_LiquidLiters = 0;
+            liquidItem.m_DrinkingAudio = "Play_DrinkWater";
+            liquidItem.m_TimeToDrinkSeconds = 4;
+        }
+        
         private static void ConfigureFireStarter(ModComponent modComponent)
         {
             ModFireStarterComponent modFireStarterComponent = ModUtils.GetComponent<ModFireStarterComponent>(modComponent);

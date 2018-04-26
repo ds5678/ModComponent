@@ -78,6 +78,7 @@
     <Compile Include="src\ModPlayerAnimation.cs" />
     <Compile Include="src\patches\GameManagerPatch.cs" />
     <Compile Include="src\patches\Panel_ActionsRadialPatch.cs" />
+    <Compile Include="src\patches\Panel_LogPatch.cs" />
     <Compile Include="src\patches\PlayAkSoundPatch.cs" />
     <Compile Include="src\patches\SkillsManagerPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
