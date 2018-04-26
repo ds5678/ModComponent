@@ -33,6 +33,14 @@
 					"url": "https://github.com/WulfMarius/ModComponent/releases/download/2.0.1/ModComponent-V2.0.1.zip"
 				}
 			]
+		}, {
+			"version": "2.1.0",
+			"dependencies": [
+				{
+					"name": "AssetLoader",
+					"version": "^2.0.1"
+				}
+			]
 		}
 	]
 }
