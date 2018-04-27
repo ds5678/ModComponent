@@ -343,7 +343,7 @@ namespace ModComponentMapper
             liquidItem.m_DrinkingAudio = "Play_DrinkWater";
             liquidItem.m_TimeToDrinkSeconds = 4;
         }
-        
+
         private static void ConfigureFireStarter(ModComponent modComponent)
         {
             ModFireStarterComponent modFireStarterComponent = ModUtils.GetComponent<ModFireStarterComponent>(modComponent);
@@ -655,7 +655,7 @@ namespace ModComponentMapper
                 return GearTypeEnum.Tool;
             }
 
-            if (modComponent is ModFoodComponent || modComponent is ModCookableComponent)
+            if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidItemComponent)?.LiquidType == LiquidType.Water)
             {
                 return GearTypeEnum.Food;
             }
