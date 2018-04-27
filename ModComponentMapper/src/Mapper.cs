@@ -650,6 +650,11 @@ namespace ModComponentMapper
 
         private static GearTypeEnum GetGearType(ModComponent modComponent)
         {
+            if (modComponent.InventoryCategory != InventoryCategory.Auto)
+            {
+                return ModUtils.TranslateEnumValue<GearTypeEnum, InventoryCategory>(modComponent.InventoryCategory);
+            }
+
             if (modComponent is ModToolComponent)
             {
                 return GearTypeEnum.Tool;

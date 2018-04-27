@@ -2,6 +2,17 @@
 
 namespace ModComponentAPI
 {
+    public enum InventoryCategory
+    {
+        Auto,
+        Clothing,
+        FirstAid,
+        Firestarting,
+        Food,
+        Material,
+        Tool
+    }
+
     [DisallowMultipleComponent]
     public abstract class ModComponent : MonoBehaviour
     {
@@ -16,6 +27,8 @@ namespace ModComponentAPI
         public string DescriptionLocalizatonId;
 
         [Header("Inventory")]
+        [Tooltip("The inventory category to be used for this item. Leave at 'Auto' for a sensible default.")]
+        public InventoryCategory InventoryCategory = InventoryCategory.Auto;
         [Tooltip("Localization key to be used for the 'Action' (e.g. 'Equip', 'Eat', ...) button in the inventory. The text is purely cosmetic and will not influcence the action the button triggers. Leave empty for a sensible default.")]
         public string InventoryActionLocalizationId;
         [Tooltip("Sound to play when the item is picked up.")]
