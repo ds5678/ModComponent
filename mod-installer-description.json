@@ -49,6 +49,14 @@
 					"version": "^2.0.1"
 				}
 			]
+		}, {
+			"version": "2.2.0",
+			"dependencies": [
+				{
+					"name": "AssetLoader",
+					"version": "^2.0.1"
+				}
+			]
 		}
 	]
 }
