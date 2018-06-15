@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using ModComponentAPI;
+using UnityEngine;
 
 using static PlayerAnimation;
 
@@ -74,6 +75,24 @@ namespace ModComponentMapper
             {
                 equippable.OnControlModeChangedWhileEquipped?.Invoke();
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "StoreOriginalTint")]
+    internal class PlayerManager_StoreOriginalTint
+    {
+        internal static void Prefix(PlayerManager __instance, GameObject go)
+        {
+            go.AddComponent<RestoreMaterialQueue>();
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "RestoreOriginalTint")]
+    internal class PlayerManager_RestoreOriginalTint
+    {
+        internal static void Postfix(PlayerManager __instance, GameObject go)
+        {
+            Object.Destroy(go.GetComponent<RestoreMaterialQueue>());
         }
     }
 

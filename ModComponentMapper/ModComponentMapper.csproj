@@ -61,6 +61,7 @@
     <Compile Include="src\GammaChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />
     <Compile Include="src\Implementation.cs" />
+    <Compile Include="src\ComponentMapper\CookableMapper.cs" />
     <Compile Include="src\patches\AfflictionButtonPatch.cs" />
     <Compile Include="src\AlcoholComponent.cs" />
     <Compile Include="src\ExecutionValve.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="src\patches\Panel_ActionsRadialPatch.cs" />
     <Compile Include="src\patches\Panel_LogPatch.cs" />
     <Compile Include="src\patches\PlayAkSoundPatch.cs" />
+    <Compile Include="src\patches\RestoreMaterialQueue.cs" />
     <Compile Include="src\patches\SkillsManagerPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\patches\PanelLoadingPatch.cs" />

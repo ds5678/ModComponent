@@ -1,4 +1,5 @@
 ﻿using ModComponentAPI;
+using ModComponentMapper.ComponentMapper;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,7 +61,7 @@ namespace ModComponentMapper
                 ConfigureEquippable(modComponent);
                 ConfigureLiquidItem(modComponent);
                 ConfigureFood(modComponent);
-                ConfigureCookable(modComponent);
+                CookableMapper.ConfigureCookable(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
                 ConfigureBurnable(modComponent);
@@ -253,51 +254,6 @@ namespace ModComponentMapper
             clothingItem.m_Toughness = modClothingItem.Toughness;
         }
 
-        private static void ConfigureCookable(ModComponent modComponent)
-        {
-            ModCookableComponent modCookableComponent = modComponent as ModCookableComponent;
-            if (modCookableComponent == null || !modCookableComponent.Cooking)
-            {
-                return;
-            }
-
-            Cookable cookable = ModUtils.GetOrCreateComponent<Cookable>(modCookableComponent);
-
-            cookable.m_CookTimeMinutes = modCookableComponent.CookingMinutes;
-            cookable.m_NumUnitsRequired = modCookableComponent.CookingUnitsRequired;
-            cookable.m_PotableWaterRequiredLiters = modCookableComponent.CookingWaterRequired;
-            cookable.m_CookAudio = ModUtils.DefaultIfEmpty(modCookableComponent.CookingAudio, "PLAY_BOILINGLIGHT");
-
-            // either just heat or convert, but not both
-            if (modCookableComponent.CookingResult == null)
-            {
-                // no conversion, just heating
-                FoodItem foodItem = ModUtils.GetComponent<FoodItem>(modCookableComponent);
-                if (foodItem != null)
-                {
-                    foodItem.m_HeatedWhenCooked = true;
-                }
-            }
-            else
-            {
-                // no heating, but instead convert the item when cooking completes
-                GearItem cookedGearItem = modCookableComponent.CookingResult.GetComponent<GearItem>();
-                if (cookedGearItem == null)
-                {
-                    // not mapped yet, do it now
-                    Mapper.Map(modCookableComponent.CookingResult);
-                    cookedGearItem = modCookableComponent.CookingResult.GetComponent<GearItem>();
-                }
-
-                if (cookedGearItem == null)
-                {
-                    throw new ArgumentException("CookingResult does not map to GearItem for prefab " + modCookableComponent.name);
-                }
-
-                cookable.m_CookedPrefab = cookedGearItem;
-            }
-        }
-
         private static FirstPersonItem ConfiguredRifleFirstPersonItem(ModRifleComponent modRifleComponent)
         {
             FirstPersonItem result = ModUtils.GetOrCreateComponent<FirstPersonItem>(modRifleComponent);
@@ -414,6 +370,11 @@ namespace ModComponentMapper
                     smashableItem.m_TimeToSmash = 6;
                     smashableItem.m_SmashAudio = "Play_EatingSmashCan";
                 }
+
+                if (modFoodComponent.Canned)
+                {
+                    foodItem.m_GearPrefabHarvestAfterFinishEatingNormal = Resources.Load<GameObject>("GEAR_RecycledCan");
+                }
             }
 
             if (modFoodComponent.AffectRest)
@@ -466,6 +427,8 @@ namespace ModComponentMapper
             gearItem.m_WornOutAudio = modComponent.WornOutAudio;
 
             gearItem.m_ConditionTableType = GetConditionTableType(modComponent);
+
+            gearItem.Awake();
         }
 
         private static void ConfigureHarvestable(ModComponent modComponent)

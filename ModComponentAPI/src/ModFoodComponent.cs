@@ -52,7 +52,7 @@ namespace ModComponentAPI
         public bool Meat;
         [Tooltip("Is the food item fish directly from an animal? (E.g. salmon, but not canned sardines - mainly for statistics)")]
         public bool Fish;
-        [Tooltip("Is the food item canned?")]
+        [Tooltip("Is the food item canned? Canned items will yield a 'Recycled Can' when opened properly.")]
         public bool Canned;
 
         [Header("Food/Opening")]

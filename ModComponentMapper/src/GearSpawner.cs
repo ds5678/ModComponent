@@ -53,7 +53,7 @@ namespace ModComponentMapper
 
         internal static void Initialize()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
 
             GearSpawnReader.ReadDefinitions();
         }
