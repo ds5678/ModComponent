@@ -51,6 +51,7 @@ namespace ModComponentMapper.ComponentMapper
             cookable.m_ReadyTimeMinutes = modCookableComponent.BurntMinutes;
             cookable.m_NumUnitsRequired = modCookableComponent.CookingUnitsRequired;
             cookable.m_PotableWaterRequiredLiters = modCookableComponent.CookingWaterRequired;
+            cookable.m_WarmUpNearFireRange = 1.5f;
 
             cookable.m_CookAudio = ModUtils.DefaultIfEmpty(modCookableComponent.CookingAudio, GetDefaultCookAudio(modCookableComponent));
             cookable.m_PutInPotAudio = ModUtils.DefaultIfEmpty(modCookableComponent.StartCookingAudio, GetDefaultStartCookingAudio(modCookableComponent));
