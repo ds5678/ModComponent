@@ -16,6 +16,24 @@ namespace ModComponentMapper
         }
     }
 
+    [HarmonyPatch(typeof(PlayerManager), "RestoreOriginalTint")]
+    internal class PlayerManager_RestoreOriginalTint
+    {
+        internal static void Postfix(PlayerManager __instance, GameObject go)
+        {
+            Object.Destroy(go.GetComponent<RestoreMaterialQueue>());
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "StoreOriginalTint")]
+    internal class PlayerManager_StoreOriginalTint
+    {
+        internal static void Prefix(PlayerManager __instance, GameObject go)
+        {
+            go.AddComponent<RestoreMaterialQueue>();
+        }
+    }
+
     [HarmonyPatch(typeof(PlayerManager), "TakeOffClothingItem")]
     internal class PlayerManager_TakeOffClothingItem
     {
@@ -23,6 +41,24 @@ namespace ModComponentMapper
         {
             ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnTakeOff?.Invoke();
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]
+    internal class PlayerManager_UnequipItemInHandsInternalPatch
+    {
+        public static void Postfix(PlayerManager __instance)
+        {
+            GearEquipper.Unequip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]
+    internal class PlayerManager_UnequipItemInHandsSkipAnimation
+    {
+        public static void Prefix(PlayerManager __instance)
+        {
+            GearEquipper.OnUnequipped(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
 
@@ -44,14 +80,6 @@ namespace ModComponentMapper
     {
         public static void Postfix(PlayerManager __instance)
         {
-            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(__instance.m_ItemInHands);
-            if (animation != null)
-            {
-                animation.TransitionTo(State.Equipping);
-                GameManager.GetPlayerAnimationComponent().m_EnableAnimationDrivenZoom = false;
-                return;
-            }
-
             GearEquipper.Equip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
@@ -75,50 +103,6 @@ namespace ModComponentMapper
             {
                 equippable.OnControlModeChangedWhileEquipped?.Invoke();
             }
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "StoreOriginalTint")]
-    internal class PlayerManager_StoreOriginalTint
-    {
-        internal static void Prefix(PlayerManager __instance, GameObject go)
-        {
-            go.AddComponent<RestoreMaterialQueue>();
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "RestoreOriginalTint")]
-    internal class PlayerManager_RestoreOriginalTint
-    {
-        internal static void Postfix(PlayerManager __instance, GameObject go)
-        {
-            Object.Destroy(go.GetComponent<RestoreMaterialQueue>());
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]
-    internal class PlayerManagerUnequipItemInHandsInternalPatch
-    {
-        public static void Postfix(PlayerManager __instance)
-        {
-            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(__instance.m_ItemInHands);
-            if (animation != null)
-            {
-                animation.TransitionTo(State.Dequipping);
-                GameManager.GetPlayerAnimationComponent().m_EnableAnimationDrivenZoom = true;
-                return;
-            }
-
-            GearEquipper.Unequip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]
-    internal class PlayerManager_UnequipItemInHandsSkipAnimation
-    {
-        public static void Prefix(PlayerManager __instance)
-        {
-            GearEquipper.OnUnequipped(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
     }
 
