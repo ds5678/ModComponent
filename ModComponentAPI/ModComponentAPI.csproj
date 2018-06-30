@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\ModBurnableComponent.cs" />
+    <Compile Include="src\ModCookingPotComponent.cs" />
     <Compile Include="src\ModLiquidItemComponent.cs" />
     <Compile Include="src\ModStackableComponent.cs" />
     <Compile Include="src\AddTag.cs" />
