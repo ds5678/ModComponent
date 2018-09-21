@@ -9,7 +9,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]
     internal class PlayerManager_PutOnClothingItem
     {
-        public static void Postfix(GearItem gi)
+        internal static void Postfix(GearItem gi)
         {
             ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnPutOn?.Invoke();
@@ -37,7 +37,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "TakeOffClothingItem")]
     internal class PlayerManager_TakeOffClothingItem
     {
-        public static void Postfix(GearItem gi)
+        internal static void Postfix(GearItem gi)
         {
             ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnTakeOff?.Invoke();
@@ -47,7 +47,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]
     internal class PlayerManager_UnequipItemInHandsInternalPatch
     {
-        public static void Postfix(PlayerManager __instance)
+        internal static void Postfix(PlayerManager __instance)
         {
             GearEquipper.Unequip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
@@ -56,7 +56,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]
     internal class PlayerManager_UnequipItemInHandsSkipAnimation
     {
-        public static void Prefix(PlayerManager __instance)
+        internal static void Prefix(PlayerManager __instance)
         {
             GearEquipper.OnUnequipped(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
@@ -65,7 +65,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "EquipItem")]
     internal class PlayerManagerEquipItemPatch
     {
-        public static void Prefix(PlayerManager __instance, GearItem gi)
+        internal static void Prefix(PlayerManager __instance, GearItem gi)
         {
             EquippableModComponent equippable = ModUtils.GetEquippableModComponent(__instance.m_ItemInHands);
             if (equippable != null)
@@ -78,7 +78,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "OnEquipItemBegin")]
     internal class PlayerManagerOnEquipItemBeginPatch
     {
-        public static void Postfix(PlayerManager __instance)
+        internal static void Postfix(PlayerManager __instance)
         {
             GearEquipper.Equip(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
         }
@@ -89,7 +89,7 @@ namespace ModComponentMapper
     {
         private static PlayerControlMode lastMode;
 
-        public static void Postfix(PlayerManager __instance, PlayerControlMode mode)
+        internal static void Postfix(PlayerManager __instance, PlayerControlMode mode)
         {
             if (mode == lastMode)
             {
@@ -109,7 +109,7 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(PlayerManager), "UseInventoryItem")]
     internal class PlayerManagerUseInventoryItemPatch
     {
-        public static bool Prefix(PlayerManager __instance, GearItem gi)
+        internal static bool Prefix(PlayerManager __instance, GearItem gi)
         {
             if (ModUtils.GetComponent<FirstPersonItem>(gi) != null)
             {
@@ -132,6 +132,22 @@ namespace ModComponentMapper
                 __instance.EquipItem(gi, false);
             }
 
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "InteractiveObjectsProcessAltFire")]
+    internal class PlayerManager_InteractiveObjectsProcessAltFire
+    {
+        internal static bool Prefix(PlayerManager __instance)
+        {
+            AlternativeAction alternativeAction = ModUtils.GetComponent<AlternativeAction>(__instance.m_InteractiveObjectUnderCrosshair);
+            if (alternativeAction == null)
+            {
+                return true;
+            }
+
+            alternativeAction.Execute();
             return false;
         }
     }

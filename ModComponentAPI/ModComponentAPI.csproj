@@ -41,6 +41,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\AlternativeAction.cs" />
     <Compile Include="src\ModBurnableComponent.cs" />
     <Compile Include="src\ModCookingPotComponent.cs" />
     <Compile Include="src\ModLiquidItemComponent.cs" />
