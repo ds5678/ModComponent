@@ -8,7 +8,7 @@ namespace ModComponentAPI
         [Tooltip("Number of minutes this item adds to the remaining burn time of the fire.")]
         public int BurningMinutes;
 
-        [Range(1, 60)]
+        [Range(0, 60)]
         [Tooltip("How long must a fire be burning before this item can be added?")]
         public float BurningMinutesBeforeAllowedToAdd;
 
