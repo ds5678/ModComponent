@@ -67,7 +67,17 @@ namespace ModComponentAPI
         [Tooltip("Can it be opened by smashing?")]
         public bool OpeningWithSmashing;
 
-        [Header("Food/Fatigue")]
+        [Header("Food/Condition")]
+        [Tooltip("Does this item affect 'Condition' while sleeping? If not enabled, the other settings in this section will be ignored.")]
+        public bool AffectCondition;
+        [Tooltip("How much additional condition is restored per hour?")]
+        [Range(1, 100)]
+        public float ConditionRestBonus = 2;
+        [Tooltip("Amount of in-game minutes the 'ConditionRestBonus' will be applied.")]
+        [Range(1, 600)]
+        public float ConditionRestMinutes = 360;
+
+        [Header("Food/Rest")]
         [Tooltip("Does this item affect 'Rest'? If not enabled, the other settings in this section will be ignored.")]
         public bool AffectRest;
         [Range(-100, 100)]

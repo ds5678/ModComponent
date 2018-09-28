@@ -36,7 +36,7 @@ namespace ModComponentMapper.ComponentMapper
             return "Play_AddWaterToPot";
         }
 
-        internal static void ConfigureCookable(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent)
         {
             ModCookableComponent modCookableComponent = modComponent as ModCookableComponent;
             if (modCookableComponent == null || !modCookableComponent.Cooking)

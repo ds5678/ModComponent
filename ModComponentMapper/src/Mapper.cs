@@ -57,15 +57,19 @@ namespace ModComponentMapper
                 ConfigureFireStarter(modComponent);
                 ConfigureAccelerant(modComponent);
                 ConfigureStackable(modComponent);
+                ConfigureBurnable(modComponent);
+                ScentMapper.Configure(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureLiquidItem(modComponent);
                 ConfigureFood(modComponent);
-                CookableMapper.ConfigureCookable(modComponent);
+                CookableMapper.Configure(modComponent);
                 ConfigureCookingPot(modComponent);
                 ConfigureRifle(modComponent);
                 ConfigureClothing(modComponent);
-                ConfigureBurnable(modComponent);
+                FirstAidMapper.Configure(modComponent);
+                ToolMapper.Configure(modComponent);
+                BedMapper.Configure(modComponent);
 
                 ConfigureGearItem(modComponent);
 
@@ -443,6 +447,13 @@ namespace ModComponentMapper
                 freezingBuff.m_DurationHours = modFoodComponent.ColdFactorMinutes / 60f;
             }
 
+            if (modFoodComponent.AffectCondition)
+            {
+                ConditionRestBuff conditionRestBuff = ModUtils.GetOrCreateComponent<ConditionRestBuff>(modFoodComponent);
+                conditionRestBuff.m_ConditionRestBonus = modFoodComponent.ConditionRestBonus;
+                conditionRestBuff.m_NumHoursRestAffected = modFoodComponent.ConditionRestMinutes / 60f;
+            }
+
             if (modFoodComponent.ContainsAlcohol)
             {
                 AlcoholComponent alcohol = ModUtils.GetOrCreateComponent<AlcoholComponent>(modFoodComponent);
@@ -465,11 +476,8 @@ namespace ModComponentMapper
             gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
             gearItem.OverrideGearCondition(ModUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition));
 
-            gearItem.m_LocalizedDisplayName = new LocalizedString();
-            gearItem.m_LocalizedDisplayName.m_LocalizationID = modComponent.DisplayNameLocalizationId;
-
-            gearItem.m_LocalizedDescription = new LocalizedString();
-            gearItem.m_LocalizedDescription.m_LocalizationID = modComponent.DescriptionLocalizatonId;
+            gearItem.m_LocalizedDisplayName = CreateLocalizedString(modComponent.DisplayNameLocalizationId);
+            gearItem.m_LocalizedDescription = CreateLocalizedString(modComponent.DescriptionLocalizatonId);
 
             gearItem.m_PickUpAudio = modComponent.PickUpAudio;
             gearItem.m_StowAudio = modComponent.StowAudio;
@@ -477,6 +485,7 @@ namespace ModComponentMapper
             gearItem.m_WornOutAudio = modComponent.WornOutAudio;
 
             gearItem.m_ConditionTableType = GetConditionTableType(modComponent);
+            gearItem.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
 
             gearItem.Awake();
         }
@@ -605,7 +614,7 @@ namespace ModComponentMapper
             stackableItem.m_UnitsPerItem = 1;
         }
 
-        private static LocalizedString CreateLocalizedString(string key)
+        internal static LocalizedString CreateLocalizedString(string key)
         {
             return new LocalizedString()
             {
