@@ -61,6 +61,7 @@
     <Compile Include="src\ComponentMapper\BedMapper.cs" />
     <Compile Include="src\ComponentMapper\FirstAidMapper.cs" />
     <Compile Include="src\ComponentMapper\ScentMapper.cs" />
+    <Compile Include="src\ComponentMapper\SharpenableMapper.cs" />
     <Compile Include="src\ComponentMapper\ToolMapper.cs" />
     <Compile Include="src\GammaChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />

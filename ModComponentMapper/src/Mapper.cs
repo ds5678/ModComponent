@@ -59,6 +59,7 @@ namespace ModComponentMapper
                 ConfigureStackable(modComponent);
                 ConfigureBurnable(modComponent);
                 ScentMapper.Configure(modComponent);
+                SharpenableMapper.Configure(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureLiquidItem(modComponent);
