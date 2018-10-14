@@ -56,13 +56,13 @@ namespace ModComponentMapper
     {
         public static void Log(string message)
         {
-            Debug.LogFormat("[ModComponentMapper] {0}", message);
+            Debug.LogFormat("[ModComponent] {0}", message);
         }
 
         public static void Log(string message, params object[] parameters)
         {
-            string preformattedMessage = string.Format("[ModComponentMapper] {0}", message);
-            Debug.LogFormat(preformattedMessage, parameters);
+            string preformattedMessage = string.Format(message, parameters);
+            Log(preformattedMessage);
         }
     }
 
