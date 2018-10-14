@@ -11,7 +11,10 @@ namespace ModComponentAPI
         public GameObject EquippedModelPrefab;
 
         [Header("Implementation")]
-        [Tooltip("The name of the type implementing the specific game logic of this item. Use 'Namespace.TypeName,AssemblyName', e.g. 'RubberDuck.Implementation,Rubber-Duck'. Leave empty if this item needs no special game logic.")]
+        [Tooltip("The name of the type implementing the specific game logic of this item.\n" +
+            "If this is an assembly-qualified name (Namespace.TypeName,Assembly) it will be loaded from the given assembly. If the assembly is omitted (Namespace.TypeName), the type will be loaded from the first assembly that contains a type with the given name.\n" +
+            "If the given type is a UnityEngine.MonoBehaviour, it will be attached to this GameObject.\n" +
+            "Leave empty if this item needs no special game logic.")]
         public string ImplementationType;
 
         public string EquippingAudio;
@@ -39,14 +42,22 @@ namespace ModComponentAPI
 
         void Awake()
         {
-            if (ImplementationType == null || ImplementationType == string.Empty)
+            if (string.IsNullOrEmpty(ImplementationType))
             {
                 return;
             }
 
-            Type implementationType = Type.GetType(ImplementationType);
-            Implementation = Activator.CreateInstance(implementationType);
-            if (Implementation == null)
+            Type implementationType = TypeResolver.Resolve(ImplementationType);
+            if (implementationType.IsSubclassOf(typeof(MonoBehaviour)))
+            {
+                this.Implementation = this.gameObject.AddComponent(implementationType);
+            }
+            else
+            {
+                this.Implementation = Activator.CreateInstance(implementationType);
+            }
+
+            if (this.Implementation == null)
             {
                 return;
             }

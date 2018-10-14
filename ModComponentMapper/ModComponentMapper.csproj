@@ -59,10 +59,12 @@
     <Compile Include="src\BlueprintReader.cs" />
     <Compile Include="src\ChangeLayer.cs" />
     <Compile Include="src\ComponentMapper\BedMapper.cs" />
+    <Compile Include="src\ComponentMapper\EvolveMapper.cs" />
     <Compile Include="src\ComponentMapper\FirstAidMapper.cs" />
     <Compile Include="src\ComponentMapper\ScentMapper.cs" />
     <Compile Include="src\ComponentMapper\SharpenableMapper.cs" />
     <Compile Include="src\ComponentMapper\ToolMapper.cs" />
+    <Compile Include="src\CustomSaveData\SaveData.cs" />
     <Compile Include="src\GammaChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />
     <Compile Include="src\Implementation.cs" />
@@ -87,12 +89,14 @@
     <Compile Include="src\patches\Panel_LogPatch.cs" />
     <Compile Include="src\patches\PlayAkSoundPatch.cs" />
     <Compile Include="src\patches\RestoreMaterialQueue.cs" />
+    <Compile Include="src\CustomSaveData\SaveGameSystemPatch.cs" />
     <Compile Include="src\patches\SkillsManagerPatch.cs" />
     <Compile Include="src\patches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="src\patches\PanelLoadingPatch.cs" />
     <Compile Include="src\patches\PlayerAnimationPatch.cs" />
     <Compile Include="src\patches\PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\CustomSaveData\SaveDataManager.cs" />
     <Compile Include="src\SerializableSkill.cs" />
     <Compile Include="src\RadialConfigurator.cs" />
     <Compile Include="src\Utils.cs" />

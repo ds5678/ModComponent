@@ -109,7 +109,7 @@ namespace ModComponentMapper
         {
             if (instance == null)
             {
-                Debug.Log("ModHealthManager not initialized.");
+                LogUtils.Log("ModHealthManager not initialized.");
                 return;
             }
 

@@ -7,7 +7,7 @@ namespace ModComponentMapper
     {
         public static void OnLoad()
         {
-            Debug.Log("[ModComponentMapper]: Version " + Assembly.GetExecutingAssembly().GetName().Version);
+            LogUtils.Log("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
 
             AutoMapper.Initialize();
             ModHealthManager.Initialize();

@@ -15,7 +15,7 @@ namespace ModComponentMapper
             }
             catch (System.Exception e)
             {
-                Debug.Log("Mapping failed: " + e);
+                LogUtils.Log("Mapping failed: " + e);
             }
         }
     }

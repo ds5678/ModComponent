@@ -60,6 +60,7 @@ namespace ModComponentMapper
                 ConfigureBurnable(modComponent);
                 ScentMapper.Configure(modComponent);
                 SharpenableMapper.Configure(modComponent);
+                EvolveMapper.Configure(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureLiquidItem(modComponent);
@@ -75,9 +76,9 @@ namespace ModComponentMapper
                 ConfigureGearItem(modComponent);
 
                 mappedItems.Add(modComponent);
-            }
 
-            PostProcess(modComponent);
+                PostProcess(modComponent);
+            }
 
             return new MappedItem(prefab);
         }
@@ -717,7 +718,7 @@ namespace ModComponentMapper
                 {
                     if (eachMaterial.shader.name == "Standard")
                     {
-                        Debug.Log("Updating shader of " + modComponent.name);
+                        LogUtils.Log("Updating shader of " + modComponent.name);
                         eachMaterial.shader = meshRenderer.material.shader;
                         eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
                     }

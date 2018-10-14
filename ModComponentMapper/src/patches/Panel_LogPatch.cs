@@ -24,7 +24,6 @@ namespace ModComponentMapper
                 List<BlueprintItem> m_FilteredBlueprintItemList = (List<BlueprintItem>)AccessTools.Field(__instance.GetType(), "m_FilteredBlueprintItemList").GetValue(__instance);
                 int v = Mathf.CeilToInt(m_FilteredBlueprintItemList.Count / 4f) - 3;
 
-                Debug.Log("Scroll value was " + componentsInChild.numberOfSteps + "; now " + v);
                 componentsInChild.numberOfSteps = v;
             }
         }

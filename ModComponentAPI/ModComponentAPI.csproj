@@ -11,8 +11,7 @@
     <AssemblyName>ModComponentAPI</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,34 +41,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AlternativeAction.cs" />
-    <Compile Include="src\ModBedComponent.cs" />
-    <Compile Include="src\ModBurnableComponent.cs" />
-    <Compile Include="src\ModCookingPotComponent.cs" />
-    <Compile Include="src\ModFirstAidComponent.cs" />
-    <Compile Include="src\ModLiquidItemComponent.cs" />
-    <Compile Include="src\ModScentComponent.cs" />
-    <Compile Include="src\ModSharpenableComponent.cs" />
-    <Compile Include="src\ModStackableComponent.cs" />
+    <Compile Include="src\AttachBehaviour.cs" />
+    <Compile Include="src\behaviours\ModEvolveComponent.cs" />
+    <Compile Include="src\items\ModBedComponent.cs" />
+    <Compile Include="src\behaviours\ModBurnableComponent.cs" />
+    <Compile Include="src\items\ModCookingPotComponent.cs" />
+    <Compile Include="src\items\ModFirstAidComponent.cs" />
+    <Compile Include="src\items\ModLiquidItemComponent.cs" />
+    <Compile Include="src\behaviours\ModSaveBehaviour.cs" />
+    <Compile Include="src\behaviours\ModScentComponent.cs" />
+    <Compile Include="src\behaviours\ModSharpenableComponent.cs" />
+    <Compile Include="src\behaviours\ModStackableComponent.cs" />
     <Compile Include="src\AddTag.cs" />
     <Compile Include="src\InitialCondition.cs" />
-    <Compile Include="src\ModAccelerantComponent.cs" />
+    <Compile Include="src\behaviours\ModAccelerantComponent.cs" />
     <Compile Include="src\ModBlueprint.cs" />
-    <Compile Include="src\ModFireStarterComponent.cs" />
-    <Compile Include="src\ModFireStartingComponent.cs" />
-    <Compile Include="src\ModGenericItemComponent.cs" />
-    <Compile Include="src\ModHarvestableComponent.cs" />
-    <Compile Include="src\ModClothingComponent.cs" />
-    <Compile Include="src\EquippableModComponent.cs" />
-    <Compile Include="src\ModCookableComponent.cs" />
-    <Compile Include="src\ModFoodComponent.cs" />
-    <Compile Include="src\ModComponent.cs" />
-    <Compile Include="src\ModRepairableComponent.cs" />
-    <Compile Include="src\ModRifleComponent.cs" />
+    <Compile Include="src\behaviours\ModFireStarterComponent.cs" />
+    <Compile Include="src\behaviours\ModFireStartingComponent.cs" />
+    <Compile Include="src\items\ModGenericItemComponent.cs" />
+    <Compile Include="src\behaviours\ModHarvestableComponent.cs" />
+    <Compile Include="src\items\ModClothingComponent.cs" />
+    <Compile Include="src\items\EquippableModComponent.cs" />
+    <Compile Include="src\items\ModCookableComponent.cs" />
+    <Compile Include="src\items\ModFoodComponent.cs" />
+    <Compile Include="src\items\ModComponent.cs" />
+    <Compile Include="src\behaviours\ModRepairableComponent.cs" />
+    <Compile Include="src\items\ModRifleComponent.cs" />
     <Compile Include="src\ModSkill.cs" />
-    <Compile Include="src\ModToolComponent.cs" />
+    <Compile Include="src\items\ModToolComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\PlayAkSound.cs" />
     <Compile Include="src\Radial.cs" />
+    <Compile Include="src\TypeResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
