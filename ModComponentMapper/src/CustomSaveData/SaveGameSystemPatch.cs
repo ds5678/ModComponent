@@ -7,6 +7,7 @@ namespace ModComponentMapper.patches
     [HarmonyPatch(typeof(GearItem), "Deserialize")]
     public class GearItem_Deserialize
     {
+        [HarmonyPriority(Priority.Last)]
         public static void Postfix(GearItem __instance)
         {
             ModSaveBehaviour modSaveBehaviour = __instance.GetComponent<ModSaveBehaviour>();
@@ -30,6 +31,7 @@ namespace ModComponentMapper.patches
     [HarmonyPatch(typeof(GearItem), "Serialize")]
     public class GearItem_Serialize
     {
+        [HarmonyPriority(Priority.Last)]
         public static void Prefix(GearItem __instance)
         {
             ModSaveBehaviour modSaveBehaviour = __instance.GetComponent<ModSaveBehaviour>();

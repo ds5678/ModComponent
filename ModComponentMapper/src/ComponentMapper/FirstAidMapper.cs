@@ -29,7 +29,7 @@ namespace ModComponentMapper.ComponentMapper
                     break;
 
                 case FirstAidType.Disinfectant:
-                    firstAidItem.m_AppliesBandage = true;
+                    firstAidItem.m_CleansWounds = true;
                     break;
 
                 case FirstAidType.PainKiller:

@@ -156,10 +156,12 @@ namespace ModComponentMapper
 
         private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene != null && !string.IsNullOrEmpty(scene.name) && scene.name != "Empty" && mode == LoadSceneMode.Single)
+            if (scene == null || mode == LoadSceneMode.Additive || string.IsNullOrEmpty(scene.name) || scene.name == "Empty" || scene.name == "MainMenu")
             {
-                PrepareScene(scene.name);
+                return;
             }
+
+            PrepareScene(scene.name);
         }
 
         private static void PrepareScene(string sceneName)
