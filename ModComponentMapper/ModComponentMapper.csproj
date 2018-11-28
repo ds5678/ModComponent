@@ -61,6 +61,9 @@
     <Compile Include="src\ComponentMapper\BedMapper.cs" />
     <Compile Include="src\ComponentMapper\EvolveMapper.cs" />
     <Compile Include="src\ComponentMapper\FirstAidMapper.cs" />
+    <Compile Include="src\ComponentMapper\HarvestableMapper.cs" />
+    <Compile Include="src\ComponentMapper\InspectMapper.cs" />
+    <Compile Include="src\ComponentMapper\RepairableMapper.cs" />
     <Compile Include="src\ComponentMapper\ScentMapper.cs" />
     <Compile Include="src\ComponentMapper\SharpenableMapper.cs" />
     <Compile Include="src\ComponentMapper\ToolMapper.cs" />

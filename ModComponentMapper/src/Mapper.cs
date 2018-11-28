@@ -51,9 +51,9 @@ namespace ModComponentMapper
             {
                 LogUtils.Log("Mapping {0}", prefab.name);
 
-                ConfigureInspect(modComponent);
-                ConfigureHarvestable(modComponent);
-                ConfigureRepairable(modComponent);
+                InspectMapper.Configure(modComponent);
+                HarvestableMapper.Configure(modComponent);
+                RepairableMapper.Configure(modComponent);
                 ConfigureFireStarter(modComponent);
                 ConfigureAccelerant(modComponent);
                 ConfigureStackable(modComponent);
@@ -81,6 +81,14 @@ namespace ModComponentMapper
             }
 
             return new MappedItem(prefab);
+        }
+
+        internal static LocalizedString CreateLocalizedString(string key)
+        {
+            return new LocalizedString()
+            {
+                m_LocalizationID = key
+            };
         }
 
         internal static void MapBlueprint(ModBlueprint modBlueprint)
@@ -261,21 +269,6 @@ namespace ModComponentMapper
             clothingItem.m_Toughness = modClothingItem.Toughness;
         }
 
-        private static FirstPersonItem ConfiguredRifleFirstPersonItem(ModRifleComponent modRifleComponent)
-        {
-            FirstPersonItem result = ModUtils.GetOrCreateComponent<FirstPersonItem>(modRifleComponent);
-
-            FirstPersonItem template = Resources.Load<GameObject>("GEAR_Rifle").GetComponent<FirstPersonItem>();
-
-            result.m_FirstPersonObjectName = ModUtils.NormalizeName(modRifleComponent.name);
-            result.m_UnWieldAudio = template.m_UnWieldAudio;
-            result.m_WieldAudio = template.m_WieldAudio;
-            result.m_PlayerStateTransitions = UnityEngine.Object.Instantiate(template.m_PlayerStateTransitions);
-            result.Awake();
-
-            return result;
-        }
-
         private static void ConfigureCookingPot(ModComponent modComponent)
         {
             ModCookingPotComponent modCookingPotComponent = modComponent as ModCookingPotComponent;
@@ -325,6 +318,21 @@ namespace ModComponentMapper
             placeableItem.m_Range = template.GetComponent<PlaceableItem>()?.m_Range ?? 3;
         }
 
+        private static FirstPersonItem ConfiguredRifleFirstPersonItem(ModRifleComponent modRifleComponent)
+        {
+            FirstPersonItem result = ModUtils.GetOrCreateComponent<FirstPersonItem>(modRifleComponent);
+
+            FirstPersonItem template = Resources.Load<GameObject>("GEAR_Rifle").GetComponent<FirstPersonItem>();
+
+            result.m_FirstPersonObjectName = ModUtils.NormalizeName(modRifleComponent.name);
+            result.m_UnWieldAudio = template.m_UnWieldAudio;
+            result.m_WieldAudio = template.m_WieldAudio;
+            result.m_PlayerStateTransitions = UnityEngine.Object.Instantiate(template.m_PlayerStateTransitions);
+            result.Awake();
+
+            return result;
+        }
+
         private static void ConfigureEquippable(ModComponent modComponent)
         {
             EquippableModComponent equippableModComponent = modComponent as EquippableModComponent;
@@ -337,23 +345,6 @@ namespace ModComponentMapper
             {
                 equippableModComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
             }
-        }
-
-        private static void ConfigureLiquidItem(ModComponent modComponent)
-        {
-            ModLiquidItemComponent modLiquidItemComponent = modComponent as ModLiquidItemComponent;
-            if (modLiquidItemComponent == null)
-            {
-                return;
-            }
-
-            LiquidItem liquidItem = ModUtils.GetOrCreateComponent<LiquidItem>(modComponent);
-            liquidItem.m_LiquidCapacityLiters = modLiquidItemComponent.MaxLiters;
-            liquidItem.m_LiquidType = ModUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidItemComponent.LiquidType);
-            liquidItem.m_RandomizeQuantity = false;
-            liquidItem.m_LiquidLiters = 0;
-            liquidItem.m_DrinkingAudio = "Play_DrinkWater";
-            liquidItem.m_TimeToDrinkSeconds = 4;
         }
 
         private static void ConfigureFireStarter(ModComponent modComponent)
@@ -492,64 +483,21 @@ namespace ModComponentMapper
             gearItem.Awake();
         }
 
-        private static void ConfigureHarvestable(ModComponent modComponent)
+        private static void ConfigureLiquidItem(ModComponent modComponent)
         {
-            ModHarvestableComponent modHarvestableComponent = ModUtils.GetComponent<ModHarvestableComponent>(modComponent);
-            if (modHarvestableComponent == null)
+            ModLiquidItemComponent modLiquidItemComponent = modComponent as ModLiquidItemComponent;
+            if (modLiquidItemComponent == null)
             {
                 return;
             }
 
-            Harvest harvest = ModUtils.GetOrCreateComponent<Harvest>(modHarvestableComponent);
-            harvest.m_Audio = modHarvestableComponent.Audio;
-            harvest.m_DurationMinutes = modHarvestableComponent.Minutes;
-
-            if (modHarvestableComponent.YieldNames.Length != modHarvestableComponent.YieldCounts.Length)
-            {
-                throw new ArgumentException("YieldNames and YieldCounts do not have the same length on gear item '" + modHarvestableComponent.name + "'.");
-            }
-
-            harvest.m_YieldGear = ModUtils.GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
-            harvest.m_YieldGearUnits = modHarvestableComponent.YieldCounts;
-        }
-
-        private static void ConfigureInspect(ModComponent modComponent)
-        {
-            if (!modComponent.InspectOnPickup)
-            {
-                return;
-            }
-
-            Inspect inspect = ModUtils.GetOrCreateComponent<Inspect>(modComponent);
-            inspect.m_DistanceFromCamera = modComponent.InspectDistance;
-            inspect.m_Scale = modComponent.InspectScale;
-            inspect.m_Angles = modComponent.InspectAngles;
-            inspect.m_Offset = modComponent.InspectOffset;
-        }
-
-        private static void ConfigureRepairable(ModComponent modComponent)
-        {
-            ModRepairableComponent modRepairableComponent = modComponent.GetComponent<ModRepairableComponent>();
-            if (modRepairableComponent == null)
-            {
-                return;
-            }
-
-            Repairable repairable = ModUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
-            repairable.m_RepairAudio = modRepairableComponent.Audio;
-            repairable.m_DurationMinutes = modRepairableComponent.Minutes;
-            repairable.m_ConditionIncrease = modRepairableComponent.Condition;
-
-            if (modRepairableComponent.MaterialNames.Length != modRepairableComponent.MaterialCounts.Length)
-            {
-                throw new ArgumentException("MaterialNames and MaterialCounts do not have the same length on gear item '" + modRepairableComponent.name + "'.");
-            }
-
-            repairable.m_RequiredGear = ModUtils.GetItems<GearItem>(modRepairableComponent.MaterialNames, modRepairableComponent.name);
-            repairable.m_RequiredGearUnits = modRepairableComponent.MaterialCounts;
-
-            repairable.m_RepairToolChoices = ModUtils.GetItems<ToolsItem>(modRepairableComponent.RequiredTools, modRepairableComponent.name);
-            repairable.m_RequiresToolToRepair = repairable.m_RepairToolChoices.Length > 0;
+            LiquidItem liquidItem = ModUtils.GetOrCreateComponent<LiquidItem>(modComponent);
+            liquidItem.m_LiquidCapacityLiters = modLiquidItemComponent.MaxLiters;
+            liquidItem.m_LiquidType = ModUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidItemComponent.LiquidType);
+            liquidItem.m_RandomizeQuantity = false;
+            liquidItem.m_LiquidLiters = 0;
+            liquidItem.m_DrinkingAudio = "Play_DrinkWater";
+            liquidItem.m_TimeToDrinkSeconds = 4;
         }
 
         private static void ConfigureRifle(ModComponent modComponent)
@@ -614,14 +562,6 @@ namespace ModComponentMapper
             stackableItem.m_ShareStackWithGear = new StackableItem[0];
             stackableItem.m_Units = 1;
             stackableItem.m_UnitsPerItem = 1;
-        }
-
-        internal static LocalizedString CreateLocalizedString(string key)
-        {
-            return new LocalizedString()
-            {
-                m_LocalizationID = key
-            };
         }
 
         private static LocalizedString[] CreateLocalizedStrings(params string[] keys)
@@ -718,7 +658,6 @@ namespace ModComponentMapper
                 {
                     if (eachMaterial.shader.name == "Standard")
                     {
-                        LogUtils.Log("Updating shader of " + modComponent.name);
                         eachMaterial.shader = meshRenderer.material.shader;
                         eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
                     }

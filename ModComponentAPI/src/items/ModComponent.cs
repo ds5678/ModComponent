@@ -14,6 +14,7 @@ namespace ModComponentAPI
     }
 
     [DisallowMultipleComponent]
+    [HelpURL("https://github.com/WulfMarius/ModComponent/wiki/Basic-Item-Configuration")]
     public abstract class ModComponent : MonoBehaviour
     {
         [Header("Description")]
@@ -59,6 +60,12 @@ namespace ModComponentAPI
         public Vector3 InspectAngles = Vector3.zero;
         [Tooltip("Offset from the center during inspect.")]
         public Vector3 InspectOffset = Vector3.zero;
+        [Space(10)]
+        [Tooltip("Model to show during inspect.\nNOTE: You must either set BOTH models or NO models. See 'Reference' for details.")]
+        public GameObject InspectModel;
+        [Tooltip("Model to show when not inspecting the item.\nNOTE: You must either set BOTH models or NO models. See 'Reference' for details.")]
+        public GameObject NormalModel;
+
 
         public string GetEffectiveConsoleName()
         {
