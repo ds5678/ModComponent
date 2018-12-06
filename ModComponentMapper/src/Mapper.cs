@@ -341,7 +341,9 @@ namespace ModComponentMapper
                 return;
             }
 
-            if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId) && !string.IsNullOrEmpty(equippableModComponent.ImplementationType))
+            if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId)
+                && !string.IsNullOrEmpty(equippableModComponent.ImplementationType)
+                && equippableModComponent.EquippedModelPrefab != null)
             {
                 equippableModComponent.InventoryActionLocalizationId = "GAMEPLAY_Equip";
             }
@@ -660,6 +662,11 @@ namespace ModComponentMapper
                     {
                         eachMaterial.shader = meshRenderer.material.shader;
                         eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
+
+                        if (eachMaterial.GetTexture("_dmg_texture") == null)
+                        {
+                            eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
+                        }
                     }
                 }
             }
