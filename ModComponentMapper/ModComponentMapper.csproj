@@ -31,28 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="AssetLoader, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Harmony, Version=1.0.9.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="ModComponentAPI, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="0Harmony" />
+    <Reference Include="Assembly-CSharp" />
+    <Reference Include="Assembly-CSharp-firstpass" />
+    <Reference Include="AssetLoader" />
+    <Reference Include="ModComponentAPI" />
+    <Reference Include="System" />
+    <Reference Include="UnityEngine.AssetBundleModule" />
+    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnityEngine.PhysicsModule" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AutoMapper.cs" />
@@ -60,6 +47,7 @@
     <Compile Include="src\ChangeLayer.cs" />
     <Compile Include="src\ComponentMapper\BedMapper.cs" />
     <Compile Include="src\ComponentMapper\EvolveMapper.cs" />
+    <Compile Include="src\ComponentMapper\FireStarterMapper.cs" />
     <Compile Include="src\ComponentMapper\FirstAidMapper.cs" />
     <Compile Include="src\ComponentMapper\HarvestableMapper.cs" />
     <Compile Include="src\ComponentMapper\InspectMapper.cs" />
@@ -68,7 +56,7 @@
     <Compile Include="src\ComponentMapper\SharpenableMapper.cs" />
     <Compile Include="src\ComponentMapper\ToolMapper.cs" />
     <Compile Include="src\CustomSaveData\SaveData.cs" />
-    <Compile Include="src\GammaChanger.cs" />
+    <Compile Include="src\BrightnessChanger.cs" />
     <Compile Include="src\GearSpawnReader.cs" />
     <Compile Include="src\Implementation.cs" />
     <Compile Include="src\ComponentMapper\CookableMapper.cs" />
@@ -80,6 +68,7 @@
     <Compile Include="src\GearSpawner.cs" />
     <Compile Include="src\patches\CameraStatusEffectsPatch.cs" />
     <Compile Include="src\patches\ClothingSlotPatch.cs" />
+    <Compile Include="src\patches\FireManagerPatches.cs" />
     <Compile Include="src\patches\HungerPatch.cs" />
     <Compile Include="src\patches\InputManagerPatch.cs" />
     <Compile Include="src\patches\ItemDescriptionPagePatch.cs" />

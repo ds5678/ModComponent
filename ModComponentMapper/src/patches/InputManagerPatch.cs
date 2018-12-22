@@ -1,4 +1,5 @@
 ﻿using Harmony;
+using UnityEngine;
 
 using ModComponentAPI;
 
@@ -8,10 +9,10 @@ namespace ModComponentMapper
     [HarmonyPatch(typeof(InputManager), "ProcessFireAction")]
     class InputManagerProcessFireActionPatch
     {
-        public static bool Prefix()
+        public static bool Prefix(MonoBehaviour context)
         {
             PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-            if (playerManager == null || GameManager.ControlsLocked() || InterfaceManager.IsOverlayActive() || !InputManager.GetFirePressed() || InputManager.GetFireReleased())
+            if (playerManager == null || GameManager.ControlsLocked() || InterfaceManager.IsOverlayActive() || !InputManager.GetFirePressed(context) || InputManager.GetFireReleased(context))
             {
                 return true;
             }
@@ -34,7 +35,7 @@ namespace ModComponentMapper
         public static bool Prefix()
         {
             PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-            if (playerManager == null || InterfaceManager.IsOverlayActive() || !InputManager.GetAltFirePressed() || InputManager.GetAltFireReleased() || playerManager.InPlaceMeshMode() || playerManager.ItemInHandsPlaceable())
+            if (playerManager == null || InterfaceManager.IsOverlayActive() || playerManager.InPlaceMeshMode() || playerManager.ItemInHandsPlaceable())
             {
                 return true;
             }

@@ -9,10 +9,10 @@ namespace ModComponentMapper
 {
     public class EquipItemPopupUtils
     {
-        public static void ShowItemPopups(String primaryAction, String secondaryAction, bool showAmmo, bool showDuration, bool showReload, bool showHolster)
+        public static void ShowItemPopups(String primaryAction, String secondaryAction, bool showAmmo, bool showReload, bool showHolster)
         {
             EquipItemPopup equipItemPopup = InterfaceManager.m_Panel_HUD.m_EquipItemPopup;
-            ShowItemIcons(equipItemPopup, primaryAction, secondaryAction, showAmmo, showDuration);
+            ShowItemIcons(equipItemPopup, primaryAction, secondaryAction, showAmmo);
 
             if (Utils.IsGamepadActive())
             {
@@ -38,17 +38,17 @@ namespace ModComponentMapper
 
         internal static void MaybeRepositionAltFireButtonPrompt(EquipItemPopup __instance, String otherAction)
         {
-            ModUtils.ExecuteMethod(__instance, "MaybeRepositionAltFireButtonPrompt", new object[] { otherAction, });
+            ModUtils.ExecuteMethod(__instance, "MaybeRepositionAltFireButtonPrompt", otherAction);
         }
 
         internal static void MaybeRepositionFireButtonPrompt(EquipItemPopup equipItemPopup, String otherAction)
         {
-            ModUtils.ExecuteMethod(equipItemPopup, "MaybeRepositionFireButtonPrompt", new object[] { otherAction, });
+            ModUtils.ExecuteMethod(equipItemPopup, "MaybeRepositionFireButtonPrompt", otherAction);
         }
 
-        internal static void ShowItemIcons(EquipItemPopup equipItemPopup, String primaryAction, String secondaryAction, bool showAmmo, bool showDuration)
+        internal static void ShowItemIcons(EquipItemPopup equipItemPopup, String primaryAction, String secondaryAction, bool showAmmo)
         {
-            ModUtils.ExecuteMethod(equipItemPopup, "ShowItemIcons", new object[] { primaryAction, secondaryAction, showAmmo, showDuration });
+            ModUtils.ExecuteMethod(equipItemPopup, "ShowItemIcons", new object[] { primaryAction, secondaryAction, showAmmo });
         }
     }
 

@@ -15,5 +15,8 @@ namespace ModComponentAPI
         public bool RequiresSunLight;
         [Tooltip("What sound to play during usage. Not used for accelerants.")]
         public string OnUseSoundEvent;
+
+        [Tooltip("Set the condition to 0% after the fire starting finished (either successful or not).")]
+        public bool RuinedAfterUse;
     }
 }

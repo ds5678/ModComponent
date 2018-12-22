@@ -54,7 +54,7 @@ namespace ModComponentMapper
                 InspectMapper.Configure(modComponent);
                 HarvestableMapper.Configure(modComponent);
                 RepairableMapper.Configure(modComponent);
-                ConfigureFireStarter(modComponent);
+                FireStarterMapper.Configure(modComponent);
                 ConfigureAccelerant(modComponent);
                 ConfigureStackable(modComponent);
                 ConfigureBurnable(modComponent);
@@ -349,27 +349,6 @@ namespace ModComponentMapper
             }
         }
 
-        private static void ConfigureFireStarter(ModComponent modComponent)
-        {
-            ModFireStarterComponent modFireStarterComponent = ModUtils.GetComponent<ModFireStarterComponent>(modComponent);
-            if (modFireStarterComponent == null)
-            {
-                return;
-            }
-
-            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
-
-            fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
-            fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;
-
-            fireStarterItem.m_FireStartSkillModifier = modFireStarterComponent.SuccessModifier;
-
-            fireStarterItem.m_ConditionDegradeOnUse = GetDecayPerStep(modFireStarterComponent.NumberOfUses, modComponent.MaxHP);
-            fireStarterItem.m_ConsumeOnUse = modFireStarterComponent.DestroyedOnUse;
-            fireStarterItem.m_RequiresSunLight = modFireStarterComponent.RequiresSunLight;
-            fireStarterItem.m_OnUseSoundEvent = modFireStarterComponent.OnUseSoundEvent;
-        }
-
         private static void ConfigureFood(ModComponent modComponent)
         {
             ModFoodComponent modFoodComponent = modComponent as ModFoodComponent;
@@ -604,7 +583,7 @@ namespace ModComponentMapper
             return ConditionTableManager.ConditionTableType.Unknown;
         }
 
-        private static float GetDecayPerStep(float steps, float maxHP)
+        internal static float GetDecayPerStep(float steps, float maxHP)
         {
             if (steps > 0)
             {

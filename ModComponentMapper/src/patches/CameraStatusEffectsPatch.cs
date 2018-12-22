@@ -28,7 +28,7 @@ namespace ModComponentMapper
                 codes[i - 2].opcode = OpCodes.Nop;
                 codes[i - 1].opcode = OpCodes.Nop;
                 codes[i].opcode = OpCodes.Call;
-                codes[i].operand = typeof(GammaChanger).GetMethod("GetGamma");
+                codes[i].operand = typeof(BrightnessChanger).GetMethod("GetGamma");
             }
 
             return codes;
