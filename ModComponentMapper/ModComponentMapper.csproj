@@ -80,7 +80,6 @@
     <Compile Include="src\patches\GameManagerPatch.cs" />
     <Compile Include="src\patches\Panel_ActionsRadialPatch.cs" />
     <Compile Include="src\patches\Panel_Inventory_ExaminePatch.cs" />
-    <Compile Include="src\patches\Panel_LogPatch.cs" />
     <Compile Include="src\patches\PlayAkSoundPatch.cs" />
     <Compile Include="src\patches\RestoreMaterialQueue.cs" />
     <Compile Include="src\CustomSaveData\SaveGameSystemPatch.cs" />
