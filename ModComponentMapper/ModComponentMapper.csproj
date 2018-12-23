@@ -68,6 +68,7 @@
     <Compile Include="src\GearSpawner.cs" />
     <Compile Include="src\patches\CameraStatusEffectsPatch.cs" />
     <Compile Include="src\patches\ClothingSlotPatch.cs" />
+    <Compile Include="src\patches\EquipItemPopupPatch.cs" />
     <Compile Include="src\patches\FireManagerPatches.cs" />
     <Compile Include="src\patches\HungerPatch.cs" />
     <Compile Include="src\patches\InputManagerPatch.cs" />
