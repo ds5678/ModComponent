@@ -19,7 +19,7 @@ namespace RubberDuck
 
         private static void ShowButtonPopups()
         {
-            EquipItemPopupUtils.ShowItemPopups(Localization.Get("GAMEPLAY_Squeeze"), string.Empty, false, false, false, true);
+            EquipItemPopupUtils.ShowItemPopups(Localization.Get("GAMEPLAY_Squeeze"), string.Empty, false, false, true);
         }
     }
 }
