@@ -2,10 +2,28 @@
 using static PlayerAnimation;
 using static PlayerAnimation.State;
 
+using ModComponentAPI;
+
 namespace ModComponentMapper
 {
     class PlayerAnimationPatch
     {
+        [HarmonyPatch(typeof(PlayerAnimation), "IsDequipping")]
+        class PlayerAnimation_IsDequipping
+        {
+            public static bool Prefix(ref bool __result)
+            {
+                PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
+                if (ModUtils.GetModComponent(playerManager.m_ItemInHands) == null)
+                {
+                    return true;
+                }
+
+                __result = false;
+                return false;
+            }
+        }
+
         [HarmonyPatch(typeof(PlayerAnimation), "IsAiming")]
         class PlayerAnimationIsAimingPatch
         {
