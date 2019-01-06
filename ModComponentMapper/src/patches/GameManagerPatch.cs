@@ -19,4 +19,13 @@ namespace ModComponentMapper
             }
         }
     }
+
+    [HarmonyPatch(typeof(GameManager), "SetAudioModeForLoadedScene")]
+    internal class GameManager_SetAudioModeForLoadedScene
+    {
+        internal static void Prefix()
+        {
+            Implementation.SceneReady();
+        }
+    }
 }

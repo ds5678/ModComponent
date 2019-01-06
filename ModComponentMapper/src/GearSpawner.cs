@@ -53,9 +53,9 @@ namespace ModComponentMapper
 
         internal static void Initialize()
         {
-            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
-
             GearSpawnReader.ReadDefinitions();
+
+            Implementation.OnSceneReady += PrepareScene;
         }
 
         private static void AddEntries(LootTable lootTable, List<LootTableEntry> entries)
@@ -154,27 +154,22 @@ namespace ModComponentMapper
             return prefabName;
         }
 
-        private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private static void PrepareScene()
         {
-            if (scene == null || mode == LoadSceneMode.Additive || string.IsNullOrEmpty(scene.name) || scene.name == "Empty" || scene.name == "MainMenu")
+            if (ModUtils.IsNonGameScene())
             {
                 return;
             }
 
-            PrepareScene(scene.name);
-        }
-
-        private static void PrepareScene(string sceneName)
-        {
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
 
-            string normalizedSceneName = GetNormalizedSceneName(sceneName);
+            string normalizedSceneName = GetNormalizedSceneName(GameManager.m_ActiveScene);
             ConfigureLootTables(normalizedSceneName);
             SpawnGearForScene(normalizedSceneName);
 
             stopwatch.Stop();
-            LogUtils.Log("Prepared scene '{0}' in {1} ms", sceneName, stopwatch.ElapsedMilliseconds);
+            LogUtils.Log("Spawned items for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
         }
 
         private static void SpawnGearForScene(string sceneName)

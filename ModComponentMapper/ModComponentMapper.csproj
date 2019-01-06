@@ -42,6 +42,7 @@
     <Reference Include="UnityEngine.PhysicsModule" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events.cs" />
     <Compile Include="src\AutoMapper.cs" />
     <Compile Include="src\BlueprintReader.cs" />
     <Compile Include="src\ChangeLayer.cs" />

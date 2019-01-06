@@ -93,8 +93,7 @@ namespace ModComponentMapper
 
         public static void FreezePlayer()
         {
-            GameManager.GetVpFPSPlayer().Controller.m_Controller.SimpleMove(Vector3.zero);
-            GameManager.GetPlayerManagerComponent().DisableCharacterController();
+            GameManager.GetPlayerManagerComponent().m_FreezeMovement = true;
         }
 
         public static T GetComponent<T>(Component component) where T : Component
@@ -176,6 +175,11 @@ namespace ModComponentMapper
             return default(T);
         }
 
+        public static bool IsNonGameScene()
+        {
+            return GameManager.m_ActiveScene == null || GameManager.m_ActiveScene == "MainMenu" || GameManager.m_ActiveScene == "Boot" || GameManager.m_ActiveScene == "Empty";
+        }
+
         public static string NormalizeName(string name)
         {
             if (name == null)
@@ -215,7 +219,7 @@ namespace ModComponentMapper
 
         public static void UnfreezePlayer()
         {
-            GameManager.GetPlayerManagerComponent().EnableCharacterController();
+            GameManager.GetPlayerManagerComponent().m_FreezeMovement = false;
         }
 
         internal static bool AlmostZero(float value)
