@@ -49,7 +49,7 @@ namespace ModComponentMapper
 
             if (prefab.GetComponent<GearItem>() == null)
             {
-                LogUtils.Log("Mapping {0}", prefab.name);
+                Implementation.Log("Mapping {0}", prefab.name);
 
                 InspectMapper.Configure(modComponent);
                 HarvestableMapper.Configure(modComponent);
@@ -68,7 +68,7 @@ namespace ModComponentMapper
                 CookableMapper.Configure(modComponent);
                 ConfigureCookingPot(modComponent);
                 ConfigureRifle(modComponent);
-                ConfigureClothing(modComponent);
+                ClothingMapper.ConfigureClothing(modComponent);
                 FirstAidMapper.Configure(modComponent);
                 ToolMapper.Configure(modComponent);
                 BedMapper.Configure(modComponent);
@@ -89,6 +89,16 @@ namespace ModComponentMapper
             {
                 m_LocalizationID = key
             };
+        }
+
+        internal static float GetDecayPerStep(float steps, float maxHP)
+        {
+            if (steps > 0)
+            {
+                return maxHP / steps;
+            }
+
+            return 0;
         }
 
         internal static void MapBlueprint(ModBlueprint modBlueprint)
@@ -233,40 +243,6 @@ namespace ModComponentMapper
             fuelSourceItem.m_HeatIncrease = modBurnableComponent.TempIncrease;
             fuelSourceItem.m_HeatInnerRadius = 2.5f;
             fuelSourceItem.m_HeatOuterRadius = 6f;
-        }
-
-        private static void ConfigureClothing(ModComponent modComponent)
-        {
-            ModClothingComponent modClothingItem = modComponent as ModClothingComponent;
-            if (modClothingItem == null)
-            {
-                return;
-            }
-
-            ClothingItem clothingItem = ModUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
-
-            clothingItem.m_DailyHPDecayWhenWornInside = GetDecayPerStep(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
-            clothingItem.m_DailyHPDecayWhenWornOutside = GetDecayPerStep(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
-            clothingItem.m_DryBonusWhenNotWorn = 1.5f;
-            clothingItem.m_DryPercentPerHour = 100f / modClothingItem.HoursToDryNearFire;
-            clothingItem.m_DryPercentPerHourNoFire = 100f / modClothingItem.HoursToDryWithoutFire;
-            clothingItem.m_FreezePercentPerHour = 100f / modClothingItem.HoursToFreeze;
-
-            clothingItem.m_Region = ModUtils.TranslateEnumValue<ClothingRegion, Region>(modClothingItem.Region);
-            clothingItem.m_MaxLayer = ModUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MaxLayer);
-            clothingItem.m_MinLayer = ModUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MinLayer);
-            clothingItem.m_FootwearType = ModUtils.TranslateEnumValue<FootwearType, Footwear>(modClothingItem.Footwear);
-            clothingItem.m_WornMovementSoundCategory = ModUtils.TranslateEnumValue<ClothingMovementSound, MovementSound>(modClothingItem.MovementSound);
-
-            clothingItem.m_PaperDollTextureName = modClothingItem.MainTexture;
-            clothingItem.m_PaperDollBlendmapName = modClothingItem.BlendTexture;
-
-            clothingItem.m_Warmth = modClothingItem.Warmth;
-            clothingItem.m_WarmthWhenWet = modClothingItem.WarmthWhenWet;
-            clothingItem.m_Waterproofness = modClothingItem.Waterproofness / 100f;
-            clothingItem.m_Windproof = modClothingItem.Windproof;
-            clothingItem.m_SprintBarReductionPercent = modClothingItem.SprintBarReduction;
-            clothingItem.m_Toughness = modClothingItem.Toughness;
         }
 
         private static void ConfigureCookingPot(ModComponent modComponent)
@@ -581,16 +557,6 @@ namespace ModComponentMapper
             }
 
             return ConditionTableManager.ConditionTableType.Unknown;
-        }
-
-        internal static float GetDecayPerStep(float steps, float maxHP)
-        {
-            if (steps > 0)
-            {
-                return maxHP / steps;
-            }
-
-            return 0;
         }
 
         private static GearTypeEnum GetGearType(ModComponent modComponent)

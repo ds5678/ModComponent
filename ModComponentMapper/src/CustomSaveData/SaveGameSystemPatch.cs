@@ -23,7 +23,7 @@ namespace ModComponentMapper.patches
             }
             catch (System.Exception e)
             {
-                LogUtils.Log("Deserializing custom save data for item {0} failed: {1}.", __instance.name, e.Message);
+                Implementation.Log("Deserializing custom save data for item {0} failed: {1}.", __instance.name, e.Message);
             }
         }
     }
@@ -47,7 +47,7 @@ namespace ModComponentMapper.patches
             }
             catch (System.Exception e)
             {
-                LogUtils.Log("Serializing custom save data for item {0} failed: {1}.", __instance.name, e.Message);
+                Implementation.Log("Serializing custom save data for item {0} failed: {1}.", __instance.name, e.Message);
             }
         }
     }

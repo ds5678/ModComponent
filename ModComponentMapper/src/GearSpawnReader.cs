@@ -28,14 +28,14 @@ namespace ModComponentMapper
             string gearSpawnDirectory = GetGearSpawnsDirectory();
             if (!Directory.Exists(gearSpawnDirectory))
             {
-                LogUtils.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist.");
+                Implementation.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist.");
                 return;
             }
 
             string[] files = Directory.GetFiles(gearSpawnDirectory, "*.txt");
             foreach (string eachFile in files)
             {
-                LogUtils.Log("Processing spawn file '" + eachFile + "'.");
+                Implementation.Log("Processing spawn file '" + eachFile + "'.");
                 ProcessFile(eachFile);
             }
         }

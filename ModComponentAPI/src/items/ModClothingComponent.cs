@@ -79,6 +79,14 @@ namespace ModComponentAPI
         [Tooltip("How much water is repelled by this clothing item? 100 means 'never gets wet'")]
         public float Waterproofness;
 
+        [Header("Wolf Intimidation")]
+        [Tooltip("Decreases the chance that a wolf will attack. Only applies in certain situations. 100 means 'guaranteed not to attack'; 0 means 'same as without the buff'")]
+        [Range(0, 100)]
+        public int DecreaseAttackChance;
+        [Tooltip("Increases the chance that a wolf will flee immediately when spotting the player. 100 means 'guaranteed to flee'; 0 means 'same as without the buff'")]
+        [Range(0, 100)]
+        public int IncreaseFleeChance;
+
         [Header("Drying & Freezing")]
         [Tooltip("Hours required to dry this clothing item next to a fire when it is completely wet. That's the same amount of time it takes to unfreeze, so a completely frozen item will take twice this time to be completely dry again.")]
         public float HoursToDryNearFire;

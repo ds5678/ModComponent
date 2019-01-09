@@ -34,7 +34,7 @@ namespace ModComponentMapper
                 return;
             }
 
-            LogUtils.Log("Registering '{0}'", name);
+            Implementation.Log("Registering '{0}'", name);
 
             GameObject template = weaponViewTransform.Find("Rifle").gameObject;
             GameObject weapon = Object.Instantiate(template, weaponViewTransform);

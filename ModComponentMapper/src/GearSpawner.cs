@@ -72,7 +72,7 @@ namespace ModComponentMapper
                 GameObject prefab = (GameObject)Resources.Load(eachEntry.PrefabName);
                 if (prefab == null)
                 {
-                    LogUtils.Log("Could not find prefab '" + eachEntry.PrefabName + "'.");
+                    Implementation.Log("Could not find prefab '{0}'.", eachEntry.PrefabName);
                     continue;
                 }
 
@@ -169,7 +169,7 @@ namespace ModComponentMapper
             SpawnGearForScene(normalizedSceneName);
 
             stopwatch.Stop();
-            LogUtils.Log("Spawned items for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
+            Implementation.Log("Spawned items for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
         }
 
         private static void SpawnGearForScene(string sceneName)
@@ -187,7 +187,7 @@ namespace ModComponentMapper
 
                 if (prefab == null)
                 {
-                    LogUtils.Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
+                    Implementation.Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
                     continue;
                 }
 

@@ -1,11 +1,27 @@
 ﻿using Harmony;
 using ModComponentAPI;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
-
-using static PlayerAnimation;
 
 namespace ModComponentMapper
 {
+    [HarmonyPatch(typeof(PlayerManager), "InteractiveObjectsProcessAltFire")]
+    internal class PlayerManager_InteractiveObjectsProcessAltFire
+    {
+        internal static bool Prefix(PlayerManager __instance)
+        {
+            AlternativeAction alternativeAction = ModUtils.GetComponent<AlternativeAction>(__instance.m_InteractiveObjectUnderCrosshair);
+            if (alternativeAction == null)
+            {
+                return true;
+            }
+
+            alternativeAction.Execute();
+            return false;
+        }
+    }
+
     [HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]
     internal class PlayerManager_PutOnClothingItem
     {
@@ -13,6 +29,8 @@ namespace ModComponentMapper
         {
             ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnPutOn?.Invoke();
+
+            Implementation.UpdateWolfIntimidationBuff();
         }
     }
 
@@ -41,6 +59,8 @@ namespace ModComponentMapper
         {
             ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnTakeOff?.Invoke();
+
+            Implementation.UpdateWolfIntimidationBuff();
         }
     }
 
@@ -59,6 +79,29 @@ namespace ModComponentMapper
         internal static void Prefix(PlayerManager __instance)
         {
             GearEquipper.OnUnequipped(ModUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerManager), "UpdateBuffDurations")]
+    internal class PlayerManager_UpdateBuffDurations
+    {
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+
+            for (int i = 0; i < codes.Count; i++)
+            {
+                MethodInfo methodInfo = codes[i].operand as MethodInfo;
+                if (methodInfo != null && methodInfo.Name == "GetWornWolfIntimidationClothing" && methodInfo.DeclaringType == typeof(PlayerManager))
+                {
+                    for (int j = 0; j < 17; j++)
+                    {
+                        codes.RemoveAt(i - 1);
+                    }
+                }
+            }
+
+            return codes;
         }
     }
 
@@ -132,22 +175,6 @@ namespace ModComponentMapper
                 __instance.EquipItem(gi, false);
             }
 
-            return false;
-        }
-    }
-
-    [HarmonyPatch(typeof(PlayerManager), "InteractiveObjectsProcessAltFire")]
-    internal class PlayerManager_InteractiveObjectsProcessAltFire
-    {
-        internal static bool Prefix(PlayerManager __instance)
-        {
-            AlternativeAction alternativeAction = ModUtils.GetComponent<AlternativeAction>(__instance.m_InteractiveObjectUnderCrosshair);
-            if (alternativeAction == null)
-            {
-                return true;
-            }
-
-            alternativeAction.Execute();
             return false;
         }
     }

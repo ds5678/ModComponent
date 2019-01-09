@@ -17,14 +17,14 @@ namespace ModComponentMapper
             string blueprintsDirectory = GetBlueprintsDirectory();
             if (!Directory.Exists(blueprintsDirectory))
             {
-                LogUtils.Log("Blueprints directory '" + blueprintsDirectory + "' does not exist.");
+                Implementation.Log("Blueprints directory '{0}' does not exist.", blueprintsDirectory);
                 return;
             }
 
             string[] files = Directory.GetFiles(blueprintsDirectory, "*.json");
             foreach (string eachFile in files)
             {
-                LogUtils.Log("Processing blueprint definition '" + eachFile + "'.");
+                Implementation.Log("Processing blueprint definition '{0}'.", eachFile);
                 ProcessFile(eachFile);
             }
         }

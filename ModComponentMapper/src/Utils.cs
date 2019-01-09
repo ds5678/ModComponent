@@ -52,20 +52,6 @@ namespace ModComponentMapper
         }
     }
 
-    public class LogUtils
-    {
-        public static void Log(string message)
-        {
-            Debug.LogFormat("[ModComponent] {0}", message);
-        }
-
-        public static void Log(string message, params object[] parameters)
-        {
-            string preformattedMessage = string.Format(message, parameters);
-            Log(preformattedMessage);
-        }
-    }
-
     public class ModUtils
     {
         public static string DefaultIfEmpty(string value, string defaultValue)
@@ -285,7 +271,7 @@ namespace ModComponentMapper
             }
             catch (ArgumentException e)
             {
-                LogUtils.Log(e.Message);
+                Implementation.Log(e.Message);
                 return default(T);
             }
         }

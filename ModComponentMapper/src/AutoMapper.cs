@@ -20,11 +20,11 @@ namespace ModComponentMapper
 
             if (!Directory.Exists(autoMapperDirectory))
             {
-                LogUtils.Log("Directory '{0}' does not exist. Skipping ...", autoMapperDirectory);
+                Implementation.Log("Directory '{0}' does not exist. Skipping ...", autoMapperDirectory);
                 return;
             }
 
-            LogUtils.Log("Loading files from '{0}' ...", autoMapperDirectory);
+            Implementation.Log("Loading files from '{0}' ...", autoMapperDirectory);
 
             AutoMapDirectory(autoMapperDirectory, modDirectory);
         }
@@ -60,7 +60,7 @@ namespace ModComponentMapper
                     continue;
                 }
 
-                LogUtils.Log("Ignoring '{0}' - Don't know how to handle this file type.", eachFile);
+                Implementation.Log("Ignoring '{0}' - Don't know how to handle this file type.", eachFile);
             }
         }
 
@@ -104,7 +104,7 @@ namespace ModComponentMapper
 
         private static void LoadDll(string relativePath)
         {
-            LogUtils.Log("Loading '{0}' ...", relativePath);
+            Implementation.Log("Loading '{0}' ...", relativePath);
 
             string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string absolutePath = Path.Combine(modDirectory, relativePath);
@@ -152,14 +152,14 @@ namespace ModComponentMapper
             Assembly modComponentMapper = Assembly.GetExecutingAssembly();
             if (IsCompatible(requestedAssemblyName, modComponentMapper.GetName()))
             {
-                LogUtils.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentMapper.GetName());
+                Implementation.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentMapper.GetName());
                 return Assembly.GetExecutingAssembly();
             }
 
             Assembly modComponentAPI = typeof(ModComponent).Assembly;
             if (IsCompatible(requestedAssemblyName, modComponentAPI.GetName()))
             {
-                LogUtils.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentAPI.GetName());
+                Implementation.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentAPI.GetName());
                 return modComponentAPI;
             }
 
