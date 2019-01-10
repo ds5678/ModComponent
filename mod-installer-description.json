@@ -6,6 +6,7 @@
 		{
 			"version": "2.0.0",
 			"url": "https://github.com/WulfMarius/ModComponent/releases/tag/2.0.0-main",
+			"releaseDate": "2018-03-22",
 			"changes": "updated to work with TLD V1.27\nintegrated pull request from felipeds, adding support for fire starters, accelerants and blueprint definitions\nadded support for generic items (like tinder, cloth, etc)\nadded support for adding items to the radial\nadded support for new skills (still somewhat rudimental)\nadded support for reading blueprint definitions from JSON files (similar to gear-spawns)\nincreased maximum number of servings per food item from 10 to 50\nupdated template unity project\nremoved some resource loading patches because that is now handled by AssetLoader",
 			"dependencies": [
 				{
