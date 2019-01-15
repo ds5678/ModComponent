@@ -14,6 +14,8 @@ namespace ModComponentMapper.ComponentMapper
             }
 
             Bed bed = ModUtils.GetOrCreateComponent<Bed>(modBedComponent);
+
+            bed.m_LocalizedDisplayName = Mapper.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
             bed.m_ConditionPercentGainPerHour = modBedComponent.ConditionGainPerHour;
             bed.m_UinterruptedRestPercentGainPerHour = modBedComponent.AdditionalConditionGainPerHour;
             bed.m_WarmthBonusCelsius = modBedComponent.WarmthBonusCelsius;
