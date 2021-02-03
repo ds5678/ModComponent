@@ -3,10 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnhollowerBaseLib.Attributes;
+
+/* did a first pass through; HAS ISSUES!!!!!!!!!!!!!
+ * A BUNCH need to be declared
+ * Two issues
+ * The first was adding console commands, which I fixed.
+ * The second was a serialization issue; I added inheritance to Il2CppSystem.Object and that fixed things
+ */
+//may have some inlined methods at the bottom
 
 namespace ModComponentMapper
 {
-    public class AlcoholUptake
+    public class AlcoholUptake //needs declared
     {
         public float amountPerGameSecond;
 
@@ -23,18 +32,26 @@ namespace ModComponentMapper
         }
     }
 
-    public class ModHealthManagerData
+    //needs declared!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public class ModHealthManagerData : Il2CppSystem.Object //added inheritance to fix Data serialization issue
     {
         public float alcoholPermille;
         public AlcoholUptake[] uptakes;
     }
 
-    public class SaveProxy
+    //needs declared!!!!!!!!!!!!
+    public class SaveProxy : Il2CppSystem.Object //added inheritance to fix Data serialization issue
     {
         public string data;
+
+        public SaveProxy()
+        {
+            this.data = "";
+        }
+        public SaveProxy(System.IntPtr intPtr) : base(intPtr) { }
     }
 
-    [HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]
+    [HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]//Exists
     internal class Condition_UpdateBlurEffect
     {
         public static void Prefix(Condition __instance, ref float percentCondition, ref bool lowHealthStagger)
@@ -50,7 +67,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]
+    [HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]//Exists
     internal class Freezing_CalculateBodyTemperature
     {
         public static void Postfix(ref float __result)
@@ -59,7 +76,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]
+    [HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]//Exists
     internal class Frostbite_CalculateBodyTemperatureWithoutClothing
     {
         public static void Postfix(ref float __result)
@@ -68,7 +85,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(GameManager), "Start")]
+    [HarmonyPatch(typeof(GameManager), "Start")]//Exists
     internal class GameManagerStartPatch
     {
         public static void Postfix(PlayerManager __instance)
@@ -77,7 +94,7 @@ namespace ModComponentMapper
         }
     }
 
-    internal class ModHealthManager : MonoBehaviour
+    internal class ModHealthManager : MonoBehaviour //Needs declared
     {
         private const float MIN_PERMILLE_FOR_BLUR = 0.5f;
         private const float MAX_PERMILLE_FOR_BLUR = 2.5f;
@@ -104,6 +121,8 @@ namespace ModComponentMapper
         {
             ResetStatMonitors();
         }
+
+        public ModHealthManager(IntPtr intPtr) : base(intPtr) { }
 
         public static void DrankAlcohol(float amount, float uptakeGameSeconds)
         {
@@ -161,9 +180,11 @@ namespace ModComponentMapper
 
         internal static void Initialize()
         {
-            // two commands, because apparently different regions don't express this in the same unit
-            uConsole.RegisterCommand("set_alcohol_permille", new uConsole.DebugCommand(SetAlcoholPermille));
-            uConsole.RegisterCommand("set_alcohol_percent", new uConsole.DebugCommand(SetAlcoholPercent));
+            //Wulf: two commands, because apparently different regions don't express this in the same unit
+            //uConsole.RegisterCommand("set_alcohol_permille", new uConsole.DebugCommand(SetAlcoholPermille));//<=================================================
+            //uConsole.RegisterCommand("set_alcohol_percent", new uConsole.DebugCommand(SetAlcoholPercent));//<========
+            uConsole.RegisterCommand("set_alcohol_permille", new Action(SetAlcoholPermille));
+            uConsole.RegisterCommand("set_alcohol_percent", new Action(SetAlcoholPercent));
         }
 
         internal static void SetData(ModHealthManagerData data)
@@ -223,6 +244,7 @@ namespace ModComponentMapper
             instance.permille = uConsole.GetFloat();
         }
 
+        [HideFromIl2Cpp]
         private void ProcessAlcohol(float elapsedGameSeconds)
         {
             for (int i = alcoholUptakes.Count - 1; i >= 0; i--)
@@ -246,6 +268,7 @@ namespace ModComponentMapper
             GameManager.GetFatigueComponent().AddFatigue(elapsedGameSeconds * permille * FATIGUE_PER_PERMILLE_SECOND);
         }
 
+        [HideFromIl2Cpp]
         private void ResetStatMonitors()
         {
             thirstMonitor.value = GameManager.GetThirstComponent().m_CurrentThirst;
@@ -264,6 +287,7 @@ namespace ModComponentMapper
             fatigueMonitor.scale = GameManager.GetExperienceModeManagerComponent().GetFatigueRateScale();
         }
 
+        [HideFromIl2Cpp]
         private void UpdateStatMonitors(float elapsedGameSeconds)
         {
             thirstMonitor.Update(GameManager.GetThirstComponent().m_CurrentThirst, elapsedGameSeconds);
@@ -271,13 +295,18 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(SaveGameSystem), "RestoreGlobalData")]
+    [HarmonyPatch(typeof(SaveGameSystem), "RestoreGlobalData")]//exists <================================================save system
     internal class SaveGameSystem_RestoreGlobalData
     {
         public static void Postfix(string name)
         {
             string serializedProxy = SaveGameSlots.LoadDataFromSlot(name, "ModHealthManager");
-            SaveProxy proxy = Utils.DeserializeObject<SaveProxy>(serializedProxy);
+            //SaveProxy proxy = Utils.DeserializeObject<SaveProxy>(serializedProxy);
+            SaveProxy proxy = new SaveProxy();
+            if (!string.IsNullOrEmpty(serializedProxy))
+            {
+                proxy = MelonLoader.TinyJSON.JSON.Load(serializedProxy).Make<SaveProxy>();
+            }
             ModHealthManager.SetData(GetData(proxy));
         }
 
@@ -288,23 +317,26 @@ namespace ModComponentMapper
                 return null;
             }
 
-            return Utils.DeserializeObject<ModHealthManagerData>(proxy.data);
+            //return Utils.DeserializeObject<ModHealthManagerData>(proxy.data);
+            return MelonLoader.TinyJSON.JSON.Load(proxy.data).Make<ModHealthManagerData>();
         }
     }
 
-    [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]
+    [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]//Exists
     internal class SaveGameSystem_SaveGlobalData
     {
         public static void Postfix(SaveSlotType gameMode, string name)
         {
             SaveProxy proxy = new SaveProxy();
-            proxy.data = Utils.SerializeObject(ModHealthManager.GetData());
-
-            SaveGameSlots.SaveDataToSlot(gameMode, SaveGameSystem.m_CurrentEpisode, SaveGameSystem.m_CurrentGameId, name, "ModHealthManager", Utils.SerializeObject(proxy));
+            //proxy.data = Utils.SerializeObject(ModHealthManager.GetData()); //<=============================================================================
+            proxy.data = MelonLoader.TinyJSON.JSON.Dump(ModHealthManager.GetData());
+            //added inheritance to Il2CppSystem.Object ; should fix the serialization issue
+            //SaveGameSlots.SaveDataToSlot(gameMode, SaveGameSystem.m_CurrentEpisode, SaveGameSystem.m_CurrentGameId, name, "ModHealthManager", Utils.SerializeObject(proxy));//<=========
+            SaveGameSlots.SaveDataToSlot(gameMode, SaveGameSystem.m_CurrentEpisode, SaveGameSystem.m_CurrentGameId, name, "ModHealthManager", MelonLoader.TinyJSON.JSON.Dump(proxy));
         }
     }
 
-    internal class StatMonitor
+    internal class StatMonitor //Needs declared
     {
         public bool debug;
         public float hourlyBaseline;
@@ -341,7 +373,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeFatigue")]
+    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeFatigue")]//inlined?
     internal class StatusBarGetRateOfChangeFatigue
     {
         public static bool Prefix(StatusBar __instance, ref float __result)
@@ -353,7 +385,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeThirst")]
+    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeThirst")]//inlined?
     internal class StatusBarGetRateOfChangeThirst
     {
         public static bool Prefix(StatusBar __instance, ref float __result)

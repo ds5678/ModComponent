@@ -3,6 +3,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
     internal class GearSpawnReader
@@ -28,7 +31,8 @@ namespace ModComponentMapper
             string gearSpawnDirectory = GetGearSpawnsDirectory();
             if (!Directory.Exists(gearSpawnDirectory))
             {
-                Implementation.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist.");
+                Implementation.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
+                Directory.CreateDirectory(gearSpawnDirectory);
                 return;
             }
 
@@ -42,7 +46,7 @@ namespace ModComponentMapper
 
         private static string GetGearSpawnsDirectory()
         {
-            string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string modDirectory = Implementation.GetModsFolderPath();
             return Path.Combine(modDirectory, "gear-spawns");
         }
 

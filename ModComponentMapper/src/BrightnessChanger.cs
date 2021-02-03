@@ -1,4 +1,8 @@
-﻿namespace ModComponentMapper
+﻿
+//did a first pass through; didn't find anything
+//does not need to be declared
+
+namespace ModComponentMapper
 {
     public class BrightnessChanger
     {

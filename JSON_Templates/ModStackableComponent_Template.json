@@ -1,0 +1,8 @@
+{
+    "ModStackableComponent": {
+                                "SingleUnitTextId" : "GAMEPLAY_HotCocoaBoxStackSingle",
+                                "MultipleUnitTextId" : "GAMEPLAY_HotCocoaBoxStackMultiple",
+                                "StackSprite" : "",
+                                "UnitsPerItem" : 8
+                             }
+}

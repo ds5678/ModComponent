@@ -10,5 +10,7 @@ namespace ModComponentAPI
         {
             gameObject.tag = Tag;
         }
+
+        public AddTag(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

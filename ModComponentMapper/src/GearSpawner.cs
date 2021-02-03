@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//did a first pass through; didn't find anything
+//MIGHT have some classes that need to be declared
+
 namespace ModComponentMapper
 {
-    public struct GearSpawnInfo
+    public struct GearSpawnInfo //Might need to be declared
     {
         public Vector3 Position;
         public string PrefabName;
@@ -13,13 +15,13 @@ namespace ModComponentMapper
         public float SpawnChance;
     }
 
-    public struct LootTableEntry
+    public struct LootTableEntry //Might need to be declared
     {
         public string PrefabName;
         public int Weight;
     }
 
-    public class GearSpawner
+    public class GearSpawner //does not need to be declared
     {
         private static Dictionary<string, List<GearSpawnInfo>> gearSpawnInfos = new Dictionary<string, List<GearSpawnInfo>>();
         private static Dictionary<string, List<LootTableEntry>> lootTableEntries = new Dictionary<string, List<LootTableEntry>>();
@@ -69,7 +71,7 @@ namespace ModComponentMapper
                     continue;
                 }
 
-                GameObject prefab = (GameObject)Resources.Load(eachEntry.PrefabName);
+                GameObject prefab = Resources.Load(eachEntry.PrefabName).Cast<GameObject>();
                 if (prefab == null)
                 {
                     Implementation.Log("Could not find prefab '{0}'.", eachEntry.PrefabName);

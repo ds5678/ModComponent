@@ -2,9 +2,12 @@
 using ModComponentAPI;
 using ModComponentMapper.SaveData;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper.patches
 {
-    [HarmonyPatch(typeof(GearItem), "Deserialize")]
+    [HarmonyPatch(typeof(GearItem), "Deserialize")]//Exists
     public class GearItem_Deserialize
     {
         [HarmonyPriority(Priority.Last)]
@@ -28,7 +31,7 @@ namespace ModComponentMapper.patches
         }
     }
 
-    [HarmonyPatch(typeof(GearItem), "Serialize")]
+    [HarmonyPatch(typeof(GearItem), "Serialize")]//Exists
     public class GearItem_Serialize
     {
         [HarmonyPriority(Priority.Last)]
@@ -52,7 +55,7 @@ namespace ModComponentMapper.patches
         }
     }
 
-    [HarmonyPatch(typeof(SaveGameSystem), "LoadSceneData")]
+    [HarmonyPatch(typeof(SaveGameSystem), "LoadSceneData")]//Exists
     public class SaveGameSystemPatch_LoadSceneData
     {
         public static void Postfix()
@@ -67,7 +70,7 @@ namespace ModComponentMapper.patches
         }
     }
 
-    [HarmonyPatch(typeof(SaveGameSystem), "RestoreGlobalData")]
+    [HarmonyPatch(typeof(SaveGameSystem), "RestoreGlobalData")]//Exists
     public class SaveGameSystemPatch_RestoreGlobalData
     {
         public static void Postfix()
@@ -82,7 +85,7 @@ namespace ModComponentMapper.patches
         }
     }
 
-    [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]
+    [HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]//Exists
     public class SaveGameSystemPatch_SaveGlobalData
     {
         public static void Postfix(SaveSlotType gameMode, string name)
@@ -98,7 +101,7 @@ namespace ModComponentMapper.patches
         }
     }
 
-    [HarmonyPatch(typeof(SaveGameSystem), "SaveSceneData")]
+    [HarmonyPatch(typeof(SaveGameSystem), "SaveSceneData")]//Exists
     public class SaveGameSystemPatch_SaveSceneData
     {
         public static void Postfix(SaveSlotType gameMode, string name, string sceneSaveName)

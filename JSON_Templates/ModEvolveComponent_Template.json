@@ -1,0 +1,7 @@
+{
+    "ModEvolveComponent" : {
+                            "TargetItemName" : "GEAR_GutDried",
+                            "EvolveHours" : 120,
+                            "IndoorsOnly" : true
+                        }
+}

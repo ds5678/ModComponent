@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnhollowerBaseLib.Attributes;
 
-namespace ModComponentMapper.SaveData
+//did a first pass through; didn't find anything
+//MIGHT NEED to add constructor 
+//declared class for MelonLoader
+
+namespace ModComponentMapper.SaveData 
 {
-    public class SaveData
+    public class SaveData : Il2CppSystem.Object //added inheritance to fix SaveData serialization issue
     {
         private Dictionary<string, string> itemSaveData = new Dictionary<string, string>();
 
@@ -12,12 +17,14 @@ namespace ModComponentMapper.SaveData
             this.itemSaveData.Clear();
         }
 
+        [HideFromIl2Cpp]
         public string GetSaveData(int itemId, Type itemType)
         {
             this.itemSaveData.TryGetValue(GetKey(itemId, itemType), out string data);
             return data;
         }
 
+        [HideFromIl2Cpp]
         public void SetSaveData(int itemId, Type itemType, string data)
         {
             this.itemSaveData[GetKey(itemId, itemType)] = data;
@@ -27,5 +34,9 @@ namespace ModComponentMapper.SaveData
         {
             return itemId + "_" + itemType.Name;
         }
+
+        public SaveData() { }
+
+        public SaveData(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

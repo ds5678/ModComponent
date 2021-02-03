@@ -2,17 +2,23 @@
 using UnityEngine;
 using static PlayerAnimation;
 using static PlayerAnimation.State;
+using System;
+using UnhollowerBaseLib.Attributes;
+
+//did a first pass through; didn't find anything
+//ALL need to be declared
 
 namespace ModComponentMapper
 {
-    public delegate void OnStateChanged(State oldState, State newState);
+    public delegate void OnStateChanged(State oldState, State newState); //NOT SURE
 
-    internal class OneTimeEvent
+    internal class OneTimeEvent //needs to be declared
     {
         public ModAnimationStateMachine animation;
         public State state;
         public OnAnimationEvent onAnimationEvent;
 
+        [HideFromIl2Cpp]
         public OneTimeEvent(ModAnimationStateMachine animation, State state, OnAnimationEvent onAnimationEvent)
         {
             this.animation = animation;
@@ -22,6 +28,7 @@ namespace ModComponentMapper
             this.animation.stateChanged += OnStateChanged;
         }
 
+        [HideFromIl2Cpp]
         public void OnStateChanged(State oldState, State newState)
         {
             if (oldState == state)
@@ -33,8 +40,9 @@ namespace ModComponentMapper
         }
     }
 
-    public class ModAnimationStateMachine : MonoBehaviour
+    public class ModAnimationStateMachine : MonoBehaviour //Needs to be declared
     {
+        [method:HideFromIl2Cpp]
         public event OnStateChanged stateChanged;
 
         private State state = Hidden;
@@ -46,6 +54,7 @@ namespace ModComponentMapper
         private static Dictionary<State, float> transitionDelays = new Dictionary<State, float>();
         private static Dictionary<State, State> transitionStates = new Dictionary<State, State>();
 
+        [HideFromIl2Cpp]
         static ModAnimationStateMachine()
         {
             transitionStates.Add(Equipping, Showing);
@@ -64,6 +73,9 @@ namespace ModComponentMapper
             transitionDelays.Add(Firing, 0.2f);
         }
 
+        public ModAnimationStateMachine(IntPtr intPtr) : base(intPtr) { }
+
+        [HideFromIl2Cpp]
         public void RegisterOneTimeEvent(State state, OnAnimationEvent onAnimationEvent)
         {
             new OneTimeEvent(this, state, onAnimationEvent);
@@ -77,32 +89,38 @@ namespace ModComponentMapper
             }
         }
 
+        [HideFromIl2Cpp]
         public void SetTransitions(PlayerStateTransitions transitions)
         {
             this.transitions = transitions;
         }
 
+        [HideFromIl2Cpp]
         public bool IsAllowedToFire()
         {
             return IsStateAny(Aiming);
         }
 
+        [HideFromIl2Cpp]
         public bool IsAiming()
         {
             return IsStateAny(FromAiming, Aiming, ToAiming);
         }
 
+        [HideFromIl2Cpp]
         public bool CanTransitionTo(State targetState)
         {
             return transitions != null && transitions.IsValidTransition(state, targetState);
         }
 
+        [HideFromIl2Cpp]
         public void TransitionToAndFire(State targetState, OnAnimationEvent onAnimationEvent)
         {
             TransitionTo(targetState);
             RegisterOneTimeEvent(targetState, onAnimationEvent);
         }
 
+        [HideFromIl2Cpp]
         public void TransitionTo(State targetState)
         {
             if (!CanTransitionTo(targetState))
@@ -113,16 +131,19 @@ namespace ModComponentMapper
             this.ChangeToState(targetState);
         }
 
+        [HideFromIl2Cpp]
         public bool GetFirstPersonWeaponCanSwitch()
         {
             return IsStateAny(Showing, Stowed, Hidden, Aiming, Reloading);
         }
 
+        [HideFromIl2Cpp]
         public State GetState()
         {
             return state;
         }
 
+        [HideFromIl2Cpp]
         private void ChangeToState(State targetState)
         {
             State oldState = state;
@@ -130,6 +151,7 @@ namespace ModComponentMapper
             OnStateChanged(oldState, state);
         }
 
+        [HideFromIl2Cpp]
         private bool IsStateAny(params State[] states)
         {
             foreach (State eachState in states)
@@ -143,12 +165,14 @@ namespace ModComponentMapper
             return false;
         }
 
+        [HideFromIl2Cpp]
         private void OnStateChanged(State oldState, State newState)
         {
             ScheduleAutomaticTransition();
             stateChanged?.Invoke(oldState, newState);
         }
 
+        [HideFromIl2Cpp]
         private void ScheduleAutomaticTransition()
         {
             if (transitionStates.TryGetValue(state, out transitionState))

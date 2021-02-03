@@ -1,14 +1,17 @@
 ﻿using Harmony;
 using static PlayerAnimation;
 using static PlayerAnimation.State;
-
 using ModComponentAPI;
+
+//did a first pass through; didn't find anything
+//SOME need to be declared
+//maybe some inlined methods
 
 namespace ModComponentMapper
 {
     class PlayerAnimationPatch
     {
-        [HarmonyPatch(typeof(PlayerAnimation), "IsDequipping")]
+        [HarmonyPatch(typeof(PlayerAnimation), "IsDequipping")]//inlined?
         class PlayerAnimation_IsDequipping
         {
             public static bool Prefix(ref bool __result)
@@ -24,7 +27,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "IsAiming")]
+        [HarmonyPatch(typeof(PlayerAnimation), "IsAiming")]//inlined?
         class PlayerAnimationIsAimingPatch
         {
             public static bool Prefix(ref bool __result)
@@ -41,7 +44,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "IsAllowedToFire")]
+        [HarmonyPatch(typeof(PlayerAnimation), "IsAllowedToFire")]//Exists
         class PlayerAnimationIsAllowedToFirePatch
         {
             public static bool Prefix(ref bool __result)
@@ -58,7 +61,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "CanTransitionToState")]
+        [HarmonyPatch(typeof(PlayerAnimation), "CanTransitionToState")]//Exists
         class PlayerAnimationCanTransitionToStatePatch
         {
             public static bool Prefix(PlayerAnimation __instance, PlayerAnimation.State state, ref bool __result)
@@ -75,7 +78,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "GetFirstPersonWeaponCanSwitch")]
+        [HarmonyPatch(typeof(PlayerAnimation), "GetFirstPersonWeaponCanSwitch")]//inlined?
         class PlayerAnimationGetFirstPersonWeaponCanSwitchPatch
         {
             public static bool Prefix(ref bool __result)
@@ -92,7 +95,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "UpdateReloadCount")]
+        [HarmonyPatch(typeof(PlayerAnimation), "UpdateReloadCount")]//Exists
         class PlayerAnimationUpdateReloadCountPatch
         {
             public static bool Prefix()
@@ -108,7 +111,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Reload")]
+        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Reload")]//Exists
         class PlayerAnimationTrigger_Generic_ReloadPatch
         {
             public static bool Prefix(int bulletsToReload, OnAnimationEvent roundLoadedEventCallback, OnAnimationEvent clipLoadedEventCallback, OnAnimationEvent reloadCompleteEventCallback)
@@ -132,12 +135,12 @@ namespace ModComponentMapper
             }
         }
 
-        private enum ReloadStep
+        private enum ReloadStep //UNSURE IF NEEDS TO BE DECLARED
         {
             OpenBolt, LoadClip, LoadRound, CloseBolt
         }
 
-        private class ReloadProcess
+        private class ReloadProcess //NEEDS TO BE DECLARED
         {
             internal int remainingBullets;
 
@@ -203,7 +206,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Aim")]
+        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Aim")]//Exists
         class PlayerAnimationTrigger_Generic_AimPatch
         {
             public static bool Prefix(PlayerAnimation.OnAnimationEvent onAnimationComplete)
@@ -220,7 +223,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "Update_Aiming")]
+        [HarmonyPatch(typeof(PlayerAnimation), "Update_Aiming")]//inlined?
         class PlayerAnimationUpdate_AimingPatch
         {
             public static bool Prefix()
@@ -236,7 +239,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Aim_Cancel")]
+        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Aim_Cancel")]//Exists
         class PlayerAnimationTrigger_Generic_Aim_CancelPatch
         {
             public static bool Prefix(OnAnimationEvent onAnimationComplete)
@@ -253,7 +256,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Fire")]
+        [HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Fire")]//Exists
         class PlayerAnimationTrigger_Generic_FirePatch
         {
             public static bool Prefix()
@@ -272,7 +275,7 @@ namespace ModComponentMapper
             }
         }
 
-        [HarmonyPatch(typeof(PlayerAnimation), "Update_WeaponFatigue")]
+        [HarmonyPatch(typeof(PlayerAnimation), "Update_WeaponFatigue")]//Exists
         class PlayerAnimationUpdate_WeaponFatiguePatch
         {
             private static UnityEngine.Vector3 MAX_SHAKE_AMPLITUDE = new UnityEngine.Vector3(0.2f, 0f, 0.1f);

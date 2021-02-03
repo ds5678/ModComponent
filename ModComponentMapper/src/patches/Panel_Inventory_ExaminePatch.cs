@@ -1,9 +1,12 @@
 ﻿using Harmony;
 using UnityEngine;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(Panel_Inventory_Examine), "Start")]
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "Start")]//Exists
     internal class Panel_Inventory_Examine_Start
     {
         internal static void Postfix(Panel_Inventory_Examine __instance)

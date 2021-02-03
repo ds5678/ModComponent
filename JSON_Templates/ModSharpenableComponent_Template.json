@@ -1,0 +1,10 @@
+{
+    "ModSharpenableComponent" : {
+                                "Audio" : "",
+                                "MinutesMin" : 5,
+                                "MinutesMax" : 20,
+                                "ConditionMin" : 3.3,
+                                "ConditionMax" : 9.9,
+                                "Tools" : ["GEAR_SharpeningStone"]
+                                }
+}

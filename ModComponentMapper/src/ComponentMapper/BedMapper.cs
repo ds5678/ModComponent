@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using ModComponentAPI;
 
+//did a first pass through, may need to investigate the placeable item
+//does not need to be declared
+
 namespace ModComponentMapper.ComponentMapper
 {
     internal class BedMapper
@@ -36,7 +39,8 @@ namespace ModComponentMapper.ComponentMapper
             degradeOnUse.m_DegradeHP = Mathf.Max(degradeOnUse.m_DegradeHP, modBedComponent.DegradePerHour);
 
             PlaceableItem placeableItem = ModUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
-            placeableItem.m_Range = 4;
+            //placeableItem.m_Range = 4;
+            //m_prefab_name ???
         }
     }
 }

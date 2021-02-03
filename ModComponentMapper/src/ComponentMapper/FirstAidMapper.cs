@@ -1,5 +1,8 @@
 ﻿using ModComponentAPI;
 
+//did a first pass through; might want to remove sutures and sprains from the API if they're there
+//does not need to be declared
+
 namespace ModComponentMapper.ComponentMapper
 {
     internal class FirstAidMapper

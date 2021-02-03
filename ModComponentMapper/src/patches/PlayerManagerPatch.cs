@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+//did a first pass through 
+//HAS A TRANSPILER PATCH, which I think I fixed
+//Inline patch probably fixed
+//does not need to be declared
+//might have some additional inlined methods
+
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(PlayerManager), "InteractiveObjectsProcessAltFire")]
+    [HarmonyPatch(typeof(PlayerManager), "InteractiveObjectsProcessAltFire")]//Exists
     internal class PlayerManager_InteractiveObjectsProcessAltFire
     {
         internal static bool Prefix(PlayerManager __instance)
@@ -22,7 +28,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]
+    [HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]//Exists
     internal class PlayerManager_PutOnClothingItem
     {
         internal static void Postfix(GearItem gi)
@@ -34,7 +40,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "RestoreOriginalTint")]
+    [HarmonyPatch(typeof(PlayerManager), "RestoreOriginalTint")]//Exists
     internal class PlayerManager_RestoreOriginalTint
     {
         internal static void Postfix(PlayerManager __instance, GameObject go)
@@ -43,16 +49,42 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "StoreOriginalTint")]
-    internal class PlayerManager_StoreOriginalTint
+    //[HarmonyPatch(typeof(PlayerManager), "StoreOriginalTint")]//DOES NOT EXIST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //internal class PlayerManager_StoreOriginalTint
+    //{
+    //    internal static void Prefix(PlayerManager __instance, GameObject go)
+    //    {
+    //        go.AddComponent<RestoreMaterialQueue>();
+    //    }
+    //}
+
+    //Replacement Patches
+    [HarmonyPatch(typeof(PlayerManager), "PrepareGhostedObject")]//inlined?
+    internal class PlayerManager_PrepareGhostedObject
     {
-        internal static void Prefix(PlayerManager __instance, GameObject go)
+        internal static void Prefix(PlayerManager __instance)
         {
-            go.AddComponent<RestoreMaterialQueue>();
+            if (__instance.m_ObjectToPlace)
+            {
+                __instance.m_ObjectToPlace.AddComponent<RestoreMaterialQueue>();
+            }
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "TakeOffClothingItem")]
+    [HarmonyPatch(typeof(PlayerManager), "OnPlaceMeshAnimationEvent")]//inlined
+    internal class PlayerManager_OnPlaceMeshAnimationEvent
+    {
+        internal static void Prefix(PlayerManager __instance)
+        {
+            if (__instance.m_ObjectToPlace)
+            {
+                __instance.m_ObjectToPlace.AddComponent<RestoreMaterialQueue>();
+            }
+        }
+    }
+    //End Replacement Patches
+
+    [HarmonyPatch(typeof(PlayerManager), "TakeOffClothingItem")]//Exists
     internal class PlayerManager_TakeOffClothingItem
     {
         internal static void Postfix(GearItem gi)
@@ -64,7 +96,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]
+    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]//Exists
     internal class PlayerManager_UnequipItemInHandsInternalPatch
     {
         internal static void Postfix(PlayerManager __instance)
@@ -73,7 +105,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]
+    [HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]//Exists
     internal class PlayerManager_UnequipItemInHandsSkipAnimation
     {
         internal static void Prefix(PlayerManager __instance)
@@ -82,7 +114,9 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "UpdateBuffDurations")]
+    //TRANSPILER!!!!!!! <===========================================================================================================
+    //Seems to be removing the wolf intimidation buff calculation
+    /*[HarmonyPatch(typeof(PlayerManager), "UpdateBuffDurations")]//Exists
     internal class PlayerManager_UpdateBuffDurations
     {
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -104,8 +138,17 @@ namespace ModComponentMapper
             return codes;
         }
     }
+    */
+    [HarmonyPatch(typeof(PlayerManager),"UpdateBuffDurations")]
+    internal static class PlayerManager_UpdateBuffDurations
+    {
+        internal static void Postfix(PlayerManager __instance)
+        {
+            __instance.RemoveWolfIntimidationBuff();
+        }
+    }
 
-    [HarmonyPatch(typeof(PlayerManager), "EquipItem")]
+    [HarmonyPatch(typeof(PlayerManager), "EquipItem")]//Exists
     internal class PlayerManagerEquipItemPatch
     {
         internal static void Prefix(PlayerManager __instance, GearItem gi)
@@ -118,7 +161,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "OnEquipItemBegin")]
+    [HarmonyPatch(typeof(PlayerManager), "OnEquipItemBegin")]//inlined?
     internal class PlayerManagerOnEquipItemBeginPatch
     {
         internal static void Postfix(PlayerManager __instance)
@@ -127,7 +170,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "SetControlMode")]
+    [HarmonyPatch(typeof(PlayerManager), "SetControlMode")]//Exists
     internal class PlayerManagerSetControlModePatch
     {
         private static PlayerControlMode lastMode;
@@ -149,7 +192,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(PlayerManager), "UseInventoryItem")]
+    [HarmonyPatch(typeof(PlayerManager), "UseInventoryItem")]//Exists
     internal class PlayerManagerUseInventoryItemPatch
     {
         internal static bool Prefix(PlayerManager __instance, GearItem gi)

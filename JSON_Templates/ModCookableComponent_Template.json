@@ -1,0 +1,34 @@
+{
+    "ModCookableComponent" : {
+                            "DisplayNameLocalizationId" : "GAMEPLAY_HotCocoaBox",
+                            "DescriptionLocalizatonId" : "GAMEPLAY_HotCocoaBoxDescription",
+                            "InventoryActionLocalizationId" : "GAMEPLAY_HotCocoaBoxAction",
+                            "WeightKG": 0.32,
+                            "DaysToDecay" : 0,
+                            "MaxHP" : 100,
+                            "InitialCondition" : "Random",
+                            "InventoryCategory" : "Food",
+                            "Radial" : "None",
+                            "PickUpAudio" : "",
+                            "PutBackAudio" : "",
+                            "StowAudio" : "Play_InventoryStow",
+                            "WornOutAudio" : "",
+                            "InspectOnPickup" : true,
+                            "InspectDistance" : 0.4,
+                            "InspectAngles" : [0, 0, 0],
+                            "InspectOffset" : [0, 0, 0],
+                            "InspectScale" :  [1, 1, 1],
+                            "NormalModel" : "",
+                            "InspectModel" : "",
+
+                            "Cooking" : true,
+                            "CookingMinutes" : 13,
+                            "CookingUnitsRequired" : 1,
+                            "CookingWaterRequired" : 0.25,
+                            "CookingResult" : "GEAR_HotCocoaCup",
+                            "BurntMinutes" : 30,
+                            "Type" : "Liquid",
+                            "CookingAudio" : "",
+                            "StartCookingAudio" : ""
+                        }
+}

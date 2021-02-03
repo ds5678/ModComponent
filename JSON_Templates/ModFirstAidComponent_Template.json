@@ -1,0 +1,32 @@
+{
+    "ModFirstAidComponent": {
+                                "DisplayNameLocalizationId" : "GAMEPLAY_SampleItem",
+                                "DescriptionLocalizatonId" : "GAMEPLAY_SampleItemDescription",
+                                "InventoryActionLocalizationId" : "",
+                                "InitialCondition" : "Perfect",
+                                "WeightKG": 0.1,
+                                "DaysToDecay" : 0,
+                                "MaxHP" : 100,
+                                "InventoryCategory" : "FirstAid",
+                                "Radial" : "None",
+                                "PickUpAudio" : "",
+                                "PutBackAudio" : "",
+                                "StowAudio" : "Play_InventoryStow",
+                                "WornOutAudio" : "",
+                                "InspectOnPickup" : true,
+                                "InspectDistance" : 0.4,
+                                "InspectAngles" : [0, 0, 0],
+                                "InspectOffset" : [0, 0, 0],
+                                "InspectScale" :  [1, 1, 1],
+                                "NormalModel" : "",
+                                "InspectModel" : "",
+
+                                "ProgressBarMessage" : "",
+                                "RemedyText" : "",
+                                "InstantHealing" : 0,
+                                "FirstAidType" : "Antibiotics",
+                                "TimeToUseSeconds" : 4,
+                                "UnitsPerUse" : 1,
+                                "UseAudio" : ""
+                            }
+}

@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using System;
+
+//did a first pass through; didn't find anything
+//NEEDS to be declared for MelonLoader
 
 namespace ModComponentMapper
 {
@@ -17,5 +21,7 @@ namespace ModComponentMapper
             vp_Layer.Set(this.gameObject, Layer, Recursively);
             Destroy(this);
         }
+
+        public ChangeLayer(IntPtr intPtr) : base(intPtr) { }
     }
 }

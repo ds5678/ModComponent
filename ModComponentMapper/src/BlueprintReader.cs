@@ -3,6 +3,9 @@ using System;
 using System.IO;
 using System.Reflection;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
     public class BlueprintReader
@@ -17,11 +20,27 @@ namespace ModComponentMapper
             string blueprintsDirectory = GetBlueprintsDirectory();
             if (!Directory.Exists(blueprintsDirectory))
             {
-                Implementation.Log("Blueprints directory '{0}' does not exist.", blueprintsDirectory);
+                Implementation.Log("Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
+                Directory.CreateDirectory(blueprintsDirectory);
                 return;
             }
 
-            string[] files = Directory.GetFiles(blueprintsDirectory, "*.json");
+            ProcessFiles(blueprintsDirectory);
+        }
+
+        private static void ProcessFiles(string directory)
+        {
+            if (!Directory.Exists(directory))
+            {
+                return;
+            }
+            string[] directories = Directory.GetDirectories(directory);
+            foreach (string eachDirectory in directories)
+            {
+                ProcessFiles(eachDirectory);
+            }
+
+            string[] files = Directory.GetFiles(directory, "*.json");
             foreach (string eachFile in files)
             {
                 Implementation.Log("Processing blueprint definition '{0}'.", eachFile);
@@ -31,7 +50,7 @@ namespace ModComponentMapper
 
         private static string GetBlueprintsDirectory()
         {
-            string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string modDirectory = Implementation.GetModsFolderPath();
             return Path.Combine(modDirectory, "blueprints");
         }
 
@@ -41,7 +60,7 @@ namespace ModComponentMapper
 
             try
             {
-                ModBlueprint blueprint = FastJson.Deserialize<ModBlueprint>(text);
+                ModBlueprint blueprint = MelonLoader.TinyJSON.JSON.Load(text).Make<ModBlueprint>();
                 Mapper.RegisterBlueprint(blueprint, path);
             }
             catch (Exception e)

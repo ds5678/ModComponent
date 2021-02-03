@@ -4,9 +4,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* did a first pass through; HAS ISSUES!!!!!
+ * ONE needs to be declared
+ * Three issues
+ * First was an m_range on a PlaceableItem; I just commented it out
+ * Second appeared to have been caused by a change in the arguments a function requires;
+ *     I added the additional required argument.
+ * Third appeared to be just a small syntax error; I corrected it
+ */
+
 namespace ModComponentMapper
 {
-    public class MappedItem
+    public class MappedItem // needs declared
     {
         private GameObject gameObject;
 
@@ -23,7 +32,7 @@ namespace ModComponentMapper
         }
     }
 
-    public class Mapper
+    public class Mapper //does not need to be declared
     {
         private static List<ModBlueprint> blueprints = new List<ModBlueprint>();
         private static List<ModComponent> mappedItems = new List<ModComponent>();
@@ -61,6 +70,7 @@ namespace ModComponentMapper
                 ScentMapper.Configure(modComponent);
                 SharpenableMapper.Configure(modComponent);
                 EvolveMapper.Configure(modComponent);
+                MillableMapper.Configure(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureLiquidItem(modComponent);
@@ -112,11 +122,12 @@ namespace ModComponentMapper
             bpItem.m_DurationMinutes = modBlueprint.DurationMinutes;
             bpItem.m_CraftingAudio = modBlueprint.CraftingAudio;
 
-            bpItem.m_RequiresForge = modBlueprint.RequiresForge;
-            bpItem.m_RequiresWorkbench = modBlueprint.RequiresWorkbench;
+            bpItem.m_RequiredCraftingLocation = ModUtils.TranslateEnumValue<CraftingLocation,ModComponentAPI.CraftingLocation>(modBlueprint.RequiredCraftingLocation);
+            bpItem.m_RequiresLitFire = modBlueprint.RequiresLitFire;
             bpItem.m_RequiresLight = modBlueprint.RequiresLight;
 
-            bpItem.m_Locked = modBlueprint.Locked;
+            bpItem.m_Locked = false;
+            bpItem.m_AppearsInStoryOnly = false;
 
             bpItem.m_CraftedResultCount = modBlueprint.CraftedResultCount;
             bpItem.m_CraftedResult = ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
@@ -125,10 +136,15 @@ namespace ModComponentMapper
             {
                 bpItem.m_RequiredTool = ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
             }
-
             bpItem.m_OptionalTools = ModUtils.NotNull(ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools));
+
             bpItem.m_RequiredGear = ModUtils.NotNull(ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear));
             bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
+            bpItem.m_KeroseneLitersRequired = modBlueprint.KeroseneLitersRequired;
+            bpItem.m_GunpowderKGRequired = modBlueprint.GunpowderKGRequired;
+
+            bpItem.m_AppliedSkill = ModUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.AppliedSkill);
+            bpItem.m_ImprovedSkill = ModUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.ImprovedSkill);
         }
 
         internal static void MapBlueprints()
@@ -145,7 +161,7 @@ namespace ModComponentMapper
             }
         }
 
-        internal static void MapSkill(ModSkill modSkill)
+        /*internal static void MapSkill(ModSkill modSkill)
         {
             SerializableSkill skill = new GameObject().AddComponent<SerializableSkill>();
 
@@ -159,7 +175,8 @@ namespace ModComponentMapper
             skill.m_TierLocalizedBenefits = CreateLocalizedStrings(modSkill.EffectsLevel1, modSkill.EffectsLevel2, modSkill.EffectsLevel3, modSkill.EffectsLevel4, modSkill.EffectsLevel5);
             skill.m_TierLocalizedDescriptions = CreateLocalizedStrings(modSkill.DescriptionLevel1, modSkill.DescriptionLevel2, modSkill.DescriptionLevel3, modSkill.DescriptionLevel4, modSkill.DescriptionLevel5);
 
-            ModUtils.ExecuteMethod(GameManager.GetSkillsManager(), "InstantiateSkillPrefab", skill.gameObject);
+            //ModUtils.ExecuteMethod(GameManager.GetSkillsManager(), "InstantiateSkillPrefab", skill.gameObject);
+            GameManager.GetSkillsManager().InstantiateSkillPrefab(skill.gameObject);
         }
 
         internal static void MapSkills()
@@ -174,7 +191,7 @@ namespace ModComponentMapper
             {
                 MapSkill(eachModSkill);
             }
-        }
+        }*/
 
         internal static void RegisterBlueprint(ModBlueprint modBlueprint, string sourcePath)
         {
@@ -193,18 +210,19 @@ namespace ModComponentMapper
             try
             {
                 ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
-
+                
                 if (!string.IsNullOrEmpty(modBlueprint.RequiredTool))
                 {
                     ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
                 }
-
+                
                 if (modBlueprint.OptionalTools != null)
                 {
                     ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
                 }
-
+                
                 ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
+                
             }
             catch (Exception e)
             {
@@ -247,7 +265,7 @@ namespace ModComponentMapper
 
         private static void ConfigureCookingPot(ModComponent modComponent)
         {
-            ModCookingPotComponent modCookingPotComponent = modComponent as ModCookingPotComponent;
+            ModCookingPotComponent modCookingPotComponent = modComponent.TryCast<ModCookingPotComponent>();
             if (modCookingPotComponent == null)
             {
                 return;
@@ -291,7 +309,7 @@ namespace ModComponentMapper
             cookingPotItem.m_GrubMeshRenderer = grubMesh.GetComponent<MeshRenderer>();
 
             PlaceableItem placeableItem = ModUtils.GetOrCreateComponent<PlaceableItem>(modComponent);
-            placeableItem.m_Range = template.GetComponent<PlaceableItem>()?.m_Range ?? 3;
+            //placeableItem.m_Range = template.GetComponent<PlaceableItem>()?.m_Range ?? 3; //<============================================
         }
 
         private static FirstPersonItem ConfiguredRifleFirstPersonItem(ModRifleComponent modRifleComponent)
@@ -311,7 +329,7 @@ namespace ModComponentMapper
 
         private static void ConfigureEquippable(ModComponent modComponent)
         {
-            EquippableModComponent equippableModComponent = modComponent as EquippableModComponent;
+            EquippableModComponent equippableModComponent = modComponent.TryCast<EquippableModComponent>();
             if (equippableModComponent == null)
             {
                 return;
@@ -327,7 +345,7 @@ namespace ModComponentMapper
 
         private static void ConfigureFood(ModComponent modComponent)
         {
-            ModFoodComponent modFoodComponent = modComponent as ModFoodComponent;
+            ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
             if (modFoodComponent == null)
             {
                 return;
@@ -341,10 +359,12 @@ namespace ModComponentMapper
 
             foodItem.m_ChanceFoodPoisoning = Mathf.Clamp01(modFoodComponent.FoodPoisoning / 100f);
             foodItem.m_ChanceFoodPoisoningLowCondition = Mathf.Clamp01(modFoodComponent.FoodPoisoningLowCondition / 100f);
+            foodItem.m_ChanceFoodPoisoningRuined = Mathf.Clamp01(modFoodComponent.FoodPoisoningLowCondition / 100f);
             foodItem.m_DailyHPDecayInside = GetDecayPerStep(modFoodComponent.DaysToDecayIndoors, modFoodComponent.MaxHP);
             foodItem.m_DailyHPDecayOutside = GetDecayPerStep(modFoodComponent.DaysToDecayOutdoors, modFoodComponent.MaxHP);
 
             foodItem.m_TimeToEatSeconds = Mathf.Clamp(1, modFoodComponent.EatingTime, 10);
+            foodItem.m_TimeToOpenAndEatSeconds = Mathf.Clamp(1, modFoodComponent.EatingTime, 10) + 5;
             foodItem.m_EatingAudio = modFoodComponent.EatingAudio;
             foodItem.m_OpenAndEatingAudio = modFoodComponent.EatingPackagedAudio;
             foodItem.m_Packaged = !string.IsNullOrEmpty(foodItem.m_OpenAndEatingAudio);
@@ -354,6 +374,7 @@ namespace ModComponentMapper
             foodItem.m_IsMeat = modFoodComponent.Meat;
             foodItem.m_IsRawMeat = modFoodComponent.Raw;
             foodItem.m_IsNatural = modFoodComponent.Natural;
+            foodItem.m_MustConsumeAll = false;
             foodItem.m_ParasiteRiskPercentIncrease = ModUtils.NotNull(modFoodComponent.ParasiteRiskIncrements);
 
             foodItem.m_PercentHeatLossPerMinuteIndoors = 1;
@@ -424,7 +445,9 @@ namespace ModComponentMapper
             gearItem.m_WeightKG = modComponent.WeightKG;
             gearItem.m_MaxHP = modComponent.MaxHP;
             gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
-            gearItem.OverrideGearCondition(ModUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition));
+            //gearItem.OverrideGearCondition(ModUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition)); //<===================================
+            gearItem.OverrideGearCondition( ModUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition) , false);
+            // OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
 
             gearItem.m_LocalizedDisplayName = CreateLocalizedString(modComponent.DisplayNameLocalizationId);
             gearItem.m_LocalizedDescription = CreateLocalizedString(modComponent.DescriptionLocalizatonId);
@@ -442,7 +465,7 @@ namespace ModComponentMapper
 
         private static void ConfigureLiquidItem(ModComponent modComponent)
         {
-            ModLiquidItemComponent modLiquidItemComponent = modComponent as ModLiquidItemComponent;
+            ModLiquidComponent modLiquidItemComponent = modComponent.TryCast<ModLiquidComponent>();
             if (modLiquidItemComponent == null)
             {
                 return;
@@ -459,7 +482,7 @@ namespace ModComponentMapper
 
         private static void ConfigureRifle(ModComponent modComponent)
         {
-            ModRifleComponent modRifleComponent = modComponent as ModRifleComponent;
+            ModRifleComponent modRifleComponent = modComponent.TryCast<ModRifleComponent>();
             if (modRifleComponent == null)
             {
                 return;
@@ -511,14 +534,22 @@ namespace ModComponentMapper
 
             StackableItem stackableItem = ModUtils.GetOrCreateComponent<StackableItem>(modComponent);
 
-            stackableItem.m_LocalizedMultipleUnitText = new LocalizedString { m_LocalizationID = modStackableComponent.MultipleUnitText };
-            stackableItem.m_LocalizedSingleUnitText = new LocalizedString { m_LocalizationID = modComponent.DisplayNameLocalizationId };
+            stackableItem.m_LocalizedMultipleUnitText = new LocalizedString { m_LocalizationID = modStackableComponent.MultipleUnitTextID };
+
+            if (string.IsNullOrEmpty(modStackableComponent.SingleUnitTextID))
+            {
+                stackableItem.m_LocalizedSingleUnitText = new LocalizedString { m_LocalizationID = modComponent.DisplayNameLocalizationId };
+            }
+            else
+            {
+                stackableItem.m_LocalizedSingleUnitText = new LocalizedString { m_LocalizationID = modStackableComponent.SingleUnitTextID };
+            }
 
             stackableItem.m_StackSpriteName = modStackableComponent.StackSprite;
 
             stackableItem.m_ShareStackWithGear = new StackableItem[0];
-            stackableItem.m_Units = 1;
-            stackableItem.m_UnitsPerItem = 1;
+            stackableItem.m_Units = modStackableComponent.UnitsPerItem;
+            stackableItem.m_UnitsPerItem = modStackableComponent.UnitsPerItem;
         }
 
         private static LocalizedString[] CreateLocalizedStrings(params string[] keys)
@@ -571,7 +602,7 @@ namespace ModComponentMapper
                 return GearTypeEnum.Tool;
             }
 
-            if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidItemComponent)?.LiquidType == LiquidType.Water)
+            if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == LiquidType.Water)
             {
                 return GearTypeEnum.Food;
             }
@@ -594,7 +625,9 @@ namespace ModComponentMapper
             modComponent.gameObject.layer = vp_Layer.Gear;
 
             GearItem gearItem = modComponent.GetComponent<GearItem>();
-            gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers);
+            //gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers); //<================================================================
+            gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
+            //I think this should be fine. It appears to just be a syntax error.
 
             GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
             MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();

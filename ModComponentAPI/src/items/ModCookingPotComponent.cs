@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 namespace ModComponentAPI
 {
@@ -8,12 +9,14 @@ namespace ModComponentAPI
         public bool CanCookGrub;
         public bool CanCookMeat;
 
-        [Range(0.0f, 10.0f)]
+        //[Range(0.0f, 10.0f)]
         public float Capacity;
 
         public string Template;
 
         public Mesh SnowMesh;
         public Mesh WaterMesh;
+
+        public ModCookingPotComponent(IntPtr intPtr) : base(intPtr) { }
     }
 }

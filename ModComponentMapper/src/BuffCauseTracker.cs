@@ -1,6 +1,9 @@
 ﻿using Harmony;
 using System.Collections.Generic;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
     internal class BuffCauseTracker
@@ -27,7 +30,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(FatigueBuff), "Apply")]
+    [HarmonyPatch(typeof(FatigueBuff), "Apply")]//Exists
     internal class FagtigueBuffApplyPatch
     {
         public static void Postfix(FatigueBuff __instance)

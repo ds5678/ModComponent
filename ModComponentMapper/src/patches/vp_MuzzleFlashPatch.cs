@@ -1,9 +1,12 @@
 ﻿using Harmony;
 using UnityEngine;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(vp_MuzzleFlash), "Shoot")]
+    [HarmonyPatch(typeof(vp_MuzzleFlash), "Shoot")]//Exists
     class vp_MuzzleFlashShootPatch
     {
         public static void Prefix(vp_MuzzleFlash __instance, ref Transform tr)

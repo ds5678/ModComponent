@@ -9,5 +9,7 @@ namespace ModComponentAPI
         public void OnEnable()
         {
         }
+
+        public PlayAkSound(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

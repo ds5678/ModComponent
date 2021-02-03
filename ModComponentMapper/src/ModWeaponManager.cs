@@ -1,12 +1,15 @@
 ﻿using Harmony;
 using System.Collections.Generic;
 using UnityEngine;
-
 using ModComponentAPI;
+using System;
+
+//did a first pass through; didn't find anything
+//ONE needs to be declared
 
 namespace ModComponentMapper
 {
-    public class ModWeaponManager
+    public class ModWeaponManager //does not need to be declared
     {
         private static List<ModRifleComponent> pendingRifles = new List<ModRifleComponent>();
 
@@ -37,7 +40,7 @@ namespace ModComponentMapper
             Implementation.Log("Registering '{0}'", name);
 
             GameObject template = weaponViewTransform.Find("Rifle").gameObject;
-            GameObject weapon = Object.Instantiate(template, weaponViewTransform);
+            GameObject weapon = UnityEngine.Object.Instantiate(template, weaponViewTransform);
             weapon.name = name;
             weapon.AddComponent<FixMuzzleFlashTransformParent>();
             weapon.GetComponent<vp_FPSWeapon>().m_UseFirstPersonHands = false;
@@ -46,16 +49,16 @@ namespace ModComponentMapper
             if (rifle_rig != null)
             {
                 rifle_rig.transform.parent = null;
-                Object.Destroy(rifle_rig.gameObject);
+                UnityEngine.Object.Destroy(rifle_rig.gameObject);
             }
 
-            GameObject equippedModel = Object.Instantiate(modRifleComponent.EquippedModelPrefab, weapon.transform);
+            GameObject equippedModel = UnityEngine.Object.Instantiate(modRifleComponent.EquippedModelPrefab, weapon.transform);
             equippedModel.name = (name + "_rig").ToLower();
 
         }
     }
 
-    [HarmonyPatch(typeof(GameManager), "InstantiatePlayerObject")]
+    [HarmonyPatch(typeof(GameManager), "InstantiatePlayerObject")]//Exists
     class GameManagerInstantiatePlayerObjectPatch
     {
         public static void Prefix(GameManager __instance)
@@ -64,7 +67,7 @@ namespace ModComponentMapper
         }
     }
 
-    class FixMuzzleFlashTransformParent : MonoBehaviour
+    class FixMuzzleFlashTransformParent : MonoBehaviour //NEEDS TO BE DECLARED
     {
         public void Start()
         {
@@ -74,5 +77,7 @@ namespace ModComponentMapper
                 shooter.MuzzleFlash.transform.parent = shooter.BulletEmissionLocator;
             }
         }
+
+        public FixMuzzleFlashTransformParent(IntPtr intPtr) : base(intPtr) { }
     }
 }

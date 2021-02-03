@@ -1,10 +1,12 @@
 ﻿using Harmony;
-
 using ModComponentAPI;
+
+//did a first pass through; didn't find anything
+//does not need to be declared
 
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(ItemDescriptionPage), "GetEquipButtonLocalizationId")]
+    [HarmonyPatch(typeof(ItemDescriptionPage), "GetEquipButtonLocalizationId")]//Exists
     class ItemDescriptionPageGetEquipButtonLocalizationIdPatch
     {
         public static void Postfix(GearItem gi, ref string __result)
@@ -22,7 +24,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]
+    [HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]//Exists
     class ItemDescriptionPageCanExaminePatch
     {
         public static void Postfix(GearItem gi, ref bool __result)

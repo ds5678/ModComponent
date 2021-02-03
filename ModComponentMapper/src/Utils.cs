@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
     public class EquipItemPopupUtils
@@ -236,7 +239,7 @@ namespace ModComponentMapper
 
         internal static T GetItem<T>(string name, string reference = null)
         {
-            GameObject gameObject = Resources.Load(name) as GameObject;
+            GameObject gameObject = Resources.Load(name).Cast<GameObject>();
             if (gameObject == null)
             {
                 throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
@@ -257,7 +260,7 @@ namespace ModComponentMapper
 
             for (int i = 0; i < names.Length; i++)
             {
-                result[i] = GetItem<T>(names[i]);
+                result[i] = GetItem<T>(names[i],reference);
             }
 
             return result;
@@ -306,8 +309,16 @@ namespace ModComponentMapper
 
         internal static void RegisterConsoleGearName(string displayName, string prefabName)
         {
-            ConsoleManager.Initialize();
-            ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName.ToLower(), prefabName.ToLower() });
+            //ConsoleManager.Initialize();
+            if (ConsoleWaitlist.IsConsoleManagerInitialized())
+            {
+                ExecuteStaticMethod(typeof(ConsoleManager), "AddCustomGearName", new object[] { displayName.ToLower(), prefabName.ToLower() });
+            }
+            else
+            {
+                ConsoleWaitlist.AddToWaitlist(displayName, prefabName);
+                Implementation.Log("Console Manager not initialized. '{0}' , '{1}' added to waitlist.",displayName,prefabName);
+            }
         }
 
         internal static T TranslateEnumValue<T, E>(E value)

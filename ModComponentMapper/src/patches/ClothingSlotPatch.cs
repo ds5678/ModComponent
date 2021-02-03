@@ -2,9 +2,12 @@
 using ModComponentAPI;
 using UnityEngine;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(ClothingSlot), "CheckForChangeLayer")]
+    [HarmonyPatch(typeof(ClothingSlot), "CheckForChangeLayer")]//Exists
     internal class ClothingSlot_CheckForChangeLayer
     {
         public static bool Prefix(ClothingSlot __instance)

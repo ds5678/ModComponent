@@ -1,6 +1,9 @@
 ﻿using ModComponentAPI;
 using System;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper.ComponentMapper
 {
     internal class HarvestableMapper
@@ -24,6 +27,10 @@ namespace ModComponentMapper.ComponentMapper
 
             harvest.m_YieldGear = ModUtils.GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
             harvest.m_YieldGearUnits = modHarvestableComponent.YieldCounts;
+
+            harvest.m_AppliedSkillType = SkillType.None;
+            harvest.m_RequiredTools = new UnhollowerBaseLib.Il2CppReferenceArray<ToolsItem>(0);
+            harvest.m_GunpowderYield = 0f;
         }
     }
 }

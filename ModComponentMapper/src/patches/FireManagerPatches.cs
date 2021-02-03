@@ -1,9 +1,12 @@
 ﻿using Harmony;
 using ModComponentAPI;
 
+//did a first pass through; didn't find anything
+//does not need to be declared
+
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(FireManager), "PlayerStartFire")]
+    [HarmonyPatch(typeof(FireManager), "PlayerStartFire")]//Exists
     internal class FireManager_PlayerStartFire
     {
         internal static void Postfix(FireStarterItem starter, bool __result)

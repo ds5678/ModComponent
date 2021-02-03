@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using UnityEngine;
+
+//did a first pass through; didn't find anything
+//NEEDS to be declared for MelonLoader
 
 namespace ModComponentMapper
 {
@@ -33,5 +35,7 @@ namespace ModComponentMapper
                 }
             }
         }
+
+        public RestoreMaterialQueue(IntPtr intPtr) : base(intPtr) { }
     }
 }

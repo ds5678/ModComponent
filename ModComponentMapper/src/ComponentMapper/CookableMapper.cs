@@ -2,6 +2,9 @@
 using System;
 using UnityEngine;
 
+//did a first pass through; didn't find anything, but concerned about the cooking revamp; closer investigation required
+//does not need to be declared
+
 namespace ModComponentMapper.ComponentMapper
 {
     internal class CookableMapper
@@ -78,7 +81,7 @@ namespace ModComponentMapper.ComponentMapper
                 if (cookedGearItem == null)
                 {
                     // not mapped yet, do it now
-                    Mapper.Map(modCookableComponent.CookingResult);
+                    AutoMapper.MapModComponent(modCookableComponent.CookingResult);
                     cookedGearItem = modCookableComponent.CookingResult.GetComponent<GearItem>();
                 }
 

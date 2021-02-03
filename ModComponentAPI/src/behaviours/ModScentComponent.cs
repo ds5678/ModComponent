@@ -14,7 +14,9 @@ namespace ModComponentAPI
 
     public class ModScentComponent : MonoBehaviour
     {
-        [Tooltip("What type of smell does this item have? Affects wildlife detection radius and smell strength.")]
+        //[Tooltip("What type of smell does this item have? Affects wildlife detection radius and smell strength.")]
         public ScentCategory scentCategory = ScentCategory.RAW_MEAT;
+
+        public ModScentComponent(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

@@ -3,7 +3,12 @@ using ModComponentAPI;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
 using UnityEngine;
+using MelonLoader;
+
+//did a first pass through; didn't find anything
+//does not need to be declared
 
 namespace ModComponentMapper
 {
@@ -11,16 +16,22 @@ namespace ModComponentMapper
     {
         private const string AUTO_MAPPER_DIRECTORY_NAME = "auto-mapped";
 
+        public static string GetAutoMapperDirectory()
+        {
+            return Path.Combine(Implementation.GetModsFolderPath(), AUTO_MAPPER_DIRECTORY_NAME);
+        }
+
         internal static void Initialize()
         {
             AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
 
-            string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string autoMapperDirectory = Path.Combine(modDirectory, AUTO_MAPPER_DIRECTORY_NAME);
+            string modDirectory = Implementation.GetModsFolderPath();
+            string autoMapperDirectory = GetAutoMapperDirectory();
 
             if (!Directory.Exists(autoMapperDirectory))
             {
-                Implementation.Log("Directory '{0}' does not exist. Skipping ...", autoMapperDirectory);
+                Implementation.Log("Directory '{0}' does not exist. Creating ...", autoMapperDirectory);
+                Directory.CreateDirectory(autoMapperDirectory);
                 return;
             }
 
@@ -42,6 +53,12 @@ namespace ModComponentMapper
             {
                 string relativePath = GetRelativePath(eachFile, modDirectory);
 
+                if (relativePath.ToLower().EndsWith(".json"))
+                {
+                    continue;
+                }
+
+                Implementation.Log("Found '{0}'", eachFile);
                 if (relativePath.ToLower().EndsWith(".unity3d"))
                 {
                     LoadAssetBundle(relativePath);
@@ -66,10 +83,16 @@ namespace ModComponentMapper
 
         private static void AutoMapPrefab(string prefabName, string assetBundlePath)
         {
-            GameObject prefab = Resources.Load(prefabName) as GameObject;
+            //Implementation.Log("AutoMapPrefab called");
+            UnityEngine.Object obj = Resources.Load(prefabName);
+            if(obj == null)
+            {
+                Implementation.Log("In AutoMapPrefab, Resources.Load returned null.");
+            }
+            GameObject prefab = obj.Cast<GameObject>();
             MapModComponent(prefab);
             MapBlueprint(prefab, assetBundlePath);
-            MapSkill(prefab);
+            //MapSkill(prefab);
         }
 
         private static string GetDefaultConsoleName(string gameObjectName)
@@ -77,7 +100,7 @@ namespace ModComponentMapper
             return gameObjectName.Replace("GEAR_", "");
         }
 
-        private static string GetRelativePath(string file, string directory)
+        public static string GetRelativePath(string file, string directory)
         {
             if (file.StartsWith(directory))
             {
@@ -95,9 +118,18 @@ namespace ModComponentMapper
             string[] assetNames = assetBundle.GetAllAssetNames();
             foreach (string eachAssetName in assetNames)
             {
+                Implementation.Log(eachAssetName);
                 if (eachAssetName.EndsWith(".prefab"))
                 {
                     AutoMapPrefab(eachAssetName, relativePath);
+                }
+                if (eachAssetName.EndsWith(".png"))
+                {
+                    //Implementation.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    string assetName = AssetLoader.ModAssetBundleManager.GetAssetName(eachAssetName);
+                    string mappedName = AssetLoader.ModAssetBundleManager.getAssetMappedName(eachAssetName, assetName);
+                    Texture2D texture = assetBundle.LoadAsset(mappedName).Cast<Texture2D>();
+                    Utils.CacheTexture(mappedName, texture);
                 }
             }
         }
@@ -106,7 +138,7 @@ namespace ModComponentMapper
         {
             Implementation.Log("Loading '{0}' ...", relativePath);
 
-            string modDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string modDirectory = Implementation.GetModsFolderPath();
             string absolutePath = Path.Combine(modDirectory, relativePath);
             Assembly.LoadFrom(absolutePath);
         }
@@ -116,14 +148,14 @@ namespace ModComponentMapper
             ModSoundBankManager.RegisterSoundBank(relativePath);
         }
 
-        private static void MapSkill(GameObject prefab)
+        /*private static void MapSkill(GameObject prefab)
         {
             ModSkill modSkill = ModUtils.GetComponent<ModSkill>(prefab);
             if (modSkill != null)
             {
                 Mapper.RegisterSkill(modSkill);
             }
-        }
+        }*/
 
         private static void MapBlueprint(GameObject prefab, string sourcePath)
         {
@@ -134,14 +166,22 @@ namespace ModComponentMapper
             }
         }
 
-        private static void MapModComponent(GameObject prefab)
+        
+        internal static void MapModComponent(GameObject prefab)
         {
+            //Implementation.Log("MapModComponent Called");
+            if(prefab == null)
+            {
+                Implementation.Log("Prefab is null.");
+            }
+            ComponentJson.InitializeComponents(ref prefab);
             ModComponent modComponent = ModUtils.GetModComponent(prefab);
             if (modComponent == null)
             {
+                Implementation.Log("In MapModComponent, the mod component from the prefab was null.");
                 return;
             }
-
+            //Implementation.Log("mapping from mapmodcomponent");
             Mapper.Map(prefab);
         }
 

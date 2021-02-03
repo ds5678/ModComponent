@@ -1,0 +1,12 @@
+{
+    "ModFireStarterComponent" : {
+                                "DestroyedOnUse" : false,
+                                "NumberOfUses" : 100,
+                                "OnUseSoundEvent" : "",
+                                "RequiresSunLight" : true,
+                                "RuinedAfterUse" : false,
+                                "SecondsToIgniteTinder" : 1,
+                                "SecondsToIgniteTorch" : 1,
+                                "SuccessModifier" : 0
+                            }
+}

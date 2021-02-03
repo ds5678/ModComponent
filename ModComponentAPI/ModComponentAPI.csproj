@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModComponentAPI</RootNamespace>
     <AssemblyName>ModComponentAPI</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,21 +31,51 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MelonLoader.ModHandler, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="UnityEngine.AnimationModule" />
-    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnhollowerRuntimeLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\MelonLoader\Dependencies\AssemblyGenerator\UnityDependencies\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\AlternativeAction.cs" />
     <Compile Include="src\AttachBehaviour.cs" />
+    <Compile Include="src\behaviours\ModMillableComponent.cs" />
     <Compile Include="src\behaviours\ModEvolveComponent.cs" />
+    <Compile Include="src\Implementation.cs" />
+    <Compile Include="src\items\ModExplosiveComponent.cs" />
     <Compile Include="src\items\ModBedComponent.cs" />
     <Compile Include="src\behaviours\ModBurnableComponent.cs" />
     <Compile Include="src\items\ModCookingPotComponent.cs" />
     <Compile Include="src\items\ModFirstAidComponent.cs" />
-    <Compile Include="src\items\ModLiquidItemComponent.cs" />
+    <Compile Include="src\items\ModLiquidComponent.cs" />
     <Compile Include="src\behaviours\ModSaveBehaviour.cs" />
     <Compile Include="src\behaviours\ModScentComponent.cs" />
     <Compile Include="src\behaviours\ModSharpenableComponent.cs" />
@@ -54,7 +86,7 @@
     <Compile Include="src\ModBlueprint.cs" />
     <Compile Include="src\behaviours\ModFireStarterComponent.cs" />
     <Compile Include="src\behaviours\ModFireStartingComponent.cs" />
-    <Compile Include="src\items\ModGenericItemComponent.cs" />
+    <Compile Include="src\items\ModGenericComponent.cs" />
     <Compile Include="src\behaviours\ModHarvestableComponent.cs" />
     <Compile Include="src\items\ModClothingComponent.cs" />
     <Compile Include="src\items\EquippableModComponent.cs" />

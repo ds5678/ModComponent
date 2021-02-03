@@ -1,0 +1,12 @@
+{
+    "ModMillableComponent" : {
+                                "RepairDurationMinutes" : 15,
+                                "RepairRequiredGear" : ["GEAR_ScrapMetal","Gear_Cloth"],
+                                "RepairRequiredGearUnits" : [2,1],
+                                "CanRestoreFromWornOut" : false,
+                                "RecoveryDurationMinutes" : 60,
+                                "RestoreRequiredGear" : ["GEAR_ScrapMetal","Gear_Cloth"],
+                                "RestoreRequiredGearUnits" : [4,2],
+                                "Skill" : "None"
+                            }
+}
