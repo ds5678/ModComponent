@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -69,7 +71,8 @@ namespace ModComponentMapper
 
             try
             {
-                return float.Parse(value);
+                return float.Parse(value, CultureInfo.InvariantCulture);
+                //return Convert.ToSingle(value, CultureInfo.InvariantCulture);
             }
             catch (System.Exception e)
             {
