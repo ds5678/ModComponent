@@ -10,6 +10,8 @@ namespace ModComponentMapper
 {
     public class BlueprintReader
     {
+        public const string BLUEPRINT_DIRECTORY_NAME = "blueprints";
+
         public static void Initialize()
         {
             ReadDefinitions();
@@ -20,7 +22,7 @@ namespace ModComponentMapper
             string blueprintsDirectory = GetBlueprintsDirectory();
             if (!Directory.Exists(blueprintsDirectory))
             {
-                Implementation.Log("Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
+                Logger.Log("Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
                 Directory.CreateDirectory(blueprintsDirectory);
                 return;
             }
@@ -43,15 +45,23 @@ namespace ModComponentMapper
             string[] files = Directory.GetFiles(directory, "*.json");
             foreach (string eachFile in files)
             {
-                Implementation.Log("Processing blueprint definition '{0}'.", eachFile);
+                Logger.Log("Processing blueprint definition '{0}'.", eachFile);
                 ProcessFile(eachFile);
+            }
+
+            string[] images = Directory.GetFiles(directory, "*.png");
+            foreach (string imagePath in images)
+            {
+                string imageName = AssetLoader.ModAssetBundleManager.GetAssetName(imagePath);
+                string gearName = NameUtils.AddGearPrefix( NameUtils.RemoveCraftingIconPrefix(imageName) );
+                CraftingIconManager.RegisterIcon(gearName, imagePath);
             }
         }
 
         private static string GetBlueprintsDirectory()
         {
             string modDirectory = Implementation.GetModsFolderPath();
-            return Path.Combine(modDirectory, "blueprints");
+            return Path.Combine(modDirectory, BLUEPRINT_DIRECTORY_NAME);
         }
 
         private static void ProcessFile(string path)

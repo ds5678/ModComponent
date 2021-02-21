@@ -8,9 +8,9 @@ using UnhollowerBaseLib.Attributes;
 
 namespace ModComponentMapper.SaveData 
 {
-    public class SaveData : Il2CppSystem.Object //added inheritance to fix SaveData serialization issue
+    public class SaveData //added inheritance to fix SaveData serialization issue
     {
-        private Dictionary<string, string> itemSaveData = new Dictionary<string, string>();
+        public Dictionary<string, string> itemSaveData = new Dictionary<string, string>();
 
         public void Clear()
         {
@@ -36,7 +36,5 @@ namespace ModComponentMapper.SaveData
         }
 
         public SaveData() { }
-
-        public SaveData(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

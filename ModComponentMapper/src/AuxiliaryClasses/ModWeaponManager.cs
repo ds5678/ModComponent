@@ -37,7 +37,7 @@ namespace ModComponentMapper
                 return;
             }
 
-            Implementation.Log("Registering '{0}'", name);
+            Logger.Log("Registering '{0}'", name);
 
             GameObject template = weaponViewTransform.Find("Rifle").gameObject;
             GameObject weapon = UnityEngine.Object.Instantiate(template, weaponViewTransform);

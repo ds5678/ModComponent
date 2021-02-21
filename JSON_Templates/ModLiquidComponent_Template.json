@@ -1,0 +1,29 @@
+{
+    "ModLiquidComponent": {
+                                "DisplayNameLocalizationId" : "GAMEPLAY_MetalWaterBottle",
+                                "DescriptionLocalizatonId" : "GAMEPLAY_MetalWaterBottleDescription",
+                                "InventoryActionLocalizationId" : "",
+                                "WeightKG": 0,
+                                "DaysToDecay" : 0,
+                                "MaxHP" : 100,
+                                "InitialCondition" : "Perfect",
+                                "InventoryCategory" : "Food",
+                                "Radial" : "None",
+                                "PickUpAudio" : "",
+                                "PutBackAudio" : "",
+                                "StowAudio" : "Play_InventoryStow",
+                                "WornOutAudio" : "",
+                                "InspectOnPickup" : true,
+                                "InspectDistance" : 0.4,
+                                "InspectAngles" : [0, 0, 0],
+                                "InspectOffset" : [0, -0.12, 0],
+                                "InspectScale" :  [1, 1, 1],
+                                "NormalModel" : "",
+                                "InspectModel" : "",
+
+                                "LiquidType" : "Water",
+                                "LiquidCapacityLiters" : 0.75,
+                                "RandomizedQuantity" : false,
+                                "LiquidLiters" : 0.75
+                            }
+}

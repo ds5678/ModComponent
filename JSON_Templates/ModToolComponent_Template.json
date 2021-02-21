@@ -21,6 +21,10 @@
                             "NormalModel" : "",
                             "InspectModel" : "",
                             
+                            "EquippedModelPrefab" : "",
+                            "ImplementationType" : "",
+                            "EquippingAudio" : "",
+
                             "ToolType" : "None",
                             "DegradeOnUse" : 0.0,
                             "Usage" : "All",

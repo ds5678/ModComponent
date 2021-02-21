@@ -10,8 +10,10 @@ namespace ModComponentAPI
     public class ModLiquidComponent : ModComponent
     {
         //[Header("Liquid Item")]
-        public float MaxLiters;
         public LiquidType LiquidType = LiquidType.Water;
+        public float LiquidCapacityLiters;
+        public bool RandomizeQuantity = false;
+        public float LiquidLiters = 0f;
         public ModLiquidComponent(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

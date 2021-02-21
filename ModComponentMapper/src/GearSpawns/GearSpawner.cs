@@ -74,7 +74,7 @@ namespace ModComponentMapper
                 GameObject prefab = Resources.Load(eachEntry.PrefabName).Cast<GameObject>();
                 if (prefab == null)
                 {
-                    Implementation.Log("Could not find prefab '{0}'.", eachEntry.PrefabName);
+                    Logger.Log("Could not find prefab '{0}'.", eachEntry.PrefabName);
                     continue;
                 }
 
@@ -171,7 +171,7 @@ namespace ModComponentMapper
             SpawnGearForScene(normalizedSceneName);
 
             stopwatch.Stop();
-            Implementation.Log("Spawned items for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
+            Logger.Log("Spawned items for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
         }
 
         private static void SpawnGearForScene(string sceneName)
@@ -189,14 +189,20 @@ namespace ModComponentMapper
 
                 if (prefab == null)
                 {
-                    Implementation.Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
+                    Logger.Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
                     continue;
                 }
 
-                if (Utils.RollChance(eachGearSpawnInfo.SpawnChance))
+                float spawnProbability = ProbabilityManager.GetAdjustedProbabilty(eachGearSpawnInfo.SpawnChance);
+                if (Utils.RollChance(spawnProbability))
                 {
                     Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
                     gear.name = prefab.name;
+                    DisableObjectForXPMode xpmode = gear.Cast<GameObject>().GetComponent<DisableObjectForXPMode>();
+                    if(xpmode != null)
+                    {
+                        Object.Destroy(xpmode);
+                    }
                 }
             }
         }

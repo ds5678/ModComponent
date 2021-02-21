@@ -13,6 +13,11 @@ namespace ModComponentMapper
         public override void OnApplicationStart()
         {
             Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
+
+            ConfigurationManager.Initialize();
+
+            Logger.LogDebug("Running in Debug Mode");
+
             InjectClasses();
 
             JsonHandler.RegisterDirectory(AutoMapper.GetAutoMapperDirectory());
@@ -22,7 +27,6 @@ namespace ModComponentMapper
             ModHealthManager.Initialize();
             GearSpawner.Initialize();
             BlueprintReader.Initialize();
-
         }
 
         internal static void InjectClasses()
@@ -38,6 +42,7 @@ namespace ModComponentMapper
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<FixMuzzleFlashTransformParent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<RestoreMaterialQueue>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModHealthManager>();
+            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSaveBehaviour>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFireStartingComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModAccelerantComponent>();
@@ -47,7 +52,6 @@ namespace ModComponentMapper
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModHarvestableComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModMillableComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModRepairableComponent>();
-            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSaveBehaviour>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModScentComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSharpenableComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModStackableComponent>();
@@ -71,7 +75,6 @@ namespace ModComponentMapper
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.PlayAkSound>();
             //UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<SkillsDataObject>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<SaveProxy>();
-            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<SaveData.SaveData>();
         }
 
         internal static string GetModsFolderPath()
@@ -79,21 +82,9 @@ namespace ModComponentMapper
             return Path.GetFullPath(typeof(MelonMod).Assembly.Location + @"\..\..\Mods");
         }
 
-        internal static void Log(string message)
-        {
-            //Debug.Log("[ModComponent] :" + message);
-            MelonLogger.Log(message);
-        }
-
-        internal static void Log(string message, params object[] parameters)
-        {
-            string preformattedMessage = string.Format(message, parameters);
-            Log(preformattedMessage);
-        }
-
         internal static void SceneReady()
         {
-            Log("Invoking 'SceneReady' for scene '{0}' ...", GameManager.m_ActiveScene);
+            Logger.Log("Invoking 'SceneReady' for scene '{0}' ...", GameManager.m_ActiveScene);
 
             System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
             stopwatch.Start();
@@ -101,7 +92,7 @@ namespace ModComponentMapper
             OnSceneReady?.Invoke();
 
             stopwatch.Stop();
-            Log("Completed 'SceneReady' for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
+            Logger.Log("Completed 'SceneReady' for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
         }
 
         internal static void UpdateWolfIntimidationBuff()

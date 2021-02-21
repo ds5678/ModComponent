@@ -18,8 +18,18 @@ namespace ModComponentMapper
             }
             catch (System.Exception e)
             {
-                Implementation.Log("Mapping failed: " + e);
+                Logger.Log("Mapping failed: " + e);
             }
+
+            //
+            //Need to be called after GameManager is initialized
+            //
+
+            if (!ModExisting.IsInitialized())//ModExisting only needs to be initialized at the start of the game
+            {
+                ModExisting.Initialize();
+            }
+            AlternativeToolManager.ProcessList();
         }
     }
 

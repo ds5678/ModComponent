@@ -274,7 +274,7 @@ namespace ModComponentMapper
             }
             catch (ArgumentException e)
             {
-                Implementation.Log(e.Message);
+                Logger.Log(e.Message);
                 return default(T);
             }
         }
@@ -317,7 +317,7 @@ namespace ModComponentMapper
             else
             {
                 ConsoleWaitlist.AddToWaitlist(displayName, prefabName);
-                Implementation.Log("Console Manager not initialized. '{0}' , '{1}' added to waitlist.",displayName,prefabName);
+                Logger.Log("Console Manager not initialized. '{0}' , '{1}' added to waitlist.",displayName,prefabName);
             }
         }
 
@@ -342,6 +342,29 @@ namespace ModComponentMapper
             result.height = (int)windowSize.y;
 
             return result;
+        }
+    }
+
+    public class NameUtils
+    {
+        public static string AddCraftingIconPrefix(string name)
+        {
+            return "ico_CraftItem__" + name;
+        }
+
+        public static string RemoveCraftingIconPrefix(string iconFileName)
+        {
+            return iconFileName.Replace("ico_CraftItem__", "");
+        }
+
+        public static string AddGearPrefix(string name)
+        {
+            return "GEAR_" + name;
+        }
+
+        public static string RemoveGearPrefix(string gearName)
+        {
+            return gearName.Replace("GEAR_", "");
         }
     }
 }

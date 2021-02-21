@@ -103,5 +103,7 @@ namespace ModComponentAPI
         public float BleedoutMultiplier = 1f;
 
         public ModToolComponent(System.IntPtr intPtr) : base(intPtr) { }
+
+        
     }
 }

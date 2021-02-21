@@ -12,7 +12,7 @@ namespace ModComponentMapper
     {
         private static void Prefix(FoodItem fi, ref float calories)
         {
-            Implementation.Log("Servings!!!!!!!!!!!!!!!!!!!");
+            Logger.Log("Servings!!!!!!!!!!!!!!!!!!!");
             //ModFoodComponent modFoodComponent = ModUtils.GetComponent<ModFoodComponent>(fi);
 
             //if (modFoodComponent != null && modFoodComponent.Servings > 1)
@@ -27,7 +27,7 @@ namespace ModComponentMapper
     {
         private static void Postfix()
         {
-            //Implementation.Log("AddReserveCalories");
+            //Logger.Log("AddReserveCalories");
         }
     }
 
@@ -36,7 +36,7 @@ namespace ModComponentMapper
     {
         private static void Postfix()
         {
-            Implementation.Log("ClearAddReserveCaloriesOverTime");
+            Logger.Log("ClearAddReserveCaloriesOverTime");
         }
     }
 
@@ -45,7 +45,7 @@ namespace ModComponentMapper
     {
         private static void Postfix()
         {
-            Implementation.Log("GetCalorieReserves");
+            Logger.Log("GetCalorieReserves");
         }
     }
 
@@ -54,7 +54,7 @@ namespace ModComponentMapper
     {
         private static void Postfix()
         {
-            Implementation.Log("GetCaloriesToAddOverTime");
+            Logger.Log("GetCaloriesToAddOverTime");
         }
     }
 
@@ -63,7 +63,7 @@ namespace ModComponentMapper
     {
         private static void Postfix()
         {
-            Implementation.Log("IsAddingCaloriesOverTime");
+            Logger.Log("IsAddingCaloriesOverTime");
         }
     }
 
@@ -72,7 +72,7 @@ namespace ModComponentMapper
     {
         private static void Postfix()
         {
-            Implementation.Log("IsEatingInProgress");
+            Logger.Log("IsEatingInProgress");
         }
     }
 
@@ -81,8 +81,8 @@ namespace ModComponentMapper
     {
         private static void Postfix(Hunger __instance)
         {
-            Implementation.Log("ItemBeingEatenAffectsThirst");
-            Implementation.Log(__instance.m_CaloriesToAddOverTime.ToString());
+            Logger.Log("ItemBeingEatenAffectsThirst");
+            Logger.Log(__instance.m_CaloriesToAddOverTime.ToString());
             //FoodItem fi = __instance.GetItemBeingEaten();
             //if(fi != null)
             //{

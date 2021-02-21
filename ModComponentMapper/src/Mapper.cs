@@ -58,19 +58,10 @@ namespace ModComponentMapper
 
             if (prefab.GetComponent<GearItem>() == null)
             {
-                Implementation.Log("Mapping {0}", prefab.name);
+                Logger.Log("Mapping {0}", prefab.name);
 
                 InspectMapper.Configure(modComponent);
-                HarvestableMapper.Configure(modComponent);
-                RepairableMapper.Configure(modComponent);
-                FireStarterMapper.Configure(modComponent);
-                ConfigureAccelerant(modComponent);
-                ConfigureStackable(modComponent);
-                ConfigureBurnable(modComponent);
-                ScentMapper.Configure(modComponent);
-                SharpenableMapper.Configure(modComponent);
-                EvolveMapper.Configure(modComponent);
-                MillableMapper.Configure(modComponent);
+                ConfigureBehaviours(modComponent);
 
                 ConfigureEquippable(modComponent);
                 ConfigureLiquidItem(modComponent);
@@ -91,6 +82,36 @@ namespace ModComponentMapper
             }
 
             return new MappedItem(prefab);
+        }
+
+        internal static void ConfigureBehaviours(ModComponent modComponent)
+        {
+            HarvestableMapper.Configure(modComponent);
+            RepairableMapper.Configure(modComponent);
+            FireStarterMapper.Configure(modComponent);
+            ConfigureAccelerant(modComponent);
+            ConfigureStackable(modComponent);
+            ConfigureBurnable(modComponent);
+            ScentMapper.Configure(modComponent);
+            SharpenableMapper.Configure(modComponent);
+            EvolveMapper.Configure(modComponent);
+            MillableMapper.Configure(modComponent);
+        }
+
+        internal static void ConfigureBehaviours(GameObject prefab)
+        {
+            if (prefab == null)
+            {
+                throw new ArgumentException("The prefab was NULL.");
+            }
+
+            ModComponent modComponent = ModUtils.GetModComponent(prefab);
+            if (modComponent == null)
+            {
+                throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
+            }
+
+            ConfigureBehaviours(modComponent);
         }
 
         internal static LocalizedString CreateLocalizedString(string key)
@@ -261,6 +282,10 @@ namespace ModComponentMapper
             fuelSourceItem.m_HeatIncrease = modBurnableComponent.TempIncrease;
             fuelSourceItem.m_HeatInnerRadius = 2.5f;
             fuelSourceItem.m_HeatOuterRadius = 6f;
+            fuelSourceItem.m_FireStartDurationModifier = 0;
+            fuelSourceItem.m_IsWet = false;
+            fuelSourceItem.m_IsTinder = false;
+            fuelSourceItem.m_IsBurntInFireTracked = false;
         }
 
         private static void ConfigureCookingPot(ModComponent modComponent)
@@ -472,12 +497,13 @@ namespace ModComponentMapper
             }
 
             LiquidItem liquidItem = ModUtils.GetOrCreateComponent<LiquidItem>(modComponent);
-            liquidItem.m_LiquidCapacityLiters = modLiquidItemComponent.MaxLiters;
+            liquidItem.m_LiquidCapacityLiters = modLiquidItemComponent.LiquidCapacityLiters;
             liquidItem.m_LiquidType = ModUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidItemComponent.LiquidType);
-            liquidItem.m_RandomizeQuantity = false;
-            liquidItem.m_LiquidLiters = 0;
+            liquidItem.m_RandomizeQuantity = modLiquidItemComponent.RandomizeQuantity;
+            liquidItem.m_LiquidLiters = modLiquidItemComponent.LiquidLiters;
             liquidItem.m_DrinkingAudio = "Play_DrinkWater";
             liquidItem.m_TimeToDrinkSeconds = 4;
+            liquidItem.m_LiquidQuality = LiquidQuality.Potable;
         }
 
         private static void ConfigureRifle(ModComponent modComponent)

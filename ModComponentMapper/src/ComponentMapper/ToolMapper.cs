@@ -37,23 +37,7 @@ namespace ModComponentMapper.ComponentMapper
             ConfigureStruggleBonus(modToolComponent);
         }
 
-        private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
-        {
-            GameObject original = Resources.Load(templateName) as GameObject;
-            if (original == null)
-            {
-                return;
-            }
-
-            AlternateTools alternateTools = ModUtils.GetOrCreateComponent<AlternateTools>(original);
-            List<GameObject> list = new List<GameObject>();
-            if (alternateTools.m_AlternateToolsList != null)
-            {
-                list.AddRange(alternateTools.m_AlternateToolsList);
-            }
-            list.Add(modToolComponent.gameObject);
-            alternateTools.m_AlternateToolsList = list.ToArray();
-        }
+        
 
         private static void ConfigureBodyHarvest(ModToolComponent modToolComponent)
         {
@@ -78,7 +62,7 @@ namespace ModComponentMapper.ComponentMapper
             string templateName = GetTemplateToolName(modToolComponent);
             if (templateName != null)
             {
-                AddAlternativeTool(modToolComponent, templateName);
+                AlternativeToolManager.AddToList(modToolComponent, templateName);
             }
         }
 
@@ -99,7 +83,7 @@ namespace ModComponentMapper.ComponentMapper
             forceLockItem.m_ForceLockAudio = ModUtils.DefaultIfEmpty(modToolComponent.ForceLockAudio, "PLAY_LOCKERPRYOPEN1");
             forceLockItem.m_LocalizedProgressText = new LocalizedString() { m_LocalizationID = "GAMEPLAY_Forcing" };
 
-            AddAlternativeTool(modToolComponent, "GEAR_Prybar");
+            AlternativeToolManager.AddToList(modToolComponent, "GEAR_Prybar");
         }
 
         private static void ConfigureIceFishingHole(ModToolComponent modToolComponent)

@@ -1,10 +1,16 @@
 ﻿using System;
+using MelonLoader.TinyJSON;
 
 //did a first pass through; has a conversion issue which I think I fixed
 //does not need to be declared
 
 namespace ModComponentMapper.SaveData
 {
+    public struct SaveProxy
+    {
+        public string data;
+    }
+
     internal class SaveDataManager
     {
         internal static string DATA_FILENAME_SUFFIX = "/ModComponent/CustomSaveData";
@@ -24,14 +30,25 @@ namespace ModComponentMapper.SaveData
             }
             else
             {
-                saveData = MelonLoader.TinyJSON.JSON.Load(data).Make<SaveData>();
+                SaveProxy saveProxy = JSON.Load(data).Make<SaveProxy>();
+
+                saveData = JSON.Load(saveProxy.data).Make<SaveData>();
+                
+                //saveData = MelonLoader.TinyJSON.JSON.Load(data).Make<SaveData>();
                 //saveData = Utils.DeserializeObject<SaveData>(data);
             }
         }
 
         public static string Serialize()
         {
-            return MelonLoader.TinyJSON.JSON.Dump(saveData);
+            SaveProxy saveProxy = new SaveProxy
+            {
+                data = JSON.Dump(saveData)
+            };
+
+            return JSON.Dump(saveProxy);
+
+            //return MelonLoader.TinyJSON.JSON.Dump(saveData);
             //return Utils.SerializeObject(saveData); //<==============================================================
         }
 

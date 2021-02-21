@@ -22,7 +22,7 @@ namespace ModComponentMapper
         {
             if(skill == null)
             {
-                Implementation.Log("GetSkillSaveKey returned null");
+                Logger.Log("GetSkillSaveKey returned null");
                 return null;
             }
             if (skill.m_SkillType <= SkillType.ToolRepair)

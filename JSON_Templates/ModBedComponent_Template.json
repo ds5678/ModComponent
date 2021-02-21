@@ -1,0 +1,35 @@
+{
+    "ModBedComponent" : {
+                            "DisplayNameLocalizationId" : "GAMEPLAY_SampleItem",
+                            "DescriptionLocalizatonId" : "GAMEPLAY_SampleItemDescription",
+                            "InventoryActionLocalizationId" : "",
+                            "WeightKG": 0.5,
+                            "DaysToDecay" : 0,
+                            "MaxHP" : 100,
+                            "InitialCondition" : "Random",
+                            "InventoryCategory" : "Tool",
+                            "Radial" : "None",
+                            "PickUpAudio" : "",
+                            "PutBackAudio" : "",
+                            "StowAudio" : "Play_InventoryStow",
+                            "WornOutAudio" : "",
+                            "InspectOnPickup" : true,
+                            "InspectDistance" : 0.4,
+                            "InspectAngles" : [0, 0, 0],
+                            "InspectOffset" : [0, 0, 0],
+                            "InspectScale" :  [1, 1, 1],
+                            "NormalModel" : "",
+                            "InspectModel" : "",
+                            
+                            "ConditionGainPerHour" : 1,
+                            "AdditionalConditionGainPerHour" : 0,
+                            "WarmthBonusCelsius" : 0,
+                            "DegradePerHour" : 0,
+                            "BearAttackModifier" : 0,
+                            "WolfAttackModifier" : 0,
+                            "OpenAudio" : "",
+                            "CloseAudio" : "",
+                            "PackedMesh" : "",
+                            "UsableMesh" : ""
+    }
+}

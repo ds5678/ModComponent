@@ -80,5 +80,7 @@ namespace ModComponentAPI
         }
 
         public ModComponent(IntPtr intPtr) : base(intPtr) { }
+
+        
     }
 }

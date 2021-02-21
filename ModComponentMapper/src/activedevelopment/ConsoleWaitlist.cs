@@ -34,7 +34,7 @@ namespace ModComponentMapper
                 }
                 commandWaitlistDisplay = new List<string>(0);
                 commandWaitlistPrefab = new List<string>(0);
-                Implementation.Log("Console Commands added. The waitlist is empty.");
+                Logger.Log("Console Commands added. The waitlist is empty.");
             }
         }
 

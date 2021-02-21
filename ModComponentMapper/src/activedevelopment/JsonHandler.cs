@@ -15,7 +15,7 @@ namespace ModComponentMapper
         {
             if (itemJsons.ContainsKey(itemName))
             {
-                Implementation.Log("Overwriting path for {0}", itemName);
+                Logger.Log("Overwriting path for {0}", itemName);
                 itemJsons[itemName] = path;
             }
             else
@@ -31,7 +31,7 @@ namespace ModComponentMapper
             }
             else
             {
-                Implementation.Log("Could not find {0} in json dictionary", itemName);
+                Logger.Log("Could not find {0} in json dictionary", itemName);
                 return null;
             }
         }
@@ -53,7 +53,7 @@ namespace ModComponentMapper
                 string name = AssetLoader.ModAssetBundleManager.GetAssetName(eachFile);
                 if (eachFile.ToLower().EndsWith(".json"))
                 {
-                    Implementation.Log("Found '{0}'", eachFile);
+                    Logger.Log("Found '{0}'", eachFile);
                     RegisterJson(name, eachFile);
                     continue;
                 }
@@ -64,7 +64,7 @@ namespace ModComponentMapper
         {
             foreach(string key in itemJsons.Keys)
             {
-                Implementation.Log("Key: '{0}', Entry: '{1}'", key, itemJsons[key]);
+                Logger.Log("Key: '{0}', Entry: '{1}'", key, itemJsons[key]);
             }
         }
     }

@@ -3,7 +3,7 @@
                                 "Audio" : "",
                                 "Minutes" : 10,
                                 "Condition" : 20,
-                                "RequiredTools" : ["GEAR_SimpleTools","GEAR_QualityTools"],
+                                "RequiredTools" : ["GEAR_SimpleTools","GEAR_HighQualityTools"],
                                 "MaterialNames" : ["GEAR_ScrapMetal"],
                                 "MaterialCounts" : [1]
                             }

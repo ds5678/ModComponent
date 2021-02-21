@@ -14,6 +14,7 @@ namespace ModComponentMapper
     {
         private const string NUMBER = @"-?\d+(?:\.\d+)?";
         private const string VECTOR = NUMBER + @"\s*,\s*" + NUMBER + @"\s*,\s*" + NUMBER;
+        public const string GEARSPAWNS_DIRECTORY_NAME = "gear-spawns";
 
         private static readonly Regex LOOTTABLE_ENTRY_REGEX = new Regex(
             @"^item\s*=\s*(\w+)" +
@@ -33,23 +34,34 @@ namespace ModComponentMapper
             string gearSpawnDirectory = GetGearSpawnsDirectory();
             if (!Directory.Exists(gearSpawnDirectory))
             {
-                Implementation.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
+                Logger.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
                 Directory.CreateDirectory(gearSpawnDirectory);
                 return;
             }
+            ReadDefinitions(gearSpawnDirectory);
+        }
+        internal static void ReadDefinitions(string currentDirectory)
+        {
+            string[] directories = Directory.GetDirectories(currentDirectory);
 
-            string[] files = Directory.GetFiles(gearSpawnDirectory, "*.txt");
+            foreach(string directory in directories)
+            {
+                ReadDefinitions(directory);
+            }
+            
+
+            string[] files = Directory.GetFiles(currentDirectory, "*.txt");
             foreach (string eachFile in files)
             {
-                Implementation.Log("Processing spawn file '" + eachFile + "'.");
+                Logger.Log("Processing spawn file '" + eachFile + "'.");
                 ProcessFile(eachFile);
             }
         }
 
-        private static string GetGearSpawnsDirectory()
+        public static string GetGearSpawnsDirectory()
         {
             string modDirectory = Implementation.GetModsFolderPath();
-            return Path.Combine(modDirectory, "gear-spawns");
+            return Path.Combine(modDirectory, GEARSPAWNS_DIRECTORY_NAME);
         }
 
         private static string GetTrimmedLine(string line)
@@ -74,7 +86,7 @@ namespace ModComponentMapper
                 return float.Parse(value, CultureInfo.InvariantCulture);
                 //return Convert.ToSingle(value, CultureInfo.InvariantCulture);
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 throw new System.ArgumentException("Could not parse '" + value + "' as numeric value in line " + line + " from file '" + path + "'.");
             }
@@ -91,7 +103,7 @@ namespace ModComponentMapper
             {
                 return int.Parse(value);
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 throw new System.ArgumentException("Could not parse '" + value + "' as numeric value in line " + line + " from file '" + path + "'.");
             }
@@ -149,7 +161,10 @@ namespace ModComponentMapper
 
                     GearSpawnInfo info = new GearSpawnInfo();
                     info.PrefabName = match.Groups[1].Value;
-                    info.SpawnChance = ParseFloat(match.Groups[4].Value, 100, eachLine, path);
+
+                    if (ConfigurationManager.configurations.alwaysSpawnItems) info.SpawnChance = 100;
+                    else info.SpawnChance = ParseFloat(match.Groups[4].Value, 100, eachLine, path);
+
                     info.Position = ParseVector(match.Groups[2].Value, eachLine, path);
                     info.Rotation = Quaternion.Euler(ParseVector(match.Groups[3].Value, eachLine, path));
 

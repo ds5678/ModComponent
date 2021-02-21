@@ -1,0 +1,40 @@
+{
+    "ModRifleComponent" : {
+                            "DisplayNameLocalizationId" : "GAMEPLAY_SampleItem",
+                            "DescriptionLocalizatonId" : "GAMEPLAY_SampleItemDescription",
+                            "InventoryActionLocalizationId" : "",
+                            "WeightKG": 0.5,
+                            "DaysToDecay" : 0,
+                            "MaxHP" : 100,
+                            "InitialCondition" : "Random",
+                            "InventoryCategory" : "Tool",
+                            "Radial" : "None",
+                            "PickUpAudio" : "",
+                            "PutBackAudio" : "",
+                            "StowAudio" : "Play_InventoryStow",
+                            "WornOutAudio" : "",
+                            "InspectOnPickup" : true,
+                            "InspectDistance" : 0.4,
+                            "InspectAngles" : [0, 0, 0],
+                            "InspectOffset" : [0, 0, 0],
+                            "InspectScale" :  [1, 1, 1],
+                            "NormalModel" : "",
+                            "InspectModel" : "",
+                            
+                            "EquippedModelPrefab" : "",
+                            "ImplementationType" : "",
+                            "EquippingAudio" : "",
+
+                            "ClipSize" : 10,
+                            "DamagePerShot" : 25,
+                            "Range" : 100,
+                            "FiringDelay" : 2.8,
+                            "ReloadDelay" : 2,
+                            "AimDelay" : 0,
+                            "MuzzleFlashDelay" : 0.1,
+                            "MuzzleSmokeDelay" : 0.15,
+                            "MinSway" : 0,
+                            "MaxSway" : 0.75,
+                            "SwayIncrement" : 0.1
+    }
+}

@@ -69,16 +69,19 @@
     <Reference Include="UnityEngine.CoreModule">
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\ComponentMapper\ClothingMapper.cs" />
-    <Compile Include="src\Events.cs" />
+    <Compile Include="src\AuxiliaryClasses\Events.cs" />
     <Compile Include="src\AutoMapper.cs" />
     <Compile Include="src\BlueprintReader.cs" />
-    <Compile Include="src\ChangeLayer.cs" />
+    <Compile Include="src\AuxiliaryClasses\ChangeLayer.cs" />
     <Compile Include="src\ComponentMapper\BedMapper.cs" />
     <Compile Include="src\ComponentMapper\EvolveMapper.cs" />
     <Compile Include="src\ComponentMapper\FireStarterMapper.cs" />
@@ -90,17 +93,19 @@
     <Compile Include="src\ComponentMapper\SharpenableMapper.cs" />
     <Compile Include="src\ComponentMapper\ToolMapper.cs" />
     <Compile Include="src\CustomSaveData\SaveData.cs" />
-    <Compile Include="src\BrightnessChanger.cs" />
-    <Compile Include="src\GearSpawnReader.cs" />
+    <Compile Include="src\AuxiliaryClasses\BrightnessChanger.cs" />
+    <Compile Include="src\GearSpawns\ProbabilityManager.cs" />
+    <Compile Include="src\GearSpawns\GearSpawnReader.cs" />
     <Compile Include="src\Implementation.cs" />
     <Compile Include="src\ComponentMapper\CookableMapper.cs" />
     <Compile Include="src\patches\AfflictionButtonPatch.cs" />
-    <Compile Include="src\AlcoholComponent.cs" />
-    <Compile Include="src\ExecutionValve.cs" />
-    <Compile Include="src\GearEquipper.cs" />
-    <Compile Include="src\BuffCauseTracker.cs" />
-    <Compile Include="src\GearSpawner.cs" />
+    <Compile Include="src\Alcohol\AlcoholComponent.cs" />
+    <Compile Include="src\AuxiliaryClasses\ExecutionValve.cs" />
+    <Compile Include="src\AuxiliaryClasses\GearEquipper.cs" />
+    <Compile Include="src\AuxiliaryClasses\BuffCauseTracker.cs" />
+    <Compile Include="src\GearSpawns\GearSpawner.cs" />
     <Compile Include="src\patches\CameraStatusEffectsPatch.cs" />
+    <Compile Include="src\patches\LiquidItemPatch.cs" />
     <Compile Include="src\patches\ClothingSlotPatch.cs" />
     <Compile Include="src\patches\EquipItemPopupPatch.cs" />
     <Compile Include="src\patches\FireManagerPatches.cs" />
@@ -108,9 +113,9 @@
     <Compile Include="src\patches\InputManagerPatch.cs" />
     <Compile Include="src\patches\ItemDescriptionPagePatch.cs" />
     <Compile Include="src\Mapper.cs" />
-    <Compile Include="src\ModHealthManager.cs" />
-    <Compile Include="src\ModWeaponManager.cs" />
-    <Compile Include="src\ModPlayerAnimation.cs" />
+    <Compile Include="src\Alcohol\ModHealthManager.cs" />
+    <Compile Include="src\AuxiliaryClasses\ModWeaponManager.cs" />
+    <Compile Include="src\AuxiliaryClasses\ModPlayerAnimation.cs" />
     <Compile Include="src\patches\GameManagerPatch.cs" />
     <Compile Include="src\patches\Panel_ActionsRadialPatch.cs" />
     <Compile Include="src\patches\Panel_Inventory_ExaminePatch.cs" />
@@ -124,14 +129,23 @@
     <Compile Include="src\patches\PlayerManagerPatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\CustomSaveData\SaveDataManager.cs" />
-    <Compile Include="src\PortingAdditions\JsonHandler.cs" />
-    <Compile Include="src\PortingAdditions\ExplosiveMapper.cs" />
-    <Compile Include="src\PortingAdditions\MillableMapper.cs" />
-    <Compile Include="src\PortingAdditions\TestPatches.cs" />
-    <Compile Include="src\PortingAdditions\ComponentJson.cs" />
-    <Compile Include="src\PortingAdditions\ConsoleWaitlist.cs" />
-    <Compile Include="src\SerializableSkill.cs" />
-    <Compile Include="src\RadialConfigurator.cs" />
+    <Compile Include="src\AuxiliaryClasses\AlternativeToolManager.cs" />
+    <Compile Include="src\activedevelopment\GearItemPatch.cs" />
+    <Compile Include="src\activedevelopment\Logger.cs" />
+    <Compile Include="src\activedevelopment\ConfigurationManager.cs" />
+    <Compile Include="src\Textures\CraftingIconManager.cs" />
+    <Compile Include="src\Textures\ClothingMenuManager.cs" />
+    <Compile Include="src\activedevelopment\TestFunctions.cs" />
+    <Compile Include="src\Textures\InventoryIconManager.cs" />
+    <Compile Include="src\activedevelopment\ModExisting.cs" />
+    <Compile Include="src\activedevelopment\JsonHandler.cs" />
+    <Compile Include="src\ComponentMapper\ExplosiveMapper.cs" />
+    <Compile Include="src\ComponentMapper\MillableMapper.cs" />
+    <Compile Include="src\activedevelopment\TestPatches.cs" />
+    <Compile Include="src\activedevelopment\ComponentJson.cs" />
+    <Compile Include="src\activedevelopment\ConsoleWaitlist.cs" />
+    <Compile Include="src\AuxiliaryClasses\SerializableSkill.cs" />
+    <Compile Include="src\AuxiliaryClasses\RadialConfigurator.cs" />
     <Compile Include="src\Utils.cs" />
     <Compile Include="src\patches\vp_FPSPlayerPatch.cs" />
     <Compile Include="src\patches\vp_FPSShooterPatch.cs" />

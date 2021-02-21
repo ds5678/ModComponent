@@ -69,6 +69,7 @@
     <Compile Include="src\AttachBehaviour.cs" />
     <Compile Include="src\behaviours\ModMillableComponent.cs" />
     <Compile Include="src\behaviours\ModEvolveComponent.cs" />
+    <Compile Include="src\EquippableImplementation.cs" />
     <Compile Include="src\Implementation.cs" />
     <Compile Include="src\items\ModExplosiveComponent.cs" />
     <Compile Include="src\items\ModBedComponent.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\PlayAkSound.cs" />
     <Compile Include="src\Radial.cs" />
+    <Compile Include="src\RubberDuckTest.cs" />
     <Compile Include="src\TypeResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
