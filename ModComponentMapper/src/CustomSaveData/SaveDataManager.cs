@@ -30,9 +30,17 @@ namespace ModComponentMapper.SaveData
             }
             else
             {
-                SaveProxy saveProxy = JSON.Load(data).Make<SaveProxy>();
-
-                saveData = JSON.Load(saveProxy.data).Make<SaveData>();
+                try
+                {
+                    SaveProxy saveProxy = JSON.Load(data).Make<SaveProxy>();
+                    saveData = JSON.Load(saveProxy.data).Make<SaveData>();
+                }
+                catch
+                {
+                    Logger.LogWarning("Save Data was in an invalid format");
+                    saveData = new SaveData();
+                }
+                
                 
                 //saveData = MelonLoader.TinyJSON.JSON.Load(data).Make<SaveData>();
                 //saveData = Utils.DeserializeObject<SaveData>(data);
