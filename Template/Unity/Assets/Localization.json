@@ -1,0 +1,11 @@
+﻿{
+    "GAMEPLAY_SampleItem" : {
+                            "English" : "Sample Item",
+                            "German" : "Beispielartikel",
+                            "Russian" : "Образец товара"
+    },
+    "GAMEPLAY_SampleItemDescription" : {
+                            "English" : "A sample item description",
+                            "German" : "Eine Beispielartikelbeschreibung"
+    }
+}
