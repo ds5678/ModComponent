@@ -32,20 +32,17 @@ It should cover all your needs and there is probably no need for you to adjust i
 
 - **Models** - The folder for importing 3d models, materials, textures, shaders, etc.
 
-- **Plugins** - This folder contains external libraries providing Components that can be used in the Editor. The contents of this folder will not be exported by Unity.
-  - **ModComponentAPI.dll** - The API of ModComponent that is to be used for defining new items.
-
 - **Prefabs** - The folder for the actual prefabs of the items.
 
-- **Localization.csv** - An empty CSV to be used for in-game texts. The header declares the languages for which this mods provides texts.
+- **Localization.json** - An example file to be used for in-game texts.
 
-- **Template.unity** - The template scene containing "Main Camera" for creating item icons and "Weapon Camera" for creating equippable items.
+- **Template.unity** - The template scene containing "Main Camera" for creating item icons and "Weapon Camera" for creating equippable items (Note: Equippable items don't work right now).
 
 
 # Exporting Asset Bundles
 
 The editor script "BuildAssetBundles.cs" creates the menu item "Assets > Build AssetBundles" and selecting this menu item will export all assets into their assigned asset bundle.  
-If you use the suggested folder structure, you will only need to export the folders "ClothingPaperDoll", IventoryGridItems", and "Prefabs", as well as "Localization.csv".
+If you use the suggested folder structure, you will only need to export the folders "ClothingPaperDoll", IventoryGridItems", and "Prefabs", as well as "Localization.json".
 
 Assign each of those items the asset bundle name that you want to use. (See [AssetBundles and the AssetBundle Manager](https://unity3d.com/learn/tutorials/topics/scripting/assetbundles-and-assetbundle-manager) - especially "Working with AssetBundles" - for how to do this.)  
 The export script will automatically append the file extension ".unity3d", which is necessary if you want to use the asset bundle with the [Auto-Mapper](https://github.com/WulfMarius/ModComponent/wiki/Auto-Mapper) of ModComponent.
