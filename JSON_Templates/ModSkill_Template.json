@@ -1,0 +1,21 @@
+{
+    "ModSkill": {
+                    "DisplayName" : "",
+                    "Icon" : "",
+                    "Image" : "",
+                    "PointsLevel2" : 10,
+                    "PointsLevel3" : 20,
+                    "PointsLevel4" : 40,
+                    "PointsLevel5" : 80,
+                    "DescriptionLevel1" : "",
+                    "DescriptionLevel2" : "",
+                    "DescriptionLevel3" : "",
+                    "DescriptionLevel4" : "",
+                    "DescriptionLevel5" : "",
+                    "EffectsLevel1" : "",
+                    "EffectsLevel2" : "",
+                    "EffectsLevel3" : "",
+                    "EffectsLevel4" : "",
+                    "EffectsLevel5" : ""
+                }
+}

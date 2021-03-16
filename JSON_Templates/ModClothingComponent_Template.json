@@ -8,7 +8,6 @@
                             "MaxHP" : 450,
                             "InitialCondition" : "Perfect",
                             "InventoryCategory" : "Clothing",
-                            "Radial" : "None",
                             "PickUpAudio" : "Play_SndInvLeatherHide",
                             "PutBackAudio" : "Play_SndInvLeatherHide",
                             "StowAudio" : "Play_InventoryStow",

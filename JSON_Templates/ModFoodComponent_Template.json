@@ -8,7 +8,6 @@
                             "MaxHP" : 100,
                             "InitialCondition" : "Perfect",
                             "InventoryCategory" : "Food",
-                            "Radial" : "None",
                             "PickUpAudio" : "",
                             "PutBackAudio" : "",
                             "StowAudio" : "Play_InventoryStow",
