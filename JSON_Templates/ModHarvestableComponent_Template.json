@@ -3,6 +3,7 @@
                                 "Audio" : "",
                                 "Minutes" : 10,
                                 "YieldCounts" : [1],
-                                "YieldNames" : ["GEAR_ScrapMetal"]
+                                "YieldNames" : ["GEAR_ScrapMetal"],
+                                "RequiredToolNames" : []
                             }
 }
