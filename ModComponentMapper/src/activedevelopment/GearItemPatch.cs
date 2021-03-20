@@ -1,48 +1,86 @@
 ﻿using Harmony;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ModComponentAPI;
 using UnityEngine;
 
 namespace ModComponentMapper.patches
 {
     [HarmonyPatch(typeof(GearItem), "Awake")]
-    public class GearItem_Awake
+    internal class GearItem_Awake
     {
+        public static void Prefix(GearItem __instance)
+        {
+            //ModComponentFields.UpdateAllComponentFieldValues(__instance);
+        }
         public static void Postfix(GearItem __instance)
         {
-            ModToolComponent modTool = ModUtils.GetComponent<ModToolComponent>(__instance);
-            if (modTool == null)
-            {
-                return;
-            }
-            else if(__instance.name == "Gear_SledgeHammer")
-            {
-                Logger.Log("Could not find tool component for sledge hammer");
-            }
+            StackableRandomization.MaybeNotFullStack(__instance);
+        }
+    }
 
-            Logger.Log(__instance.name.Replace("(Clone)",""));
-            GameObject prefab = Resources.Load(__instance.name.Replace("(Clone)", ""))?.Cast<GameObject>();
-            if(prefab != null)
+    internal class StackableRandomization
+    {
+        public static void MaybeNotFullStack(GearItem gearItem)
+        {
+            StackableItem stackable = gearItem?.GetComponent<StackableItem>();
+            ModStackableComponent modStackable = gearItem?.GetComponent<ModStackableComponent>();
+            if (stackable && modStackable && !gearItem.m_BeenInspected)
             {
-                ModToolComponent prefabTool = ModUtils.GetComponent<ModToolComponent>(prefab);
-                if(prefabTool != null)
+                if (UnityEngine.Random.Range(0f, 1f) > modStackable.ChanceFull && stackable.m_UnitsPerItem > 1)
                 {
-                    modTool.ConsoleName = prefabTool.ConsoleName;
-                    Logger.Log("Successfully reassigned");
+                    stackable.m_Units = UnityEngine.Random.Range(1, stackable.m_UnitsPerItem - 1);
                 }
                 else
                 {
-                    Logger.Log("couldn't get tool component from prefab");
+                    stackable.m_Units = stackable.m_UnitsPerItem;
                 }
+            }
+        }
+    }
+
+    internal class ModComponentFields
+    {
+        public static void UpdateFieldValues<T>(GearItem gearItem) where T : UnityEngine.Component
+        {
+            T modComponent = ModUtils.GetComponent<T>(gearItem);
+            if (modComponent == null)
+            {
+                return;
+            }
+
+            string gearName = ModUtils.NormalizeName(gearItem.name);
+            //Logger.Log(gearName);
+            GameObject prefab = Resources.Load(gearName)?.Cast<GameObject>();
+            if (prefab == null)
+            {
+                Logger.Log("While copying fields for '{0}', the prefab was null.");
             }
             else
             {
-                Logger.Log("Sledgehammer prefab was null.");
+                T prefabComponent = ModUtils.GetComponent<T>(prefab);
+                if (prefabComponent != null)
+                {
+                    ModUtils.CopyFields<T>(modComponent, prefabComponent);
+                    //Logger.Log("Successfully reassigned {0}", typeof(T).ToString());
+                }
             }
+        }
+
+        public static void UpdateAllComponentFieldValues(GearItem gearItem)
+        {
+            UpdateFieldValues<ModBedComponent>(gearItem);
+            UpdateFieldValues<ModBodyHarvestComponent>(gearItem);
+            UpdateFieldValues<ModClothingComponent>(gearItem);
+            UpdateFieldValues<ModCookableComponent>(gearItem);
+            UpdateFieldValues<ModCookingPotComponent>(gearItem);
+            UpdateFieldValues<ModExplosiveComponent>(gearItem);
+            UpdateFieldValues<ModFirstAidComponent>(gearItem);
+            UpdateFieldValues<ModFoodComponent>(gearItem);
+            UpdateFieldValues<ModGenericComponent>(gearItem);
+            UpdateFieldValues<ModLiquidComponent>(gearItem);
+            UpdateFieldValues<ModRifleComponent>(gearItem);
+            UpdateFieldValues<ModToolComponent>(gearItem);
+
+            UpdateFieldValues<ModStackableComponent>(gearItem);
         }
     }
 }

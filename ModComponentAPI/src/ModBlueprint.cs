@@ -9,7 +9,7 @@ namespace ModComponentAPI
         Forge,
         AmmoWorkbench
     }
-    
+
     //[DisallowMultipleComponent]
     public class ModBlueprint : MonoBehaviour
     {

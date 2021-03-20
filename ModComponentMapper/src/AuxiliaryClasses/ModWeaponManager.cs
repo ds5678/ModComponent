@@ -1,8 +1,8 @@
 ﻿using Harmony;
-using System.Collections.Generic;
-using UnityEngine;
 using ModComponentAPI;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 //did a first pass through; didn't find anything
 //ONE needs to be declared
@@ -52,7 +52,8 @@ namespace ModComponentMapper
                 UnityEngine.Object.Destroy(rifle_rig.gameObject);
             }
 
-            GameObject equippedModel = UnityEngine.Object.Instantiate(modRifleComponent.EquippedModelPrefab, weapon.transform);
+            GameObject equippedModelPrefab = Resources.Load(modRifleComponent.EquippedModelPrefabName)?.Cast<GameObject>();
+            GameObject equippedModel = UnityEngine.GameObject.Instantiate(equippedModelPrefab, weapon.transform);
             equippedModel.name = (name + "_rig").ToLower();
 
         }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace ModComponentAPI
 {
@@ -16,6 +16,11 @@ namespace ModComponentAPI
 
         public Mesh SnowMesh;
         public Mesh WaterMesh;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModCookingPotComponent>(this);
+        }
 
         public ModCookingPotComponent(IntPtr intPtr) : base(intPtr) { }
     }

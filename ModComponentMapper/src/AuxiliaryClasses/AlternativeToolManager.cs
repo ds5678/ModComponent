@@ -1,9 +1,5 @@
-﻿using System;
+﻿using ModComponentAPI;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ModComponentAPI;
 using UnityEngine;
 
 namespace ModComponentMapper
@@ -27,7 +23,7 @@ namespace ModComponentMapper
 
         internal static void ProcessList()
         {
-            for(int i = 0; i < toolList.Count; i++)
+            for (int i = 0; i < toolList.Count; i++)
             {
                 AddAlternativeTool(toolList[i], templateNameList[i]);
             }

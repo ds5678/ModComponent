@@ -2,20 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
-/* did a first pass through; HAS ISSUES!!!!!!!!!!!!!
- * A BUNCH need to be declared
- * Two issues
- * The first was adding console commands, which I fixed.
- * The second was a serialization issue; I added inheritance to Il2CppSystem.Object and that fixed things
+/* 
+ * Need to investigate serialization
  */
-//may have some inlined methods at the bottom
 
 namespace ModComponentMapper
 {
-    public class AlcoholUptake //needs declared
+    public class AlcoholUptake
     {
         public float amountPerGameSecond;
 
@@ -32,15 +28,13 @@ namespace ModComponentMapper
         }
     }
 
-    //needs declared!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public class ModHealthManagerData : Il2CppSystem.Object //added inheritance to fix Data serialization issue
+    public class ModHealthManagerData
     {
         public float alcoholPermille;
         public AlcoholUptake[] uptakes;
     }
 
-    //needs declared!!!!!!!!!!!!
-    public class SaveProxy : Il2CppSystem.Object //added inheritance to fix Data serialization issue
+    public class SaveProxy
     {
         public string data;
 
@@ -48,10 +42,9 @@ namespace ModComponentMapper
         {
             this.data = "";
         }
-        public SaveProxy(System.IntPtr intPtr) : base(intPtr) { }
     }
 
-    [HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]//Exists
+    [HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]//positive caller count
     internal class Condition_UpdateBlurEffect
     {
         public static void Prefix(Condition __instance, ref float percentCondition, ref bool lowHealthStagger)
@@ -67,7 +60,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]//Exists
+    [HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]//positive caller count
     internal class Freezing_CalculateBodyTemperature
     {
         public static void Postfix(ref float __result)
@@ -76,7 +69,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]//Exists
+    [HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]//positive caller count
     internal class Frostbite_CalculateBodyTemperatureWithoutClothing
     {
         public static void Postfix(ref float __result)
@@ -85,7 +78,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(GameManager), "Start")]//Exists
+    [HarmonyPatch(typeof(GameManager), "Start")]//runs
     internal class GameManagerStartPatch
     {
         public static void Postfix(PlayerManager __instance)
@@ -94,7 +87,7 @@ namespace ModComponentMapper
         }
     }
 
-    internal class ModHealthManager : MonoBehaviour //Needs declared
+    internal class ModHealthManager : MonoBehaviour
     {
         private const float MIN_PERMILLE_FOR_BLUR = 0.5f;
         private const float MAX_PERMILLE_FOR_BLUR = 2.5f;
@@ -181,8 +174,6 @@ namespace ModComponentMapper
         internal static void Initialize()
         {
             //Wulf: two commands, because apparently different regions don't express this in the same unit
-            //uConsole.RegisterCommand("set_alcohol_permille", new uConsole.DebugCommand(SetAlcoholPermille));//<=================================================
-            //uConsole.RegisterCommand("set_alcohol_percent", new uConsole.DebugCommand(SetAlcoholPercent));//<========
             uConsole.RegisterCommand("set_alcohol_permille", new Action(SetAlcoholPermille));
             uConsole.RegisterCommand("set_alcohol_percent", new Action(SetAlcoholPercent));
         }
@@ -336,7 +327,7 @@ namespace ModComponentMapper
         }
     }
 
-    internal class StatMonitor //Needs declared
+    internal class StatMonitor
     {
         public bool debug;
         public float hourlyBaseline;
@@ -373,27 +364,21 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeFatigue")]//inlined?
-    internal class StatusBarGetRateOfChangeFatigue
+    [HarmonyPatch(typeof(StatusBar), "GetRateOfChange")]//positive caller count
+    internal class StatusBar_GetRateOfChange
     {
-        public static bool Prefix(StatusBar __instance, ref float __result)
+        private static void Postfix(StatusBar __instance, ref float __result)
         {
-            var fatigueMonitor = ModHealthManager.GetFatigueMonitor();
-            __result = fatigueMonitor.getRateOfChange();
-
-            return false;
-        }
-    }
-
-    [HarmonyPatch(typeof(StatusBar), "GetRateOfChangeThirst")]//inlined?
-    internal class StatusBarGetRateOfChangeThirst
-    {
-        public static bool Prefix(StatusBar __instance, ref float __result)
-        {
-            var thirstMonitor = ModHealthManager.GetThirstMonitor();
-            __result = thirstMonitor.getRateOfChange();
-
-            return false;
+            if (__instance.m_StatusBarType == StatusBar.StatusBarType.Fatigue)
+            {
+                var fatigueMonitor = ModHealthManager.GetFatigueMonitor();
+                __result = fatigueMonitor.getRateOfChange();
+            }
+            else if (__instance.m_StatusBarType == StatusBar.StatusBarType.Thirst)
+            {
+                var thirstMonitor = ModHealthManager.GetThirstMonitor();
+                __result = thirstMonitor.getRateOfChange();
+            }
         }
     }
 }

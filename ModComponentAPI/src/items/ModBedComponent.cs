@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace ModComponentAPI
 {
@@ -34,6 +34,11 @@ namespace ModComponentAPI
         public GameObject PackedMesh;
         //[Tooltip("Optional game object to be used for representing the bed in a 'usable' state.")]
         public GameObject UsableMesh;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModBedComponent>(this);
+        }
 
         public ModBedComponent(IntPtr intPtr) : base(intPtr) { }
     }

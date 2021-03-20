@@ -2,21 +2,32 @@
 
 namespace ModComponentAPI
 {
-    //[DisallowMultipleComponent]
     public class ModHarvestableComponent : MonoBehaviour
     {
-        //[Tooltip("The audio to play while harvesting")]
+        /// <summary>
+        /// The audio to play while harvesting
+        /// </summary>
         public string Audio;
 
-        //[Tooltip("How man in-game minutes does it take to harvest this item?")]
-        //[Range(1, 120)]
+        /// <summary>
+        /// How many in-game minutes does it take to harvest this item?
+        /// </summary>
         public int Minutes;
 
-        //[Tooltip("The name of the GearItems havesting will yield")]
+        /// <summary>
+        /// The names of the GearItems harvesting will yield
+        /// </summary>
         public string[] YieldNames;
 
-        //[Tooltip("The number of the GearItems havesting will yield")]
+        /// <summary>
+        /// The number of the GearItems harvesting will yield
+        /// </summary>
         public int[] YieldCounts;
+
+        /// <summary>
+        /// The names of the ToolItems that can be used to harvest
+        /// </summary>
+        public string[] RequiredToolNames;
 
         public ModHarvestableComponent(System.IntPtr intPtr) : base(intPtr) { }
     }

@@ -6,9 +6,9 @@ using UnhollowerBaseLib.Attributes;
 //MIGHT NEED to add constructor 
 //declared class for MelonLoader
 
-namespace ModComponentMapper.SaveData 
+namespace ModComponentMapper.SaveData
 {
-    public class SaveData //added inheritance to fix SaveData serialization issue
+    public class SaveData
     {
         public Dictionary<string, string> itemSaveData = new Dictionary<string, string>();
 

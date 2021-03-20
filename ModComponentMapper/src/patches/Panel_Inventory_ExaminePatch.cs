@@ -1,12 +1,12 @@
 ﻿using Harmony;
 using UnityEngine;
 
-//did a first pass through; didn't find anything
-//does not need to be declared
+//Appears to handle an issue occuring when something harvests into more than two item types
+//I think it's fixing a visual issue
 
 namespace ModComponentMapper
 {
-    [HarmonyPatch(typeof(Panel_Inventory_Examine), "Start")]//Exists
+    [HarmonyPatch(typeof(Panel_Inventory_Examine), "Start")]//runs
     internal class Panel_Inventory_Examine_Start
     {
         internal static void Postfix(Panel_Inventory_Examine __instance)

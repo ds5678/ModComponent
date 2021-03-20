@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using UnityEngine;
 using UnhollowerBaseLib.Attributes;
 
 namespace ModComponentAPI
@@ -100,7 +99,7 @@ namespace ModComponentAPI
         public string MainTexture;
         //[Tooltip("Name of the blend texture used for the paper doll view.")]
         public string BlendTexture;
-        //[Tooltip("Drawing layer (as in drawing order) to be used for this clothing item. Items with higher values are drawn over items with lower values.")]
+        //[Tooltip("Drawing layer (as in drawing order) to be used for this clothing item. Items with higher values are drawn over items with lower values. Set to zero for the default value on that slot.")]
         public int DrawLayer;
 
         //[Header("Implementation")]
@@ -118,12 +117,16 @@ namespace ModComponentAPI
 
         void Awake()
         {
+            CopyFieldHandler.UpdateFieldValues<ModClothingComponent>(this);
+
             if (string.IsNullOrEmpty(ImplementationType))
             {
                 return;
             }
+            //MelonLoader.MelonLogger.Log("ImplementationType for '{0}' is not empty.", this.name);
 
-            Type implementationType = Type.GetType(ImplementationType);
+            //Type implementationType = Type.GetType(ImplementationType);
+            Type implementationType = TypeResolver.Resolve(ImplementationType);
             object implementation = Activator.CreateInstance(implementationType);
             if (implementation == null)
             {

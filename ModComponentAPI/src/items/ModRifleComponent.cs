@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using UnityEngine;
+using System.Reflection;
+using UnhollowerBaseLib.Attributes;
 
 namespace ModComponentAPI
 {
@@ -44,6 +41,52 @@ namespace ModComponentAPI
         //[Tooltip("The amount sway increases for every second in 'Aim' mode. (unknown unit, Hunting Rifle: 0.1)")]
         //[Range(0, 1)]
         public float SwayIncrement = 0.1f;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModRifleComponent>(this);
+            if (string.IsNullOrEmpty(ImplementationType))
+            {
+                return;
+            }
+
+            //GameObject equippedModelPrefab = Resources.Load(EquippedModelPrefabName)?.Cast<GameObject>();
+            //if (equippedModelPrefab) EquippedModel = GameObject.Instantiate(equippedModelPrefab);
+
+            Type implementationType = TypeResolver.Resolve(ImplementationType);
+            this.Implementation = Activator.CreateInstance(implementationType);
+
+            if (this.Implementation == null)
+            {
+                return;
+            }
+
+            OnEquipped = CreateImplementationActionDelegate("OnEquipped");
+            OnUnequipped = CreateImplementationActionDelegate("OnUnequipped");
+
+            OnPrimaryAction = CreateImplementationActionDelegate("OnPrimaryAction");
+            OnSecondaryAction = CreateImplementationActionDelegate("OnSecondaryAction");
+
+            OnControlModeChangedWhileEquipped = CreateImplementationActionDelegate("OnControlModeChangedWhileEquipped");
+
+            FieldInfo fieldInfo = implementationType.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            if (fieldInfo != null && fieldInfo.FieldType == typeof(EquippableModComponent))
+            {
+                fieldInfo.SetValue(Implementation, this);
+            }
+        }
+
+        [HideFromIl2Cpp]
+        private Action CreateImplementationActionDelegate(string methodName)
+        {
+            MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            if (methodInfo == null)
+            {
+                return null;
+            }
+
+            return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
+        }
 
         public ModRifleComponent(System.IntPtr intPtr) : base(intPtr) { }
     }

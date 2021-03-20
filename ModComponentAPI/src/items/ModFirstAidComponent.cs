@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 namespace ModComponentAPI
 {
@@ -29,6 +28,11 @@ namespace ModComponentAPI
 
         //[Tooltip("Sound to play when using the item.")]
         public string UseAudio;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModFirstAidComponent>(this);
+        }
 
         public ModFirstAidComponent(IntPtr intPtr) : base(intPtr) { }
     }

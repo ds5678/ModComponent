@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 using static PlayerAnimation;
 using static PlayerAnimation.State;
-using System;
-using UnhollowerBaseLib.Attributes;
 
-//did a first pass through; didn't find anything
-//ALL need to be declared
+//
 
 namespace ModComponentMapper
 {
-    public delegate void OnStateChanged(State oldState, State newState); //NOT SURE
+    public delegate void OnStateChanged(State oldState, State newState);
 
-    internal class OneTimeEvent //needs to be declared
+    internal class OneTimeEvent
     {
         public ModAnimationStateMachine animation;
         public State state;
@@ -40,9 +39,9 @@ namespace ModComponentMapper
         }
     }
 
-    public class ModAnimationStateMachine : MonoBehaviour //Needs to be declared
+    public class ModAnimationStateMachine : MonoBehaviour
     {
-        [method:HideFromIl2Cpp]
+        [method: HideFromIl2Cpp]
         public event OnStateChanged stateChanged;
 
         private State state = Hidden;
@@ -84,7 +83,7 @@ namespace ModComponentMapper
         void Update()
         {
             if (transitionTime > 0 && transitionTime <= Time.time)
-            { 
+            {
                 ChangeToState(transitionState);
             }
         }

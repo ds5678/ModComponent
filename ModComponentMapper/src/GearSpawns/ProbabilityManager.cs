@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace ModComponentMapper
@@ -24,7 +20,7 @@ namespace ModComponentMapper
         {
             float clampedProbability = Mathf.Clamp(baseProbality, 0f, 100f);
             //Logger.Log("Initial Probability: {0}", clampedProbability);
-            if(clampedProbability == 100f)
+            if (clampedProbability == 100f)
             {
                 return 100f;
             }

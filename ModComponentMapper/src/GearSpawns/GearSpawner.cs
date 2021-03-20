@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
-//did a first pass through; didn't find anything
-//MIGHT have some classes that need to be declared
 
 namespace ModComponentMapper
 {
-    public struct GearSpawnInfo //Might need to be declared
+    public struct GearSpawnInfo
     {
         public Vector3 Position;
         public string PrefabName;
@@ -15,13 +11,13 @@ namespace ModComponentMapper
         public float SpawnChance;
     }
 
-    public struct LootTableEntry //Might need to be declared
+    public struct LootTableEntry
     {
         public string PrefabName;
         public int Weight;
     }
 
-    public class GearSpawner //does not need to be declared
+    public class GearSpawner
     {
         private static Dictionary<string, List<GearSpawnInfo>> gearSpawnInfos = new Dictionary<string, List<GearSpawnInfo>>();
         private static Dictionary<string, List<LootTableEntry>> lootTableEntries = new Dictionary<string, List<LootTableEntry>>();
@@ -199,7 +195,7 @@ namespace ModComponentMapper
                     Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
                     gear.name = prefab.name;
                     DisableObjectForXPMode xpmode = gear.Cast<GameObject>().GetComponent<DisableObjectForXPMode>();
-                    if(xpmode != null)
+                    if (xpmode != null)
                     {
                         Object.Destroy(xpmode);
                     }

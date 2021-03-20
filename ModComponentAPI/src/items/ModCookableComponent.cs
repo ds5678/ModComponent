@@ -43,7 +43,12 @@ namespace ModComponentAPI
 
         //[Tooltip("Sound to use when putting the item into a pot or on a stove. Leave empty for a sensible default.")]
         public string StartCookingAudio;
-        
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModCookableComponent>(this);
+        }
+
         public ModCookableComponent(IntPtr intPtr) : base(intPtr) { }
     }
 }

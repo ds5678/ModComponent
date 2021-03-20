@@ -1,9 +1,6 @@
 ﻿using Harmony;
 using System.Collections.Generic;
 
-//did a first pass through; didn't find anything
-//does not need to be declared
-
 namespace ModComponentMapper
 {
     internal class BuffCauseTracker
@@ -39,6 +36,19 @@ namespace ModComponentMapper
             if (gearItem != null)
             {
                 BuffCauseTracker.setCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(AfflictionButton), "SetCauseAndEffect")]//positive caller count
+    class AfflictionButtonSetCauseAndEffectPatch
+    {
+        public static void Prefix(ref string causeStr, AfflictionType affType)
+        {
+            string trackedCause = BuffCauseTracker.getCause(affType);
+            if (!string.IsNullOrEmpty(trackedCause))
+            {
+                causeStr = trackedCause;
             }
         }
     }

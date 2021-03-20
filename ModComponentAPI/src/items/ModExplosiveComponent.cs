@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModComponentAPI
 {
@@ -13,6 +9,11 @@ namespace ModComponentAPI
         public float explosionDelay;
 
         public string explosionAudio;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModExplosiveComponent>(this);
+        }
 
         public ModExplosiveComponent(IntPtr intPtr) : base(intPtr) { }
     }

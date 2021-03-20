@@ -1,5 +1,4 @@
 ﻿using ModComponentAPI;
-using System.Collections.Generic;
 using UnityEngine;
 
 //did a first pass through; didn't find anything
@@ -37,7 +36,7 @@ namespace ModComponentMapper.ComponentMapper
             ConfigureStruggleBonus(modToolComponent);
         }
 
-        
+
 
         private static void ConfigureBodyHarvest(ModToolComponent modToolComponent)
         {

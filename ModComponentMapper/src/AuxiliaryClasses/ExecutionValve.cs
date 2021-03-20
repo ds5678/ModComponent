@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
-//did a first pass through; didn't find anything
-//NEEDS to be declared for MelonLoader
+//not sure what this is used for
 
 namespace ModComponentMapper
 {

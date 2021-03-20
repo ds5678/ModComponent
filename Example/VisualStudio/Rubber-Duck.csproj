@@ -36,9 +36,6 @@
     <Reference Include="Assembly-CSharp">
       <Private>False</Private>
     </Reference>
-    <Reference Include="AssetLoader">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -48,22 +45,14 @@
     <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="ModComponentAPI">
+    <Reference Include="ModComponentMapper, Version=4.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="ModComponentMapper">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
     <Reference Include="UnhollowerRuntimeLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
       <Private>False</Private>
     </Reference>
   </ItemGroup>

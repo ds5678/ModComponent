@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using UnityEngine;
 
 namespace ModComponentAPI
@@ -14,23 +13,23 @@ namespace ModComponentAPI
         //[Tooltip("Should this fail if the behaviour cannot be loaded or attached?")]
         public bool FailOnError = true;
 
-        public void Start()
+        /*public void Start()
         {
             try
             {
-                Il2CppSystem.Type behaviourType = TypeResolver.Resolve(BehaviourName);
+                System.Type behaviourType = TypeResolver.Resolve(BehaviourName);
                 this.gameObject.AddComponent(behaviourType);
             }
             catch (Exception e)
             {
-                Debug.LogError("[Mod-Component] Could not load behaviour '" + BehaviourName + "': " + e.Message);
+                MelonLoader.MelonLogger.LogError("[Mod-Component] Could not load behaviour '" + BehaviourName + "': " + e.Message);
 
                 if (FailOnError)
                 {
                     throw e;
                 }
             }
-        }
+        }*/
 
         public AttachBehaviour(System.IntPtr intPtr) : base(intPtr) { }
     }

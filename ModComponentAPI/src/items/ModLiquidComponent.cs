@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-
-namespace ModComponentAPI
+﻿namespace ModComponentAPI
 {
-    public enum LiquidType {
+    public enum LiquidType
+    {
         Water,
         Kerosene
     }
@@ -14,6 +13,12 @@ namespace ModComponentAPI
         public float LiquidCapacityLiters;
         public bool RandomizeQuantity = false;
         public float LiquidLiters = 0f;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModLiquidComponent>(this);
+        }
+
         public ModLiquidComponent(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 //did a first pass through; didn't find anything
 //NEEDS to be declared for MelonLoader

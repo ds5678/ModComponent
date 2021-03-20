@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ModComponentAPI
+﻿namespace ModComponentAPI
 {
     public class ModAccelerantComponent : ModFireStartingComponent
     {

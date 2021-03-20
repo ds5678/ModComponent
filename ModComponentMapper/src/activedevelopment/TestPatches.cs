@@ -1,90 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Harmony;
-using ModComponentAPI;
-using UnityEngine;
+﻿using Harmony;
 
 namespace ModComponentMapper
 {
     internal class TestPatches
     {
-        //[HarmonyPatch(typeof(InventoryGridItem),"Update")]
-        //internal class changeIcons
-        //{
-        //    private static void Postfix(InventoryGridItem __instance)
-        //    {
-
-        //        __instance.m_GearSprite = new UITexture();
-        //        __instance.m_GearSprite.mainTexture = (Utils.GetCachedTexture("ico_gearitem__skigoggles"));
-        //    }
-        //}
-        [HarmonyPatch(typeof(GameManager),"Update")]
+        /*[HarmonyPatch(typeof(GameManager), "Update")]
         internal class GameUpdateTestPatch
         {
             private static void Postfix()
             {
-                
-            }
-        }
 
-        [HarmonyPatch(typeof(GameManager),"Awake")]
+            }
+        }*/
+
+        [HarmonyPatch(typeof(GameManager), "Awake")]
         internal class GameAwakeTestPatch
         {
             private static void Postfix()
             {
-                
+
             }
         }
 
-        [HarmonyPatch(typeof(BlueprintDisplayItem), "Setup")]
-        private static class FixRecipeIcons
+        /*[HarmonyPatch(typeof(TextureInjector), "Start")]
+        internal class MaterialTestPatch
         {
-            internal static void Postfix(BlueprintDisplayItem __instance, BlueprintItem bpi)
+            private static bool Prefix(TextureInjector __instance)
             {
-                string craftedGearName = bpi?.m_CraftedResult?.name;
-                if ( craftedGearName != null && CraftingIconManager.PathDictContains(craftedGearName) )
+                if (ModUtils.GetComponent<ModComponent>(__instance))
                 {
-                    Texture2D texture = CraftingIconManager.GetCraftingIconFromGearName(craftedGearName);
-                    if (texture != null)
-                    {
-                        __instance.m_Icon.mTexture = texture;
-                    }
+                    Logger.Log("Saved '{0}' from start", __instance.name);
+                    return false;
+                }
+                Logger.Log("Start: '{0}'", __instance.name); 
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(TextureInjector), "Initialize")]
+        internal class MaterialTestPatch2
+        {
+            private static bool Prefix(TextureInjector __instance)
+            {
+                if (ModUtils.GetComponent<ModComponent>(__instance))
+                {
+                    Logger.Log("Saved '{0}' from initialization", __instance.name);
+                    return false;
+                }
+                Logger.Log("Initialization '{0}'", __instance.name);
+                return true;
+            }
+        }*/
+
+        /*[HarmonyPatch(typeof(Container), "Awake")]
+        internal class RandomizeLoot
+        {
+            private static void Postfix(Container __instance)
+            {
+                Logger.Log("Awake");
+                if (!__instance.IsInspected())
+                {
+                    Logger.Log("Reseting Gear");
+                    __instance.m_GearToInstantiate.Clear();
+                    __instance.PopulateWithRandomGear();
                 }
             }
         }
 
-        public static void CheckForModComponent()
+        [HarmonyPatch(typeof(Container), "Start")]
+        internal class RandomizeLoot2
         {
-            GameObject gameObject = Resources.Load("GEAR_ScrapMetal").Cast<GameObject>();
-            if(gameObject == null)
+            private static void Postfix(Container __instance)
             {
-                Logger.Log("Scrap metal was null");
+                Logger.Log("Start");
+                if (!__instance.IsInspected())
+                {
+                    Logger.Log("Reseting Gear");
+                    __instance.m_GearToInstantiate.Clear();
+                    __instance.PopulateWithRandomGear();
+                }
             }
-            ModComponent modComponent = ModUtils.GetComponent<ModComponent>(gameObject);
-            if(modComponent == null)
-            {
-                Logger.Log("Scrap metal was unaffected.");
-            }
-            else
-            {
-                Logger.Log("Scrap metal has a mod component.");
-            }
-        }
-        public static void CheckIfTheSame()
-        {
-            GameObject go1 = Resources.Load("GEAR_ScrapMetal").Cast<GameObject>();
-            GameObject go2 = Resources.Load("GEAR_ScrapMetal").Cast<GameObject>();
-            if(go1 == go2)
-            {
-                Logger.Log("The scrap metal variables reference the same object.");
-            }
-            else
-            {
-                Logger.Log("The scrap metal object are different from each other.");
-            }
-        }
+        }*/
+
+
+
     }
 }

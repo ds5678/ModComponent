@@ -1,7 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -44,17 +42,16 @@ namespace ModComponentMapper
         {
             string[] directories = Directory.GetDirectories(currentDirectory);
 
-            foreach(string directory in directories)
+            foreach (string directory in directories)
             {
                 ReadDefinitions(directory);
             }
-            
+
 
             string[] files = Directory.GetFiles(currentDirectory, "*.txt");
             foreach (string eachFile in files)
             {
-                Logger.Log("Processing spawn file '" + eachFile + "'.");
-                ProcessFile(eachFile);
+                ProcessLines(File.ReadAllLines(eachFile), eachFile);
             }
         }
 
@@ -129,12 +126,12 @@ namespace ModComponentMapper
             return result;
         }
 
-        private static void ProcessFile(string path)
+        internal static void ProcessLines(string[] lines, string path = "")
         {
+            Logger.Log("Processing spawn file '" + path + "'.");
             string scene = null;
             string loottable = null;
 
-            string[] lines = File.ReadAllLines(path);
             foreach (string eachLine in lines)
             {
                 var trimmedLine = GetTrimmedLine(eachLine);

@@ -1,14 +1,11 @@
 ﻿using Harmony;
-using UnityEngine;
 using System;
 using UnhollowerBaseLib.Attributes;
-
-//did a first pass through; didn't find anything
-//NEEDS to be declared for MelonLoader
+using UnityEngine;
 
 namespace ModComponentMapper
 {
-    public class AlcoholComponent : MonoBehaviour //needs declared for MelonLoader
+    public class AlcoholComponent : MonoBehaviour
     {
         public float AmountTotal;
         public float AmountRemaining;
@@ -24,7 +21,7 @@ namespace ModComponentMapper
         }
     }
 
-    [HarmonyPatch(typeof(GearItem), "ApplyBuffs")]//Exists
+    [HarmonyPatch(typeof(GearItem), "ApplyBuffs")]//positive caller count
     internal class AlcoholComponentHook
     {
         public static void Postfix(GearItem __instance, float normalizedValue)

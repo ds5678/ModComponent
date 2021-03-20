@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 
 namespace ModComponentAPI
 {
@@ -113,6 +112,11 @@ namespace ModComponentAPI
         //[Tooltip("How many in-game minutes does it take for the alcohol to be fully absorbed? This is scaled by current hunger level (the hungrier the faster). The simulated blood alcohol level will slowly raise over this time. Real-life value is around 45 mins for liquids.")]
         //[Range(15, 120)]
         public float AlcoholUptakeMinutes = 45;
+
+        void Awake()
+        {
+            CopyFieldHandler.UpdateFieldValues<ModFoodComponent>(this);
+        }
 
         public ModFoodComponent(IntPtr intPtr) : base(intPtr) { }
     }

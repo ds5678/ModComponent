@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using UnhollowerBaseLib;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace ModComponentAPI
 {
