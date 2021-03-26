@@ -22,36 +22,6 @@ namespace ModComponentMapper
             }
         }
 
-        /*[HarmonyPatch(typeof(TextureInjector), "Start")]
-        internal class MaterialTestPatch
-        {
-            private static bool Prefix(TextureInjector __instance)
-            {
-                if (ModUtils.GetComponent<ModComponent>(__instance))
-                {
-                    Logger.Log("Saved '{0}' from start", __instance.name);
-                    return false;
-                }
-                Logger.Log("Start: '{0}'", __instance.name); 
-                return true;
-            }
-        }
-
-        [HarmonyPatch(typeof(TextureInjector), "Initialize")]
-        internal class MaterialTestPatch2
-        {
-            private static bool Prefix(TextureInjector __instance)
-            {
-                if (ModUtils.GetComponent<ModComponent>(__instance))
-                {
-                    Logger.Log("Saved '{0}' from initialization", __instance.name);
-                    return false;
-                }
-                Logger.Log("Initialization '{0}'", __instance.name);
-                return true;
-            }
-        }*/
-
         /*[HarmonyPatch(typeof(Container), "Awake")]
         internal class RandomizeLoot
         {
@@ -81,7 +51,6 @@ namespace ModComponentMapper
                 }
             }
         }*/
-
 
 
     }

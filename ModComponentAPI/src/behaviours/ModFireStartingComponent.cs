@@ -2,14 +2,16 @@
 
 namespace ModComponentAPI
 {
-    //[DisallowMultipleComponent]
     public abstract class ModFireStartingComponent : MonoBehaviour
     {
-        //[Tooltip("Is the item destroyed immediately after use?")]
+        /// <summary>
+        /// Is the item destroyed immediately after use?
+        /// </summary>
         public bool DestroyedOnUse;
 
-        //[Range(-100, 100)]
-        //[Tooltip("Does this item affect the chance for success? Represents percentage points. Positive values increase the chance, negative values reduce it.")]
+        /// <summary>
+        /// Does this item affect the chance for success? Represents percentage points. Positive values increase the chance, negative values reduce it.
+        /// </summary>
         public float SuccessModifier;
 
         public ModFireStartingComponent(System.IntPtr intPtr) : base(intPtr) { }

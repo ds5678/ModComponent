@@ -22,86 +22,143 @@ namespace ModComponentAPI
 
     public class ModToolComponent : EquippableModComponent
     {
-        //[Header("Tool/Misc")]
-        //[Tooltip("The type of the tool item. This determines for which actions it can be used. E.g. 'Knife' for cutting, 'Hammer' for pounding, etc.")]
+        /// <summary>
+        /// The type of the tool item. This determines for which actions it can be used.
+        /// E.g. 'Knife' for cutting, 'Hammer' for pounding, etc.
+        /// </summary>
         public ToolType ToolType = ToolType.None;
-        //[Tooltip("How many condition points per use does this tool item lose? Certains actions have their own time driven degrade value, e.g. DegradePerHourCrafting, which applies only for those actions.")]
-        //[Range(0f, 100f)]
+        
+        /// <summary>
+        /// How many condition points per use does this tool item lose?
+        /// Certains actions have their own time driven degrade value, e.g. DegradePerHourCrafting, which applies only for those actions.
+        /// </summary>
         public float DegradeOnUse = 1;
 
-        //[Header("Tool/Crafting & Repairing")]
-        //[Tooltip("Can this item be used for crafting, repairing or both?")]
+
+        /// <summary>
+        /// Can this item be used for crafting, repairing or both?
+        /// </summary>
         public Usage Usage = Usage.All;
-        //[Tooltip("Bonus to the relevant skill when using this item. E.g. the sewing kit gives a bonus of +20.")]
-        //[Range(0, 100)]
+        
+        /// <summary>
+        /// Bonus to the relevant skill when using this item. E.g. the sewing kit gives a bonus of +20.
+        /// </summary>
         public int SkillBonus = 0;
-        //[Tooltip("Multiplier for crafting and repair times. Represents percent. 0% means 'finishes instantly'; 100% means 'same time as without tool'.")]
-        //[Range(0f, 1f)]
+        
+        /// <summary>
+        /// Multiplier for crafting and repair times. Represents percent. 0% means 'finishes instantly'; 100% means 'same time as without tool'.
+        /// </summary>
         public float CraftingTimeMultiplier = 1;
-        //[Tooltip("How many condition points does the tool degrade while being used for crafting?")]
-        //[Range(0f, 100f)]
+        
+        /// <summary>
+        /// How many condition points does the tool degrade while being used for crafting?
+        /// </summary>
         public float DegradePerHourCrafting;
 
-        //[Header("Tool/Break Down")]
-        //[Tooltip("Can this tool be used to break down items? If not enabled, the other settings in this section will be ignored.")]
+        
+        /// <summary>
+        /// Can this tool be used to break down items? If not enabled, the other settings in this section will be ignored.
+        /// </summary>
         public bool BreakDown;
-        //[Tooltip("Multiplier for the time required to break down an item. Represents percent. 0% means 'finishes instantly'; 100% means 'same time as without tool'.")]
-        //[Range(0f, 1f)]
+        
+        /// <summary>
+        /// Multiplier for the time required to break down an item.
+        /// Represents percent. 0% means 'finishes instantly'; 100% means 'same time as without tool'.
+        /// </summary>
         public float BreakDownTimeMultiplier = 1;
 
-        //[Header("Tool/Locks")]
-        //[Tooltip("Can this tool item be used to open locked containers? If not enabled, the other settings in this section will be ignored.")]
+        
+        /// <summary>
+        /// Can this tool item be used to open locked containers? If not enabled, the other settings in this section will be ignored.
+        /// </summary>
         public bool ForceLocks;
-        //[Tooltip("Sound to play while forcing a lock. Leave empty for a sensible default.")]
+
+        /// <summary>
+        /// Sound to play while forcing a lock. Leave empty for a sensible default.
+        /// </summary>
         public string ForceLockAudio;
 
-        //[Header("Tool/Ice Fishing Hole")]
-        //[Tooltip("Can this tool item be used to clear ice fishing holes? If not enabled, the other settings in this section will be ignored.")]
+        
+        /// <summary>
+        /// Can this tool item be used to clear ice fishing holes? If not enabled, the other settings in this section will be ignored.
+        /// </summary>
         public bool IceFishingHole;
-        //[Tooltip("How many condition points does the tool lose when completely clearing an ice fishing hole?")]
-        //[Range(0f, 100f)]
+        
+        /// <summary>
+        /// How many condition points does the tool lose when completely clearing an ice fishing hole?
+        /// </summary>
         public float IceFishingHoleDegradeOnUse;
-        //[Tooltip("How many in-game minutes does it take to completely clear an ice fishing hole?")]
-        //[Range(0, 120)]
+        
+        /// <summary>
+        /// How many in-game minutes does it take to completely clear an ice fishing hole?
+        /// </summary>
         public int IceFishingHoleMinutes;
-        //[Tooltip("Sound to play while clearing an ice fishing hole. Leave empty for a sensible default.")]
+
+        /// <summary>
+        /// Sound to play while clearing an ice fishing hole. Leave empty for a sensible default.
+        /// </summary>
         public string IceFishingHoleAudio;
 
-        //[Header("Tool/Carcass Harvesting")]
-        //[Tooltip("Can this tool item be used to harvest carcasses? If not enabled, the other settings in this section will be ignored.")]
+        
+        /// <summary>
+        /// Can this tool item be used to harvest carcasses? If not enabled, the other settings in this section will be ignored.
+        /// </summary>
         public bool CarcassHarvesting;
-        //[Tooltip("How many in-game minutes does it take to harvest one kg of unfrozen meat?")]
-        //[Range(0, 60)]
+        
+        /// <summary>
+        /// How many in-game minutes does it take to harvest one kg of unfrozen meat?
+        /// </summary>
         public int MinutesPerKgMeat;
-        //[Tooltip("How many in-game minutes does it take to harvest one kg of frozen meat?")]
-        //[Range(0, 60)]
+        
+        /// <summary>
+        /// How many in-game minutes does it take to harvest one kg of frozen meat?
+        /// </summary>
         public int MinutesPerKgFrozenMeat;
-        //[Tooltip("How many in-game minutes does it take to harvest one hide?")]
-        //[Range(0, 60)]
+        
+        /// <summary>
+        /// How many in-game minutes does it take to harvest one hide?
+        /// </summary>
         public int MinutesPerHide;
-        //[Tooltip("How many in-game minutes does it take to harvest one gut?")]
-        //[Range(0, 60)]
+        
+        /// <summary>
+        /// How many in-game minutes does it take to harvest one gut?
+        /// </summary>
         public int MinutesPerGut;
-        //[Tooltip("How many condition points does the tool degrade while being used for harvesting carcasses?")]
-        //[Range(0f, 100f)]
+        
+        /// <summary>
+        /// How many condition points does the tool degrade while being used for harvesting carcasses?
+        /// </summary>
         public float DegradePerHourHarvesting;
 
-        //[Header("Tool/Struggle Bonus")]
-        //[Tooltip("Can this tool item be used during a struggle with wildlife? If not enabled, the other settings in this section will be ignored.")]
+        
+        /// <summary>
+        /// Can this tool item be used during a struggle with wildlife? If not enabled, the other settings in this section will be ignored.
+        /// </summary>
         public bool StruggleBonus;
-        //[Range(0.1f, 4f)]
-        //[Tooltip("Multiplier for the damage dealt.")]
+        
+        /// <summary>
+        /// Multiplier for the damage dealt.
+        /// </summary>
         public float DamageMultiplier = 1f;
-        //[Range(0.1f, 4f)]
-        //[Tooltip("Multiplier for the chance the animal will flee (breaking the struggle before the 'struggle bar' is filled).")]
+        
+        /// <summary>
+        /// Multiplier for the chance the animal will flee (breaking the struggle before the 'struggle bar' is filled).
+        /// </summary>
         public float FleeChanceMultiplier = 1f;
-        //[Range(0.1f, 4f)]
-        //[Tooltip("Multiplier for the amount of the 'struggle bar' that is filled with each hit.")]
+        
+        /// <summary>
+        /// Multiplier for the amount of the 'struggle bar' that is filled with each hit.
+        /// </summary>
         public float TapMultiplier = 1f;
-        //[Tooltip("Can this tool cause a puncture wound? If enabled, this will cause the animal to bleed out.")]
+        
+        /// <summary>
+        /// Can this tool cause a puncture wound? If enabled, this will cause the animal to bleed out.
+        /// </summary>
         public bool CanPuncture;
-        //[Range(0.1f, 4f)]
-        //[Tooltip("Multiplier for the time it takes the animal to bleed out after receiving a puncture wound.")]
+        
+        /// <summary>
+        /// Multiplier for the time it takes the animal to bleed out after receiving a puncture wound.
+        /// </summary>
         public float BleedoutMultiplier = 1f;
 
         void Awake()
@@ -112,6 +169,7 @@ namespace ModComponentAPI
                 return;
             }
 
+            //I think this is taken care of by the mapper
             //GameObject equippedModelPrefab = Resources.Load(EquippedModelPrefabName)?.Cast<GameObject>();
             //if (equippedModelPrefab) EquippedModel = GameObject.Instantiate(equippedModelPrefab);
 
@@ -136,18 +194,6 @@ namespace ModComponentAPI
             {
                 fieldInfo.SetValue(Implementation, this);
             }
-        }
-
-        [HideFromIl2Cpp]
-        private Action CreateImplementationActionDelegate(string methodName)
-        {
-            MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            if (methodInfo == null)
-            {
-                return null;
-            }
-
-            return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
         }
 
         public ModToolComponent(System.IntPtr intPtr) : base(intPtr) { }

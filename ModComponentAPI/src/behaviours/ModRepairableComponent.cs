@@ -2,27 +2,37 @@
 
 namespace ModComponentAPI
 {
-    //[DisallowMultipleComponent]
     public class ModRepairableComponent : MonoBehaviour
     {
-        //[Tooltip("The audio to play while repairing")]
+        /// <summary>
+        /// The audio to play while repairing.
+        /// </summary>
         public string Audio;
 
-        //[Tooltip("How many in-game minutes does it take to repair this item?")]
-        //[Range(1, 120)]
+        /// <summary>
+        /// How many in-game minutes does it take to repair this item?
+        /// </summary>
         public int Minutes;
 
-        //[Tooltip("How much condition does repairing restore?")]
-        //[Range(1, 100)]
+        /// <summary>
+        /// How much condition does repairing restore?
+        /// </summary>
         public int Condition;
 
-        //[Tooltip("The name of the tools suitable for repair. At least one of those will be required for repairing. Leave empty, if this item should be repairable without tools.")]
+        /// <summary>
+        /// The name of the tools suitable for repair. At least one of those will be required for repairing.
+        /// Leave empty, if this item should be repairable without tools.
+        /// </summary>
         public string[] RequiredTools;
 
-        //[Tooltip("The name of the materials required for repair")]
+        /// <summary>
+        /// The name of the materials required for repair.
+        /// </summary>
         public string[] MaterialNames;
 
-        //[Tooltip("The number of the materials required for repair")]
+        /// <summary>
+        /// The number of the materials required for repair.
+        /// </summary>
         public int[] MaterialCounts;
 
         public ModRepairableComponent(System.IntPtr intPtr) : base(intPtr) { }

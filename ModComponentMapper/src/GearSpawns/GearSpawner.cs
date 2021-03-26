@@ -139,6 +139,7 @@ namespace ModComponentMapper
         {
             List<GearSpawnInfo> result;
             gearSpawnInfos.TryGetValue(sceneName, out result);
+            Logger.Log("Found {0} spawn entries for '{1}'", result.Count, sceneName);
             return result;
         }
 
@@ -167,9 +168,13 @@ namespace ModComponentMapper
             SpawnGearForScene(normalizedSceneName);
 
             stopwatch.Stop();
-            Logger.Log("Spawned items for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
+            Logger.Log("Spawned '{0}' items for scene '{1}' in {2} ms", ProbabilityManager.GetDifficultyLevel(), GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
         }
 
+        /// <summary>
+        /// Spawns the items into the scene. However, this can be overwritten by deserialization
+        /// </summary>
+        /// <param name="sceneName"></param>
         private static void SpawnGearForScene(string sceneName)
         {
             IEnumerable<GearSpawnInfo> sceneGearSpawnInfos = GetSpawnInfos(sceneName);
@@ -193,6 +198,7 @@ namespace ModComponentMapper
                 if (Utils.RollChance(spawnProbability))
                 {
                     Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
+                    //Logger.Log("'{0}' instantiated in '{1}'", normalizedGearName, sceneName);
                     gear.name = prefab.name;
                     DisableObjectForXPMode xpmode = gear.Cast<GameObject>().GetComponent<DisableObjectForXPMode>();
                     if (xpmode != null)

@@ -1,8 +1,5 @@
 ﻿using ModComponentAPI;
 
-//did a first pass through; didn't find anything
-//does not need to be declared
-
 namespace ModComponentMapper.ComponentMapper
 {
     internal class ScentMapper

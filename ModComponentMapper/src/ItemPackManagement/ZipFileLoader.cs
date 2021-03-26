@@ -51,13 +51,14 @@ namespace ModComponentMapper
             {
                 if (eachFile.ToLower().EndsWith(".zip"))
                 {
+                    PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
                     LoadZipFile(eachFile);
                 }
             }
         }
         internal static void LoadZipFile(string zipFilePath)
         {
-            Logger.Log("Loading zip file at: '{0}'", zipFilePath);
+            Logger.Log("Reading zip file at: '{0}'", zipFilePath);
             var fileStream = File.OpenRead(zipFilePath);
             var zipInputStream = new ZipInputStream(fileStream);
             ZipEntry entry;
@@ -86,7 +87,7 @@ namespace ModComponentMapper
                     switch (fileType)
                     {
                         case FileType.json:
-                            HandleJson(internalPath,ReadToString(unzippedFileStream));
+                            HandleJson(internalPath,ReadToString(unzippedFileStream),fullPath);
                             break;
                         case FileType.unity3d:
                             HandleUnity3d(internalPath, unzippedFileStream,fullPath);
@@ -129,30 +130,30 @@ namespace ModComponentMapper
             if (filename.EndsWith(".bnk")) return FileType.bnk;
             return FileType.other;
         }
-        private static void HandleJson(string internalPath,string text)
+        private static void HandleJson(string internalPath,string text,string fullPath)
         {
             string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
             if (internalPath.StartsWith(@"auto-mapped/"))
             {
-                Logger.Log("Loading automapped json from zip at '{0}'", internalPath);
-                JsonHandler.RegisterJsonText(filenameNoExtension, text, JsonType.Automapped);
+                Logger.Log("Reading automapped json from zip at '{0}'", internalPath);
+                JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Automapped);
             }
             else if (internalPath.StartsWith(@"blueprints/"))
             {
-                Logger.Log("Loading blueprint json from zip at '{0}'", internalPath);
-                JsonHandler.RegisterJsonText(filenameNoExtension, text, JsonType.Blueprint);
+                Logger.Log("Reading blueprint json from zip at '{0}'", internalPath);
+                JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Blueprint);
             }
             else if (internalPath.StartsWith(@"existing-json/"))
             {
-                Logger.Log("Loading existing json from zip at '{0}'", internalPath);
-                JsonHandler.RegisterJsonText(filenameNoExtension, text, JsonType.Existing);
+                Logger.Log("Reading existing json from zip at '{0}'", internalPath);
+                JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Existing);
             }
         }
         private static void HandleTxt(string internalPath,string text,string fullPath)
         {
             if (internalPath.StartsWith(@"gear-spawns/"))
             {
-                Logger.Log("Loading txt from zip at '{0}'", internalPath);
+                Logger.Log("Reading txt from zip at '{0}'", internalPath);
                 string[] lines = Regex.Split(text, "\r\n|\r|\n");
                 GearSpawnReader.ProcessLines(lines, fullPath);
             }
@@ -162,10 +163,18 @@ namespace ModComponentMapper
             if (internalPath.StartsWith(@"auto-mapped/"))
             {
                 Logger.Log("Loading asset bundle from zip at '{0}'", internalPath);
-                AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
-                string relativePath = GetPathRelativeToModsFolder(fullPath);
-                AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
-                AssetBundleManager.Add(relativePath);
+                try
+                {
+                    AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
+                    string relativePath = GetPathRelativeToModsFolder(fullPath);
+                    AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
+                    AssetBundleManager.Add(relativePath,fullPath);
+                }
+                catch(Exception e)
+                {
+                    PageManager.SetItemPackNotWorking(fullPath);
+                    Logger.LogError("Could not load asset bundle '{0}'. {1}", fullPath, e.Message);
+                }
             }
         }
         private static string GetPathRelativeToModsFolder(string fullPath)

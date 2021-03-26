@@ -36,7 +36,7 @@
     <Reference Include="Assembly-CSharp">
       <Private>False</Private>
     </Reference>
-    <Reference Include="AssetLoader">
+    <Reference Include="AssetLoader, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
@@ -50,7 +50,10 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ModComponentAPI">
+    <Reference Include="ModComponentAPI, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModSettings, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -77,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\AuxiliaryClasses\Settings.cs" />
     <Compile Include="src\BehaviourMapper\AccelerantMapper.cs" />
     <Compile Include="src\BehaviourMapper\BurnableMapper.cs" />
     <Compile Include="src\BehaviourMapper\StackableMapper.cs" />
@@ -87,9 +91,22 @@
     <Compile Include="src\ComponentMapper\FoodMapper.cs" />
     <Compile Include="src\ComponentMapper\LiquidMapper.cs" />
     <Compile Include="src\ComponentMapper\RifleMapper.cs" />
+    <Compile Include="src\InformationMenu\DescriptionHolder.cs" />
+    <Compile Include="src\InformationMenu\Group.cs" />
+    <Compile Include="src\InformationMenu\GUI.cs" />
+    <Compile Include="src\InformationMenu\GUIBuilder.cs" />
+    <Compile Include="src\InformationMenu\PageManager.cs" />
+    <Compile Include="src\InformationMenu\Pages\InfoPage.cs" />
+    <Compile Include="src\InformationMenu\ModComponentMenu.cs" />
+    <Compile Include="src\InformationMenu\ModComponentMenuPatches.cs" />
+    <Compile Include="src\InformationMenu\ModTab.cs" />
+    <Compile Include="src\InformationMenu\Pages\ItemPacksPage.cs" />
+    <Compile Include="src\InformationMenu\Pages\ItemPacksTestPage.cs" />
+    <Compile Include="src\InformationMenu\Pages\VersionInfoPage.cs" />
+    <Compile Include="src\ItemPackManagement\ItemPackData.cs" />
     <Compile Include="src\MainFiles\Events.cs" />
     <Compile Include="src\MainFiles\AutoMapper.cs" />
-    <Compile Include="src\AuxiliaryClasses\BlueprintReader.cs" />
+    <Compile Include="src\ItemPackManagement\BlueprintReader.cs" />
     <Compile Include="src\AuxiliaryClasses\ChangeLayer.cs" />
     <Compile Include="src\ComponentMapper\BedMapper.cs" />
     <Compile Include="src\BehaviourMapper\EvolveMapper.cs" />
@@ -139,7 +156,6 @@
     <Compile Include="src\AuxiliaryClasses\AlternativeToolManager.cs" />
     <Compile Include="src\activedevelopment\GearItemPatch.cs" />
     <Compile Include="src\AuxiliaryClasses\Logger.cs" />
-    <Compile Include="src\AuxiliaryClasses\ConfigurationManager.cs" />
     <Compile Include="src\activedevelopment\TestFunctions.cs" />
     <Compile Include="src\activedevelopment\ModExisting.cs" />
     <Compile Include="src\MainFiles\JsonHandler.cs" />
@@ -152,8 +168,13 @@
     <Compile Include="src\MainFiles\Utils.cs" />
     <Compile Include="src\GunPatches\vp_FPSPlayerPatch.cs" />
     <Compile Include="src\GunPatches\vp_FPSShooterPatch.cs" />
-    <Compile Include="src\ZipManagement\AssetBundleManager.cs" />
-    <Compile Include="src\ZipManagement\ZipFileLoader.cs" />
+    <Compile Include="src\ItemPackManagement\AssetBundleManager.cs" />
+    <Compile Include="src\ItemPackManagement\ZipFileLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\LICENSE" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

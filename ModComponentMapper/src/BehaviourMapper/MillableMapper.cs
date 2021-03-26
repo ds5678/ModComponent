@@ -1,7 +1,7 @@
 ﻿using ModComponentAPI;
 using System;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.ComponentMapper
 {
     class MillableMapper
     {

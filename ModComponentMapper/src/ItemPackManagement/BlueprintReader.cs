@@ -20,15 +20,13 @@ namespace ModComponentMapper
         internal static void ReadDefinitions()
         {
             string blueprintsDirectory = GetBlueprintsDirectory();
-            if (!Directory.Exists(blueprintsDirectory))
+            if (Settings.options.createAuxiliaryFolders && !Directory.Exists(blueprintsDirectory))
             {
-                Logger.Log("Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
+                Logger.Log("Auxiliary Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
                 Directory.CreateDirectory(blueprintsDirectory);
-                return;
             }
-
-            ProcessFiles(blueprintsDirectory);
             ProcessFiles(JsonHandler.blueprintJsons);
+            ProcessFiles(blueprintsDirectory);
         }
 
         private static void ProcessFiles(string directory)
@@ -50,11 +48,13 @@ namespace ModComponentMapper
                 ProcessFile(eachFile);
             }
         }
-        private static void ProcessFiles(List<string> blueprintJsons)
+        private static void ProcessFiles(Dictionary<string,string> blueprintJsons)
         {
-            foreach(string jsonText in blueprintJsons)
+            //Logger.Log(MelonLoader.TinyJSON.JSON.Dump(blueprintJsons,MelonLoader.TinyJSON.EncodeOptions.PrettyPrint));
+            foreach(var pair in blueprintJsons)
             {
-                ProcessText(jsonText);
+                Logger.Log("Processing blueprint definition '{0}'.", pair.Key);
+                ProcessText(pair.Key,pair.Value);
             }
             blueprintJsons.Clear();
         }
@@ -69,18 +69,32 @@ namespace ModComponentMapper
         {
             string text = File.ReadAllText(path);
 
-            ProcessText(text , path);
+            ProcessText(path, text);
         }
-        private static void ProcessText(string text , string path = null)
+        private static void ProcessText(string path, string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Logger.LogError("Skipping because blueprint text contains no information");
+                PageManager.SetItemPackNotWorking(path);
+                return;
+            }
+            //Logger.Log(path);
+            //Logger.Log("\n"+text);
             try
             {
                 ModBlueprint blueprint = MelonLoader.TinyJSON.JSON.Load(text).Make<ModBlueprint>();
-                Mapper.RegisterBlueprint(blueprint, path);
+                if (!(blueprint is null)) Mapper.RegisterBlueprint(blueprint, path);
+                else
+                {
+                    Logger.LogError("Skipping because blueprint is null");
+                    PageManager.SetItemPackNotWorking(path);
+                }
             }
             catch (Exception e)
             {
-                throw new System.ArgumentException("Could not read blueprint from '" + path + "'.", e);
+                Logger.LogError("Could not read blueprint from '{0}'. {1}",path, e.Message);
+                PageManager.SetItemPackNotWorking(path);
             }
         }
     }

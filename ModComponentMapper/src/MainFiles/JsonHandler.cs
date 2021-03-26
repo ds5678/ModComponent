@@ -12,8 +12,8 @@ namespace ModComponentMapper
     class JsonHandler
     {
         private static Dictionary<string, string> itemJsons = new Dictionary<string, string>();
-        internal static List<string> blueprintJsons = new List<string>();
-        internal static List<string> existingJsons = new List<string>();
+        internal static Dictionary<string, string> blueprintJsons = new Dictionary<string, string>();
+        internal static Dictionary<string, string> existingJsons = new Dictionary<string, string>();
 
         public static void RegisterItemJson(string itemName, string path)
         {
@@ -30,7 +30,7 @@ namespace ModComponentMapper
                 itemJsons.Add(itemName, data);
             }
         }
-        public static void RegisterJsonText(string itemName, string text, JsonType jsonType)
+        public static void RegisterJsonText(string itemName,string fullPath, string text, JsonType jsonType)
         {
             if (string.IsNullOrEmpty(text)) return;
 
@@ -45,10 +45,10 @@ namespace ModComponentMapper
                     else itemJsons.Add(itemName, text);
                     break;
                 case JsonType.Blueprint:
-                    if (!blueprintJsons.Contains(text)) blueprintJsons.Add(text);
+                    if (!blueprintJsons.ContainsKey(fullPath)) blueprintJsons.Add(fullPath,text);
                     break;
                 case JsonType.Existing:
-                    if (!existingJsons.Contains(text)) existingJsons.Add(text);
+                    if (!existingJsons.ContainsKey(fullPath)) existingJsons.Add(fullPath,text);
                     break;
             }
         }

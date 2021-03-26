@@ -1,7 +1,6 @@
 ﻿using ModComponentAPI;
 
-//did a first pass through; might want to remove sutures and sprains from the API if they're there
-//does not need to be declared
+//Might want to remove sutures and sprains from the API if they're there
 
 namespace ModComponentMapper.ComponentMapper
 {

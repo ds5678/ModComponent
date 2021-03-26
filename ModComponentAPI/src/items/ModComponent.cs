@@ -15,55 +15,111 @@ namespace ModComponentAPI
         Tool
     }
 
-    //[DisallowMultipleComponent]
-    //[HelpURL("https://github.com/WulfMarius/ModComponent/wiki/Basic-Item-Configuration")]
     public abstract class ModComponent : MonoBehaviour
     {
-        //[Header("Description")]
-        //[Tooltip("How this item will be called in the DeveloperConsole. Leave empty for a sensible default.")]
+        /// <summary>
+        /// How this item will be called in the DeveloperConsole. Leave empty for a sensible default.
+        /// </summary>
         public string ConsoleName;
-        //[Tooltip("Localization key to be used for the in-game name of the item.")]
+        
+        /// <summary>
+        /// Localization key to be used for the in-game name of the item.
+        /// </summary>
         public string DisplayNameLocalizationId;
-        //[Tooltip("Localization key to be used for the in-game description of the item.")]
+        
+        /// <summary>
+        /// Localization key to be used for the in-game description of the item.
+        /// </summary>
         public string DescriptionLocalizatonId;
 
-        //[Header("Inventory")]
-        //[Tooltip("The inventory category to be used for this item. Leave at 'Auto' for a sensible default.")]
+        
+        /// <summary>
+        /// The inventory category to be used for this item. Leave at 'Auto' for a sensible default.
+        /// </summary>
         public InventoryCategory InventoryCategory = InventoryCategory.Auto;
-        //[Tooltip("Localization key to be used for the 'Action' (e.g. 'Equip', 'Eat', ...) button in the inventory. The text is purely cosmetic and will not influcence the action the button triggers. Leave empty for a sensible default.")]
+        
+        /// <summary>
+        /// Localization key to be used for the 'Action' (e.g. 'Equip', 'Eat', ...) button in the inventory.
+        /// The text is purely cosmetic and will not influcence the action the button triggers. Leave empty for a sensible default.
+        /// </summary>
         public string InventoryActionLocalizationId;
-        //[Tooltip("Sound to play when the item is picked up.")]
+        
+        /// <summary>
+        /// Sound to play when the item is picked up.
+        /// </summary>
         public string PickUpAudio;
-        //[Tooltip("Sound to play when the item is holstered.")]
+        
+        /// <summary>
+        /// Sound to play when the item is holstered.
+        /// </summary>
         public string StowAudio = "Play_InventoryStow";
-        //[Tooltip("Sound to play when the item is dropped.")]
+        
+        /// <summary>
+        /// Sound to play when the item is dropped.
+        /// </summary>
         public string PutBackAudio;
-        //[Tooltip("Sound to play when the item wore out during an action.")]
+        
+        /// <summary>
+        /// Sound to play when the item wore out during an action.
+        /// </summary>
         public string WornOutAudio;
 
-        //[Header("Basic Properties")]
+
+        /// <summary>
+        /// The weight of the item in kilograms.
+        /// </summary>
         public float WeightKG;
+
+        /// <summary>
+        /// The maximum hit points of the item.
+        /// </summary>
         public float MaxHP;
-        //[Tooltip("The number of days it takes for this item to decay - without use - from 100% to 0%. Leave at 0 if the item should not decay over time.")]
+        
+        /// <summary>
+        /// The number of days it takes for this item to decay - without use - from 100% to 0%. Leave at 0 if the item should not decay over time.
+        /// </summary>
         public float DaysToDecay;
-        //[Tooltip("The initial condition of the item when found or crafted.")]
+        
+        /// <summary>
+        /// The initial condition of the item when found or crafted.
+        /// </summary>
         public InitialCondition InitialCondition;
 
-        //[Header("Inspecting")]
-        //[Tooltip("Will the item be inspected when picked up? If not enabled, the item will go straight to the inventory.")]
+
+        /// <summary>
+        /// Will the item be inspected when picked up? If not enabled, the item will go straight to the inventory.
+        /// </summary>
         public bool InspectOnPickup;
-        //[Tooltip("Distance from the camera during inspect.")]
+        
+        /// <summary>
+        /// Distance from the camera during inspect.
+        /// </summary>
         public float InspectDistance = 0.4f;
-        //[Tooltip("Scales the item during inspect.")]
+        
+        /// <summary>
+        /// Scales the item during inspect.
+        /// </summary>
         public Vector3 InspectScale = Vector3.one;
-        //[Tooltip("Each vector component stands for a rotation by the given degrees around the corresponding axis.")]
+        
+        /// <summary>
+        /// Each vector component stands for a rotation by the given degrees around the corresponding axis.
+        /// </summary>
         public Vector3 InspectAngles = Vector3.zero;
-        //[Tooltip("Offset from the center during inspect.")]
+        
+        /// <summary>
+        /// Offset from the center during inspect.
+        /// </summary>
         public Vector3 InspectOffset = Vector3.zero;
-        //[Space(10)]
-        //[Tooltip("Model to show during inspect.\nNOTE: You must either set BOTH models or NO models. See 'Reference' for details.")]
+        
+
+        /// <summary>
+        /// Model to show during inspect. NOTE: You must either set BOTH models or NO models.
+        /// </summary>
         public GameObject InspectModel;
-        //[Tooltip("Model to show when not inspecting the item.\nNOTE: You must either set BOTH models or NO models. See 'Reference' for details.")]
+        
+        /// <summary>
+        /// Model to show when not inspecting the item. NOTE: You must either set BOTH models or NO models.
+        /// </summary>
         public GameObject NormalModel;
 
         [HideFromIl2Cpp]
@@ -78,7 +134,5 @@ namespace ModComponentAPI
         }
 
         public ModComponent(IntPtr intPtr) : base(intPtr) { }
-
-
     }
 }

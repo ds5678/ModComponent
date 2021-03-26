@@ -4,20 +4,25 @@ namespace ModComponentAPI
 {
     public class ModBurnableComponent : MonoBehaviour
     {
-        //[Range(0, 180)]
-        //[Tooltip("Number of minutes this item adds to the remaining burn time of the fire.")]
+        /// <summary>
+        /// Number of minutes this item adds to the remaining burn time of the fire.
+        /// </summary>
         public int BurningMinutes;
 
-        //[Range(0, 60)]
-        //[Tooltip("How long must a fire be burning before this item can be added?")]
+        /// <summary>
+        /// How long must a fire be burning before this item can be added?
+        /// </summary>
         public float BurningMinutesBeforeAllowedToAdd;
 
-        //[Range(-100, 100)]
-        //[Tooltip("Does this item affect the chance for successfully starting a fire? Represents percentage points. Positive values increase the chance, negative values reduce it.")]
+        /// <summary>
+        /// Does this item affect the chance for successfully starting a fire?
+        /// Represents percentage points. Positive values increase the chance, negative values reduce it.
+        /// </summary>
         public float SuccessModifier;
 
-        //[Range(0, 20)]
-        //[Tooltip("Temperature increase in °C when added to the fire.")]
+        /// <summary>
+        /// Temperature increase in °C when added to the fire.
+        /// </summary>
         public float TempIncrease;
 
         public ModBurnableComponent(System.IntPtr intPtr) : base(intPtr) { }

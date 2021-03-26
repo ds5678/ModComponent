@@ -23,16 +23,17 @@ namespace ModComponentMapper
             string modDirectory = Implementation.GetModsFolderPath();
             string autoMapperDirectory = GetAutoMapperDirectory();
 
-            if (!Directory.Exists(autoMapperDirectory))
+            if (Directory.Exists(autoMapperDirectory))
+            {
+                Logger.Log("Loading files from '{0}' ...", autoMapperDirectory);
+                AutoMapDirectory(autoMapperDirectory, modDirectory);
+            }
+            else if (Settings.options.createAuxiliaryFolders)
             {
                 Logger.Log("Directory '{0}' does not exist. Creating ...", autoMapperDirectory);
                 Directory.CreateDirectory(autoMapperDirectory);
                 return;
             }
-
-            Logger.Log("Loading files from '{0}' ...", autoMapperDirectory);
-
-            AutoMapDirectory(autoMapperDirectory, modDirectory);
         }
 
         private static void AutoMapDirectory(string directory, string modDirectory)

@@ -30,16 +30,20 @@ namespace ModComponentMapper
         internal static void ReadDefinitions()
         {
             string gearSpawnDirectory = GetGearSpawnsDirectory();
-            if (!Directory.Exists(gearSpawnDirectory))
+            if (Directory.Exists(gearSpawnDirectory))
             {
-                Logger.Log("Gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
-                Directory.CreateDirectory(gearSpawnDirectory);
-                return;
+                ReadDefinitions(gearSpawnDirectory);
             }
-            ReadDefinitions(gearSpawnDirectory);
+            else if (Settings.options.createAuxiliaryFolders)
+            {
+                Logger.Log("Auxiliary gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
+                Directory.CreateDirectory(gearSpawnDirectory);
+            }
         }
         internal static void ReadDefinitions(string currentDirectory)
         {
+            if (!Directory.Exists(currentDirectory)) return;
+
             string[] directories = Directory.GetDirectories(currentDirectory);
 
             foreach (string directory in directories)
@@ -81,7 +85,6 @@ namespace ModComponentMapper
             try
             {
                 return float.Parse(value, CultureInfo.InvariantCulture);
-                //return Convert.ToSingle(value, CultureInfo.InvariantCulture);
             }
             catch (System.Exception)
             {
@@ -126,7 +129,7 @@ namespace ModComponentMapper
             return result;
         }
 
-        internal static void ProcessLines(string[] lines, string path = "")
+        internal static void ProcessLines(string[] lines, string path)
         {
             Logger.Log("Processing spawn file '" + path + "'.");
             string scene = null;
@@ -153,14 +156,15 @@ namespace ModComponentMapper
                 {
                     if (string.IsNullOrEmpty(scene))
                     {
-                        throw new System.ArgumentException("No scene name defined before line '" + eachLine + "' from '" + path + "'. Did you forget a 'scene = <SceneName>'?");
+                        PageManager.SetItemPackNotWorking(path);
+                        Logger.LogError("No scene name defined before line '" + eachLine + "' from '" + path + "'. Did you forget a 'scene = <SceneName>'?");
+                        return;
                     }
 
                     GearSpawnInfo info = new GearSpawnInfo();
                     info.PrefabName = match.Groups[1].Value;
 
-                    if (ConfigurationManager.configurations.alwaysSpawnItems) info.SpawnChance = 100;
-                    else info.SpawnChance = ParseFloat(match.Groups[4].Value, 100, eachLine, path);
+                    info.SpawnChance = ParseFloat(match.Groups[4].Value, 100, eachLine, path);
 
                     info.Position = ParseVector(match.Groups[2].Value, eachLine, path);
                     info.Rotation = Quaternion.Euler(ParseVector(match.Groups[3].Value, eachLine, path));
@@ -182,7 +186,9 @@ namespace ModComponentMapper
                 {
                     if (string.IsNullOrEmpty(loottable))
                     {
-                        throw new System.ArgumentException("No loottable name defined before line '" + eachLine + "' from '" + path + "'. Did you forget a 'loottable = <LootTableName>'?");
+                        PageManager.SetItemPackNotWorking(path);
+                        Logger.LogError("No loottable name defined before line '" + eachLine + "' from '" + path + "'. Did you forget a 'loottable = <LootTableName>'?");
+                        return;
                     }
 
                     LootTableEntry entry = new LootTableEntry();
@@ -192,7 +198,10 @@ namespace ModComponentMapper
                     continue;
                 }
 
-                throw new System.ArgumentException("Unrecognized line '" + eachLine + "' in '" + path + "'.");
+                //Only runs if nothing matches
+                PageManager.SetItemPackNotWorking(path);
+                Logger.LogError("Unrecognized line '" + eachLine + "' in '" + path + "'.");
+                return;
             }
         }
     }

@@ -5,13 +5,29 @@ namespace ModComponentAPI
 {
     public class ModCookingPotComponent : ModComponent
     {
+        /// <summary>
+        /// Can the item cook liquids?
+        /// </summary>
         public bool CanCookLiquid;
+
+        /// <summary>
+        /// Can the item cook grub? Cookable canned food counts as grub.
+        /// </summary>
         public bool CanCookGrub;
+
+        /// <summary>
+        /// Can the item cook meat?
+        /// </summary>
         public bool CanCookMeat;
 
-        //[Range(0.0f, 10.0f)]
+        /// <summary>
+        /// The total water capacity of the item.
+        /// </summary>
         public float Capacity;
 
+        /// <summary>
+        /// Template item to be used in the mapping process.
+        /// </summary>
         public string Template;
 
         public Mesh SnowMesh;

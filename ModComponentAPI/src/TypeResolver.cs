@@ -1,20 +1,17 @@
-﻿using System;
-using System.Reflection;
-
-namespace ModComponentAPI
+﻿namespace ModComponentAPI
 {
     public class TypeResolver
     {
-        public static Type Resolve(string name)
+        public static System.Type Resolve(string name)
         {
-            Type result = Type.GetType(name, false);
+            System.Type result = System.Type.GetType(name, false);
             if (result != null)
             {
                 return result;
             }
 
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly eachAssembly in assemblies)
+            System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            foreach (System.Reflection.Assembly eachAssembly in assemblies)
             {
                 result = eachAssembly.GetType(name, false);
                 if (result != null)
@@ -23,7 +20,27 @@ namespace ModComponentAPI
                 }
             }
 
-            throw new ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+            throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+        }
+        public static Il2CppSystem.Type ResolveIl2Cpp(string name)
+        {
+            Il2CppSystem.Type result = Il2CppSystem.Type.GetType(name, false);
+            if (result != null)
+            {
+                return result;
+            }
+            
+            Il2CppSystem.Reflection.Assembly[] assemblies = Il2CppSystem.AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Il2CppSystem.Reflection.Assembly eachAssembly in assemblies)
+            {
+                result = eachAssembly.GetType(name, false);
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
         }
     }
 }

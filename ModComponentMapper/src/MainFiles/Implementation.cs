@@ -2,8 +2,6 @@
 using System.IO;
 using UnityEngine;
 
-//does not need to be declared
-
 namespace ModComponentMapper
 {
     public class Implementation : MelonMod
@@ -14,7 +12,9 @@ namespace ModComponentMapper
         {
             Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
 
-            ConfigurationManager.Initialize();
+            Settings.OnLoad();
+
+            PageManager.Initialize();
 
             Logger.LogDebug("Running in Debug Mode");
 
@@ -23,14 +23,12 @@ namespace ModComponentMapper
             ZipFileLoader.Initialize();
 
             JsonHandler.RegisterDirectory(AutoMapper.GetAutoMapperDirectory());
-            //JsonHandler.LogDirectoryContents();
 
             AutoMapper.Initialize();
             ModHealthManager.Initialize();
             AssetBundleManager.LoadPendingAssetBundles();
             GearSpawner.Initialize();
             BlueprintReader.Initialize();
-
         }
 
         internal static void InjectClasses()

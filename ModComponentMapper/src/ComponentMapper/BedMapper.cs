@@ -1,9 +1,6 @@
 ﻿using ModComponentAPI;
 using UnityEngine;
 
-//did a first pass through, may need to investigate the placeable item
-//does not need to be declared
-
 namespace ModComponentMapper.ComponentMapper
 {
     internal class BedMapper

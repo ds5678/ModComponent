@@ -187,6 +187,23 @@ namespace ModComponentMapper
             return gameObject.transform.FindChild(childName).gameObject;
         }
 
+        public static GameObject GetInChildren(GameObject parent, string childName)
+        {
+            if (string.IsNullOrEmpty(childName)) return null;
+            Transform transform = parent.transform;
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                GameObject child = transform.GetChild(i).gameObject;
+                if (child.name == childName) return child;
+                else if(child.transform.childCount > 0)
+                {
+                    GameObject grandChild = GetInChildren(child, childName);
+                    if (grandChild != null) return grandChild;
+                }
+            }
+            return null;
+        }
+
         internal static EquippableModComponent GetEquippableModComponent(Component component)
         {
             return GetComponent<EquippableModComponent>(component);

@@ -100,6 +100,7 @@
     <Compile Include="src\ModSkill.cs" />
     <Compile Include="src\items\ModToolComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\SkillType.cs" />
     <Compile Include="src\TypeResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,19 +2,34 @@
 {
     public class ModFireStarterComponent : ModFireStartingComponent
     {
-        //[Tooltip("How many in-game seconds this item will take to ignite tinder.")]
+        /// <summary>
+        /// How many in-game seconds this item will take to ignite tinder.
+        /// </summary>
         public float SecondsToIgniteTinder;
-        //[Tooltip("How many in-game seconds this item will take to ignite a torch.")]
+        
+        /// <summary>
+        /// How many in-game seconds this item will take to ignite a torch.
+        /// </summary>
         public float SecondsToIgniteTorch;
 
-        //[Tooltip("How many times can this item be used?")]
+        /// <summary>
+        /// How many times can this item be used?
+        /// </summary>
         public float NumberOfUses;
-        //[Tooltip("Does the item require sunlight to work?")]
+        
+        /// <summary>
+        /// Does the item require sunlight to work?
+        /// </summary>
         public bool RequiresSunLight;
-        //[Tooltip("What sound to play during usage. Not used for accelerants.")]
+        
+        /// <summary>
+        /// What sound to play during usage. Not used for accelerants.
+        /// </summary>
         public string OnUseSoundEvent;
 
-        //[Tooltip("Set the condition to 0% after the fire starting finished (either successful or not).")]
+        /// <summary>
+        /// Set the condition to 0% after the fire starting finished (either successful or not).
+        /// </summary>
         public bool RuinedAfterUse;
 
         public ModFireStarterComponent(System.IntPtr intPtr) : base(intPtr) { }

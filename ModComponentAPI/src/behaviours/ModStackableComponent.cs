@@ -2,20 +2,31 @@
 
 namespace ModComponentAPI
 {
-    //[DisallowMultipleComponent]
     public class ModStackableComponent : MonoBehaviour
     {
+        /// <summary>
+        /// Localization key to be used for stacks with a singular item. E.g. '1 arrow'.
+        /// </summary>
         public string SingleUnitTextID;
 
-        //[Tooltip("Localization key to be used for stacks with multiple items. E.g. '2 arrows'.")]
+        /// <summary>
+        /// Localization key to be used for stacks with multiple items. E.g. '2 arrows'.
+        /// </summary>
         public string MultipleUnitTextID;
 
-        //[Tooltip("An optional sprite name (from a UIAtlas) that will be add to the stack.")]
+        /// <summary>
+        /// An optional sprite name (from a UIAtlas) that will be add to the stack.
+        /// </summary>
         public string StackSprite;
 
+        /// <summary>
+        /// The default number of item to make a full stack.
+        /// </summary>
         public int UnitsPerItem;
 
-        //Between 0 and 1
+        /// <summary>
+        /// Chance of the item having a full stack. Between 0 and 1.
+        /// </summary>
         public float ChanceFull;
 
         void Awake()

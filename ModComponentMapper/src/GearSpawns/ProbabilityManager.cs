@@ -3,59 +3,55 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
+    public enum DifficultyLevel
+    {
+        Pilgram,
+        Voyager,
+        Stalker,
+        Interloper,
+        Challenge,
+        Storymode,
+        Other
+    }
+
     internal class ProbabilityManager
     {
-        private enum DifficultyLevel
-        {
-            Pilgram,
-            Voyager,
-            Stalker,
-            Interloper,
-            Challenge,
-            Storymode,
-            Other
-        }
-
         internal static float GetAdjustedProbabilty(float baseProbality)
         {
-            float clampedProbability = Mathf.Clamp(baseProbality, 0f, 100f);
-            //Logger.Log("Initial Probability: {0}", clampedProbability);
-            if (clampedProbability == 100f)
-            {
-                return 100f;
-            }
+            if (Settings.options.alwaysSpawnItems) return 100f; //overrides everything else
 
             DifficultyLevel difficultyLevel = GetDifficultyLevel();
-            float result;
+            float multiplier = 1f;
             switch (difficultyLevel)
             {
                 case DifficultyLevel.Pilgram:
-                    result = clampedProbability * Math.Max(0f, ConfigurationManager.configurations.pilgramSpawnProbabilityMultiplier);
+                    multiplier = Math.Max(0f, Settings.options.pilgramSpawnProbabilityMultiplier);
                     break;
                 case DifficultyLevel.Voyager:
-                    result = clampedProbability * Math.Max(0f, ConfigurationManager.configurations.voyagerSpawnProbabilityMultiplier);
+                    multiplier = Math.Max(0f, Settings.options.voyagerSpawnProbabilityMultiplier);
                     break;
                 case DifficultyLevel.Stalker:
-                    result = clampedProbability * Math.Max(0f, ConfigurationManager.configurations.stalkerSpawnProbabilityMultiplier);
+                    multiplier = Math.Max(0f, Settings.options.stalkerSpawnProbabilityMultiplier);
                     break;
                 case DifficultyLevel.Interloper:
-                    result = clampedProbability * Math.Max(0f, ConfigurationManager.configurations.interloperSpawnProbabilityMultiplier);
+                    multiplier = Math.Max(0f, Settings.options.interloperSpawnProbabilityMultiplier);
                     break;
                 case DifficultyLevel.Storymode:
-                    result = clampedProbability * Math.Max(0f, ConfigurationManager.configurations.storySpawnProbabilityMultiplier);
+                    multiplier = Math.Max(0f, Settings.options.storySpawnProbabilityMultiplier);
                     break;
                 case DifficultyLevel.Challenge:
-                    result = clampedProbability * Math.Max(0f, ConfigurationManager.configurations.challengeSpawnProbabilityMultiplier);
-                    break;
-                default:
-                    result = clampedProbability;
+                    multiplier = Math.Max(0f, Settings.options.challengeSpawnProbabilityMultiplier);
                     break;
             }
-            //Logger.Log("Adjusted Probability: {0}", result);
-            return Mathf.Clamp(result, 0f, 100f);
+            if (multiplier == 0f) return 0f; //can disable spawns for a game mode
+
+            float clampedProbability = Mathf.Clamp(baseProbality, 0f, 100f);//just to be safe
+
+            if (clampedProbability == 100f) return 100f; //for guaranteed spawns
+            else return Mathf.Clamp(multiplier * clampedProbability, 0f, 100f); //for normal spawns
         }
 
-        private static DifficultyLevel GetDifficultyLevel()
+        public static DifficultyLevel GetDifficultyLevel()
         {
             if (GameManager.IsStoryMode())
             {

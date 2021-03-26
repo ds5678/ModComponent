@@ -22,20 +22,20 @@ namespace ModComponentMapper
         //Debug Messages show only when in debug mode
         internal static void LogDebug(string message)
         {
-            if (ConfigurationManager.configurations.debugMode) Log(message);
+            if (Settings.options.debugMode) Log(message);
         }
         internal static void LogDebug(string message, params object[] parameters)
         {
-            if (ConfigurationManager.configurations.debugMode) Log(message, parameters);
+            if (Settings.options.debugMode) Log(message, parameters);
         }
         //Not Debug Messages show only when not in debug mode
         internal static void LogNotDebug(string message)
         {
-            if (!ConfigurationManager.configurations.debugMode) Log(message);
+            if (!Settings.options.debugMode) Log(message);
         }
         internal static void LogNotDebug(string message, params object[] parameters)
         {
-            if (!ConfigurationManager.configurations.debugMode) Log(message, parameters);
+            if (!Settings.options.debugMode) Log(message, parameters);
         }
     }
 }

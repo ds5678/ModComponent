@@ -2,9 +2,6 @@
 using System;
 using UnityEngine;
 
-//did a first pass through; didn't find anything, but concerned about the cooking revamp; closer investigation required
-//does not need to be declared
-
 namespace ModComponentMapper.ComponentMapper
 {
     internal class CookableMapper
