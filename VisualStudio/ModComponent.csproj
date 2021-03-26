@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B809C688-2A3F-4573-821F-FB90EA433DAD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModComponentMapper</RootNamespace>
+    <AssemblyName>ModComponent</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AssetLoader, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MelonLoader.ModHandler, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModSettings, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnhollowerRuntimeLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ModComponentAPI\AddTag.cs" />
+    <Compile Include="ModComponentAPI\AlternativeAction.cs" />
+    <Compile Include="ModComponentAPI\AttachBehaviour.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModAccelerantComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModBurnableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModEvolveComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModFireStarterComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModFireStartingComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModHarvestableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModMillableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModRepairableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModSaveBehaviour.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModScentComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModSharpenableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviors\ModStackableComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\EquippableModComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModBedComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModBodyHarvestComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModClothingComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModCookableComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModCookingPotComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModExplosiveComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModFirstAidComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModFoodComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModGenericComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModLiquidComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModRifleComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModToolComponent.cs" />
+    <Compile Include="ModComponentAPI\CopyFieldHandler.cs" />
+    <Compile Include="ModComponentAPI\InitialCondition.cs" />
+    <Compile Include="ModComponentAPI\ModBlueprint.cs" />
+    <Compile Include="ModComponentAPI\ModSkill.cs" />
+    <Compile Include="ModComponentAPI\SkillType.cs" />
+    <Compile Include="ModComponentAPI\TypeResolver.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\Settings.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\AccelerantMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\BurnableMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\StackableMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\BodyHarvestMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\ClothingMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\CookingPotMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\EquippableMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\FoodMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\LiquidMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\RifleMapper.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\DescriptionHolder.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\Group.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\GUI.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\GUIBuilder.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\PageManager.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\Pages\InfoPage.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\ModComponentMenu.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\ModComponentMenuPatches.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\ModTab.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\Pages\ItemPacksPage.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\Pages\ItemPacksTestPage.cs" />
+    <Compile Include="ModComponentMapper\InformationMenu\Pages\VersionInfoPage.cs" />
+    <Compile Include="ModComponentMapper\ItemPackManagement\ItemPackData.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\Events.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\AutoMapper.cs" />
+    <Compile Include="ModComponentMapper\ItemPackManagement\BlueprintReader.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\ChangeLayer.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\BedMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\EvolveMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\FireStarterMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\FirstAidMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\HarvestableMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\InspectMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\RepairableMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\ScentMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\SharpenableMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\ToolMapper.cs" />
+    <Compile Include="ModComponentMapper\CustomSaveData\SaveData.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\BrightnessChanger.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\ProbabilityManager.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\GearSpawnReader.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\Implementation.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\CookableMapper.cs" />
+    <Compile Include="ModComponentMapper\Patches\AlternativeActionPatches.cs" />
+    <Compile Include="ModComponentMapper\Patches\EquippablePatches.cs" />
+    <Compile Include="ModComponentMapper\Patches\ModClothingPatches.cs" />
+    <Compile Include="ModComponentMapper\Alcohol\AlcoholComponent.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\ExecutionValve.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\GearEquipper.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\BuffCauseTracker.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\GearSpawner.cs" />
+    <Compile Include="ModComponentMapper\Patches\LiquidRandomizationPatches.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\DefaultDrawLayers.cs" />
+    <Compile Include="ModComponentMapper\Patches\FirestartingPatches.cs" />
+    <Compile Include="ModComponentMapper\Patches\OverrideCraftingResultConditionPatches.cs" />
+    <Compile Include="ModComponentMapper\Patches\ServingsPatches.cs" />
+    <Compile Include="ModComponentMapper\Patches\ItemDescriptionPagePatch.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\Mapper.cs" />
+    <Compile Include="ModComponentMapper\Alcohol\ModHealthManager.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\ModWeaponManager.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\ModPlayerAnimation.cs" />
+    <Compile Include="ModComponentMapper\Patches\GameManagerPatch.cs" />
+    <Compile Include="ModComponentMapper\Patches\Panel_Inventory_ExaminePatch.cs" />
+    <Compile Include="ModComponentMapper\Patches\PlacementModePatches\RestoreMaterialQueue.cs" />
+    <Compile Include="ModComponentMapper\CustomSaveData\SaveGameSystemPatch.cs" />
+    <Compile Include="ModComponentMapper\Skills\SkillJson.cs" />
+    <Compile Include="ModComponentMapper\Skills\SkillsManagerPatch.cs" />
+    <Compile Include="ModComponentMapper\GunPatches\vp_MuzzleFlashPatch.cs" />
+    <Compile Include="ModComponentMapper\GunPatches\PlayerAnimationPatch.cs" />
+    <Compile Include="ModComponentMapper\Patches\PlacementModePatches\PlayerManagerPatch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModComponentMapper\CustomSaveData\SaveDataManager.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\AlternativeToolManager.cs" />
+    <Compile Include="ModComponentMapper\activedevelopment\GearItemPatch.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\Logger.cs" />
+    <Compile Include="ModComponentMapper\activedevelopment\TestFunctions.cs" />
+    <Compile Include="ModComponentMapper\activedevelopment\ModExisting.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\JsonHandler.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\ExplosiveMapper.cs" />
+    <Compile Include="ModComponentMapper\BehaviorMapper\MillableMapper.cs" />
+    <Compile Include="ModComponentMapper\activedevelopment\TestPatches.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\ComponentJson.cs" />
+    <Compile Include="ModComponentMapper\AuxiliaryClasses\ConsoleWaitlist.cs" />
+    <Compile Include="ModComponentMapper\Skills\SerializableSkill.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\Utils.cs" />
+    <Compile Include="ModComponentMapper\GunPatches\vp_FPSPlayerPatch.cs" />
+    <Compile Include="ModComponentMapper\GunPatches\vp_FPSShooterPatch.cs" />
+    <Compile Include="ModComponentMapper\ItemPackManagement\AssetBundleManager.cs" />
+    <Compile Include="ModComponentMapper\ItemPackManagement\ZipFileLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.gitignore" />
+    <None Include="..\LICENSE" />
+    <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>cmd /C IF DEFINED TLD_MOD_DIR copy "$(TargetPath)" %25TLD_MOD_DIR%25</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
