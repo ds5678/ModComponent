@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5F848C8F-150C-4E70-8D85-071E694E9E2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModComponentAPI</RootNamespace>
+    <AssemblyName>ModComponentAPI_Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine.AnimationModule" />
+    <Reference Include="UnityEngine.CoreModule" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\AlternativeAction.cs" />
+    <Compile Include="src\AttachBehaviour.cs" />
+    <Compile Include="src\Behaviours\ModEvolveComponent.cs" />
+    <Compile Include="src\Behaviours\ModMillableComponent.cs" />
+    <Compile Include="src\Components\ModBedComponent.cs" />
+    <Compile Include="src\Behaviours\ModBurnableComponent.cs" />
+    <Compile Include="src\Components\ModBodyHarvestComponent.cs" />
+    <Compile Include="src\Components\ModCookingPotComponent.cs" />
+    <Compile Include="src\Components\ModExplosiveComponent.cs" />
+    <Compile Include="src\Components\ModFirstAidComponent.cs" />
+    <Compile Include="src\Components\ModLiquidItemComponent.cs" />
+    <Compile Include="src\Behaviours\ModSaveBehaviour.cs" />
+    <Compile Include="src\Behaviours\ModScentComponent.cs" />
+    <Compile Include="src\Behaviours\ModSharpenableComponent.cs" />
+    <Compile Include="src\Behaviours\ModStackableComponent.cs" />
+    <Compile Include="src\AddTag.cs" />
+    <Compile Include="src\InitialCondition.cs" />
+    <Compile Include="src\Behaviours\ModAccelerantComponent.cs" />
+    <Compile Include="src\ModBlueprint.cs" />
+    <Compile Include="src\Behaviours\ModFireStarterComponent.cs" />
+    <Compile Include="src\Behaviours\ModFireStartingComponent.cs" />
+    <Compile Include="src\Components\ModGenericItemComponent.cs" />
+    <Compile Include="src\Behaviours\ModHarvestableComponent.cs" />
+    <Compile Include="src\Components\ModClothingComponent.cs" />
+    <Compile Include="src\Components\EquippableModComponent.cs" />
+    <Compile Include="src\Components\ModCookableComponent.cs" />
+    <Compile Include="src\Components\ModFoodComponent.cs" />
+    <Compile Include="src\Components\ModComponent.cs" />
+    <Compile Include="src\Behaviours\ModRepairableComponent.cs" />
+    <Compile Include="src\Components\ModRifleComponent.cs" />
+    <Compile Include="src\ModSkill.cs" />
+    <Compile Include="src\Components\ModToolComponent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\PlayAkSound.cs" />
+    <Compile Include="src\SkillType.cs" />
+    <Compile Include="src\TypeResolver.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>cmd /C IF DEFINED TLD_MOD_DIR copy "$(TargetPath)" %25TLD_MOD_DIR%25</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
