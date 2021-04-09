@@ -202,7 +202,7 @@ namespace ModComponentAPI
             //MelonLoader.MelonLogger.Log("ImplementationType for '{0}' is not empty.", this.name);
 
             //Type implementationType = Type.GetType(ImplementationType);
-            Type implementationType = TypeResolver.Resolve(ImplementationType);
+            Type implementationType = TypeResolver.Resolve(ImplementationType,true);
             object implementation = Activator.CreateInstance(implementationType);
             if (implementation == null)
             {

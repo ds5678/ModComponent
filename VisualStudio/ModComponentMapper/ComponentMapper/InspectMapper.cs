@@ -2,16 +2,13 @@
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class InspectMapper
+    internal static class InspectMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
-            if (!modComponent.InspectOnPickup)
-            {
-                return;
-            }
+            if (!modComponent.InspectOnPickup) return;
 
-            Inspect inspect = ModUtils.GetOrCreateComponent<Inspect>(modComponent);
+            Inspect inspect = ComponentUtils.GetOrCreateComponent<Inspect>(modComponent);
             inspect.m_DistanceFromCamera = modComponent.InspectDistance;
             inspect.m_Scale = modComponent.InspectScale;
             inspect.m_Angles = modComponent.InspectAngles;

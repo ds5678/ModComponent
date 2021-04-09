@@ -14,13 +14,32 @@ namespace ModComponentMapper
         Other
     }
 
-    internal class ProbabilityManager
+    public enum FirearmAvailability
     {
-        internal static float GetAdjustedProbabilty(float baseProbality)
+        None,
+        Revolver,
+        Rifle,
+        All
+    }
+
+    internal static class ProbabilityManager
+    {
+        internal static float GetAdjustedProbability(GearSpawnInfo gearSpawnInfo)
         {
             if (Settings.options.alwaysSpawnItems) return 100f; //overrides everything else
 
             DifficultyLevel difficultyLevel = GetDifficultyLevel();
+            FirearmAvailability firearmAvailability = GetFirearmAvailability();
+
+            if (SpawnTagManager.ContainsTag(gearSpawnInfo.tag))
+            {
+                return SpawnTagManager.GetTaggedFunction(gearSpawnInfo.tag).Invoke(difficultyLevel, firearmAvailability, gearSpawnInfo);
+            }
+            else return GetAdjustedProbability(difficultyLevel,gearSpawnInfo.SpawnChance);
+        }
+
+        private static float GetAdjustedProbability(DifficultyLevel difficultyLevel, float baseProbability)
+        {
             float multiplier = 1f;
             switch (difficultyLevel)
             {
@@ -45,7 +64,7 @@ namespace ModComponentMapper
             }
             if (multiplier == 0f) return 0f; //can disable spawns for a game mode
 
-            float clampedProbability = Mathf.Clamp(baseProbality, 0f, 100f);//just to be safe
+            float clampedProbability = Mathf.Clamp(baseProbability, 0f, 100f);//just to be safe
 
             if (clampedProbability == 100f) return 100f; //for guaranteed spawns
             else return Mathf.Clamp(multiplier * clampedProbability, 0f, 100f); //for normal spawns
@@ -107,6 +126,35 @@ namespace ModComponentMapper
                 default:
                     return DifficultyLevel.Other;
             }
+        }
+
+        public static FirearmAvailability GetFirearmAvailability()
+        {
+            if (GameManager.IsStoryMode())
+            {
+                if (SaveGameSystem.m_CurrentEpisode == Episode.One || SaveGameSystem.m_CurrentEpisode == Episode.Two) return FirearmAvailability.Rifle;
+                else return FirearmAvailability.All;
+            }
+            ExperienceModeType experienceModeType = ExperienceModeManager.GetCurrentExperienceModeType();
+            switch (experienceModeType)
+            {
+                case ExperienceModeType.Interloper:
+                    return FirearmAvailability.None;
+                case ExperienceModeType.Custom:
+                    return GetCustomFirearmAvailability();
+                default:
+                    return FirearmAvailability.All;
+            }
+        }
+
+        private static FirearmAvailability GetCustomFirearmAvailability()
+        {
+            bool revolvers = GameManager.GetCustomMode().m_RevolversInWorld;
+            bool rifles = GameManager.GetCustomMode().m_RiflesInWorld;
+            if (revolvers && rifles) return FirearmAvailability.All;
+            else if (revolvers) return FirearmAvailability.Revolver;
+            else if (rifles) return FirearmAvailability.Rifle;
+            else return FirearmAvailability.None;
         }
     }
 }

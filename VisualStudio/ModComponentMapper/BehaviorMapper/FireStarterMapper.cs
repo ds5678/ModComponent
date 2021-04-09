@@ -1,18 +1,16 @@
 ﻿using ModComponentAPI;
+using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class FireStarterMapper
+    internal static class FireStarterMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
-            ModFireStarterComponent modFireStarterComponent = ModUtils.GetComponent<ModFireStarterComponent>(modComponent);
-            if (modFireStarterComponent == null)
-            {
-                return;
-            }
+            ModFireStarterComponent modFireStarterComponent = ComponentUtils.GetComponent<ModFireStarterComponent>(modComponent);
+            if (modFireStarterComponent == null) return;
 
-            FireStarterItem fireStarterItem = ModUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
+            FireStarterItem fireStarterItem = ComponentUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
 
             fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
             fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;

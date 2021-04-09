@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
-    internal class BuffCauseTracker
+    internal static class BuffCauseTracker
     {
         private static Dictionary<AfflictionType, string> causes = new Dictionary<AfflictionType, string>();
 
@@ -32,7 +32,7 @@ namespace ModComponentMapper
     {
         public static void Postfix(FatigueBuff __instance)
         {
-            GearItem gearItem = ModUtils.GetComponent<GearItem>(__instance);
+            GearItem gearItem = ComponentUtils.GetComponent<GearItem>(__instance);
             if (gearItem != null)
             {
                 BuffCauseTracker.setCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());

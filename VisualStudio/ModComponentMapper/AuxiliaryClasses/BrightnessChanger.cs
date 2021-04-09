@@ -2,7 +2,7 @@
 
 namespace ModComponentMapper
 {
-    public class BrightnessChanger
+    public static class BrightnessChanger
     {
         public static float Brightness
         {

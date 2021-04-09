@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class CookingPotMapper
+    internal static class CookingPotMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
@@ -13,7 +13,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            CookingPotItem cookingPotItem = ModUtils.GetOrCreateComponent<CookingPotItem>(modComponent);
+            CookingPotItem cookingPotItem = ComponentUtils.GetOrCreateComponent<CookingPotItem>(modComponent);
 
             cookingPotItem.m_WaterCapacityLiters = modCookingPotComponent.Capacity;
             cookingPotItem.m_CanCookGrub = modCookingPotComponent.CanCookGrub;
@@ -50,7 +50,7 @@ namespace ModComponentMapper.ComponentMapper
             cookingPotItem.m_GrubMeshFilter = grubMesh.GetComponent<MeshFilter>();
             cookingPotItem.m_GrubMeshRenderer = grubMesh.GetComponent<MeshRenderer>();
 
-            PlaceableItem placeableItem = ModUtils.GetOrCreateComponent<PlaceableItem>(modComponent);
+            PlaceableItem placeableItem = ComponentUtils.GetOrCreateComponent<PlaceableItem>(modComponent);
             //placeableItem.m_Range = template.GetComponent<PlaceableItem>()?.m_Range ?? 3; //<============================================
         }
     }

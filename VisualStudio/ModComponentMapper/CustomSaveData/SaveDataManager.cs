@@ -11,7 +11,7 @@ namespace ModComponentMapper.SaveData
         public string data;
     }
 
-    internal class SaveDataManager
+    internal static class SaveDataManager
     {
         internal static string DATA_FILENAME_SUFFIX = "/ModComponent/CustomSaveData";
 

@@ -1,18 +1,17 @@
 ﻿using ModComponentAPI;
+using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class BurnableMapper
+    internal static class BurnableMapper
     {
-        public static void Configure(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+        public static void Configure(GameObject prefab)
         {
-            ModBurnableComponent modBurnableComponent = ModUtils.GetComponent<ModBurnableComponent>(modComponent);
-            if (modBurnableComponent == null)
-            {
-                return;
-            }
+            ModBurnableComponent modBurnableComponent = ComponentUtils.GetComponent<ModBurnableComponent>(prefab);
+            if (modBurnableComponent == null) return;
 
-            FuelSourceItem fuelSourceItem = ModUtils.GetOrCreateComponent<FuelSourceItem>(modComponent);
+            FuelSourceItem fuelSourceItem = ComponentUtils.GetOrCreateComponent<FuelSourceItem>(modBurnableComponent);
             fuelSourceItem.m_BurnDurationHours = modBurnableComponent.BurningMinutes / 60f;
             fuelSourceItem.m_FireAgeMinutesBeforeAdding = modBurnableComponent.BurningMinutesBeforeAllowedToAdd;
             fuelSourceItem.m_FireStartSkillModifier = modBurnableComponent.SuccessModifier;

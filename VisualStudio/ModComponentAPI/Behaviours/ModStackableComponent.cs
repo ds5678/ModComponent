@@ -22,16 +22,29 @@ namespace ModComponentAPI
         /// <summary>
         /// The default number of item to make a full stack.
         /// </summary>
-        public int UnitsPerItem;
+        public int UnitsPerItem = 1;
 
         /// <summary>
-        /// Chance of the item having a full stack. Between 0 and 1.
+        /// Percent chance of the item having a full stack.
         /// </summary>
-        public float ChanceFull;
+        public float ChanceFull = 100f;
 
         void Awake()
         {
             CopyFieldHandler.UpdateFieldValues<ModStackableComponent>(this);
+            GearItem gearItem = this.GetComponent<GearItem>();
+            StackableItem stackable = gearItem?.GetComponent<StackableItem>();
+            if (stackable && gearItem && !gearItem.m_BeenInspected)
+            {
+                if (stackable.m_UnitsPerItem == 1 || UnityEngine.Random.Range(0f, 100f) < this.ChanceFull)
+                {
+                    stackable.m_Units = stackable.m_UnitsPerItem;
+                }
+                else
+                {
+                    stackable.m_Units = UnityEngine.Random.Range(1, stackable.m_UnitsPerItem - 1);
+                }
+            }
         }
 
         public ModStackableComponent(System.IntPtr intPtr) : base(intPtr) { }

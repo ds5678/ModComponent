@@ -3,6 +3,33 @@ using ModComponentAPI;
 
 namespace ModComponentMapper.patches
 {
+    static class IntimidationBuffHelper
+    {
+        internal static void UpdateWolfIntimidationBuff()
+        {
+            float increaseFlee = 0;
+            float decreaseAttack = 0;
+
+            PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
+
+            for (int region = 0; region < (int)ClothingRegion.NumRegions; region++)
+            {
+                for (int layer = 0; layer < (int)ClothingLayer.NumLayers; layer++)
+                {
+                    GearItem clothing = playerManager.GetClothingInSlot((ClothingRegion)region, (ClothingLayer)layer);
+
+                    if (clothing && clothing.m_WolfIntimidationBuff)
+                    {
+                        decreaseAttack += clothing.m_WolfIntimidationBuff.m_DecreaseAttackChancePercentagePoints;
+                        increaseFlee += clothing.m_WolfIntimidationBuff.m_IncreaseFleePercentagePoints;
+                    }
+                }
+            }
+
+            playerManager.ApplyWolfIntimidationBuff(increaseFlee, decreaseAttack);
+        }
+    }
+
     [HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]//not inlined
     internal class PlayerManager_PutOnClothingItem
     {
@@ -16,9 +43,9 @@ namespace ModComponentMapper.patches
         }
         private static void Postfix(GearItem gi)
         {
-            ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
+            ModClothingComponent modClothingComponent = ComponentUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnPutOn?.Invoke();
-            Implementation.UpdateWolfIntimidationBuff();
+            IntimidationBuffHelper.UpdateWolfIntimidationBuff();
         }
     }
 
@@ -27,9 +54,9 @@ namespace ModComponentMapper.patches
     {
         internal static void Postfix(GearItem gi)
         {
-            ModClothingComponent modClothingComponent = ModUtils.GetComponent<ModClothingComponent>(gi);
+            ModClothingComponent modClothingComponent = ComponentUtils.GetComponent<ModClothingComponent>(gi);
             modClothingComponent?.OnTakeOff?.Invoke();
-            Implementation.UpdateWolfIntimidationBuff();
+            IntimidationBuffHelper.UpdateWolfIntimidationBuff();
         }
     }
 
@@ -38,7 +65,7 @@ namespace ModComponentMapper.patches
     {
         private static bool Prefix(ClothingSlot __instance)
         {
-            ModClothingComponent clothingComponent = ModUtils.GetComponent<ModClothingComponent>(__instance.m_GearItem);
+            ModClothingComponent clothingComponent = ComponentUtils.GetComponent<ModClothingComponent>(__instance.m_GearItem);
             if (clothingComponent == null)
             {
                 if (__instance.m_GearItem != null)

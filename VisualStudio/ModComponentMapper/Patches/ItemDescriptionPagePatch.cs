@@ -13,7 +13,7 @@ namespace ModComponentMapper.patches
                 return;
             }
 
-            ModComponent modComponent = ModUtils.GetModComponent(gi);
+            ModComponent modComponent = ComponentUtils.GetModComponent(gi);
             if (modComponent != null)
             {
                 __result = modComponent.InventoryActionLocalizationId;
@@ -27,7 +27,7 @@ namespace ModComponentMapper.patches
         public static void Postfix(GearItem gi, ref bool __result)
         {
             // guns can always be examined
-            __result |= ModUtils.GetComponent<GunItem>(gi) != null;
+            __result |= ComponentUtils.GetComponent<GunItem>(gi) != null;
         }
     }
 }

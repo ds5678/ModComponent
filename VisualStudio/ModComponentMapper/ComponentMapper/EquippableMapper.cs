@@ -2,7 +2,7 @@
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class EquippableMapper
+    internal static class EquippableMapper
     {
         internal static void Configure(ModComponent modComponent)
         {

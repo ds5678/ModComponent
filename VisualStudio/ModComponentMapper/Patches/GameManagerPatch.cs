@@ -1,8 +1,5 @@
 ﻿using Harmony;
 
-//did a first pass through; didn't find anything
-//does not need to be declared
-
 namespace ModComponentMapper
 {
     [HarmonyPatch(typeof(GameManager), "Awake")]//Exists
@@ -11,15 +8,19 @@ namespace ModComponentMapper
         private static void Postfix()
         {
             Logger.Log("The Long Dark version: '{0}'", GameManager.GetVersionString());
+
             SerializableSkill.MaybeRegisterInIl2Cpp();
-            try
-            {
-                Mapper.MapBlueprints();
-                Mapper.MapSkills();
-            }
+
+            try { BlueprintMapper.MapBlueprints(); }
             catch (System.Exception e)
             {
-                Logger.Log("Mapping failed: " + e);
+                Logger.LogError("Blueprint Mapping failed: " + e);
+            }
+
+            try { SkillsMapper.MapSkills(); }
+            catch (System.Exception e)
+            {
+                Logger.LogError("Skills Mapping failed: " + e);
             }
 
             //

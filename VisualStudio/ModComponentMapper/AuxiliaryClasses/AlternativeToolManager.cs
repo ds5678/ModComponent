@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-    internal class AlternativeToolManager
+    internal static class AlternativeToolManager
     {
         private static List<ModToolComponent> toolList = new List<ModToolComponent>();
         private static List<string> templateNameList = new List<string>();
@@ -38,7 +38,7 @@ namespace ModComponentMapper
                 return;
             }
 
-            AlternateTools alternateTools = ModUtils.GetOrCreateComponent<AlternateTools>(original);
+            AlternateTools alternateTools = ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
             List<GameObject> list = new List<GameObject>();
             if (alternateTools.m_AlternateToolsList != null)
             {

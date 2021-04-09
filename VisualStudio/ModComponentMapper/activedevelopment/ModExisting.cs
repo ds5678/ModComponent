@@ -2,13 +2,22 @@
 using UnityEngine;
 using MelonLoader.TinyJSON;
 using System;
+using ModComponentAPI;
 
 namespace ModComponentMapper
 {
+    internal class ModPlaceHolderComponent : ModComponentAPI.ModComponent
+    {
+        public ModPlaceHolderComponent(System.IntPtr intPtr) : base(intPtr) { }
+    }
+
     public static class ModExisting
     {
         public const string EXISTING_JSON_DIRECTORY_NAME = "existing-json";
         private static bool isInitialized = false;
+
+        private static float newWeight = 0f;
+        private static bool needToChangeWeight = false;
 
         public static string GetExistingJsonDirectory()
         {
@@ -28,14 +37,16 @@ namespace ModComponentMapper
 
         private static void ReadDefinitions()
         {
+#if DEBUG
             string existingJsonDirectory = GetExistingJsonDirectory();
-            if (Settings.options.createAuxiliaryFolders && !Directory.Exists(existingJsonDirectory))
+            if (!Directory.Exists(existingJsonDirectory))
             {
                 Logger.Log("Auxiliary Existing Json directory '{0}' does not exist. Creating...", existingJsonDirectory);
                 Directory.CreateDirectory(existingJsonDirectory);
             }
-            ProcessFilesFromZips();
             ProcessFiles(existingJsonDirectory);
+#endif
+            ProcessFilesFromZips();
         }
 
         private static void ProcessFiles(string directory)
@@ -50,15 +61,24 @@ namespace ModComponentMapper
             string[] files = Directory.GetFiles(directory, "*.json");
             foreach (string eachFile in files)
             {
+                Logger.Log("Processing existing json definition. '{0}'", eachFile);
                 ProcessFile(eachFile);
             }
         }
         private static void ProcessFile(string filePath)
         {
-            Logger.Log("Processing existing json definition '{0}'.", filePath);
-            GameObject item = InitializeExisting(filePath);
-            item.AddComponent<ModComponentAPI.ModGenericComponent>();
-            Mapper.ConfigureBehaviours(item);
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Logger.LogWarning("In InitializeComponents, the filepath was null or empty.");
+            }
+            string data = File.ReadAllText(filePath);
+            ProcessFile(filePath, data);
+        }
+        private static void ProcessFile(string filePath, string fileText)
+        {
+            GameObject item = InitializeExisting(filePath, fileText);
+            Mapper.Map(item);
+            ChangeWeight(item);
             UnityEngine.Object.DontDestroyOnLoad(item);
         }
 
@@ -68,7 +88,8 @@ namespace ModComponentMapper
             {
                 try
                 {
-                    ProcessFileFromText(pair.Value,pair.Key);
+                    Logger.Log("Processing existing json definition '{0}'.", pair.Key);
+                    ProcessFile(pair.Key, pair.Value);
                 }
                 catch(Exception e)
                 {
@@ -78,26 +99,8 @@ namespace ModComponentMapper
             }
             JsonHandler.existingJsons.Clear();
         }
-        private static void ProcessFileFromText(string text,string path)
-        {
-            Logger.Log("Processing existing json definition. '{0}'",path);
-            GameObject item = InitializeExistingFromText(text,path);
-            item.AddComponent<ModComponentAPI.ModGenericComponent>();
-            Mapper.ConfigureBehaviours(item);
-            UnityEngine.Object.DontDestroyOnLoad(item);
-        }
 
-        private static GameObject InitializeExisting(string filepath) //only for existing jsons
-        {
-            if (string.IsNullOrEmpty(filepath))
-            {
-                Logger.Log("In InitializeComponents, the filepath was null or empty.");
-                return null;
-            }
-            string data = File.ReadAllText(filepath);
-            return InitializeExistingFromText(data,filepath);
-        }
-        private static GameObject InitializeExistingFromText(string text,string path)
+        private static GameObject InitializeExisting(string filePath,string text)
         {
             try
             {
@@ -106,47 +109,55 @@ namespace ModComponentMapper
                 if (!ModUtils.ContainsKey(dict, "GearName"))
                 {
                     Logger.LogWarning("The JSON file doesn't contain the key: 'GearName'");
-                    PageManager.SetItemPackNotWorking(path);
+                    PageManager.SetItemPackNotWorking(filePath);
                     return null;
                 }
                 UnityEngine.Object obj = Resources.Load(dict["GearName"]);
                 if (obj == null)
                 {
                     Logger.LogWarning("Resources.Load could not find '{0}'", dict["GearName"]);
-                    PageManager.SetItemPackNotWorking(path);
+                    PageManager.SetItemPackNotWorking(filePath);
                     return null;
                 }
                 GameObject gameObject = obj.Cast<GameObject>();
                 if (gameObject == null)
                 {
                     Logger.LogWarning("The gameobject was null in InitializeExistingFromFile.");
-                    PageManager.SetItemPackNotWorking(path);
+                    PageManager.SetItemPackNotWorking(filePath);
                     return null;
                 }
-                ComponentJson.InitializeComponents(ref gameObject, dict, true);
-                ChangeWeight(ref gameObject, dict);
+                ComponentJson.InitializeComponents(ref gameObject, dict);
+                if (ComponentUtils.GetComponent<ModComponent>(gameObject) is null) gameObject.AddComponent<ModPlaceHolderComponent>();
+                SetWeightChange(dict);
                 return gameObject;
             }
             catch(Exception e)
             {
-                PageManager.SetItemPackNotWorking(path);
-                Logger.LogError("Could not load existing json at '{0}'. {1}", path, e.Message);
+                PageManager.SetItemPackNotWorking(filePath);
+                Logger.LogError("Could not load existing json at '{0}'. {1}", filePath, e.Message);
                 return null;
             }
         }
 
-        private static void ChangeWeight(ref GameObject item, ProxyObject dict)
+        private static void SetWeightChange(ProxyObject dict)
         {
-            GearItem gearItem = ModUtils.GetComponent<GearItem>(item);
+            if (ModUtils.ContainsKey(dict, "WeightKG"))
+            {
+                newWeight = dict["WeightKG"];
+                needToChangeWeight = true;
+            }
+        }
+        private static void ChangeWeight(GameObject item)
+        {
+            if (!needToChangeWeight) return;
+            GearItem gearItem = ComponentUtils.GetComponent<GearItem>(item);
             if (gearItem == null)
             {
                 Logger.Log("Could not assign new weight. Item has no GearItem component.");
                 return;
             }
-            if (ModUtils.ContainsKey(dict, "WeightKG"))
-            {
-                gearItem.m_WeightKG = dict["WeightKG"];
-            }
+            gearItem.m_WeightKG = newWeight;
+            needToChangeWeight = false;
         }
     }
 }

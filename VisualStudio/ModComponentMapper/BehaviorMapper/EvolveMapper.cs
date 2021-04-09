@@ -3,17 +3,15 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class EvolveMapper
+    internal static class EvolveMapper
     {
-        internal static void Configure(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+        internal static void Configure(GameObject prefab)
         {
-            ModEvolveComponent modEvolveComponent = ModUtils.GetComponent<ModEvolveComponent>(modComponent);
-            if (modEvolveComponent == null)
-            {
-                return;
-            }
+            ModEvolveComponent modEvolveComponent = ComponentUtils.GetComponent<ModEvolveComponent>(prefab);
+            if (modEvolveComponent == null) return;
 
-            EvolveItem evolveItem = ModUtils.GetOrCreateComponent<EvolveItem>(modEvolveComponent);
+            EvolveItem evolveItem = ComponentUtils.GetOrCreateComponent<EvolveItem>(modEvolveComponent);
             evolveItem.m_ForceNoAutoEvolve = false;
             evolveItem.m_GearItemToBecome = GetTargetItem(modEvolveComponent.TargetItemName, modEvolveComponent.name);
             evolveItem.m_RequireIndoors = modEvolveComponent.IndoorsOnly;
@@ -23,8 +21,8 @@ namespace ModComponentMapper.ComponentMapper
 
         private static GearItem GetTargetItem(string targetItemName, string reference)
         {
-            GameObject targetItem = Resources.Load(targetItemName) as GameObject;
-            if (ModUtils.GetModComponent(targetItem) != null)
+            GameObject targetItem = Resources.Load(targetItemName)?.Cast<GameObject>();
+            if (ComponentUtils.GetModComponent(targetItem) != null)
             {
                 // if this a modded item, map it now (no harm if it was already mapped earlier)
                 Mapper.Map(targetItem);

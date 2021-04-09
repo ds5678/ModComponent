@@ -16,7 +16,7 @@ namespace ModComponentMapper.patches
                 return;
             }
 
-            ModFireStarterComponent modFireStarterComponent = ModUtils.GetComponent<ModFireStarterComponent>(starter);
+            ModFireStarterComponent modFireStarterComponent = ComponentUtils.GetComponent<ModFireStarterComponent>(starter);
             if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse)
             {
                 return;

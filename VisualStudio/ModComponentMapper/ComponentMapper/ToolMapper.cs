@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class ToolMapper
+    internal static class ToolMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
@@ -13,10 +13,10 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            ToolsItem toolsItem = ModUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
+            ToolsItem toolsItem = ComponentUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
 
-            toolsItem.m_ToolType = ModUtils.TranslateEnumValue<ToolsItem.ToolType, Usage>(modToolComponent.Usage);
-            toolsItem.m_CuttingToolType = ModUtils.TranslateEnumValue<ToolsItem.CuttingToolType, ToolType>(modToolComponent.ToolType);
+            toolsItem.m_ToolType = EnumUtils.TranslateEnumValue<ToolsItem.ToolType, Usage>(modToolComponent.Usage);
+            toolsItem.m_CuttingToolType = EnumUtils.TranslateEnumValue<ToolsItem.CuttingToolType, ToolType>(modToolComponent.ToolType);
 
             toolsItem.m_CraftingAndRepairSkillModifier = modToolComponent.SkillBonus;
             toolsItem.m_CraftingAndRepairTimeModifier = modToolComponent.CraftingTimeMultiplier;
@@ -42,7 +42,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            BodyHarvestItem bodyHarvestItem = ModUtils.GetOrCreateComponent<BodyHarvestItem>(modToolComponent);
+            BodyHarvestItem bodyHarvestItem = ComponentUtils.GetOrCreateComponent<BodyHarvestItem>(modToolComponent);
             bodyHarvestItem.m_HarvestMeatMinutesPerKG = modToolComponent.MinutesPerKgMeat;
             bodyHarvestItem.m_HarvestFrozenMeatMinutesPerKG = modToolComponent.MinutesPerKgFrozenMeat;
             bodyHarvestItem.m_HarvestGutMinutesPerUnit = modToolComponent.MinutesPerGut;
@@ -52,7 +52,7 @@ namespace ModComponentMapper.ComponentMapper
 
         private static void ConfigureBreakDown(ModToolComponent modToolComponent)
         {
-            BreakDownItem breakDownItem = ModUtils.GetOrCreateComponent<BreakDownItem>(modToolComponent);
+            BreakDownItem breakDownItem = ComponentUtils.GetOrCreateComponent<BreakDownItem>(modToolComponent);
             breakDownItem.m_BreakDownTimeModifier = modToolComponent.BreakDownTimeMultiplier;
 
             string templateName = GetTemplateToolName(modToolComponent);
@@ -64,7 +64,7 @@ namespace ModComponentMapper.ComponentMapper
 
         private static void ConfigureDegradeOnUse(ModToolComponent modToolComponent)
         {
-            DegradeOnUse degradeOnUse = ModUtils.GetOrCreateComponent<DegradeOnUse>(modToolComponent);
+            DegradeOnUse degradeOnUse = ComponentUtils.GetOrCreateComponent<DegradeOnUse>(modToolComponent);
             degradeOnUse.m_DegradeHP = Mathf.Max(degradeOnUse.m_DegradeHP, modToolComponent.DegradeOnUse);
         }
 
@@ -75,7 +75,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            ForceLockItem forceLockItem = ModUtils.GetOrCreateComponent<ForceLockItem>(modToolComponent);
+            ForceLockItem forceLockItem = ComponentUtils.GetOrCreateComponent<ForceLockItem>(modToolComponent);
             forceLockItem.m_ForceLockAudio = ModUtils.DefaultIfEmpty(modToolComponent.ForceLockAudio, "PLAY_LOCKERPRYOPEN1");
             forceLockItem.m_LocalizedProgressText = new LocalizedString() { m_LocalizationID = "GAMEPLAY_Forcing" };
 
@@ -89,7 +89,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            IceFishingHoleClearItem iceFishingHoleClearItem = ModUtils.GetOrCreateComponent<IceFishingHoleClearItem>(modToolComponent);
+            IceFishingHoleClearItem iceFishingHoleClearItem = ComponentUtils.GetOrCreateComponent<IceFishingHoleClearItem>(modToolComponent);
             iceFishingHoleClearItem.m_BreakIceAudio = ModUtils.DefaultIfEmpty(modToolComponent.IceFishingHoleAudio, "Play_IceBreakingChopping");
             iceFishingHoleClearItem.m_HPDecreaseToClear = modToolComponent.IceFishingHoleDegradeOnUse;
             iceFishingHoleClearItem.m_NumGameMinutesToClear = modToolComponent.IceFishingHoleMinutes;
@@ -102,7 +102,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            StruggleBonus struggleBonus = ModUtils.GetOrCreateComponent<StruggleBonus>(modToolComponent);
+            StruggleBonus struggleBonus = ComponentUtils.GetOrCreateComponent<StruggleBonus>(modToolComponent);
             struggleBonus.m_BleedoutMinutesScale = modToolComponent.BleedoutMultiplier;
             struggleBonus.m_CanPuncture = modToolComponent.CanPuncture;
             struggleBonus.m_DamageScalePercent = modToolComponent.DamageMultiplier;

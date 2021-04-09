@@ -2,21 +2,21 @@
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class LiquidMapper
+    internal static class LiquidMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
-            ModLiquidComponent modLiquidItemComponent = modComponent.TryCast<ModLiquidComponent>();
-            if (modLiquidItemComponent == null)
+            ModLiquidComponent modLiquidComponent = modComponent.TryCast<ModLiquidComponent>();
+            if (modLiquidComponent == null)
             {
                 return;
             }
 
-            LiquidItem liquidItem = ModUtils.GetOrCreateComponent<LiquidItem>(modComponent);
-            liquidItem.m_LiquidCapacityLiters = modLiquidItemComponent.LiquidCapacityLiters;
-            liquidItem.m_LiquidType = ModUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidItemComponent.LiquidType);
-            liquidItem.m_RandomizeQuantity = modLiquidItemComponent.RandomizeQuantity;
-            liquidItem.m_LiquidLiters = modLiquidItemComponent.LiquidLiters;
+            LiquidItem liquidItem = ComponentUtils.GetOrCreateComponent<LiquidItem>(modComponent);
+            liquidItem.m_LiquidCapacityLiters = modLiquidComponent.LiquidCapacityLiters;
+            liquidItem.m_LiquidType = EnumUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidComponent.LiquidType);
+            liquidItem.m_RandomizeQuantity = modLiquidComponent.RandomizeQuantity;
+            liquidItem.m_LiquidLiters = modLiquidComponent.LiquidLiters;
             liquidItem.m_DrinkingAudio = "Play_DrinkWater";
             liquidItem.m_TimeToDrinkSeconds = 4;
             liquidItem.m_LiquidQuality = LiquidQuality.Potable;

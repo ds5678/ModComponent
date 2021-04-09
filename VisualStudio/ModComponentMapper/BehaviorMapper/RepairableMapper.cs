@@ -1,19 +1,18 @@
 ﻿using ModComponentAPI;
 using System;
+using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class RepairableMapper
+    internal static class RepairableMapper
     {
-        internal static void Configure(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+        internal static void Configure(GameObject prefab)
         {
-            ModRepairableComponent modRepairableComponent = modComponent.GetComponent<ModRepairableComponent>();
-            if (modRepairableComponent == null)
-            {
-                return;
-            }
+            ModRepairableComponent modRepairableComponent = ComponentUtils.GetComponent<ModRepairableComponent>(prefab);
+            if (modRepairableComponent == null) return;
 
-            Repairable repairable = ModUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
+            Repairable repairable = ComponentUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
             repairable.m_RepairAudio = modRepairableComponent.Audio;
             repairable.m_DurationMinutes = modRepairableComponent.Minutes;
             repairable.m_ConditionIncrease = modRepairableComponent.Condition;

@@ -26,7 +26,7 @@ namespace ModComponentMapper
     {
         public static void Postfix(GearItem __instance, float normalizedValue)
         {
-            AlcoholComponent alcoholComponent = ModUtils.GetComponent<AlcoholComponent>(__instance);
+            AlcoholComponent alcoholComponent = ComponentUtils.GetComponent<AlcoholComponent>(__instance);
             if (alcoholComponent != null)
             {
                 alcoholComponent.Apply(normalizedValue);
@@ -39,7 +39,7 @@ namespace ModComponentMapper
     {
         public static void Postfix(FoodItem __instance)
         {
-            AlcoholComponent alcoholComponent = ModUtils.GetComponent<AlcoholComponent>(__instance);
+            AlcoholComponent alcoholComponent = ComponentUtils.GetComponent<AlcoholComponent>(__instance);
             if (alcoholComponent != null)
             {
                 alcoholComponent.AmountRemaining = __instance.m_CaloriesRemaining / __instance.m_CaloriesTotal * alcoholComponent.AmountTotal;

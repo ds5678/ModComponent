@@ -9,7 +9,7 @@ namespace ModComponentMapper
         Blueprint,
         Existing
     }
-    class JsonHandler
+    internal static class JsonHandler
     {
         private static Dictionary<string, string> itemJsons = new Dictionary<string, string>();
         internal static Dictionary<string, string> blueprintJsons = new Dictionary<string, string>();

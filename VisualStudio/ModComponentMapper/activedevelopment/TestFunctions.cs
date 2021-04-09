@@ -13,6 +13,9 @@ namespace ModComponentMapper
 {
     internal class TestFunctions
     {
-        
+        internal static void TestFunction()
+        {
+            //Quaternion x = new Quaternion()
+        }
     }
 }

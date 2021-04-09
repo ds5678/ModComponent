@@ -10,7 +10,7 @@ namespace ModComponentMapper.patches
         private static void Prefix(FoodItem fi, ref float calories)
         {
             Logger.Log("Servings!!!!!!!!!!!!!!!!!!!");
-            //ModFoodComponent modFoodComponent = ModUtils.GetComponent<ModFoodComponent>(fi);
+            //ModFoodComponent modFoodComponent = ComponentUtils.GetComponent<ModFoodComponent>(fi);
 
             //if (modFoodComponent != null && modFoodComponent.Servings > 1)
             //{
@@ -24,7 +24,7 @@ namespace ModComponentMapper.patches
     {
         private static void Prefix(GearItem gi)
         {
-            ModFoodComponent modFoodComponent = ModUtils.GetComponent<ModFoodComponent>(gi);
+            ModFoodComponent modFoodComponent = ComponentUtils.GetComponent<ModFoodComponent>(gi);
             FoodItem foodItem = gi.m_FoodItem;
             Hunger hunger = GameManager.GetHungerComponent();
             Thirst thirst = GameManager.GetThirstComponent();

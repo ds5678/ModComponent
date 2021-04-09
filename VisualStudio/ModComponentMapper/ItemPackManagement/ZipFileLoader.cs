@@ -49,11 +49,19 @@ namespace ModComponentMapper
             string[] files = Directory.GetFiles(directory);
             foreach (string eachFile in files)
             {
-                if (eachFile.ToLower().EndsWith(".zip"))
+#if DEBUG
+                if (eachFile.ToLower().EndsWith(".modcomponent") || eachFile.ToLower().EndsWith(".zip"))
                 {
                     PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
                     LoadZipFile(eachFile);
                 }
+#else
+                if (eachFile.ToLower().EndsWith(".modcomponent"))
+                {
+                    PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
+                    LoadZipFile(eachFile);
+                }
+#endif
             }
         }
         internal static void LoadZipFile(string zipFilePath)
@@ -179,7 +187,7 @@ namespace ModComponentMapper
         }
         private static string GetPathRelativeToModsFolder(string fullPath)
         {
-            return AutoMapper.GetRelativePath(fullPath, Implementation.GetModsFolderPath());
+            return FileUtils.GetRelativePath(fullPath, Implementation.GetModsFolderPath());
         }
     }
 }

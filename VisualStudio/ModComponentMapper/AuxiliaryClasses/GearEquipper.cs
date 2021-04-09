@@ -1,12 +1,9 @@
 ﻿using ModComponentAPI;
 using UnityEngine;
 
-//did a first pass through; didn't find anything
-//does not need to be declared
-
 namespace ModComponentMapper
 {
-    internal class GearEquipper
+    internal static class GearEquipper
     {
         public static void Equip(EquippableModComponent equippable)
         {

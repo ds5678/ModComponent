@@ -3,12 +3,9 @@ using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-//did a first pass through; didn't find anything
-//does not need to be declared
-
 namespace ModComponentMapper
 {
-    internal class GearSpawnReader
+    internal static class GearSpawnReader
     {
         private const string NUMBER = @"-?\d+(?:\.\d+)?";
         private const string VECTOR = NUMBER + @"\s*,\s*" + NUMBER + @"\s*,\s*" + NUMBER;
@@ -20,27 +17,30 @@ namespace ModComponentMapper
 
         private static readonly Regex LOOTTABLE_REGEX = new Regex(@"^loottable\s*=\s*(\w+)$");
         private static readonly Regex SCENE_REGEX = new Regex(@"^scene\s*=\s*(\w+)$");
+        private static readonly Regex TAG_REGEX = new Regex(@"^tag\s*=\s*(\w+)$");
 
         private static readonly Regex SPAWN_REGEX = new Regex(
             @"^item\s*=\s*(\w+)" +
             @"(?:\W+p\s*=\s*(" + VECTOR + "))?" +
             @"(?:\W+r\s*=\s*(" + VECTOR + "))?" +
-            @"(?:\W+\s*c\s*=\s*(\d+))?$");
+            @"(?:\W+\s*c\s*=\s*(" + NUMBER + "))?$");
 
         internal static void ReadDefinitions()
         {
+#if DEBUG
             string gearSpawnDirectory = GetGearSpawnsDirectory();
             if (Directory.Exists(gearSpawnDirectory))
             {
                 ReadDefinitions(gearSpawnDirectory);
             }
-            else if (Settings.options.createAuxiliaryFolders)
+            else
             {
                 Logger.Log("Auxiliary gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
                 Directory.CreateDirectory(gearSpawnDirectory);
             }
+#endif
         }
-        internal static void ReadDefinitions(string currentDirectory)
+        private static void ReadDefinitions(string currentDirectory)
         {
             if (!Directory.Exists(currentDirectory)) return;
 
@@ -134,6 +134,7 @@ namespace ModComponentMapper
             Logger.Log("Processing spawn file '" + path + "'.");
             string scene = null;
             string loottable = null;
+            string tag = "none";
 
             foreach (string eachLine in lines)
             {
@@ -148,6 +149,14 @@ namespace ModComponentMapper
                 {
                     scene = match.Groups[1].Value;
                     loottable = null;
+                    continue;
+                }
+
+                match = TAG_REGEX.Match(trimmedLine);
+                if (match.Success)
+                {
+                    tag = match.Groups[1].Value;
+                    Logger.Log("Tag found while reading spawn file. '{0}'",tag);
                     continue;
                 }
 
@@ -168,6 +177,8 @@ namespace ModComponentMapper
 
                     info.Position = ParseVector(match.Groups[2].Value, eachLine, path);
                     info.Rotation = Quaternion.Euler(ParseVector(match.Groups[3].Value, eachLine, path));
+
+                    info.tag = tag + "";
 
                     GearSpawner.AddGearSpawnInfo(scene, info);
                     continue;
@@ -203,6 +214,16 @@ namespace ModComponentMapper
                 Logger.LogError("Unrecognized line '" + eachLine + "' in '" + path + "'.");
                 return;
             }
+        }
+
+        public static bool CheckTagMatch(string line)
+        {
+            return TAG_REGEX.Match(GetTrimmedLine(line)).Success; 
+        }
+
+        public static Match GetTagMatch(string line)
+        {
+            return TAG_REGEX.Match(GetTrimmedLine(line));
         }
     }
 }

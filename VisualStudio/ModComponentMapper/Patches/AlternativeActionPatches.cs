@@ -8,7 +8,7 @@ namespace ModComponentMapper.patches
     {
         internal static bool Prefix(PlayerManager __instance)
         {
-            AlternativeAction alternativeAction = ModUtils.GetComponent<AlternativeAction>(__instance.m_InteractiveObjectUnderCrosshair);
+            AlternativeAction alternativeAction = ComponentUtils.GetComponent<AlternativeAction>(__instance.m_InteractiveObjectUnderCrosshair);
             if (alternativeAction == null)
             {
                 return true;

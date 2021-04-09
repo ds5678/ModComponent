@@ -1,6 +1,8 @@
-﻿namespace ModComponentMapper
+﻿using ModComponentAPI;
+
+namespace ModComponentMapper.ComponentMapper
 {
-    class ExplosiveMapper
+    internal static class ExplosiveMapper
     {
     }
 }

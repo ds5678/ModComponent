@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ModComponentAPI
+﻿namespace ModComponentAPI
 {
     public class ModExplosiveComponent : EquippableModComponent
     {
@@ -15,6 +13,6 @@ namespace ModComponentAPI
             CopyFieldHandler.UpdateFieldValues<ModExplosiveComponent>(this);
         }
 
-        public ModExplosiveComponent(IntPtr intPtr) : base(intPtr) { }
+        public ModExplosiveComponent(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ModComponentMapper
 {
-    internal class Logger
+    internal static class Logger
     {
         //Regular Messages show in white
         internal static void Log(string message) => MelonLogger.Log(message);

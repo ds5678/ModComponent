@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class RifleMapper
+    internal static class RifleMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
             ModRifleComponent modRifleComponent = modComponent?.TryCast<ModRifleComponent>();
             if (modRifleComponent == null) return;
 
-            GunItem gunItem = ModUtils.GetOrCreateComponent<GunItem>(modRifleComponent);
+            GunItem gunItem = ComponentUtils.GetOrCreateComponent<GunItem>(modRifleComponent);
 
             gunItem.m_GunType = GunType.Rifle;
             gunItem.m_AmmoPrefab = Resources.Load("GEAR_RifleAmmoSingle")?.TryCast<GameObject>();
@@ -31,7 +31,7 @@ namespace ModComponentMapper.ComponentMapper
             gunItem.m_SwayValueZeroFatigue = modRifleComponent.MinSway;
             gunItem.m_SwayValueMaxFatigue = modRifleComponent.MaxSway;
 
-            Cleanable cleanable = ModUtils.GetOrCreateComponent<Cleanable>(modRifleComponent);
+            Cleanable cleanable = ComponentUtils.GetOrCreateComponent<Cleanable>(modRifleComponent);
             cleanable.m_ConditionIncreaseMin = 2;
             cleanable.m_ConditionIncreaseMin = 5;
             cleanable.m_DurationMinutesMin = 15;
@@ -42,17 +42,17 @@ namespace ModComponentMapper.ComponentMapper
 
             FirstPersonItem firstPersonItem = ConfiguredRifleFirstPersonItem(modRifleComponent);
 
-            ModAnimationStateMachine animation = ModUtils.GetOrCreateComponent<ModAnimationStateMachine>(modRifleComponent);
+            ModAnimationStateMachine animation = ComponentUtils.GetOrCreateComponent<ModAnimationStateMachine>(modRifleComponent);
             animation.SetTransitions(firstPersonItem.m_PlayerStateTransitions);
         }
 
         private static FirstPersonItem ConfiguredRifleFirstPersonItem(ModRifleComponent modRifleComponent)
         {
-            FirstPersonItem result = ModUtils.GetOrCreateComponent<FirstPersonItem>(modRifleComponent);
+            FirstPersonItem result = ComponentUtils.GetOrCreateComponent<FirstPersonItem>(modRifleComponent);
 
             FirstPersonItem template = Resources.Load<GameObject>("GEAR_Rifle").GetComponent<FirstPersonItem>();
 
-            result.m_FirstPersonObjectName = ModUtils.NormalizeName(modRifleComponent.name);
+            result.m_FirstPersonObjectName = NameUtils.NormalizeName(modRifleComponent.name);
             result.m_UnWieldAudio = template.m_UnWieldAudio;
             result.m_WieldAudio = template.m_WieldAudio;
             result.m_PlayerStateTransitions = UnityEngine.Object.Instantiate(template.m_PlayerStateTransitions);

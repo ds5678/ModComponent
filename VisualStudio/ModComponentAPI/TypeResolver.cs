@@ -2,7 +2,7 @@
 {
     public class TypeResolver
     {
-        public static System.Type Resolve(string name)
+        public static System.Type Resolve(string name, bool throwErrorOnFailure)
         {
             System.Type result = System.Type.GetType(name, false);
             if (result != null)
@@ -20,9 +20,10 @@
                 }
             }
 
-            throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+            if (throwErrorOnFailure) throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+            else return null;
         }
-        public static Il2CppSystem.Type ResolveIl2Cpp(string name)
+        public static Il2CppSystem.Type ResolveIl2Cpp(string name, bool throwErrorOnFailure)
         {
             Il2CppSystem.Type result = Il2CppSystem.Type.GetType(name, false);
             if (result != null)
@@ -40,7 +41,8 @@
                 }
             }
 
-            throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+            if (throwErrorOnFailure) throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+            else return null;
         }
     }
 }

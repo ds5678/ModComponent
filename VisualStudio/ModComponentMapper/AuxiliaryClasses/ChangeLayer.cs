@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-//did a first pass through; didn't find anything
-//NEEDS to be declared for MelonLoader
+//Not sure why this was included
 
 namespace ModComponentMapper
 {

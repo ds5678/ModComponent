@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ModComponentAPI
 {
@@ -43,8 +42,8 @@ namespace ModComponentAPI
         /// <summary>
         /// The skill associated with repairing this item.
         /// </summary>
-        public SkillType skill;
+        public SkillType skill = SkillType.None;
 
-        public ModMillableComponent(IntPtr intPtr) : base(intPtr) { }
+        public ModMillableComponent(System.IntPtr intPtr) : base(intPtr) { }
     }
 }

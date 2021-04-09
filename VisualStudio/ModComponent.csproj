@@ -36,7 +36,7 @@
     <Reference Include="Assembly-CSharp">
       <Private>False</Private>
     </Reference>
-    <Reference Include="AssetLoader, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="AssetLoader, Version=4.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
@@ -79,19 +79,20 @@
   <ItemGroup>
     <Compile Include="ModComponentAPI\AddTag.cs" />
     <Compile Include="ModComponentAPI\AlternativeAction.cs" />
+    <Compile Include="ModComponentAPI\APIClassLists.cs" />
     <Compile Include="ModComponentAPI\AttachBehaviour.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModAccelerantComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModBurnableComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModEvolveComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModFireStarterComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModFireStartingComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModHarvestableComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModMillableComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModRepairableComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModSaveBehaviour.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModScentComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModSharpenableComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviors\ModStackableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModAccelerantComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModBurnableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModEvolveComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModFireStarterComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModFireStartingComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModHarvestableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModMillableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModRepairableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModSaveBehaviour.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModScentComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModSharpenableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModStackableComponent.cs" />
     <Compile Include="ModComponentAPI\Components\EquippableModComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModBedComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModBodyHarvestComponent.cs" />
@@ -104,25 +105,30 @@
     <Compile Include="ModComponentAPI\Components\ModFoodComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModGenericComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModLiquidComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModPowderComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModRifleComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModToolComponent.cs" />
     <Compile Include="ModComponentAPI\CopyFieldHandler.cs" />
     <Compile Include="ModComponentAPI\InitialCondition.cs" />
     <Compile Include="ModComponentAPI\ModBlueprint.cs" />
     <Compile Include="ModComponentAPI\ModSkill.cs" />
+    <Compile Include="ModComponentAPI\PlayAkSound.cs" />
     <Compile Include="ModComponentAPI\SkillType.cs" />
     <Compile Include="ModComponentAPI\TypeResolver.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\Settings.cs" />
     <Compile Include="ModComponentMapper\BehaviorMapper\AccelerantMapper.cs" />
     <Compile Include="ModComponentMapper\BehaviorMapper\BurnableMapper.cs" />
     <Compile Include="ModComponentMapper\BehaviorMapper\StackableMapper.cs" />
+    <Compile Include="ModComponentMapper\Blueprints\BlueprintMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\BodyHarvestMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\ClothingMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\CookingPotMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\EquippableMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\FoodMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\LiquidMapper.cs" />
+    <Compile Include="ModComponentMapper\ComponentMapper\PowderMapper.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\RifleMapper.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\SpawnTagManager.cs" />
     <Compile Include="ModComponentMapper\InformationMenu\DescriptionHolder.cs" />
     <Compile Include="ModComponentMapper\InformationMenu\Group.cs" />
     <Compile Include="ModComponentMapper\InformationMenu\GUI.cs" />
@@ -138,7 +144,7 @@
     <Compile Include="ModComponentMapper\ItemPackManagement\ItemPackData.cs" />
     <Compile Include="ModComponentMapper\MainFiles\Events.cs" />
     <Compile Include="ModComponentMapper\MainFiles\AutoMapper.cs" />
-    <Compile Include="ModComponentMapper\ItemPackManagement\BlueprintReader.cs" />
+    <Compile Include="ModComponentMapper\Blueprints\BlueprintReader.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\ChangeLayer.cs" />
     <Compile Include="ModComponentMapper\ComponentMapper\BedMapper.cs" />
     <Compile Include="ModComponentMapper\BehaviorMapper\EvolveMapper.cs" />
@@ -180,13 +186,20 @@
     <Compile Include="ModComponentMapper\CustomSaveData\SaveGameSystemPatch.cs" />
     <Compile Include="ModComponentMapper\Skills\SkillJson.cs" />
     <Compile Include="ModComponentMapper\Skills\SkillsManagerPatch.cs" />
-    <Compile Include="ModComponentMapper\GunPatches\vp_MuzzleFlashPatch.cs" />
-    <Compile Include="ModComponentMapper\GunPatches\PlayerAnimationPatch.cs" />
+    <Compile Include="ModComponentMapper\Patches\GunPatches\vp_MuzzleFlashPatch.cs" />
+    <Compile Include="ModComponentMapper\Patches\GunPatches\PlayerAnimationPatch.cs" />
     <Compile Include="ModComponentMapper\Patches\PlacementModePatches\PlayerManagerPatch.cs" />
+    <Compile Include="ModComponentMapper\Skills\SkillsMapper.cs" />
+    <Compile Include="ModComponentMapper\Utils\ComponentUtils.cs" />
+    <Compile Include="ModComponentMapper\Utils\EnumUtils.cs" />
+    <Compile Include="ModComponentMapper\Utils\EquipItemPopupUtils.cs" />
+    <Compile Include="ModComponentMapper\Utils\FileUtils.cs" />
+    <Compile Include="ModComponentMapper\Utils\NameUtils.cs" />
+    <Compile Include="ModComponentMapper\Utils\SkillUtils.cs" />
+    <Compile Include="ModComponentMapper\Utils\UIUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModComponentMapper\CustomSaveData\SaveDataManager.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\AlternativeToolManager.cs" />
-    <Compile Include="ModComponentMapper\activedevelopment\GearItemPatch.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\Logger.cs" />
     <Compile Include="ModComponentMapper\activedevelopment\TestFunctions.cs" />
     <Compile Include="ModComponentMapper\activedevelopment\ModExisting.cs" />
@@ -197,9 +210,9 @@
     <Compile Include="ModComponentMapper\MainFiles\ComponentJson.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\ConsoleWaitlist.cs" />
     <Compile Include="ModComponentMapper\Skills\SerializableSkill.cs" />
-    <Compile Include="ModComponentMapper\MainFiles\Utils.cs" />
-    <Compile Include="ModComponentMapper\GunPatches\vp_FPSPlayerPatch.cs" />
-    <Compile Include="ModComponentMapper\GunPatches\vp_FPSShooterPatch.cs" />
+    <Compile Include="ModComponentMapper\Utils\ModUtils.cs" />
+    <Compile Include="ModComponentMapper\Patches\GunPatches\vp_FPSPlayerPatch.cs" />
+    <Compile Include="ModComponentMapper\Patches\GunPatches\vp_FPSShooterPatch.cs" />
     <Compile Include="ModComponentMapper\ItemPackManagement\AssetBundleManager.cs" />
     <Compile Include="ModComponentMapper\ItemPackManagement\ZipFileLoader.cs" />
   </ItemGroup>

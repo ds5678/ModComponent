@@ -21,7 +21,7 @@ namespace ModComponentAPI
         {
             try
             {
-                Il2CppSystem.Type behaviourType = TypeResolver.ResolveIl2Cpp(BehaviourName);
+                Il2CppSystem.Type behaviourType = TypeResolver.ResolveIl2Cpp(BehaviourName, true);
                 this.gameObject.AddComponent(behaviourType);
             }
             catch (System.Exception e)

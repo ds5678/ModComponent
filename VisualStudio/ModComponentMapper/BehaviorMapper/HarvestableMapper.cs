@@ -1,19 +1,18 @@
 ﻿using ModComponentAPI;
 using System;
+using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class HarvestableMapper
+    internal static class HarvestableMapper
     {
-        internal static void Configure(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+        internal static void Configure(GameObject prefab)
         {
-            ModHarvestableComponent modHarvestableComponent = ModUtils.GetComponent<ModHarvestableComponent>(modComponent);
-            if (modHarvestableComponent == null)
-            {
-                return;
-            }
+            ModHarvestableComponent modHarvestableComponent = ComponentUtils.GetComponent<ModHarvestableComponent>(prefab);
+            if (modHarvestableComponent == null) return;
 
-            Harvest harvest = ModUtils.GetOrCreateComponent<Harvest>(modHarvestableComponent);
+            Harvest harvest = ComponentUtils.GetOrCreateComponent<Harvest>(modHarvestableComponent);
             harvest.m_Audio = modHarvestableComponent.Audio;
             harvest.m_DurationMinutes = modHarvestableComponent.Minutes;
 

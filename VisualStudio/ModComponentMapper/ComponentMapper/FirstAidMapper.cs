@@ -4,17 +4,17 @@
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class FirstAidMapper
+    internal static class FirstAidMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
-            ModFirstAidComponent modFirstAidComponent = ModUtils.GetComponent<ModFirstAidComponent>(modComponent);
+            ModFirstAidComponent modFirstAidComponent = ComponentUtils.GetComponent<ModFirstAidComponent>(modComponent);
             if (modFirstAidComponent == null)
             {
                 return;
             }
 
-            FirstAidItem firstAidItem = ModUtils.GetOrCreateComponent<FirstAidItem>(modFirstAidComponent);
+            FirstAidItem firstAidItem = ComponentUtils.GetOrCreateComponent<FirstAidItem>(modFirstAidComponent);
 
             // not used
             firstAidItem.m_AppliesSutures = false;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class FoodMapper
+    internal static class FoodMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
@@ -13,7 +13,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            FoodItem foodItem = ModUtils.GetOrCreateComponent<FoodItem>(modFoodComponent);
+            FoodItem foodItem = ComponentUtils.GetOrCreateComponent<FoodItem>(modFoodComponent);
 
             foodItem.m_CaloriesTotal = modFoodComponent.Calories;
             foodItem.m_CaloriesRemaining = modFoodComponent.Calories;
@@ -51,7 +51,7 @@ namespace ModComponentMapper.ComponentMapper
 
                 if (modFoodComponent.OpeningWithSmashing)
                 {
-                    SmashableItem smashableItem = ModUtils.GetOrCreateComponent<SmashableItem>(modFoodComponent);
+                    SmashableItem smashableItem = ComponentUtils.GetOrCreateComponent<SmashableItem>(modFoodComponent);
                     smashableItem.m_MinPercentLoss = 10;
                     smashableItem.m_MaxPercentLoss = 30;
                     smashableItem.m_TimeToSmash = 6;
@@ -66,7 +66,7 @@ namespace ModComponentMapper.ComponentMapper
 
             if (modFoodComponent.AffectRest)
             {
-                FatigueBuff fatigueBuff = ModUtils.GetOrCreateComponent<FatigueBuff>(modFoodComponent);
+                FatigueBuff fatigueBuff = ComponentUtils.GetOrCreateComponent<FatigueBuff>(modFoodComponent);
                 fatigueBuff.m_InitialPercentDecrease = modFoodComponent.InstantRestChange;
                 fatigueBuff.m_RateOfIncreaseScale = modFoodComponent.RestFactor;
                 fatigueBuff.m_DurationHours = modFoodComponent.RestFactorMinutes / 60f;
@@ -74,7 +74,7 @@ namespace ModComponentMapper.ComponentMapper
 
             if (modFoodComponent.AffectCold)
             {
-                FreezingBuff freezingBuff = ModUtils.GetOrCreateComponent<FreezingBuff>(modFoodComponent);
+                FreezingBuff freezingBuff = ComponentUtils.GetOrCreateComponent<FreezingBuff>(modFoodComponent);
                 freezingBuff.m_InitialPercentDecrease = modFoodComponent.InstantColdChange;
                 freezingBuff.m_RateOfIncreaseScale = modFoodComponent.ColdFactor;
                 freezingBuff.m_DurationHours = modFoodComponent.ColdFactorMinutes / 60f;
@@ -82,20 +82,20 @@ namespace ModComponentMapper.ComponentMapper
 
             if (modFoodComponent.AffectCondition)
             {
-                ConditionRestBuff conditionRestBuff = ModUtils.GetOrCreateComponent<ConditionRestBuff>(modFoodComponent);
+                ConditionRestBuff conditionRestBuff = ComponentUtils.GetOrCreateComponent<ConditionRestBuff>(modFoodComponent);
                 conditionRestBuff.m_ConditionRestBonus = modFoodComponent.ConditionRestBonus;
                 conditionRestBuff.m_NumHoursRestAffected = modFoodComponent.ConditionRestMinutes / 60f;
             }
 
             if (modFoodComponent.ContainsAlcohol)
             {
-                AlcoholComponent alcohol = ModUtils.GetOrCreateComponent<AlcoholComponent>(modFoodComponent);
+                AlcoholComponent alcohol = ComponentUtils.GetOrCreateComponent<AlcoholComponent>(modFoodComponent);
                 alcohol.AmountTotal = modFoodComponent.WeightKG * modFoodComponent.AlcoholPercentage * 0.01f;
                 alcohol.AmountRemaining = alcohol.AmountTotal;
                 alcohol.UptakeSeconds = modFoodComponent.AlcoholUptakeMinutes * 60;
             }
 
-            HoverIconsToShow hoverIconsToShow = ModUtils.GetOrCreateComponent<HoverIconsToShow>(modFoodComponent);
+            HoverIconsToShow hoverIconsToShow = ComponentUtils.GetOrCreateComponent<HoverIconsToShow>(modFoodComponent);
             hoverIconsToShow.m_HoverIcons = new HoverIconsToShow.HoverIcons[] { HoverIconsToShow.HoverIcons.Food };
         }
     }

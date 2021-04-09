@@ -2,21 +2,18 @@
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class StackableMapper
+    internal static class StackableMapper
     {
         public static void Configure(ModComponent modComponent)
         {
-            ModStackableComponent modStackableComponent = ModUtils.GetComponent<ModStackableComponent>(modComponent);
-            if (modStackableComponent == null)
-            {
-                return;
-            }
+            ModStackableComponent modStackableComponent = ComponentUtils.GetComponent<ModStackableComponent>(modComponent);
+            if (modStackableComponent == null) return;
 
-            StackableItem stackableItem = ModUtils.GetOrCreateComponent<StackableItem>(modComponent);
+            StackableItem stackableItem = ComponentUtils.GetOrCreateComponent<StackableItem>(modStackableComponent);
 
             stackableItem.m_LocalizedMultipleUnitText = new LocalizedString { m_LocalizationID = modStackableComponent.MultipleUnitTextID };
 
-            if (string.IsNullOrEmpty(modStackableComponent.SingleUnitTextID))
+            if (string.IsNullOrWhiteSpace(modStackableComponent.SingleUnitTextID))
             {
                 stackableItem.m_LocalizedSingleUnitText = new LocalizedString { m_LocalizationID = modComponent.DisplayNameLocalizationId };
             }

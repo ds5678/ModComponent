@@ -1,28 +1,25 @@
 ﻿using ModComponentAPI;
+using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class ScentMapper
+    internal static class ScentMapper
     {
-        internal static void Configure(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+        internal static void Configure(GameObject prefab)
         {
-            ModScentComponent modScentComponent = ModUtils.GetComponent<ModScentComponent>(modComponent);
-            if (modScentComponent == null)
-            {
-                return;
-            }
+            ModScentComponent modScentComponent = ComponentUtils.GetComponent<ModScentComponent>(prefab);
+            if (modScentComponent == null) return;
 
-            Scent scent = ModUtils.GetOrCreateComponent<Scent>(modScentComponent);
-            scent.m_ScentCategory = ModUtils.TranslateEnumValue<ScentRangeCategory, ScentCategory>(modScentComponent.scentCategory);
+            Scent scent = ComponentUtils.GetOrCreateComponent<Scent>(modScentComponent);
+            scent.m_ScentCategory = EnumUtils.TranslateEnumValue<ScentRangeCategory, ScentCategory>(modScentComponent.scentCategory);
         }
 
-        internal static float GetScentIntensity(ModComponent modComponent)
+        internal static float GetScentIntensity(ModComponent modComponent) => GetScentIntensity(modComponent.gameObject);
+        internal static float GetScentIntensity(GameObject prefab)
         {
-            Scent scent = ModUtils.GetComponent<Scent>(modComponent);
-            if (scent == null)
-            {
-                return 0f;
-            }
+            Scent scent = ComponentUtils.GetComponent<Scent>(prefab);
+            if (scent == null) return 0f;
 
             switch (scent.m_ScentCategory)
             {

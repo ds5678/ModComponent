@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-    public class AutoMapper
+    public static class AutoMapper
     {
         private const string AUTO_MAPPER_DIRECTORY_NAME = "auto-mapped";
 
@@ -19,21 +19,22 @@ namespace ModComponentMapper
         internal static void Initialize()
         {
             AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-
+#if DEBUG
+            JsonHandler.RegisterDirectory(AutoMapper.GetAutoMapperDirectory());
             string modDirectory = Implementation.GetModsFolderPath();
             string autoMapperDirectory = GetAutoMapperDirectory();
-
             if (Directory.Exists(autoMapperDirectory))
             {
                 Logger.Log("Loading files from '{0}' ...", autoMapperDirectory);
                 AutoMapDirectory(autoMapperDirectory, modDirectory);
             }
-            else if (Settings.options.createAuxiliaryFolders)
+            else
             {
                 Logger.Log("Directory '{0}' does not exist. Creating ...", autoMapperDirectory);
                 Directory.CreateDirectory(autoMapperDirectory);
                 return;
             }
+#endif
         }
 
         private static void AutoMapDirectory(string directory, string modDirectory)
@@ -47,12 +48,9 @@ namespace ModComponentMapper
             string[] files = Directory.GetFiles(directory);
             foreach (string eachFile in files)
             {
-                string relativePath = GetRelativePath(eachFile, modDirectory);
+                string relativePath = FileUtils.GetRelativePath(eachFile, modDirectory);
 
-                if (relativePath.ToLower().EndsWith(".json"))
-                {
-                    continue;
-                }
+                if (relativePath.ToLower().EndsWith(".json")) continue;
 
                 Logger.Log("Found '{0}'", eachFile);
                 if (relativePath.ToLower().EndsWith(".unity3d"))
@@ -91,24 +89,7 @@ namespace ModComponentMapper
             if (prefab.name.StartsWith("SKILL_")) MapSkill(prefab);
         }
 
-        /// <summary>
-        /// Returns a string with the 'GEAR_' prefix removed.
-        /// </summary>
-        /// <param name="gameObjectName">The gameobject's name, ie 'GEAR_SampleItem'</param>
-        private static string GetDefaultConsoleName(string gameObjectName)
-        {
-            return gameObjectName.Replace("GEAR_", "");
-        }
-
-        public static string GetRelativePath(string file, string directory)
-        {
-            if (file.StartsWith(directory))
-            {
-                return file.Substring(directory.Length + 1);
-            }
-
-            throw new ArgumentException("Could not determine relative path of '" + file + "' to '" + directory + "'.");
-        }
+        
 
         private static void RegisterAssetBundle(string relativePath)
         {
@@ -149,19 +130,19 @@ namespace ModComponentMapper
         private static void MapSkill(GameObject prefab)
         {
             SkillJson.InitializeModSkill(ref prefab);
-            ModSkill modSkill = ModUtils.GetComponent<ModSkill>(prefab);
+            ModSkill modSkill = ComponentUtils.GetComponent<ModSkill>(prefab);
             if (modSkill != null)
             {
-                Mapper.RegisterSkill(modSkill);
+                SkillsMapper.RegisterSkill(modSkill);
             }
         }
 
         private static void MapBlueprint(GameObject prefab, string sourcePath)
         {
-            ModBlueprint modBlueprint = ModUtils.GetComponent<ModBlueprint>(prefab);
+            ModBlueprint modBlueprint = ComponentUtils.GetComponent<ModBlueprint>(prefab);
             if (modBlueprint != null)
             {
-                Mapper.RegisterBlueprint(modBlueprint, sourcePath);
+                BlueprintMapper.RegisterBlueprint(modBlueprint, sourcePath);
             }
         }
 
@@ -174,7 +155,7 @@ namespace ModComponentMapper
                 Logger.Log("Prefab is null.");
             }
             ComponentJson.InitializeComponents(ref prefab);
-            ModComponent modComponent = ModUtils.GetModComponent(prefab);
+            ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
             if (modComponent == null)
             {
                 Logger.Log("In MapModComponent, the mod component from the prefab was null.");

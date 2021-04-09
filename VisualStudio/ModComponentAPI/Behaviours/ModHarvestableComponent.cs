@@ -25,7 +25,7 @@ namespace ModComponentAPI
         public int[] YieldCounts;
 
         /// <summary>
-        /// The names of the ToolItems that can be used to harvest
+        /// The names of the ToolItems that can be used to harvest. Leave empty for harvesting by hand.
         /// </summary>
         public string[] RequiredToolNames;
 

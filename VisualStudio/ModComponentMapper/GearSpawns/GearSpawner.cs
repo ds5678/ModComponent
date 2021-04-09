@@ -5,6 +5,7 @@ namespace ModComponentMapper
 {
     public struct GearSpawnInfo
     {
+        public string tag;
         public Vector3 Position;
         public string PrefabName;
         public Quaternion Rotation;
@@ -17,7 +18,7 @@ namespace ModComponentMapper
         public int Weight;
     }
 
-    public class GearSpawner
+    public static class GearSpawner
     {
         private static Dictionary<string, List<GearSpawnInfo>> gearSpawnInfos = new Dictionary<string, List<GearSpawnInfo>>();
         private static Dictionary<string, List<LootTableEntry>> lootTableEntries = new Dictionary<string, List<LootTableEntry>>();
@@ -195,7 +196,7 @@ namespace ModComponentMapper
                     continue;
                 }
 
-                float spawnProbability = ProbabilityManager.GetAdjustedProbabilty(eachGearSpawnInfo.SpawnChance);
+                float spawnProbability = ProbabilityManager.GetAdjustedProbability(eachGearSpawnInfo);
                 if (Utils.RollChance(spawnProbability))
                 {
                     Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);

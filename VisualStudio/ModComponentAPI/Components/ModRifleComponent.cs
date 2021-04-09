@@ -71,35 +71,7 @@ namespace ModComponentAPI
         void Awake()
         {
             CopyFieldHandler.UpdateFieldValues<ModRifleComponent>(this);
-            if (string.IsNullOrEmpty(ImplementationType))
-            {
-                return;
-            }
-
-            //GameObject equippedModelPrefab = Resources.Load(EquippedModelPrefabName)?.Cast<GameObject>();
-            //if (equippedModelPrefab) EquippedModel = GameObject.Instantiate(equippedModelPrefab);
-
-            Type implementationType = TypeResolver.Resolve(ImplementationType);
-            this.Implementation = Activator.CreateInstance(implementationType);
-
-            if (this.Implementation == null)
-            {
-                return;
-            }
-
-            OnEquipped = CreateImplementationActionDelegate("OnEquipped");
-            OnUnequipped = CreateImplementationActionDelegate("OnUnequipped");
-
-            OnPrimaryAction = CreateImplementationActionDelegate("OnPrimaryAction");
-            OnSecondaryAction = CreateImplementationActionDelegate("OnSecondaryAction");
-
-            OnControlModeChangedWhileEquipped = CreateImplementationActionDelegate("OnControlModeChangedWhileEquipped");
-
-            FieldInfo fieldInfo = implementationType.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            if (fieldInfo != null && fieldInfo.FieldType == typeof(EquippableModComponent))
-            {
-                fieldInfo.SetValue(Implementation, this);
-            }
+            OnAwake();
         }
 
         public ModRifleComponent(System.IntPtr intPtr) : base(intPtr) { }

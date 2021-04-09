@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class BedMapper
+    internal static class BedMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
@@ -13,9 +13,9 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            Bed bed = ModUtils.GetOrCreateComponent<Bed>(modBedComponent);
+            Bed bed = ComponentUtils.GetOrCreateComponent<Bed>(modBedComponent);
 
-            bed.m_LocalizedDisplayName = Mapper.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
+            bed.m_LocalizedDisplayName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
             bed.m_ConditionPercentGainPerHour = modBedComponent.ConditionGainPerHour;
             bed.m_UinterruptedRestPercentGainPerHour = modBedComponent.AdditionalConditionGainPerHour;
             bed.m_WarmthBonusCelsius = modBedComponent.WarmthBonusCelsius;
@@ -32,10 +32,10 @@ namespace ModComponentMapper.ComponentMapper
             bed.m_BedRollPlacedMesh.layer = vp_Layer.Gear;
             bed.SetState(BedRollState.Rolled);
 
-            DegradeOnUse degradeOnUse = ModUtils.GetOrCreateComponent<DegradeOnUse>(modBedComponent);
+            DegradeOnUse degradeOnUse = ComponentUtils.GetOrCreateComponent<DegradeOnUse>(modBedComponent);
             degradeOnUse.m_DegradeHP = Mathf.Max(degradeOnUse.m_DegradeHP, modBedComponent.DegradePerHour);
 
-            PlaceableItem placeableItem = ModUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
+            PlaceableItem placeableItem = ComponentUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
             //placeableItem.m_Range = 4;
             //m_prefab_name ???
         }

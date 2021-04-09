@@ -63,6 +63,58 @@ namespace ModComponentAPI
         /// </summary>
         public Action OnControlModeChangedWhileEquipped;
 
+        /// <summary>
+        /// Run this in the Awake method for all inherited classes.
+        /// </summary>
+        [HideFromIl2Cpp]
+        protected void OnAwake()
+        {
+            if (string.IsNullOrEmpty(ImplementationType))
+            {
+                return;
+            }
+
+            //I think this is taken care of by the mapper
+            //GameObject equippedModelPrefab = Resources.Load(EquippedModelPrefabName)?.Cast<GameObject>();
+            //if (equippedModelPrefab) EquippedModel = GameObject.Instantiate(equippedModelPrefab);
+
+            //ignoring monobehaviour
+            //Type implementationType = TypeResolver.Resolve(ImplementationType, true);
+            //this.Implementation = Activator.CreateInstance(implementationType);
+
+            //including monobehaviour
+            Type implementationTypeMono = TypeResolver.Resolve(ImplementationType, false);
+            Il2CppSystem.Type implementationTypeIl2Cpp = TypeResolver.ResolveIl2Cpp(ImplementationType, false);
+            if (!(implementationTypeIl2Cpp is null) && implementationTypeIl2Cpp.IsSubclassOf(UnhollowerRuntimeLib.Il2CppType.Of<UnityEngine.MonoBehaviour>()))
+            {
+                this.Implementation = this.gameObject.AddComponent(implementationTypeIl2Cpp);
+            }
+            else if (!(implementationTypeMono is null))
+            {
+                this.Implementation = Activator.CreateInstance(implementationTypeMono);
+            }
+
+            if (this.Implementation == null)
+            {
+                return;
+            }
+
+            OnEquipped = CreateImplementationActionDelegate("OnEquipped");
+            OnUnequipped = CreateImplementationActionDelegate("OnUnequipped");
+
+            OnPrimaryAction = CreateImplementationActionDelegate("OnPrimaryAction");
+            OnSecondaryAction = CreateImplementationActionDelegate("OnSecondaryAction");
+
+            OnControlModeChangedWhileEquipped = CreateImplementationActionDelegate("OnControlModeChangedWhileEquipped");
+
+            FieldInfo fieldInfo = implementationTypeMono.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            if (fieldInfo != null && fieldInfo.FieldType == typeof(EquippableModComponent))
+            {
+                fieldInfo.SetValue(Implementation, this);
+            }
+        }
+
+
 
         /// <summary>
         /// Creates an action delegate from a method in the loaded Implementation.

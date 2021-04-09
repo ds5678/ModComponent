@@ -8,7 +8,7 @@ using System.IO;
 
 namespace ModComponentMapper
 {
-    public class BlueprintReader
+    public static class BlueprintReader
     {
         public const string BLUEPRINT_DIRECTORY_NAME = "blueprints";
 
@@ -19,14 +19,16 @@ namespace ModComponentMapper
 
         internal static void ReadDefinitions()
         {
+#if DEBUG
             string blueprintsDirectory = GetBlueprintsDirectory();
-            if (Settings.options.createAuxiliaryFolders && !Directory.Exists(blueprintsDirectory))
+            if (!Directory.Exists(blueprintsDirectory))
             {
                 Logger.Log("Auxiliary Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
                 Directory.CreateDirectory(blueprintsDirectory);
             }
-            ProcessFiles(JsonHandler.blueprintJsons);
             ProcessFiles(blueprintsDirectory);
+#endif
+            ProcessFiles(JsonHandler.blueprintJsons);
         }
 
         private static void ProcessFiles(string directory)
@@ -84,7 +86,7 @@ namespace ModComponentMapper
             try
             {
                 ModBlueprint blueprint = MelonLoader.TinyJSON.JSON.Load(text).Make<ModBlueprint>();
-                if (!(blueprint is null)) Mapper.RegisterBlueprint(blueprint, path);
+                if (!(blueprint is null)) BlueprintMapper.RegisterBlueprint(blueprint, path);
                 else
                 {
                     Logger.LogError("Skipping because blueprint is null");

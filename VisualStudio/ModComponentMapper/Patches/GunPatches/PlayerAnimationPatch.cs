@@ -14,7 +14,7 @@ namespace ModComponentMapper
             public static bool Prefix(ref bool __result)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                if (ModUtils.GetModComponent(playerManager.m_ItemInHands) == null)
+                if (ComponentUtils.GetModComponent(playerManager.m_ItemInHands) == null)
                 {
                     return true;
                 }
@@ -30,7 +30,7 @@ namespace ModComponentMapper
             public static bool Prefix(ref bool __result)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -47,7 +47,7 @@ namespace ModComponentMapper
             public static bool Prefix(ref bool __result)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -64,7 +64,7 @@ namespace ModComponentMapper
             public static bool Prefix(PlayerAnimation __instance, PlayerAnimation.State state, ref bool __result)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -81,7 +81,7 @@ namespace ModComponentMapper
             public static bool Prefix(ref bool __result)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -98,7 +98,7 @@ namespace ModComponentMapper
             public static bool Prefix()
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -114,7 +114,7 @@ namespace ModComponentMapper
             public static bool Prefix(int bulletsToReload, OnAnimationEvent roundLoadedEventCallback, OnAnimationEvent clipLoadedEventCallback, OnAnimationEvent reloadCompleteEventCallback)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -209,7 +209,7 @@ namespace ModComponentMapper
             public static bool Prefix(PlayerAnimation.OnAnimationEvent onAnimationComplete)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -226,7 +226,7 @@ namespace ModComponentMapper
             public static bool Prefix()
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -242,7 +242,7 @@ namespace ModComponentMapper
             public static bool Prefix(OnAnimationEvent onAnimationComplete)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -259,7 +259,7 @@ namespace ModComponentMapper
             public static bool Prefix()
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;
@@ -280,7 +280,7 @@ namespace ModComponentMapper
             public static bool Prefix(float fatigue)
             {
                 PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-                ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+                ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
                 if (animation == null)
                 {
                     return true;

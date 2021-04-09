@@ -1,0 +1,27 @@
+{
+    "ModPowderComponent": {
+                                "DisplayNameLocalizationId" : "GAMEPLAY_MetalWaterBottle",
+                                "DescriptionLocalizatonId" : "GAMEPLAY_MetalWaterBottleDescription",
+                                "InventoryActionLocalizationId" : "",
+                                "WeightKG": 0,
+                                "DaysToDecay" : 0,
+                                "MaxHP" : 100,
+                                "InitialCondition" : "Perfect",
+                                "InventoryCategory" : "Tool",
+                                "PickUpAudio" : "",
+                                "PutBackAudio" : "",
+                                "StowAudio" : "Play_InventoryStow",
+                                "WornOutAudio" : "",
+                                "InspectOnPickup" : true,
+                                "InspectDistance" : 0.4,
+                                "InspectAngles" : [0, 0, 0],
+                                "InspectOffset" : [0, 0, 0],
+                                "InspectScale" :  [1, 1, 1],
+                                "NormalModel" : "",
+                                "InspectModel" : "",
+
+                                "PowderType" : "Gunpowder",
+                                "CapacityKG" : 0.2,
+                                "ChanceFull" : 75
+                            }
+}

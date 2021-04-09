@@ -13,11 +13,10 @@ namespace ModComponentMapper
         protected override void MakeGUIContents(GUIBuilder guiBuilder)
         {
             guiBuilder.AddHeader("ModComponent",false);
-            guiBuilder.AddEmptySetting("ModComponentAPI", GetVersionString(typeof(ModComponentAPI.ModComponent)));
-            guiBuilder.AddEmptySetting("ModComponentMapper", GetVersionString(typeof(ModComponentMapper.Implementation)));
+            guiBuilder.AddEmptySetting("ModComponent", GetVersionString(typeof(ModComponentMapper.Implementation)));
             guiBuilder.AddHeader("Dependencies",false);
             guiBuilder.AddEmptySetting("AssetLoader", GetVersionString(typeof(AssetLoader.Implementation)));
-            guiBuilder.AddEmptySetting("MelonLoader", GetVersionString(typeof(MelonLoader.MelonBase),4));
+            guiBuilder.AddEmptySetting("MelonLoader", GetVersionString(typeof(MelonLoader.MelonBase), 4));
             guiBuilder.AddEmptySetting("ModSettings", GetVersionString(typeof(ModSettings.ModSettingsBase)));
         }
         public string GetVersionString(Type type) => GetVersionString(type, 3);

@@ -10,6 +10,11 @@ namespace ModComponentMapper
 
         public override void OnApplicationStart()
         {
+#if DEBUG
+            Logger.Log("Debug Compilation");
+#else
+            Logger.Log("Release Compilation");
+#endif
             Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
 
             Settings.OnLoad();
@@ -22,13 +27,29 @@ namespace ModComponentMapper
 
             ZipFileLoader.Initialize();
 
-            JsonHandler.RegisterDirectory(AutoMapper.GetAutoMapperDirectory());
-
             AutoMapper.Initialize();
             ModHealthManager.Initialize();
             AssetBundleManager.LoadPendingAssetBundles();
             GearSpawner.Initialize();
             BlueprintReader.Initialize();
+        }
+
+        public static string GetModsFolderPath()
+        {
+            return Path.GetFullPath(typeof(MelonMod).Assembly.Location + @"\..\..\Mods");
+        }
+
+        internal static void SceneReady()
+        {
+            Logger.Log("Invoking 'SceneReady' for scene '{0}' ...", GameManager.m_ActiveScene);
+
+            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            OnSceneReady?.Invoke();
+
+            stopwatch.Stop();
+            Logger.Log("Completed 'SceneReady' for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
         }
 
         internal static void InjectClasses()
@@ -63,6 +84,7 @@ namespace ModComponentMapper
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFoodComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModGenericComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModLiquidComponent>();
+            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModPowderComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModRifleComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModToolComponent>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.AddTag>();
@@ -70,48 +92,8 @@ namespace ModComponentMapper
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.AttachBehaviour>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModBlueprint>();
             UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSkill>();
-        }
-
-        public static string GetModsFolderPath()
-        {
-            return Path.GetFullPath(typeof(MelonMod).Assembly.Location + @"\..\..\Mods");
-        }
-
-        internal static void SceneReady()
-        {
-            Logger.Log("Invoking 'SceneReady' for scene '{0}' ...", GameManager.m_ActiveScene);
-
-            System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-            stopwatch.Start();
-
-            OnSceneReady?.Invoke();
-
-            stopwatch.Stop();
-            Logger.Log("Completed 'SceneReady' for scene '{0}' in {1} ms", GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
-        }
-
-        internal static void UpdateWolfIntimidationBuff()
-        {
-            float increaseFlee = 0;
-            float decreaseAttack = 0;
-
-            PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-
-            for (int region = 0; region < (int)ClothingRegion.NumRegions; region++)
-            {
-                for (int layer = 0; layer < (int)ClothingLayer.NumLayers; layer++)
-                {
-                    GearItem clothing = playerManager.GetClothingInSlot((ClothingRegion)region, (ClothingLayer)layer);
-
-                    if (clothing && clothing.m_WolfIntimidationBuff)
-                    {
-                        decreaseAttack += clothing.m_WolfIntimidationBuff.m_DecreaseAttackChancePercentagePoints;
-                        increaseFlee += clothing.m_WolfIntimidationBuff.m_IncreaseFleePercentagePoints;
-                    }
-                }
-            }
-
-            playerManager.ApplyWolfIntimidationBuff(increaseFlee, decreaseAttack);
+            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.PlayAkSound>();
+            UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModPlaceHolderComponent>();
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-    public class ModWeaponManager //does not need to be declared
+    public static class ModWeaponManager //does not need to be declared
     {
         private static List<ModRifleComponent> pendingRifles = new List<ModRifleComponent>();
 
@@ -30,7 +30,7 @@ namespace ModComponentMapper
 
         private static void RegisterRifle(ModRifleComponent modRifleComponent, Transform weaponViewTransform)
         {
-            string name = ModUtils.NormalizeName(modRifleComponent.name);
+            string name = NameUtils.NormalizeName(modRifleComponent.name);
             if (weaponViewTransform.Find(name) != null)
             {
                 // already registered

@@ -48,17 +48,17 @@ namespace ModComponentAPI
         /// <summary>
         /// Where to craft?
         /// </summary>
-        public CraftingLocation RequiredCraftingLocation;
+        public CraftingLocation RequiredCraftingLocation = CraftingLocation.Anywhere;
         
         /// <summary>
         /// Requires a lit fire in the ammo workbench to craft?
         /// </summary>
-        public bool RequiresLitFire;
+        public bool RequiresLitFire = false;
         
         /// <summary>
         /// Requires light to craft?
         /// </summary>
-        public bool RequiresLight;
+        public bool RequiresLight = true;
 
         
         /// <summary>
@@ -86,12 +86,12 @@ namespace ModComponentAPI
         /// <summary>
         /// The skill associated with crafting this item. (e.g. Gunsmithing)
         /// </summary>
-        public SkillType AppliedSkill;
+        public SkillType AppliedSkill = SkillType.None;
 
         /// <summary>
         /// The skill improved on crafting success.
         /// </summary>
-        public SkillType ImprovedSkill;
+        public SkillType ImprovedSkill = SkillType.None;
 
         public ModBlueprint() { }
         public ModBlueprint(System.IntPtr intPtr) : base(intPtr) { }

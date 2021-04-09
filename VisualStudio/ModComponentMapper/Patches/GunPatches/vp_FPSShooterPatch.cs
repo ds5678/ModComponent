@@ -11,7 +11,7 @@ namespace ModComponentMapper
         public static void Postfix(vp_FPSShooter __instance)
         {
             PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-            ModAnimationStateMachine animation = ModUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
+            ModAnimationStateMachine animation = ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
             if (animation == null)
             {
                 return;

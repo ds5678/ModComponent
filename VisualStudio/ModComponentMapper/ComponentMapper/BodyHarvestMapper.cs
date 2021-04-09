@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class BodyHarvestMapper
+    internal static class BodyHarvestMapper
     {
         internal static void Configure(ModComponent modComponent)
         {
@@ -13,7 +13,7 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            BodyHarvest bodyHarvest = ModUtils.GetOrCreateComponent<BodyHarvest>(modBodyHarvestComponent);
+            BodyHarvest bodyHarvest = ComponentUtils.GetOrCreateComponent<BodyHarvest>(modBodyHarvestComponent);
             bodyHarvest.m_AllowDecay = true;
             bodyHarvest.m_CanCarry = modBodyHarvestComponent.CanCarry;
             bodyHarvest.m_CanQuarter = modBodyHarvestComponent.CanQuarter;
@@ -27,7 +27,7 @@ namespace ModComponentMapper.ComponentMapper
             bodyHarvest.m_HidePrefab = Resources.Load(modBodyHarvestComponent.HidePrefab)?.Cast<GameObject>();
             bodyHarvest.m_HideWeightKgPerUnit = modBodyHarvestComponent.HideWeightKgPerUnit;
             bodyHarvest.m_IsBigCarry = false;
-            bodyHarvest.m_LocalizedDisplayName = Mapper.CreateLocalizedString(modBodyHarvestComponent.DisplayNameLocalizationId);
+            bodyHarvest.m_LocalizedDisplayName = NameUtils.CreateLocalizedString(modBodyHarvestComponent.DisplayNameLocalizationId);
             bodyHarvest.m_MeatAvailableMaxKG = modBodyHarvestComponent.MeatAvailableMaxKG;
             bodyHarvest.m_MeatAvailableMinKG = modBodyHarvestComponent.MeatAvailableMinKG;
             bodyHarvest.m_MeatPrefab = Resources.Load(modBodyHarvestComponent.MeatPrefab)?.Cast<GameObject>();

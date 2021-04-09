@@ -1,23 +1,22 @@
 ﻿using ModComponentAPI;
 using System;
+using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    class MillableMapper
+    internal static class MillableMapper
     {
-        internal static void Configure(ModComponent modComponent)
+        internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+        internal static void Configure(GameObject prefab)
         {
-            ModMillableComponent modMillable = ModUtils.GetComponent<ModMillableComponent>(modComponent);
-            if (modMillable == null)
-            {
-                return;
-            }
+            ModMillableComponent modMillable = ComponentUtils.GetComponent<ModMillableComponent>(prefab);
+            if (modMillable == null) return;
 
-            Millable millable = ModUtils.GetOrCreateComponent<Millable>(modMillable);
+            Millable millable = ComponentUtils.GetOrCreateComponent<Millable>(modMillable);
             millable.m_CanRestoreFromWornOut = modMillable.CanRestoreFromWornOut;
             millable.m_RecoveryDurationMinutes = modMillable.RecoveryDurationMinutes;
             millable.m_RepairDurationMinutes = modMillable.RepairDurationMinutes;
-            millable.m_Skill = ModUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modMillable.skill);
+            millable.m_Skill = EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modMillable.skill);
             if (modMillable.RepairRequiredGear.Length != modMillable.RepairRequiredGearUnits.Length)
             {
                 throw new ArgumentException("RepairRequiredGear and RepairRequiredGearUnits do not have the same length on gear item '" + modMillable.name + "'.");

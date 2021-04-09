@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
-    class ConsoleWaitlist
+    internal static class ConsoleWaitlist
     {
         private static List<string> commandWaitlistDisplay = new List<string>(0);
         private static List<string> commandWaitlistPrefab = new List<string>(0);
@@ -25,7 +25,7 @@ namespace ModComponentMapper
                 {
                     string displayName = commandWaitlistDisplay[i];
                     string prefabName = commandWaitlistPrefab[i];
-                    ModUtils.RegisterConsoleGearName(displayName, prefabName);
+                    NameUtils.RegisterConsoleGearName(displayName, prefabName);
                 }
                 commandWaitlistDisplay = new List<string>(0);
                 commandWaitlistPrefab = new List<string>(0);

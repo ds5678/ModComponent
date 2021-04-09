@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
-    internal class CookableMapper
+    internal static class CookableMapper
     {
         private static string GetDefaultCookAudio(ModCookableComponent modCookableComponent)
         {
@@ -44,9 +44,9 @@ namespace ModComponentMapper.ComponentMapper
                 return;
             }
 
-            Cookable cookable = ModUtils.GetOrCreateComponent<Cookable>(modCookableComponent);
+            Cookable cookable = ComponentUtils.GetOrCreateComponent<Cookable>(modCookableComponent);
 
-            cookable.m_CookableType = ModUtils.TranslateEnumValue<Cookable.CookableType, CookableType>(modCookableComponent.type);
+            cookable.m_CookableType = EnumUtils.TranslateEnumValue<Cookable.CookableType, CookableType>(modCookableComponent.type);
             cookable.m_CookTimeMinutes = modCookableComponent.CookingMinutes;
             cookable.m_ReadyTimeMinutes = modCookableComponent.BurntMinutes;
             cookable.m_NumUnitsRequired = modCookableComponent.CookingUnitsRequired;
@@ -56,7 +56,7 @@ namespace ModComponentMapper.ComponentMapper
             cookable.m_CookAudio = ModUtils.DefaultIfEmpty(modCookableComponent.CookingAudio, GetDefaultCookAudio(modCookableComponent));
             cookable.m_PutInPotAudio = ModUtils.DefaultIfEmpty(modCookableComponent.StartCookingAudio, GetDefaultStartCookingAudio(modCookableComponent));
 
-            Cookable template = ModUtils.GetComponent<Cookable>(Resources.Load<GameObject>("GEAR_PinnacleCanPeaches"));
+            Cookable template = ComponentUtils.GetComponent<Cookable>(Resources.Load<GameObject>("GEAR_PinnacleCanPeaches"));
             cookable.m_MeshPotStyle = template?.m_MeshPotStyle;
             cookable.m_MeshCanStyle = template?.m_MeshCanStyle;
             cookable.m_LiquidMeshRenderer = template?.m_LiquidMeshRenderer;
@@ -65,7 +65,7 @@ namespace ModComponentMapper.ComponentMapper
             if (modCookableComponent.CookingResult == null)
             {
                 // no conversion, just heating
-                FoodItem foodItem = ModUtils.GetComponent<FoodItem>(modCookableComponent);
+                FoodItem foodItem = ComponentUtils.GetComponent<FoodItem>(modCookableComponent);
                 if (foodItem != null)
                 {
                     foodItem.m_HeatedWhenCooked = true;
