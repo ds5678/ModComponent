@@ -1,4 +1,4 @@
-ModComponent
+# ModComponent
 
 This is a library for modding **The Long Dark** by Hinterland Games Studio, Inc.
 
@@ -23,7 +23,7 @@ I know many people might skip over this, but I hope you don't. You are so specia
 ## Installation
 
 1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-2. Download the latest version of `ModComponentAPI.dll` and `ModComponentMapper.dll` from the [releases page](https://github.com/ds5678/ModComponent/releases)
+2. Download the latest version of `ModComponent.dll` from the [releases page](https://github.com/ds5678/ModComponent/releases)
 3. Download the latest version of `AssetLoader.dll` from its [releases page](https://github.com/ds5678/AssetLoader/releases)
 4. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
-5. Move `ModComponentAPI.dll`, `ModComponentMapper.dll`, `ModSettings.dll`, and `AssetLoader.dll` into the Mods folder in your TLD install directory
+5. Move `ModComponent.dll`, `ModSettings.dll`, and `AssetLoader.dll` into the Mods folder in your TLD install directory
