@@ -2,11 +2,13 @@
 
 This is a library for modding **The Long Dark** by Hinterland Games Studio, Inc.
 
-It allows creating Unity assets that can be used as fully compatible in-game items.
+It allows:
 
-> This library is only infrastructure for mods and does not provide any assets or asset bundles and does not add or modify any items or game mechanics by itself.
+* Creating Unity assets that can be used as fully compatible in-game items.
 
-Requires [AssetLoader](https://github.com/ds5678/AssetLoader)
+> This library is only infrastructure for mods and does not provide any assets or asset bundles.
+
+Requires [AssetLoader](https://github.com/ds5678/AssetLoader) and [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings)
 
 ## Special Thanks
 
@@ -27,3 +29,7 @@ I know many people might skip over this, but I hope you don't. You are so specia
 3. Download the latest version of `AssetLoader.dll` from its [releases page](https://github.com/ds5678/AssetLoader/releases)
 4. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
 5. Move `ModComponent.dll`, `ModSettings.dll`, and `AssetLoader.dll` into the Mods folder in your TLD install directory
+
+## Downloads
+
+![](https://img.shields.io/github/downloads/ds5678/ModComponent/latest/total.svg)
