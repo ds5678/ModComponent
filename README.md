@@ -32,4 +32,5 @@ I know many people might skip over this, but I hope you don't. You are so specia
 
 ## Downloads
 
+![](https://img.shields.io/github/downloads/ds5678/ModComponent/total.svg)
 ![](https://img.shields.io/github/downloads/ds5678/ModComponent/latest/total.svg)
