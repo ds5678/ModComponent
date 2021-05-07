@@ -1,35 +1,43 @@
-﻿using System;
-using Harmony;
+﻿using Harmony;
+using System;
 using UnityEngine;
 
 namespace ModComponentMapper
 {
 
-	internal static class ModComponentMenuPatches {
+	internal static class ModComponentMenuPatches
+	{
 
 		internal const int MODCOMPONENT_ID = 0x4d43; // "MC" in hex
 
 		[HarmonyPatch(typeof(Panel_OptionsMenu), "InitializeAutosaveMenuItems", new Type[0])]
-		internal static class BuildModSettingsGUIPatch {
-			internal static void Postfix() {
+		internal static class BuildModSettingsGUIPatch
+		{
+			internal static void Postfix()
+			{
 				DateTime tStart = DateTime.UtcNow;
 
-				try {
-					MelonLoader.MelonLogger.Log("Building ModComponent Menu GUI");
+				try
+				{
+					Logger.Log("Building ModComponent Menu GUI");
 					ModComponentMenu.BuildGUI();
-				} catch (Exception e) {
-					MelonLoader.MelonLogger.LogError("Exception while building ModComponent Menu GUI\n" + e.ToString());
+				}
+				catch (Exception e)
+				{
+					Logger.LogError("Exception while building ModComponent Menu GUI\n" + e.ToString());
 					return;
 				}
 
-				long timeMillis = (long) (DateTime.UtcNow - tStart).TotalMilliseconds;
-				MelonLoader.MelonLogger.Log("Done! Took " + timeMillis + " ms");
+				long timeMillis = (long)(DateTime.UtcNow - tStart).TotalMilliseconds;
+				Logger.Log("Done! Took " + timeMillis + " ms");
 			}
 		}
 
 		[HarmonyPatch(typeof(Panel_OptionsMenu), "ConfigureMenu", new Type[0])]
-		internal static class AddModSettingsButton {
-			internal static void Postfix(Panel_OptionsMenu __instance) {
+		internal static class AddModSettingsButton
+		{
+			internal static void Postfix(Panel_OptionsMenu __instance)
+			{
 				if (!ModComponentMenu.HasVisiblePages())
 					return;
 
@@ -44,7 +52,8 @@ namespace ModComponentMapper
 						new Action(() => ShowModComponentMenu(__instance)), firstItem.m_NormalTint, firstItem.m_HighlightTint);
 			}
 
-			internal static void ShowModComponentMenu(Panel_OptionsMenu __instance) {
+			internal static void ShowModComponentMenu(Panel_OptionsMenu __instance)
+			{
 				GUI settings = GetModComponentMenuGUI(__instance);
 				settings.Enable(__instance);
 			}
@@ -55,7 +64,8 @@ namespace ModComponentMapper
 			//That patch doesn't have to contain any code for the error to occur. It just has to exist.
 			//Relentless Night 4.30 has one such patch.
 			//
-			internal static void AddAnotherMenuItem(BasicMenu basicMenu) {
+			internal static void AddAnotherMenuItem(BasicMenu basicMenu)
+			{
 				GameObject gameObject = NGUITools.AddChild(basicMenu.m_MenuGrid.gameObject, basicMenu.m_BasicMenuItemPrefab);
 				gameObject.name = "ModComponent MenuItem";
 				BasicMenuItem item = gameObject.GetComponent<BasicMenuItem>();
@@ -70,19 +80,23 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(Panel_OptionsMenu), "MainMenuTabOnEnable", new Type[0])]
-		internal static class DisableModSettingsWhenBackPressed {
-			internal static void Prefix(Panel_OptionsMenu __instance) {
+		internal static class DisableModSettingsWhenBackPressed
+		{
+			internal static void Prefix(Panel_OptionsMenu __instance)
+			{
 				GameObject modComponentTab = GetModComponentTab(__instance);
 				modComponentTab.SetActive(false);
 			}
 		}
 
-		internal static GUI GetModComponentMenuGUI(Panel_OptionsMenu panel) {
+		internal static GUI GetModComponentMenuGUI(Panel_OptionsMenu panel)
+		{
 			Transform panelTransform = panel.transform.Find("Pages/ModComponent");
 			return panelTransform.GetComponent<GUI>();
 		}
 
-		internal static GameObject GetModComponentTab(Panel_OptionsMenu panel) {
+		internal static GameObject GetModComponentTab(Panel_OptionsMenu panel)
+		{
 			return panel.transform.Find("Pages/ModComponent").gameObject;
 		}
 	}

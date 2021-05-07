@@ -6,27 +6,27 @@ using ModComponentAPI;
 
 namespace ModComponentMapper.patches
 {
-    [HarmonyPatch(typeof(FireManager), "PlayerStartFire")]//Exists
-    internal class FireManager_PlayerStartFire
-    {
-        internal static void Postfix(FireStarterItem starter, bool __result)
-        {
-            if (!__result)
-            {
-                return;
-            }
+	[HarmonyPatch(typeof(FireManager), "PlayerStartFire")]//Exists
+	internal class FireManager_PlayerStartFire
+	{
+		internal static void Postfix(FireStarterItem starter, bool __result)
+		{
+			if (!__result)
+			{
+				return;
+			}
 
-            ModFireStarterComponent modFireStarterComponent = ComponentUtils.GetComponent<ModFireStarterComponent>(starter);
-            if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse)
-            {
-                return;
-            }
+			ModFireStarterComponent modFireStarterComponent = ComponentUtils.GetComponent<ModFireStarterComponent>(starter);
+			if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse)
+			{
+				return;
+			}
 
-            GearItem gearItem = starter.GetComponent<GearItem>();
-            if (gearItem != null)
-            {
-                gearItem.BreakOnUse();
-            }
-        }
-    }
+			GearItem gearItem = starter.GetComponent<GearItem>();
+			if (gearItem != null)
+			{
+				gearItem.BreakOnUse();
+			}
+		}
+	}
 }

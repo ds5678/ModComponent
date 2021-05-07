@@ -2,10 +2,10 @@
 
 namespace ModComponentMapper.patches
 {
-    internal static class WatchHandleCraftingSuccess
-    {
-        internal static bool isExecuting = false;
-    }
+	internal static class WatchHandleCraftingSuccess
+	{
+		internal static bool isExecuting = false;
+	}
 
 	[HarmonyPatch(typeof(Panel_Crafting), "HandleCraftingSuccess")]
 	internal class Panel_Crafting_CraftingEnd

@@ -1,4 +1,4 @@
 ﻿namespace ModComponentMapper
 {
-    public delegate void SceneReady();
+	public delegate void SceneReady();
 }

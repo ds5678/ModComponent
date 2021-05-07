@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Il2Cpp = Il2CppSystem.Collections.Generic;
 
@@ -67,7 +65,8 @@ namespace ModComponentMapper
 		internal void AddPage(InfoPage infoPage)
 		{
 			menuGroup.NotifyChildAdded(infoPage.IsVisible());
-			infoPage.AddVisibilityListener((visible) => {
+			infoPage.AddVisibilityListener((visible) =>
+			{
 				menuGroup.NotifyChildVisible(visible);
 			});
 		}

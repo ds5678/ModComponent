@@ -1,13 +1,13 @@
 ﻿namespace ModComponentAPI
 {
-    public class ModAccelerantComponent : ModFireStartingComponent
-    {
-        /// <summary>
-        /// In-game seconds offset for fire starting duration from this accelerant.<br/>
-        /// NOT scaled by fire starting skill. Positive values mean 'slower', negative values mean 'faster'.
-        /// </summary>
-        public float DurationOffset;
+	public class ModAccelerantComponent : ModFireStartingComponent
+	{
+		/// <summary>
+		/// In-game seconds offset for fire starting duration from this accelerant.<br/>
+		/// NOT scaled by fire starting skill. Positive values mean 'slower', negative values mean 'faster'.
+		/// </summary>
+		public float DurationOffset;
 
-        public ModAccelerantComponent(System.IntPtr intPtr) : base(intPtr) { }
-    }
+		public ModAccelerantComponent(System.IntPtr intPtr) : base(intPtr) { }
+	}
 }

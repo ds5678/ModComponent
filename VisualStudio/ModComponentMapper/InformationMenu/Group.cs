@@ -2,44 +2,61 @@
 
 namespace ModComponentMapper
 {
-	internal abstract class Group {
+	internal abstract class Group
+	{
 
 		internal int children;
 		internal int visibleChildren;
 
-		protected Group() {
+		protected Group()
+		{
 			children = 0;
 			visibleChildren = 0;
 		}
 
 		protected abstract void SetVisible(bool visible);
 
-		internal void NotifyChildAdded(bool visible) {
+		internal void NotifyChildAdded(bool visible)
+		{
 			++children;
 
-			if (visible) {
+			if (visible)
+			{
 				++visibleChildren;
-				if (children > 1 && visibleChildren == 1) {
+				if (children > 1 && visibleChildren == 1)
+				{
 					SetVisible(true);
 				}
-			} else if (children == 1) {
+			}
+			else if (children == 1)
+			{
 				SetVisible(false);
 			}
 		}
 
-		internal void NotifyChildVisible(bool visible) {
-			if (visible) {
-				if (visibleChildren == 0) {
+		internal void NotifyChildVisible(bool visible)
+		{
+			if (visible)
+			{
+				if (visibleChildren == 0)
+				{
 					SetVisible(true);
-				} else if (visibleChildren == children) {
+				}
+				else if (visibleChildren == children)
+				{
 					throw new InvalidOperationException("[ModSettings] All children of group already visible");
 				}
 
 				++visibleChildren;
-			} else {
-				if (visibleChildren == 1) {
+			}
+			else
+			{
+				if (visibleChildren == 1)
+				{
 					SetVisible(false);
-				} else if (visibleChildren == 0) {
+				}
+				else if (visibleChildren == 0)
+				{
 					throw new InvalidOperationException("[ModSettings] All children of group already invisible");
 				}
 

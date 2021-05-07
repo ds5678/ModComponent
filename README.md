@@ -5,6 +5,7 @@ This is a library for modding **The Long Dark** by Hinterland Games Studio, Inc.
 It allows:
 
 * Creating Unity assets that can be used as fully compatible in-game items.
+* Preloading in-game assets for use in other mods.
 
 > This library is only infrastructure for mods and does not provide any assets or asset bundles.
 
@@ -26,11 +27,11 @@ I know many people might skip over this, but I hope you don't. You are so specia
 
 1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
 2. Download the latest version of `ModComponent.dll` from the [releases page](https://github.com/ds5678/ModComponent/releases)
-3. Download the latest version of `AssetLoader.dll` from its [releases page](https://github.com/ds5678/AssetLoader/releases)
-4. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
-5. Move `ModComponent.dll`, `ModSettings.dll`, and `AssetLoader.dll` into the Mods folder in your TLD install directory
+3. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
+4. Move `ModComponent.dll` and `ModSettings.dll` into the Mods folder in your TLD install directory
 
 ## Downloads
 
 ![](https://img.shields.io/github/downloads/ds5678/ModComponent/total.svg)
+
 ![](https://img.shields.io/github/downloads/ds5678/ModComponent/latest/total.svg)

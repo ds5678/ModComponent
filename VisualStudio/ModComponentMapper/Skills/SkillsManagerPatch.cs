@@ -1,9 +1,8 @@
-﻿using Harmony;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
-    /*[HarmonyPatch(typeof(SkillsManager), "Deserialize")]//Exists
+	/*[HarmonyPatch(typeof(SkillsManager), "Deserialize")]//Exists
     public class SkillManager_Deserialize
     {
         public static void Postfix(SkillsManager __instance,ref string text)
@@ -36,7 +35,7 @@ namespace ModComponentMapper
         }
     }*/
 
-    /*[HarmonyPatch(typeof(SkillsManager), "GetSkill")]//Exists
+	/*[HarmonyPatch(typeof(SkillsManager), "GetSkill")]//Exists
     public class SkillManager_GetSkill
     {
         public static bool Prefix(SkillsManager __instance, ref Skill __result, SkillType skillType)
@@ -49,7 +48,7 @@ namespace ModComponentMapper
         }
     }*/
 
-    /*[HarmonyPatch(typeof(SkillsManager), "Serialize")]//Exists
+	/*[HarmonyPatch(typeof(SkillsManager), "Serialize")]//Exists
     public class SkillManager_Serialize
     {
         public static void Postfix(SkillsManager __instance, ref string __result)
@@ -85,14 +84,14 @@ namespace ModComponentMapper
 
     }*/
 
-    public class SkillsDataObject
-    {
-        public Dictionary<string, string> skillsData;
+	public class SkillsDataObject
+	{
+		public Dictionary<string, string> skillsData;
 
-        public SkillsDataObject()
-        {
-            this.skillsData = new Dictionary<string, string>();
-        }
-    }
+		public SkillsDataObject()
+		{
+			this.skillsData = new Dictionary<string, string>();
+		}
+	}
 
 }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
-    internal abstract class InfoPage
-    {
-        internal string pageName;
+	internal abstract class InfoPage
+	{
+		internal string pageName;
 
 		internal readonly Visibility menuVisibility;
 		internal readonly Visibility visibility;
@@ -20,13 +16,13 @@ namespace ModComponentMapper
 			menuVisibility.SetVisible(false);
 			visibility = new Visibility(menuVisibility);
 		}
-		
-        internal void AddToGUI(GUI gui)
-        {
-            GUIBuilder guiBuilder = new GUIBuilder(pageName, gui);
+
+		internal void AddToGUI(GUI gui)
+		{
+			GUIBuilder guiBuilder = new GUIBuilder(pageName, gui);
 			MakeGUIContents(guiBuilder);
 			guiBuilder.AddPage(this);
-        }
+		}
 
 		protected abstract void MakeGUIContents(GUIBuilder guiBuilder);
 

@@ -2,9 +2,9 @@
 
 namespace ModComponentMapper
 {
-    internal class TestPatches
-    {
-        /*[HarmonyPatch(typeof(GameManager), "Update")]
+	internal class TestPatches
+	{
+		/*[HarmonyPatch(typeof(GameManager), "Update")]
         internal class GameUpdateTestPatch
         {
             private static void Postfix()
@@ -13,16 +13,16 @@ namespace ModComponentMapper
             }
         }*/
 
-        [HarmonyPatch(typeof(GameManager), "Awake")]
-        internal class GameAwakeTestPatch
-        {
-            private static void Postfix()
-            {
+		[HarmonyPatch(typeof(GameManager), "Awake")]
+		internal class GameAwakeTestPatch
+		{
+			private static void Postfix()
+			{
 
-            }
-        }
+			}
+		}
 
-        /*[HarmonyPatch(typeof(Container), "Awake")]
+		/*[HarmonyPatch(typeof(Container), "Awake")]
         internal class RandomizeLoot
         {
             private static void Postfix(Container __instance)
@@ -53,5 +53,5 @@ namespace ModComponentMapper
         }*/
 
 
-    }
+	}
 }

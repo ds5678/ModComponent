@@ -3,23 +3,30 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-	internal class DescriptionHolder : MonoBehaviour {
+	internal class DescriptionHolder : MonoBehaviour
+	{
 
-		static DescriptionHolder() {
+		static DescriptionHolder()
+		{
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<DescriptionHolder>();
 		}
 		public DescriptionHolder(System.IntPtr ptr) : base(ptr) { }
 
 		[HideFromIl2Cpp]
-		internal void SetDescription(string description, bool localize) {
-			if (localize) {
+		internal void SetDescription(string description, bool localize)
+		{
+			if (localize)
+			{
 				Text = description;
-			} else {
+			}
+			else
+			{
 				Text = Localization.Get(description);
 			}
 		}
 
-		internal string Text {
+		internal string Text
+		{
 			[HideFromIl2Cpp]
 			get;
 

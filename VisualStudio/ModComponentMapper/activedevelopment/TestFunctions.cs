@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using MelonLoader.ICSharpCode.SharpZipLib.Zip;
-using System.Text;
-using UnityEngine;
-
-namespace ModComponentMapper
+﻿namespace ModComponentMapper
 {
-    internal class TestFunctions
-    {
-        internal static void TestFunction()
-        {
-            //Quaternion x = new Quaternion()
-        }
-    }
+	internal class TestFunctions
+	{
+		internal static void TestFunction()
+		{
+			foreach (var _ in new int[1000])
+			{
+				//Logger.Log(RandomUtils.RandomInt().ToString());
+				//Logger.Log(RandomUtils.RandomDouble().ToString());
+				Logger.Log(RandomUtils.RandomFloat().ToString());
+			}
+			foreach (var _ in new int[1000])
+			{
+				Logger.Log(RandomUtils.Range(0, 27).ToString());
+			}
+		}
+	}
 }
