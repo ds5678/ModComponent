@@ -157,7 +157,7 @@ namespace ModComponentMapper
 
 		private static void PrepareScene()
 		{
-			if (ModUtils.IsNonGameScene())
+			if (ModComponentUtils.ModUtils.IsNonGameScene())
 			{
 				return;
 			}
@@ -197,7 +197,7 @@ namespace ModComponentMapper
 				}
 
 				float spawnProbability = ProbabilityManager.GetAdjustedProbability(eachGearSpawnInfo);
-				if (RandomUtils.RollChance(spawnProbability))
+				if (ModComponentUtils.RandomUtils.RollChance(spawnProbability))
 				{
 					Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
 					//Logger.Log("'{0}' instantiated in '{1}'", normalizedGearName, sceneName);

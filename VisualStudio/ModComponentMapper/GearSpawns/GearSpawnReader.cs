@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using ModComponentMapper.InformationMenu;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -28,16 +29,16 @@ namespace ModComponentMapper
 		internal static void ReadDefinitions()
 		{
 #if DEBUG
-            string gearSpawnDirectory = GetGearSpawnsDirectory();
-            if (Directory.Exists(gearSpawnDirectory))
-            {
-                ReadDefinitions(gearSpawnDirectory);
-            }
-            else
-            {
-                Logger.Log("Auxiliary gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
-                Directory.CreateDirectory(gearSpawnDirectory);
-            }
+			string gearSpawnDirectory = GetGearSpawnsDirectory();
+			if (Directory.Exists(gearSpawnDirectory))
+			{
+				ReadDefinitions(gearSpawnDirectory);
+			}
+			else
+			{
+				Logger.Log("Auxiliary gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
+				Directory.CreateDirectory(gearSpawnDirectory);
+			}
 #endif
 		}
 		private static void ReadDefinitions(string currentDirectory)

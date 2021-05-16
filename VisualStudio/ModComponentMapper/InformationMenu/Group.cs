@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.InformationMenu
 {
 	internal abstract class Group
 	{

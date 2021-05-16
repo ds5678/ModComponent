@@ -1,5 +1,6 @@
 ﻿using MelonLoader.TinyJSON;
 using ModComponentAPI;
+using ModComponentMapper.InformationMenu;
 using System;
 using System.IO;
 using UnityEngine;
@@ -38,13 +39,13 @@ namespace ModComponentMapper
 		private static void ReadDefinitions()
 		{
 #if DEBUG
-            string existingJsonDirectory = GetExistingJsonDirectory();
-            if (!Directory.Exists(existingJsonDirectory))
-            {
-                Logger.Log("Auxiliary Existing Json directory '{0}' does not exist. Creating...", existingJsonDirectory);
-                Directory.CreateDirectory(existingJsonDirectory);
-            }
-            ProcessFiles(existingJsonDirectory);
+			string existingJsonDirectory = GetExistingJsonDirectory();
+			if (!Directory.Exists(existingJsonDirectory))
+			{
+				Logger.Log("Auxiliary Existing Json directory '{0}' does not exist. Creating...", existingJsonDirectory);
+				Directory.CreateDirectory(existingJsonDirectory);
+			}
+			ProcessFiles(existingJsonDirectory);
 #endif
 			ProcessFilesFromZips();
 		}
@@ -106,7 +107,7 @@ namespace ModComponentMapper
 			{
 				if (string.IsNullOrEmpty(text)) return null;
 				ProxyObject dict = JSON.Load(text) as ProxyObject;
-				if (!JsonUtils.ContainsKey(dict, "GearName"))
+				if (!ModComponentUtils.JsonUtils.ContainsKey(dict, "GearName"))
 				{
 					Logger.LogWarning("The JSON file doesn't contain the key: 'GearName'");
 					PageManager.SetItemPackNotWorking(filePath);
@@ -133,7 +134,7 @@ namespace ModComponentMapper
 				//GameObject.DontDestroyOnLoad(newObject);
 				//AssetLoader.AlternateAssets.AddAlternateAsset(newObject);
 				ComponentJson.InitializeComponents(ref newObject, dict);
-				if (ComponentUtils.GetComponent<ModComponent>(newObject) is null) newObject.AddComponent<ModPlaceHolderComponent>();
+				if (ModComponentUtils.ComponentUtils.GetComponent<ModComponent>(newObject) is null) newObject.AddComponent<ModPlaceHolderComponent>();
 				SetWeightChange(dict);
 				return newObject;
 			}
@@ -147,7 +148,7 @@ namespace ModComponentMapper
 
 		private static void SetWeightChange(ProxyObject dict)
 		{
-			if (JsonUtils.ContainsKey(dict, "WeightKG"))
+			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "WeightKG"))
 			{
 				newWeight = dict["WeightKG"];
 				needToChangeWeight = true;
@@ -156,7 +157,7 @@ namespace ModComponentMapper
 		private static void ChangeWeight(GameObject item)
 		{
 			if (!needToChangeWeight) return;
-			GearItem gearItem = ComponentUtils.GetComponent<GearItem>(item);
+			GearItem gearItem = ModComponentUtils.ComponentUtils.GetComponent<GearItem>(item);
 			if (gearItem == null)
 			{
 				Logger.Log("Could not assign new weight. Item has no GearItem component.");

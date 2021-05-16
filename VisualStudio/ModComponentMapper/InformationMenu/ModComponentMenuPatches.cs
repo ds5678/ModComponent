@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.InformationMenu
 {
 
 	internal static class ModComponentMenuPatches

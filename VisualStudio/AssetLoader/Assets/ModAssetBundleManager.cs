@@ -18,7 +18,6 @@ namespace AssetLoader
 		private static Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
 		private static Dictionary<string, string> knownAssetMappedNames = new Dictionary<string, string>();
 		private static Dictionary<string, AssetBundle> knownAssetNames = new Dictionary<string, AssetBundle>();
-		internal static bool loadingFromExternalBundle = false;
 
 		public static AssetBundle GetAssetBundle(string relativePath)
 		{
@@ -38,9 +37,7 @@ namespace AssetLoader
 
 			if (knownAssetNames.TryGetValue(fullAssetName, out AssetBundle assetBundle))
 			{
-				loadingFromExternalBundle = true;
-				UnityEngine.Object result = assetBundle.LoadAsset(fullAssetName);
-				loadingFromExternalBundle = false;
+				UnityEngine.Object result = ModComponentUtils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
 				return result;
 			}
 
@@ -185,28 +182,8 @@ namespace AssetLoader
 
 				if (assetName == ASSET_NAME_LOCALIZATION)
 				{
-					if (Localization.IsInitialized())
-					{
-						Object asset = assetBundle.LoadAsset(eachAssetName);
-						if (eachAssetName.ToLower().EndsWith(".json"))
-						{
-							LocalizationManager.LoadJSONLocalization(asset);
-						}
-						else if (eachAssetName.ToLower().EndsWith(".csv"))
-						{
-							LocalizationManager.LoadCSVLocalization(asset);
-						}
-						else
-						{
-							Logger.LogWarning("Found localization '{0}' that could not be loaded.", eachAssetName);
-						}
-					}
-					else
-					{
-						Logger.Log("Localization not initialized. Adding asset name to waitlist.");
-						LocalizationManager.localizationWaitlistAssets.Add(eachAssetName);
-						LocalizationManager.localizationWaitlistBundles.Add(relativePath);
-					}
+					Object asset = assetBundle.LoadAsset(eachAssetName);
+					LocalizationManager.AddToWaitlist(asset, eachAssetName, relativePath);
 					continue;
 				}
 

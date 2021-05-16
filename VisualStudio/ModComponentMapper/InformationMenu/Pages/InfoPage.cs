@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.InformationMenu
 {
 	internal abstract class InfoPage
 	{

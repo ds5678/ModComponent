@@ -30,9 +30,9 @@
 			GearItem gearItem = this.GetComponent<GearItem>();
 			if (powderItem && gearItem && !gearItem.m_BeenInspected && ChanceFull != 100f)
 			{
-				if (!ModComponentMapper.RandomUtils.RollChance(ChanceFull))
+				if (!ModComponentUtils.RandomUtils.RollChance(ChanceFull))
 				{
-					powderItem.m_WeightKG = powderItem.m_WeightLimitKG * ModComponentMapper.RandomUtils.Range(0.125f, 1f);
+					powderItem.m_WeightKG = powderItem.m_WeightLimitKG * ModComponentUtils.RandomUtils.Range(0.125f, 1f);
 				}
 			}
 		}

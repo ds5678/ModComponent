@@ -36,13 +36,13 @@ namespace ModComponentAPI
 			StackableItem stackable = gearItem?.GetComponent<StackableItem>();
 			if (stackable && gearItem && !gearItem.m_BeenInspected)
 			{
-				if (stackable.m_UnitsPerItem == 1 || ModComponentMapper.RandomUtils.RollChance(this.ChanceFull))
+				if (stackable.m_UnitsPerItem == 1 || ModComponentUtils.RandomUtils.RollChance(this.ChanceFull))
 				{
 					stackable.m_Units = stackable.m_UnitsPerItem;
 				}
 				else
 				{
-					stackable.m_Units = ModComponentMapper.RandomUtils.Range(1, stackable.m_UnitsPerItem);
+					stackable.m_Units = ModComponentUtils.RandomUtils.Range(1, stackable.m_UnitsPerItem);
 				}
 			}
 		}

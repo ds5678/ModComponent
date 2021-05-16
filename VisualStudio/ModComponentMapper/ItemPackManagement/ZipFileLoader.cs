@@ -1,4 +1,5 @@
 ﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
+using ModComponentMapper.InformationMenu;
 using System;
 using System.IO;
 using System.Reflection;
@@ -47,11 +48,11 @@ namespace ModComponentMapper
 			foreach (string eachFile in files)
 			{
 #if DEBUG
-                if (eachFile.ToLower().EndsWith(".modcomponent") || eachFile.ToLower().EndsWith(".zip"))
-                {
-                    PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
-                    LoadZipFile(eachFile);
-                }
+				if (eachFile.ToLower().EndsWith(".modcomponent") || eachFile.ToLower().EndsWith(".zip"))
+				{
+					PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
+					LoadZipFile(eachFile);
+				}
 #else
 				if (eachFile.ToLower().EndsWith(".modcomponent"))
 				{
@@ -123,6 +124,7 @@ namespace ModComponentMapper
 		internal static string ReadToString(MemoryStream memoryStream)
 		{
 			Encoding encoding = GetEncoding(memoryStream);
+			//Logger.Log(encoding.EncodingName);
 			return encoding.GetString(memoryStream.ToArray());
 		}
 		internal static FileType GetFileType(string filename)
@@ -152,6 +154,11 @@ namespace ModComponentMapper
 			{
 				Logger.Log("Reading existing json from zip at '{0}'", internalPath);
 				JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Existing);
+			}
+			else if (internalPath.StartsWith(@"localizations/"))
+			{
+				Logger.Log("Reading json localization from zip at '{0}'", internalPath);
+				AssetLoader.LocalizationManager.AddToWaitlist(text);
 			}
 		}
 		private static void HandleTxt(string internalPath, string text, string fullPath)
@@ -184,7 +191,7 @@ namespace ModComponentMapper
 		}
 		private static string GetPathRelativeToModsFolder(string fullPath)
 		{
-			return FileUtils.GetRelativePath(fullPath, ModComponentMain.Implementation.GetModsFolderPath());
+			return ModComponentUtils.FileUtils.GetRelativePath(fullPath, ModComponentMain.Implementation.GetModsFolderPath());
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿namespace ModComponentMapper
+﻿namespace ModComponentMapper.InformationMenu
 {
 	internal class ItemPacksTestPage : InfoPage
 	{

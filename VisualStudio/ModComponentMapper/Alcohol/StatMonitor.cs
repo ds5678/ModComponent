@@ -14,7 +14,7 @@ namespace ModComponentMapper
 		public float getRateOfChange()
 		{
 			float result;
-			if (ModUtils.AlmostZero(hourlyChange)) result = 0;
+			if (ModComponentUtils.ModUtils.AlmostZero(hourlyChange)) result = 0;
 			else if (hourlyBaseline > 0)
 			{
 				result = Mathf.Min(hourlyChange / hourlyBaseline, 1) + Mathf.Max(0, hourlyChange - hourlyBaseline) * scale;

@@ -40,7 +40,7 @@ namespace ModComponentMapper
     {
         public static bool Prefix(SkillsManager __instance, ref Skill __result, SkillType skillType)
         {
-            //List<Skill> m_Skills = ModUtils.GetFieldValue<List<Skill>>(__instance, "m_Skills");
+            //List<Skill> m_Skills = ModComponentUtils.ModUtils.GetFieldValue<List<Skill>>(__instance, "m_Skills");
             //__result = m_Skills.Find(skill => skill.m_SkillType == skillType);
             //return false;
             Logger.Log("Getting '{0}' skill", skillType.ToString());

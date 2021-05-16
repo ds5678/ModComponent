@@ -5,15 +5,16 @@ This is a library for modding **The Long Dark** by Hinterland Games Studio, Inc.
 It allows:
 
 * Creating Unity assets that can be used as fully compatible in-game items.
-* Preloading in-game assets for use in other mods.
+* Adding custom crafting blueprints.
+* Adding spawn points for modded and vanilla game items.
 
 > This library is only infrastructure for mods and does not provide any assets or asset bundles.
 
-Requires [AssetLoader](https://github.com/ds5678/AssetLoader) and [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings)
+Requires [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings)
 
 ## Special Thanks
 
-[WulfMarius](https://github.com/WulfMarius) is the original creator of ModComponent. I am very grateful for all the contributions he made to the modding community, and I'm honored to have adopted so many of his mods. Rebuilding and improving ModComponent has been incredibly fun despite all the time it's taken. Although more than half of the code is my own now, this project would not have been possible for me without the framework he left behind.
+[WulfMarius](https://github.com/WulfMarius) is the original creator of ModComponent. I am very grateful for all the contributions he made to the modding community, and I'm honored to have adopted so many of his mods. Rebuilding and improving ModComponent has been incredibly fun despite all the time it's taken. Although much more than half of the code is my own now, this project was built on the framework he left behind.
 
 ModComponent's Menu system was adapted from [zeobviouslyfakeacc](https://github.com/zeobviouslyfakeacc)'s [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings) and borrows heavily from its code base.
 

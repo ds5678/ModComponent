@@ -22,7 +22,7 @@ namespace ModComponentAPI
 				return;
 			}
 
-			int index = ModComponentMapper.RandomUtils.Range(0, this.ItemNames.Length);
+			int index = ModComponentUtils.RandomUtils.Range(0, this.ItemNames.Length);
 			GameObject prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
 			if (prefab is null)
 			{

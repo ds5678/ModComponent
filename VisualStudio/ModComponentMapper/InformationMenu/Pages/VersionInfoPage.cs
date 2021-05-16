@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.InformationMenu
 {
 	internal class VersionInfoPage : InfoPage
 	{

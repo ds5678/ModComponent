@@ -1,4 +1,5 @@
 ﻿using ModComponentAPI;
+using ModComponentMapper.InformationMenu;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,13 +21,13 @@ namespace ModComponentMapper
 		internal static void ReadDefinitions()
 		{
 #if DEBUG
-            string blueprintsDirectory = GetBlueprintsDirectory();
-            if (!Directory.Exists(blueprintsDirectory))
-            {
-                Logger.Log("Auxiliary Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
-                Directory.CreateDirectory(blueprintsDirectory);
-            }
-            ProcessFiles(blueprintsDirectory);
+			string blueprintsDirectory = GetBlueprintsDirectory();
+			if (!Directory.Exists(blueprintsDirectory))
+			{
+				Logger.Log("Auxiliary Blueprints directory '{0}' does not exist. Creating...", blueprintsDirectory);
+				Directory.CreateDirectory(blueprintsDirectory);
+			}
+			ProcessFiles(blueprintsDirectory);
 #endif
 			ProcessFiles(JsonHandler.blueprintJsons);
 		}

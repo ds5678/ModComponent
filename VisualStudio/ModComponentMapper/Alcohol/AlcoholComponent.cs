@@ -23,7 +23,7 @@ namespace ModComponentMapper
 		[HideFromIl2Cpp]
 		internal static void UpdateAlcoholValues(FoodItem foodItem)
 		{
-			AlcoholComponent alcoholComponent = ComponentUtils.GetComponent<AlcoholComponent>(foodItem);
+			AlcoholComponent alcoholComponent = ModComponentUtils.ComponentUtils.GetComponent<AlcoholComponent>(foodItem);
 			if (alcoholComponent != null)
 			{
 				ModComponentAPI.CopyFieldHandler.UpdateFieldValues<AlcoholComponent>(alcoholComponent);
@@ -37,7 +37,7 @@ namespace ModComponentMapper
 	{
 		public static void Postfix(GearItem __instance, float normalizedValue)
 		{
-			AlcoholComponent alcoholComponent = ComponentUtils.GetComponent<AlcoholComponent>(__instance);
+			AlcoholComponent alcoholComponent = ModComponentUtils.ComponentUtils.GetComponent<AlcoholComponent>(__instance);
 			if (alcoholComponent != null)
 			{
 				alcoholComponent.Apply(normalizedValue);

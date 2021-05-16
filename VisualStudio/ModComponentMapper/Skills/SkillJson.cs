@@ -17,7 +17,7 @@ namespace ModComponentMapper
 
 		public static void InitializeModSkill(ref GameObject prefab, ProxyObject dict, string className = "ModSkill")
 		{
-			if (prefab == null || prefab.GetComponent<ModSkill>() != null || !JsonUtils.ContainsKey(dict, className)) return;
+			if (prefab == null || prefab.GetComponent<ModSkill>() != null || !ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
 			ModSkill newSkill = prefab.AddComponent<ModSkill>();
 			newSkill.DisplayName = dict[className]["DisplayName"];
 			newSkill.Icon = dict[className]["Icon"];

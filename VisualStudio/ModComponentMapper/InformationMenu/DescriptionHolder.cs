@@ -1,7 +1,7 @@
 ﻿using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.InformationMenu
 {
 	internal class DescriptionHolder : MonoBehaviour
 	{

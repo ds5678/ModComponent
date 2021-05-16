@@ -14,14 +14,14 @@ namespace Preloader
 		{
 			PreloadingManager.preloadingObjects = true;
 			yield return null;
-
-			yield return MelonLoader.MelonCoroutines.Start(ScenePreloader.PreloadPlayerObject());
-
+			//Logger.LogBlue("Preloading player object");
+			//yield return MelonLoader.MelonCoroutines.Start(ScenePreloader.PreloadPlayerObject());
+			//Logger.LogBlue("Preloading other objects");
 			foreach (var pair in SceneObjects.loadList)
 			{
 				yield return MelonLoader.MelonCoroutines.Start(ScenePreloader.PreloadScene(pair.Key, pair.Value));
 			}
-
+			//Logger.LogBlue("Done in IEnumerator");
 			PreloadingManager.preloadingObjects = false;
 			PreloadingManager.loadingMainMenu = true;
 			var mainMenuAsync = USceneManager.LoadSceneAsync("MainMenu");
@@ -37,6 +37,7 @@ namespace Preloader
 			Logger.Log($"Loading scene \"{sceneName}\"");
 
 			var async = USceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+			//async.allowSceneActivation = false;
 
 			while (!async.isDone)
 			{
@@ -118,7 +119,7 @@ namespace Preloader
 
 				// Create inactive duplicate of requested object
 				obj = Object.Instantiate(obj);
-				obj.name = ModComponentMapper.NameUtils.NormalizeName(obj.name);
+				obj.name = ModComponentUtils.NameUtils.NormalizeName(obj.name);
 				Object.DontDestroyOnLoad(obj);
 				obj.SetActive(false);
 
@@ -149,10 +150,11 @@ namespace Preloader
 			string objName = "Root/Design/Scripting/SCRIPT_GameManager";
 
 			var async = USceneManager.LoadSceneAsync("CampOffice", LoadSceneMode.Additive);
+			//async.allowSceneActivation = false;
 
 			while (!async.isDone)
 			{
-				//Logger.Log(async.progress.ToString());
+				Logger.Log(async.progress.ToString());
 				yield return null;
 			}
 			Scene scene = USceneManager.GetSceneByName("CampOffice");
@@ -201,7 +203,7 @@ namespace Preloader
 			if (gameManager?.m_PlayerObjectPrefab != null)
 			{
 				GameObject prefab = Object.Instantiate(gameManager.m_PlayerObjectPrefab);
-				prefab.name = ModComponentMapper.NameUtils.NormalizeName(prefab.name);
+				prefab.name = ModComponentUtils.NameUtils.NormalizeName(prefab.name);
 				Object.DontDestroyOnLoad(prefab);
 				prefab.SetActive(false);
 				modScenePreloadedObjects[prefab.name] = prefab;

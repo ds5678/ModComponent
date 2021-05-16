@@ -1,6 +1,6 @@
 ﻿using Harmony;
 
-namespace ModComponentMapper.patches
+namespace ModComponentMapper.Patches
 {
 	internal static class WatchHandleCraftingSuccess
 	{

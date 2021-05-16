@@ -19,6 +19,10 @@
 		internal static void LogError(string message, params object[] parameters) => ModComponentMain.Logger.LogError(GetFormattedString(message, parameters));
 
 
+		//Blue Messages
+		internal static void LogBlue(string message, params object[] parameters) => ModComponentMain.Logger.LogBlue(GetFormattedString(message, parameters));
+
+
 		//Debug Messages show only when in debug mode
 		internal static void LogDebug(string message, params object[] parameters) => ModComponentMain.Logger.LogDebug(GetFormattedString(message, parameters));
 

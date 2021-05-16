@@ -2,7 +2,7 @@
 using ModComponentAPI;
 using ModComponentMapper.SaveData;
 
-namespace ModComponentMapper.patches
+namespace ModComponentMapper.Patches
 {
 	[HarmonyPatch(typeof(GearItem), "Deserialize")]//Exists
 	public class GearItem_Deserialize

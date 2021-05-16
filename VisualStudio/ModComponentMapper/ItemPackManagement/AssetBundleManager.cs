@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModComponentMapper.InformationMenu;
+using System;
 using System.Collections.Generic;
 
 namespace ModComponentMapper

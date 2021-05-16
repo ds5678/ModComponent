@@ -58,7 +58,7 @@ namespace ModComponentAPI
 		{
 			if (this.ItemNames.Length == 1) return 0;
 
-			int randomValue = ModComponentMapper.RandomUtils.Range(0, GetTotalWeight());
+			int randomValue = ModComponentUtils.RandomUtils.Range(0, GetTotalWeight());
 			int runningTotal = 0;
 			int count = 0;
 			foreach (int weight in this.ItemWeights)

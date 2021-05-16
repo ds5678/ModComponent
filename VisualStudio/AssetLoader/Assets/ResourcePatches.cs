@@ -42,7 +42,7 @@ namespace AssetLoader
 		{
 			private static bool Prefix(string name, ref UnityEngine.Object __result)
 			{
-				if (ModAssetBundleManager.loadingFromExternalBundle || !AssetManager.IsKnownAsset(name)) return true;
+				if (!AssetManager.IsKnownAsset(name)) return true;
 
 				__result = AssetManager.GetAsset(name);
 				if (__result == null) Logger.LogWarning("AssetBundle.LoadAsset failed to load the external asset '{0}'", name);

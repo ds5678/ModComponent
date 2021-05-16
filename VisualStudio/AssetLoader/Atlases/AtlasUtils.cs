@@ -1,6 +1,6 @@
 ﻿namespace AssetLoader
 {
-	public static class AtlasUtils
+	internal static class AtlasUtils
 	{
 		internal static UIAtlas GetRequiredAtlas(UISprite sprite, string value)
 		{

@@ -26,4 +26,14 @@ namespace Preloader
 			MoviePlayer.m_HasIntroPlayedForMainMenu = true;
 		}
 	}
+	/*[HarmonyPriority(Priority.First)]
+	[HarmonyPatch(typeof(BootUpdate),"Start")]
+	internal class BootUpdate_Start
+	{
+		private static void Prefix()
+		{
+			AlternativePreloader.PreloadScenes();
+			Logger.LogBlue("Done in patch");
+		}
+	}*/
 }

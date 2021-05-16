@@ -1,4 +1,6 @@
-﻿namespace ModComponentMapper
+﻿using ModComponentMapper.InformationMenu;
+
+namespace ModComponentMapper
 {
 	public class MapperImplementation
 	{

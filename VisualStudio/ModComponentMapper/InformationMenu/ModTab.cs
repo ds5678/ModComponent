@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Il2Cpp = Il2CppSystem.Collections.Generic;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.InformationMenu
 {
 	internal class ModTab
 	{

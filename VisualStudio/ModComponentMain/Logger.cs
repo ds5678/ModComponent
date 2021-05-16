@@ -23,12 +23,16 @@ namespace ModComponentMain
 		//Debug Messages show only when in debug mode
 		internal static void LogDebug(string message, params object[] parameters)
 		{
-			if (ModComponentMain.Settings.options.debugMode) Log(message, parameters);
+#if DEBUG
+			Log(message, parameters);
+#endif
 		}
 		//Not Debug Messages show only when not in debug mode
 		internal static void LogNotDebug(string message, params object[] parameters)
 		{
-			if (!ModComponentMain.Settings.options.debugMode) Log(message, parameters);
+#if !DEBUG
+			Log(message, parameters);
+#endif
 		}
 	}
 }

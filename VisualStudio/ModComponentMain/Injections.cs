@@ -30,6 +30,7 @@
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModCookableComponent>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModCookingPotComponent>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModExplosiveComponent>();
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModExplosiveSave>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFirstAidComponent>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFoodComponent>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModGenericComponent>();
