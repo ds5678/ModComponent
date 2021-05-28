@@ -1,7 +1,7 @@
 {
     "ModPowderComponent": {
-                                "DisplayNameLocalizationId" : "GAMEPLAY_MetalWaterBottle",
-                                "DescriptionLocalizatonId" : "GAMEPLAY_MetalWaterBottleDescription",
+                                "DisplayNameLocalizationId" : "GAMEPLAY_SampleItem",
+                                "DescriptionLocalizatonId" : "GAMEPLAY_SampleItemDescription",
                                 "InventoryActionLocalizationId" : "",
                                 "WeightKG": 0,
                                 "DaysToDecay" : 0,

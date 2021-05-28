@@ -42,7 +42,7 @@ namespace ModComponentMapper.InformationMenu
 					return;
 
 				BasicMenu basicMenu = __instance.m_BasicMenu;
-				if (basicMenu == null)
+				if (basicMenu is null)
 					return;
 
 				//AddAnotherMenuItem(basicMenu); // We need one more than they have...

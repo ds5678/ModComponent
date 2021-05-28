@@ -1,6 +1,5 @@
 {
     "ModCollectibleComponent": {
-                                "ConsoleName" : "SampleNote",
                                 "DisplayNameLocalizationId" : "GAMEPLAY_SampleNote",
                                 "DescriptionLocalizatonId" : "GAMEPLAY_SampleNoteDescription",
                                 "InventoryActionLocalizationId" : "",

@@ -2,7 +2,7 @@
     "ModFoodComponent" : {
                             "DisplayNameLocalizationId" : "GAMEPLAY_HotCocoaCup",
                             "DescriptionLocalizatonId" : "GAMEPLAY_HotCocoaCupDescription",
-                            "InventoryActionLocalizationId" : "GAMEPLAY_HotCocoaCupAction",
+                            "InventoryActionLocalizationId" : "",
                             "WeightKG": 0.1,
                             "DaysToDecay" : 0,
                             "MaxHP" : 100,

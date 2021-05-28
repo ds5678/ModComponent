@@ -18,7 +18,7 @@ namespace ModComponentMapper.Patches
 			//foreach (ModSaveBehaviour modSaveBehaviour in modSaveComponents)
 			{
 				ModSaveBehaviour modSaveBehaviour = component.TryCast<ModSaveBehaviour>();
-				if (modSaveBehaviour == null)
+				if (modSaveBehaviour is null)
 				{
 					continue;
 				}
@@ -26,7 +26,7 @@ namespace ModComponentMapper.Patches
 				try
 				{
 					string data = SaveDataManager.GetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType());
-					//if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+					//if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
 					//if (!string.IsNullOrEmpty(data)) Logger.Log(data);
 					modSaveBehaviour.Deserialize(data);
 					//Logger.Log("Deserialized custom save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -37,7 +37,7 @@ namespace ModComponentMapper.Patches
 				}
 			}
 			/*ModSaveBehaviour modSaveBehaviour = __instance.GetComponent<ModSaveBehaviour>();
-            if (modSaveBehaviour == null)
+            if (modSaveBehaviour is null)
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace ModComponentMapper.Patches
             try
             {
                 string data = SaveDataManager.GetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType());
-                if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+                if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
                 if (!string.IsNullOrEmpty(data)) Logger.Log(data);
                 modSaveBehaviour.Deserialize(data);
                 Logger.Log("Deserialized custom save data for {0} of type {1}",modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -68,7 +68,7 @@ namespace ModComponentMapper.Patches
 			foreach (UnityEngine.Component component in components)
 			{
 				ModSaveBehaviour modSaveBehaviour = component.TryCast<ModSaveBehaviour>();
-				if (modSaveBehaviour == null)
+				if (modSaveBehaviour is null)
 				{
 					continue;
 				}
@@ -76,7 +76,7 @@ namespace ModComponentMapper.Patches
 				try
 				{
 					string data = modSaveBehaviour.Serialize();
-					//if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+					//if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
 					//if (!string.IsNullOrEmpty(data)) Logger.Log(data);
 					SaveDataManager.SetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType(), data);
 					//Logger.Log("Serialized custom save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -88,7 +88,7 @@ namespace ModComponentMapper.Patches
 			}
 
 			/*ModSaveBehaviour modSaveBehaviour = __instance.GetComponent<ModSaveBehaviour>();
-            if (modSaveBehaviour == null)
+            if (modSaveBehaviour is null)
             {
                 return;
             }
@@ -96,7 +96,7 @@ namespace ModComponentMapper.Patches
             try
             {
                 string data = modSaveBehaviour.Serialize();
-                if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+                if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
                 if (!string.IsNullOrEmpty(data)) Logger.Log(data);
                 SaveDataManager.SetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType(), data);
                 Logger.Log("Serialized custom save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -125,7 +125,7 @@ namespace ModComponentMapper.Patches
 			//Logger.Log("Filename: '{0}'",filename);
 			//string text = SaveGameSlots.LoadDataFromSlot(name, sceneSaveName + SaveDataManager.DATA_FILENAME_SUFFIX);
 			string text = SaveGameSlots.LoadDataFromSlot(name, filename);
-			//if (text == null) Logger.LogError("Found no data in the slot!");
+			//if (text is null) Logger.LogError("Found no data in the slot!");
 			//else Logger.Log(text);
 			SaveDataManager.Deserialize(text);
 		}
@@ -147,7 +147,7 @@ namespace ModComponentMapper.Patches
 			string filename = "global" + SaveDataManager.DATA_FILENAME_SUFFIX;
 			//Logger.Log("Filename: '{0}'", filename);
 			string text = SaveGameSlots.LoadDataFromSlot(name, filename);
-			//if (text == null) Logger.LogError("Found no data in the slot!");
+			//if (text is null) Logger.LogError("Found no data in the slot!");
 			//else Logger.Log(text);
 			SaveDataManager.Deserialize(text);
 		}

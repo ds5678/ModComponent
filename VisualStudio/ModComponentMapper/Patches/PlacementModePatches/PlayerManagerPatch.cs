@@ -1,7 +1,8 @@
-﻿using Harmony;
+﻿/*using Harmony;
 using UnityEngine;
 
-//did a first pass through 
+//I think this does nothing
+
 //HAS A TRANSPILER PATCH, which I think I fixed
 //Inline patch probably fixed
 //does not need to be declared
@@ -14,6 +15,7 @@ namespace ModComponentMapper
 	{
 		internal static void Postfix(PlayerManager __instance, GameObject go)
 		{
+			Logger.Log("RestoreOriginalTint");
 			Object.Destroy(go.GetComponent<RestoreMaterialQueue>());
 		}
 	}
@@ -33,6 +35,7 @@ namespace ModComponentMapper
 	{
 		internal static void Prefix(PlayerManager __instance)
 		{
+			Logger.Log("PrepareGhostedObject");
 			if (__instance.m_ObjectToPlace)
 			{
 				__instance.m_ObjectToPlace.AddComponent<RestoreMaterialQueue>();
@@ -45,6 +48,7 @@ namespace ModComponentMapper
 	{
 		internal static void Prefix(PlayerManager __instance)
 		{
+			Logger.Log("OnPlaceMeshAnimationEvent");
 			if (__instance.m_ObjectToPlace)
 			{
 				__instance.m_ObjectToPlace.AddComponent<RestoreMaterialQueue>();
@@ -52,4 +56,4 @@ namespace ModComponentMapper
 		}
 	}
 	//End Replacement Patches
-}
+}*/

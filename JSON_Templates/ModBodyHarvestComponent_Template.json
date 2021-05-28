@@ -2,7 +2,7 @@
     "ModBodyHarvestComponent": {
                                 "DisplayNameLocalizationId" : "GAMEPLAY_SampleItem",
                                 "DescriptionLocalizatonId" : "GAMEPLAY_SampleItemDescription",
-                                "InventoryActionLocalizationId" : "GAMEPLAY_SampleItemAction",
+                                "InventoryActionLocalizationId" : "",
                                 "WeightKG": 0.1,
                                 "DaysToDecay" : 0,
                                 "MaxHP" : 100,

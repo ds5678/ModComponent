@@ -40,11 +40,11 @@ namespace ModComponentMain
 		[Description("If yes, plastic water bottles will have a random amount of water when you find them.")]
 		public bool randomPlasticWaterBottles = false;
 
-		[Section("Advanced")]
-		[Name("Debug Mode")]
-		[Description("Leave this on if you want technical support. Only affects the Melonloader log output.")]
-		public bool debugMode = true;
+		[Name("Tertiary Key Code")]
+		[Description("The key for tertiary actions. Does nothing unless a mod uses this feature.")]
+		public UnityEngine.KeyCode tertiaryKeyCode = UnityEngine.KeyCode.Mouse2;
 
+		[Section("Advanced")]
 		[Name("Always Spawn Loose Items")]
 		[Description("For testing and new spawn point creation. Converts all loose spawn points into guaranteed spawns. Does not necessarily work on existing saves.")]
 		public bool alwaysSpawnItems = false;

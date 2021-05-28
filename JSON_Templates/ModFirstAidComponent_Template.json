@@ -8,7 +8,6 @@
                                 "DaysToDecay" : 0,
                                 "MaxHP" : 100,
                                 "InventoryCategory" : "FirstAid",
-                                "Radial" : "None",
                                 "PickUpAudio" : "",
                                 "PutBackAudio" : "",
                                 "StowAudio" : "Play_InventoryStow",

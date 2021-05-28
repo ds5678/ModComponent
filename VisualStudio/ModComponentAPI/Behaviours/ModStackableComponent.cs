@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ModComponentUtils;
+using UnityEngine;
 
 namespace ModComponentAPI
 {
@@ -20,7 +21,7 @@ namespace ModComponentAPI
 		public string StackSprite;
 
 		/// <summary>
-		/// The default number of item to make a full stack.
+		/// The default number of units to make a full stack.
 		/// </summary>
 		public int UnitsPerItem = 1;
 

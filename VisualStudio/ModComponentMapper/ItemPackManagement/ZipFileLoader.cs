@@ -16,6 +16,7 @@ namespace ModComponentMapper
 		txt,
 		dll,
 		bnk,
+		image,
 		other
 	}
 
@@ -109,6 +110,10 @@ namespace ModComponentMapper
 							Logger.Log("Loading bnk from zip at '{0}'", internalPath);
 							AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
 							break;
+						case FileType.image:
+							//Logger.Log("Loading image from zip at '{0}'", internalPath);
+							//SkinManager.ConvertImage(internalPath,unzippedFileStream.ToArray());
+							break;
 					}
 				}
 			}
@@ -129,12 +134,13 @@ namespace ModComponentMapper
 		}
 		internal static FileType GetFileType(string filename)
 		{
-			if (String.IsNullOrEmpty(filename)) return FileType.other;
+			if (String.IsNullOrWhiteSpace(filename)) return FileType.other;
 			if (filename.EndsWith(".unity3d")) return FileType.unity3d;
 			if (filename.EndsWith(".json")) return FileType.json;
 			if (filename.EndsWith(".txt")) return FileType.txt;
 			if (filename.EndsWith(".dll")) return FileType.dll;
 			if (filename.EndsWith(".bnk")) return FileType.bnk;
+			if (filename.EndsWith(".png") || filename.EndsWith(".jpg")) return FileType.image;
 			return FileType.other;
 		}
 		private static void HandleJson(string internalPath, string text, string fullPath)

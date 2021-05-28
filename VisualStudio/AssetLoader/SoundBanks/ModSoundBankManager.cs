@@ -31,7 +31,7 @@ namespace AssetLoader
 		}
 		public static void RegisterSoundBank(byte[] data)
 		{
-			if (data == null) throw new System.ArgumentNullException("Data for sound bank was null");
+			if (data is null) throw new System.ArgumentNullException("Data for sound bank was null");
 			if (DelayLoadingSoundBanks)
 			{
 				Logger.Log("Adding sound bank to the list of pending sound banks.");

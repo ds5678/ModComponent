@@ -13,7 +13,7 @@ namespace ModComponentMapper
 		{
 			PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 			ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-			if (animation == null)
+			if (animation is null)
 			{
 				return;
 			}

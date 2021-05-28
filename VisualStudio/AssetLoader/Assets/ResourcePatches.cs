@@ -8,6 +8,7 @@ namespace AssetLoader
 	{
 		// Hinterland loads assets by calling Resources.Load which ignores external AssetBundles
 		// so we need to patch Resources.Load to redirect specific calls to load from the AssetBundle instead
+		// Most of the gear items are in the resources
 		[HarmonyPatch]
 		internal class Resources_Load
 		{
@@ -24,8 +25,10 @@ namespace AssetLoader
 				Logger.LogError("Resources.Load not found for patch.");
 				return null;
 			}
-			internal static bool Prefix(string path, ref UnityEngine.Object __result)
+			internal static bool Prefix(ref string path, ref UnityEngine.Object __result)
 			{
+				if (AlternateNameManager.ContainsKey(path)) path = AlternateNameManager.GetAlternateName(path);
+
 				if (!AssetManager.IsKnownAsset(path)) return true;
 
 				__result = AssetManager.GetAsset(path);
@@ -40,12 +43,14 @@ namespace AssetLoader
 		[HarmonyPatch(typeof(UnityEngine.AssetBundle), "LoadAsset", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
 		internal class AssetBundle_LoadAsset
 		{
-			private static bool Prefix(string name, ref UnityEngine.Object __result)
+			private static bool Prefix(ref string name, ref UnityEngine.Object __result)
 			{
+				if (AlternateNameManager.ContainsKey(name)) name = AlternateNameManager.GetAlternateName(name);
+
 				if (!AssetManager.IsKnownAsset(name)) return true;
 
 				__result = AssetManager.GetAsset(name);
-				if (__result == null) Logger.LogWarning("AssetBundle.LoadAsset failed to load the external asset '{0}'", name);
+				if (__result is null) Logger.LogWarning("AssetBundle.LoadAsset failed to load the external asset '{0}'", name);
 				return false;
 			}
 		}

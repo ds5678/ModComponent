@@ -68,7 +68,7 @@ namespace ModComponentMapper
 
 		private static string GetTrimmedLine(string line)
 		{
-			if (line == null)
+			if (line is null)
 			{
 				return "";
 			}

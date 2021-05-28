@@ -2,10 +2,6 @@
 {
 	internal static class Injections
 	{
-		internal static void AssetLoader_Injections()
-		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AssetLoader.SaveAtlas>();
-		}
 		internal static void API_Injections()
 		{
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ChangeLayer>();
@@ -47,15 +43,6 @@
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModBlueprint>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSkill>();
 			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.PlayAkSound>();
-		}
-		internal static void Mapper_Injections()
-		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.AlcoholComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModAnimationStateMachine>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.FixMuzzleFlashTransformParent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.RestoreMaterialQueue>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModHealthManager>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModPlaceHolderComponent>();
 		}
 	}
 }

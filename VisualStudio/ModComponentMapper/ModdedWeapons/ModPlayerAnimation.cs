@@ -5,8 +5,6 @@ using UnityEngine;
 using static PlayerAnimation;
 using static PlayerAnimation.State;
 
-//
-
 namespace ModComponentMapper
 {
 	public delegate void OnStateChanged(State oldState, State newState);
@@ -56,6 +54,8 @@ namespace ModComponentMapper
 		[HideFromIl2Cpp]
 		static ModAnimationStateMachine()
 		{
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModAnimationStateMachine>();
+
 			transitionStates.Add(Equipping, Showing);
 			transitionDelays.Add(Equipping, 0.3f);
 

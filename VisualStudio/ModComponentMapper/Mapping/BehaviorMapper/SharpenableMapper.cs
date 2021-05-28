@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 		public static void Configure(GameObject prefab)
 		{
 			ModSharpenableComponent modSharpenableComponent = ModComponentUtils.ComponentUtils.GetComponent<ModSharpenableComponent>(prefab);
-			if (modSharpenableComponent == null) return;
+			if (modSharpenableComponent is null) return;
 
 			Sharpenable sharpenable = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Sharpenable>(modSharpenableComponent);
 

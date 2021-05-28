@@ -8,7 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModToolComponent modToolComponent = modComponent as ModToolComponent;
-			if (modToolComponent == null) return;
+			if (modToolComponent is null) return;
 
 			ToolsItem toolsItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
 

@@ -7,7 +7,7 @@ namespace ModComponentMapper
 	{
 		public static void Equip(EquippableModComponent equippable)
 		{
-			if (equippable == null) return;
+			if (equippable is null) return;
 
 			GameObject equippedModelPrefab = Resources.Load(equippable.EquippedModelPrefabName)?.Cast<GameObject>();
 			if (equippedModelPrefab != null)
@@ -25,13 +25,13 @@ namespace ModComponentMapper
 
 		public static void Unequip(EquippableModComponent modComponent)
 		{
-			if (modComponent == null) return;
+			if (modComponent is null) return;
 			else GameManager.GetPlayerManagerComponent().UnequipItemInHandsSkipAnimation();
 		}
 
 		internal static void OnUnequipped(EquippableModComponent modComponent)
 		{
-			if (modComponent == null) return;
+			if (modComponent is null) return;
 
 			if (modComponent.EquippedModel != null)
 			{

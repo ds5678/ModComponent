@@ -36,10 +36,11 @@ namespace ModComponentMapper
 		}
 
 		public ModHealthManager(IntPtr intPtr) : base(intPtr) { }
+		static ModHealthManager() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModHealthManager>();
 
 		public static void DrankAlcohol(float amount, float uptakeGameSeconds)
 		{
-			if (instance == null)
+			if (instance is null)
 			{
 				Logger.Log("ModHealthManager not initialized.");
 				return;

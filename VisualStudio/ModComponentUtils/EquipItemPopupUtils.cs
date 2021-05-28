@@ -34,9 +34,9 @@ namespace ModComponentUtils
 			equipItemPopup.m_ButtonPromptHolster.ShowPromptForKey(holsterText, "Holster");
 		}
 
-		internal static void MaybeRepositionAltFireButtonPrompt(EquipItemPopup __instance, String otherAction)
+		internal static void MaybeRepositionAltFireButtonPrompt(EquipItemPopup equipItemPopup, String otherAction)
 		{
-			__instance.MaybeRepositionAltFireButtonPrompt(otherAction);
+			equipItemPopup.MaybeRepositionAltFireButtonPrompt(otherAction);
 		}
 
 		internal static void MaybeRepositionFireButtonPrompt(EquipItemPopup equipItemPopup, String otherAction)

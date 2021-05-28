@@ -2,7 +2,7 @@
     "ModClothingComponent" : {
                             "DisplayNameLocalizationId" : "GAMEPLAY_DeerSkinCoat",
                             "DescriptionLocalizatonId" : "GAMEPLAY_DeerSkinCoatDescription",
-                            "InventoryActionLocalizationId" : "GAMEPLAY_DeerSkinCoatAction",
+                            "InventoryActionLocalizationId" : "",
                             "WeightKG": 2.75,
                             "DaysToDecay" : 1000,
                             "MaxHP" : 450,

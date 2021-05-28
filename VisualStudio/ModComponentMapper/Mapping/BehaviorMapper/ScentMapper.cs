@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(GameObject prefab)
 		{
 			ModScentComponent modScentComponent = ModComponentUtils.ComponentUtils.GetComponent<ModScentComponent>(prefab);
-			if (modScentComponent == null) return;
+			if (modScentComponent is null) return;
 
 			Scent scent = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Scent>(modScentComponent);
 			scent.m_ScentCategory = ModComponentUtils.EnumUtils.TranslateEnumValue<ScentRangeCategory, ScentCategory>(modScentComponent.scentCategory);
@@ -19,7 +19,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static float GetScentIntensity(GameObject prefab)
 		{
 			Scent scent = ModComponentUtils.ComponentUtils.GetComponent<Scent>(prefab);
-			if (scent == null) return 0f;
+			if (scent is null) return 0f;
 
 			switch (scent.m_ScentCategory)
 			{

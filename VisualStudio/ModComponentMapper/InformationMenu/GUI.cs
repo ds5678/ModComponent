@@ -117,7 +117,7 @@ namespace ModComponentMapper.InformationMenu
 
 		internal void Update()
 		{
-			if (currentTab == null)
+			if (currentTab is null)
 				return;
 			if (InputManager.GetEscapePressed(InterfaceManager.m_Panel_OptionsMenu))
 			{
@@ -176,7 +176,7 @@ namespace ModComponentMapper.InformationMenu
 			GameObject setting = currentTab.menuItems[selectedIndex];
 			DescriptionHolder description = setting.GetComponent<DescriptionHolder>();
 
-			if (description == null)
+			if (description is null)
 				return;
 
 			UILabel descriptionLabel = InterfaceManager.m_Panel_OptionsMenu.m_OptionDescriptionLabel;

@@ -6,7 +6,7 @@ namespace ModComponentUtils
 {
 	public static class JsonUtils
 	{
-		public static bool ContainsKey(MelonLoader.TinyJSON.ProxyObject dict, string key)
+		public static bool ContainsKey(ProxyObject dict, string key)
 		{
 			foreach (var pair in dict)
 			{
@@ -82,50 +82,50 @@ namespace ModComponentUtils
 
 		internal static void TrySetBool(ref bool destination, ProxyObject dict, string className, string keyName)
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
 			destination = dict[className][keyName];
 		}
 
 		internal static void TrySetEnum<T>(ref T destination, ProxyObject dict, string className, string keyName) where T : System.Enum
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = ModComponentUtils.EnumUtils.ParseEnum<T>(dict[className][keyName]);
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			destination = EnumUtils.ParseEnum<T>(dict[className][keyName]);
 		}
 
 		internal static void TrySetInt(ref int destination, ProxyObject dict, string className, string keyName)
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
 			destination = dict[className][keyName];
 		}
 
 		internal static void TrySetFloat(ref float destination, ProxyObject dict, string className, string keyName)
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
 			destination = dict[className][keyName];
 		}
 
 		internal static void TrySetString(ref string destination, ProxyObject dict, string className, string keyName)
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
 			destination = dict[className][keyName];
 		}
 
 		internal static void TrySetIntArray(ref int[] destination, ProxyObject dict, string className, string keyName)
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
 			destination = MakeIntArray(dict[className][keyName] as ProxyArray);
 		}
 
 		internal static void TrySetStringArray(ref string[] destination, ProxyObject dict, string className, string keyName)
 		{
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, className)) return;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict[className] as ProxyObject, keyName)) return;
+			if (!ContainsKey(dict, className)) return;
+			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
 			destination = MakeStringArray(dict[className][keyName] as ProxyArray);
 		}
 	}

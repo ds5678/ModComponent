@@ -1,6 +1,7 @@
 ﻿using MelonLoader.TinyJSON;
-using UnityEngine;
+using ModComponentUtils;
 using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponentAPI
 {

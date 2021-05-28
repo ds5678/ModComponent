@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(GameObject prefab)
 		{
 			ModHarvestableComponent modHarvestableComponent = ModComponentUtils.ComponentUtils.GetComponent<ModHarvestableComponent>(prefab);
-			if (modHarvestableComponent == null) return;
+			if (modHarvestableComponent is null) return;
 
 			Harvest harvest = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Harvest>(modHarvestableComponent);
 			harvest.m_Audio = modHarvestableComponent.Audio;

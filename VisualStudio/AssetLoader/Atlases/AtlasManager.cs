@@ -10,14 +10,14 @@ namespace AssetLoader
 		public static void LoadUiAtlas(Object asset)
 		{
 			GameObject gameObject = asset.Cast<GameObject>();
-			if (gameObject == null)
+			if (gameObject is null)
 			{
 				Logger.Log("Asset called '{0}' is not a GameObject as expected.", asset.name);
 				return;
 			}
 
 			UIAtlas uiAtlas = gameObject.GetComponent<UIAtlas>();
-			if (uiAtlas == null)
+			if (uiAtlas is null)
 			{
 				Logger.Log("Asset called '{0}' does not contain a UIAtlast as expected.", asset.name);
 				return;

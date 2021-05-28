@@ -7,7 +7,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			EquippableModComponent equippableModComponent = modComponent.TryCast<EquippableModComponent>();
-			if (equippableModComponent == null) return;
+			if (equippableModComponent is null) return;
 
 			if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId)
 				&& !string.IsNullOrEmpty(equippableModComponent.ImplementationType)

@@ -13,7 +13,15 @@ namespace AssetLoader
 		private const string ASSET_NAME_SUFFIX = "atlas";
 		private const string ASSET_PATH_SUFFIX_PREFAB = ".prefab";
 
-		private static readonly string[] RESOURCE_FOLDER = { "assets/", "logimages/", "clothingpaperdoll/female/", "clothingpaperdoll/male/", "inventorygridicons/", "craftingicons/" };
+		private static readonly string[] RESOURCE_FOLDER = 
+		{ 
+			"assets/", 
+			"logimages/", 
+			"clothingpaperdoll/female/", 
+			"clothingpaperdoll/male/", 
+			"inventorygridicons/", 
+			"craftingicons/" 
+		};
 
 		private static Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
 		private static Dictionary<string, string> knownAssetMappedNames = new Dictionary<string, string>();
@@ -76,7 +84,7 @@ namespace AssetLoader
 			{
 				Logger.Log("AssetBundle '{0}' has already been registered.", relativePath);
 			}
-			else if (assetBundle == null) throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
+			else if (assetBundle is null) throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
 			else LoadAssetBundle(relativePath, assetBundle);
 		}
 
@@ -227,7 +235,7 @@ namespace AssetLoader
 			while (true)
 			{
 				string resourceFolder = RESOURCE_FOLDER.Where(eachResourceFolder => result.StartsWith(eachResourceFolder)).FirstOrDefault();
-				if (resourceFolder == null)
+				if (resourceFolder is null)
 				{
 					break;
 				}

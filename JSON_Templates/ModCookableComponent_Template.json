@@ -2,7 +2,7 @@
     "ModCookableComponent" : {
                             "DisplayNameLocalizationId" : "GAMEPLAY_HotCocoaBox",
                             "DescriptionLocalizatonId" : "GAMEPLAY_HotCocoaBoxDescription",
-                            "InventoryActionLocalizationId" : "GAMEPLAY_HotCocoaBoxAction",
+                            "InventoryActionLocalizationId" : "",
                             "WeightKG": 0.32,
                             "DaysToDecay" : 0,
                             "MaxHP" : 100,

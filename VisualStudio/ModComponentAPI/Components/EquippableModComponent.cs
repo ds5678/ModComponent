@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModComponentUtils;
+using System;
 using System.Reflection;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
@@ -20,7 +21,6 @@ namespace ModComponentAPI
 		/// The name of the type implementing the specific game logic of this item.<br/>
 		/// If this is an assembly-qualified name (Namespace.TypeName,Assembly) it will be loaded from the given assembly.<br/>
 		/// If the assembly is omitted (Namespace.TypeName), the type will be loaded from the first assembly that contains a type with the given name.<br/>
-		/// If the given type is a UnityEngine.MonoBehaviour, it will be attached to this GameObject.<br/>
 		/// Leave empty if this item needs no special game logic.
 		/// </summary>
 		public string ImplementationType;
@@ -108,7 +108,7 @@ namespace ModComponentAPI
 		protected Action CreateImplementationActionDelegate(string methodName)
 		{
 			MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-			if (methodInfo == null) return null;
+			if (methodInfo is null) return null;
 
 			return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
 		}
@@ -125,7 +125,7 @@ namespace ModComponentAPI
 			//including monobehaviour
 			/*Type implementationTypeMono = TypeResolver.Resolve(ImplementationType, false);
             Il2CppSystem.Type implementationTypeIl2Cpp = TypeResolver.ResolveIl2Cpp(ImplementationType, false);
-            if (!(implementationTypeIl2Cpp is null) && implementationTypeIl2Cpp.IsSubclassOf(UnhollowerRuntimeLib.Il2CppType.Of<UnityEngine.MonoBehaviour>()))
+            if (TypeResolver.InheritsFromMonobehaviour(implementationTypeIl2Cpp))
             {
                 this.Implementation = this.gameObject.AddComponent(implementationTypeIl2Cpp);
             }
@@ -134,7 +134,7 @@ namespace ModComponentAPI
                 this.Implementation = Activator.CreateInstance(implementationTypeMono);
             }*/
 
-			if (this.Implementation == null) return;
+			if (this.Implementation is null) return;
 
 			OnEquipped = CreateImplementationActionDelegate("OnEquipped");
 			OnUnequipped = CreateImplementationActionDelegate("OnUnequipped");

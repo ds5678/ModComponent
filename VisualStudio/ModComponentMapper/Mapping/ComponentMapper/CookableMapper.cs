@@ -6,40 +6,10 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class CookableMapper
 	{
-		private static string GetDefaultCookAudio(ModCookableComponent modCookableComponent)
-		{
-			if (CookableType.Grub == modCookableComponent.type)
-			{
-				return "Play_BoilingLiquidThickHeavy";
-			}
-
-			if (CookableType.Meat == modCookableComponent.type)
-			{
-				return "Play_FryingHeavy";
-			}
-
-			return "Play_BoilingLiquidLight";
-		}
-
-		private static string GetDefaultStartCookingAudio(ModCookableComponent modCookableComponent)
-		{
-			if (CookableType.Grub == modCookableComponent.type)
-			{
-				return "Play_AddSlopToPot";
-			}
-
-			if (CookableType.Meat == modCookableComponent.type)
-			{
-				return "Play_AddMeatPan";
-			}
-
-			return "Play_AddWaterToPot";
-		}
-
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModCookableComponent modCookableComponent = modComponent.TryCast<ModCookableComponent>();
-			if (modCookableComponent == null || !modCookableComponent.Cooking)
+			if (modCookableComponent is null || !modCookableComponent.Cooking)
 			{
 				return;
 			}
@@ -62,7 +32,7 @@ namespace ModComponentMapper.ComponentMapper
 			cookable.m_LiquidMeshRenderer = template?.m_LiquidMeshRenderer;
 
 			// either just heat or convert, but not both
-			if (modCookableComponent.CookingResult == null)
+			if (modCookableComponent.CookingResult is null)
 			{
 				// no conversion, just heating
 				FoodItem foodItem = ModComponentUtils.ComponentUtils.GetComponent<FoodItem>(modCookableComponent);
@@ -75,7 +45,7 @@ namespace ModComponentMapper.ComponentMapper
 			{
 				// no heating, but instead convert the item when cooking completes
 				GearItem cookedGearItem = modCookableComponent.CookingResult.GetComponent<GearItem>();
-				if (cookedGearItem == null)
+				if (cookedGearItem is null)
 				{
 					// not mapped yet, do it now
 					AutoMapper.MapModComponent(modCookableComponent.CookingResult);
@@ -83,6 +53,32 @@ namespace ModComponentMapper.ComponentMapper
 				}
 
 				cookable.m_CookedPrefab = cookedGearItem ?? throw new ArgumentException("CookingResult does not map to GearItem for prefab " + modCookableComponent.name);
+			}
+		}
+
+		private static string GetDefaultCookAudio(ModCookableComponent modCookableComponent)
+		{
+			switch (modCookableComponent.type)
+			{
+				case CookableType.Grub:
+					return "Play_BoilingLiquidThickHeavy";
+				case CookableType.Meat:
+					return "Play_FryingHeavy";
+				default:
+					return "Play_BoilingLiquidLight";
+			}
+		}
+
+		private static string GetDefaultStartCookingAudio(ModCookableComponent modCookableComponent)
+		{
+			switch (modCookableComponent.type)
+			{
+				case CookableType.Grub:
+					return "Play_AddSlopToPot";
+				case CookableType.Meat:
+					return "Play_AddMeatPan";
+				default:
+					return "Play_AddWaterToPot";
 			}
 		}
 	}

@@ -36,7 +36,7 @@ namespace ModComponentMapper.Patches
 		private static void Prefix(PlayerManager __instance, GearItem gi, ClothingLayer layerToPutOn)
 		{
 			//Logger.Log("Clothing Layer {0}", layerToPutOn);
-			if (gi?.m_ClothingItem == null || layerToPutOn == ClothingLayer.NumLayers) return;
+			if (gi?.m_ClothingItem is null || layerToPutOn == ClothingLayer.NumLayers) return;
 			ClothingRegion region = gi.m_ClothingItem.m_Region;
 			GearItem itemInSlot = __instance.GetClothingInSlot(region, layerToPutOn);
 			if (itemInSlot) __instance.TakeOffClothingItem(itemInSlot);
@@ -66,7 +66,7 @@ namespace ModComponentMapper.Patches
 		private static bool Prefix(ClothingSlot __instance)
 		{
 			ModClothingComponent clothingComponent = ModComponentUtils.ComponentUtils.GetComponent<ModClothingComponent>(__instance.m_GearItem);
-			if (clothingComponent == null)
+			if (clothingComponent is null)
 			{
 				if (__instance.m_GearItem != null)
 				{

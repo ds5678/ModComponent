@@ -11,7 +11,7 @@ namespace ModComponentMapper
 	{
 		internal static void Postfix(Panel_Inventory_Examine __instance)
 		{
-			if (__instance.m_HarvestYields == null || __instance.m_HarvestYields.Length > 2)
+			if (__instance.m_HarvestYields is null || __instance.m_HarvestYields.Length > 2)
 			{
 				return;
 			}

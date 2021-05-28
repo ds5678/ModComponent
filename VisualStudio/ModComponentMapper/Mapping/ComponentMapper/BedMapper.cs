@@ -8,7 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModBedComponent modBedComponent = modComponent.TryCast<ModBedComponent>();
-			if (modBedComponent == null) return;
+			if (modBedComponent is null) return;
 
 			Bed bed = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Bed>(modBedComponent);
 

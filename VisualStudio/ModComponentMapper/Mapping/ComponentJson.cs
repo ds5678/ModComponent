@@ -24,149 +24,149 @@ namespace ModComponentMapper
 			if (ComponentUtils.GetModComponent(prefab) != null || dict is null) return;
 
 			//Mod Components
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModBedComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModBedComponent"))
 			{
-				ModBedComponent newComponent = prefab.AddComponent<ModBedComponent>();
+				ModBedComponent newComponent = ComponentUtils.GetOrCreateComponent<ModBedComponent>(prefab);
 				InitializeBedComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModBodyHarvestComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModBodyHarvestComponent"))
 			{
-				ModBodyHarvestComponent newComponent = prefab.AddComponent<ModBodyHarvestComponent>();
+				ModBodyHarvestComponent newComponent = ComponentUtils.GetOrCreateComponent<ModBodyHarvestComponent>(prefab);
 				InitializeBodyHarvestComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModClothingComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModClothingComponent"))
 			{
-				ModClothingComponent newComponent = prefab.AddComponent<ModClothingComponent>();
+				ModClothingComponent newComponent = ComponentUtils.GetOrCreateComponent<ModClothingComponent>(prefab);
 				InitializeClothingComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModCollectibleComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModCollectibleComponent"))
 			{
-				ModCollectibleComponent newComponent = prefab.AddComponent<ModCollectibleComponent>();
+				ModCollectibleComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCollectibleComponent>(prefab);
 				InitializeCollectibleComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModCookableComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModCookableComponent"))
 			{
-				ModCookableComponent newComponent = prefab.AddComponent<ModCookableComponent>();
+				ModCookableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCookableComponent>(prefab);
 				InitializeCookableComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModCookingPotComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModCookingPotComponent"))
 			{
-				ModCookingPotComponent newComponent = prefab.AddComponent<ModCookingPotComponent>();
+				ModCookingPotComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCookingPotComponent>(prefab);
 				InitializeCookingPotComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModExplosiveComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModExplosiveComponent"))
 			{
-				ModExplosiveComponent newComponent = prefab.AddComponent<ModExplosiveComponent>();
+				ModExplosiveComponent newComponent = ComponentUtils.GetOrCreateComponent<ModExplosiveComponent>(prefab);
 				InitializeExplosiveComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModFirstAidComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModFirstAidComponent"))
 			{
-				ModFirstAidComponent newComponent = prefab.AddComponent<ModFirstAidComponent>();
+				ModFirstAidComponent newComponent = ComponentUtils.GetOrCreateComponent<ModFirstAidComponent>(prefab);
 				InitializeFirstAidComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModFoodComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModFoodComponent"))
 			{
-				ModFoodComponent newComponent = prefab.AddComponent<ModFoodComponent>();
+				ModFoodComponent newComponent = ComponentUtils.GetOrCreateComponent<ModFoodComponent>(prefab);
 				InitializeFoodComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModGenericComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModGenericComponent"))
 			{
-				ModGenericComponent newComponent = prefab.AddComponent<ModGenericComponent>();
+				ModGenericComponent newComponent = ComponentUtils.GetOrCreateComponent<ModGenericComponent>(prefab);
 				InitializeGenericComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModGenericEquippableComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModGenericEquippableComponent"))
 			{
-				ModGenericEquippableComponent newComponent = prefab.AddComponent<ModGenericEquippableComponent>();
+				ModGenericEquippableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModGenericEquippableComponent>(prefab);
 				InitializeGenericEquippableComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModLiquidComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModLiquidComponent"))
 			{
-				ModLiquidComponent newComponent = prefab.AddComponent<ModLiquidComponent>();
+				ModLiquidComponent newComponent = ComponentUtils.GetOrCreateComponent<ModLiquidComponent>(prefab);
 				InitializeLiquidComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModPowderComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModPowderComponent"))
 			{
-				ModPowderComponent newComponent = prefab.AddComponent<ModPowderComponent>();
+				ModPowderComponent newComponent = ComponentUtils.GetOrCreateComponent<ModPowderComponent>(prefab);
 				InitializePowderComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModRandomItemComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModRandomItemComponent"))
 			{
-				ModRandomItemComponent newComponent = prefab.AddComponent<ModRandomItemComponent>();
+				ModRandomItemComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRandomItemComponent>(prefab);
 				InitializeRandomItemComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModRandomWeightedItemComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModRandomWeightedItemComponent"))
 			{
-				ModRandomWeightedItemComponent newComponent = prefab.AddComponent<ModRandomWeightedItemComponent>();
+				ModRandomWeightedItemComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRandomWeightedItemComponent>(prefab);
 				InitializeRandomWeightedItemComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModRifleComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModRifleComponent"))
 			{
-				ModRifleComponent newComponent = prefab.AddComponent<ModRifleComponent>();
+				ModRifleComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRifleComponent>(prefab);
 				InitializeRifleComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModToolComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModToolComponent"))
 			{
-				ModToolComponent newComponent = prefab.AddComponent<ModToolComponent>();
+				ModToolComponent newComponent = ComponentUtils.GetOrCreateComponent<ModToolComponent>(prefab);
 				InitializeToolComponent(newComponent, dict);
 			}
 
 
 			//Behaviour Components
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModAccelerantComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModAccelerantComponent"))
 			{
-				ModAccelerantComponent newComponent = prefab.AddComponent<ModAccelerantComponent>();
+				ModAccelerantComponent newComponent = ComponentUtils.GetOrCreateComponent<ModAccelerantComponent>(prefab);
 				InitializeAccelerantComponent(newComponent, dict);
 			}
-			else if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModFireStarterComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModFireStarterComponent"))
 			{
-				ModFireStarterComponent newComponent = prefab.AddComponent<ModFireStarterComponent>();
+				ModFireStarterComponent newComponent = ComponentUtils.GetOrCreateComponent<ModFireStarterComponent>(prefab);
 				InitializeFireStarterComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModBurnableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModBurnableComponent"))
 			{
-				ModBurnableComponent newComponent = prefab.AddComponent<ModBurnableComponent>();
+				ModBurnableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModBurnableComponent>(prefab);
 				InitializeBurnableComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModEvolveComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModEvolveComponent"))
 			{
-				ModEvolveComponent newComponent = prefab.AddComponent<ModEvolveComponent>();
+				ModEvolveComponent newComponent = ComponentUtils.GetOrCreateComponent<ModEvolveComponent>(prefab);
 				InitializeEvolveComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModHarvestableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModHarvestableComponent"))
 			{
-				ModHarvestableComponent newComponent = prefab.AddComponent<ModHarvestableComponent>();
+				ModHarvestableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModHarvestableComponent>(prefab);
 				InitializeHarvestableComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModMillableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModMillableComponent"))
 			{
-				ModMillableComponent newComponent = prefab.AddComponent<ModMillableComponent>();
+				ModMillableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModMillableComponent>(prefab);
 				InitializeMillableComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModRepairableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModRepairableComponent"))
 			{
-				ModRepairableComponent newComponent = prefab.AddComponent<ModRepairableComponent>();
+				ModRepairableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRepairableComponent>(prefab);
 				InitializeRepairableComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModScentComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModScentComponent"))
 			{
-				ModScentComponent newComponent = prefab.AddComponent<ModScentComponent>();
+				ModScentComponent newComponent = ComponentUtils.GetOrCreateComponent<ModScentComponent>(prefab);
 				InitializeScentComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModSharpenableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModSharpenableComponent"))
 			{
-				ModSharpenableComponent newComponent = prefab.AddComponent<ModSharpenableComponent>();
+				ModSharpenableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModSharpenableComponent>(prefab);
 				InitializeSharpenableComponent(newComponent, dict);
 			}
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ModStackableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModStackableComponent"))
 			{
-				ModStackableComponent newComponent = prefab.AddComponent<ModStackableComponent>();
+				ModStackableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModStackableComponent>(prefab);
 				InitializeStackableComponent(newComponent, dict);
 			}
 
 			//Modifications
-			if (ModComponentUtils.JsonUtils.ContainsKey(dict, "ChangeLayer"))
+			if (JsonUtils.ContainsKey(dict, "ChangeLayer"))
 			{
-				ChangeLayer newComponent = prefab.AddComponent<ChangeLayer>();
+				ChangeLayer newComponent = ComponentUtils.GetOrCreateComponent<ChangeLayer>(prefab);
 				InitializeChangeLayer(newComponent, dict);
 			}
 		}
@@ -180,25 +180,25 @@ namespace ModComponentMapper
 		{
 			modComponent.ConsoleName = NameUtils.RemoveGearPrefix(modComponent.gameObject.name);
 			//modComponent.DisplayNameLocalizationId = dict[inheritanceName]["DisplayNameLocalizationId"];
-			ModComponentUtils.JsonUtils.TrySetString(ref modComponent.DisplayNameLocalizationId, dict, inheritanceName, "DisplayNameLocalizationId");
+			JsonUtils.TrySetString(ref modComponent.DisplayNameLocalizationId, dict, inheritanceName, "DisplayNameLocalizationId");
 			modComponent.DescriptionLocalizatonId = dict[inheritanceName]["DescriptionLocalizatonId"];
 			modComponent.InventoryActionLocalizationId = dict[inheritanceName]["InventoryActionLocalizationId"];
 			modComponent.WeightKG = dict[inheritanceName]["WeightKG"];
 			modComponent.DaysToDecay = dict[inheritanceName]["DaysToDecay"];
 			modComponent.MaxHP = dict[inheritanceName]["MaxHP"];
-			modComponent.InitialCondition = ModComponentUtils.EnumUtils.ParseEnum<InitialCondition>(dict[inheritanceName]["InitialCondition"]);
-			modComponent.InventoryCategory = ModComponentUtils.EnumUtils.ParseEnum<InventoryCategory>(dict[inheritanceName]["InventoryCategory"]);
+			modComponent.InitialCondition = EnumUtils.ParseEnum<InitialCondition>(dict[inheritanceName]["InitialCondition"]);
+			modComponent.InventoryCategory = EnumUtils.ParseEnum<InventoryCategory>(dict[inheritanceName]["InventoryCategory"]);
 			modComponent.PickUpAudio = dict[inheritanceName]["PickUpAudio"];
 			modComponent.PutBackAudio = dict[inheritanceName]["PutBackAudio"];
 			modComponent.StowAudio = dict[inheritanceName]["StowAudio"];
 			modComponent.WornOutAudio = dict[inheritanceName]["WornOutAudio"];
 			modComponent.InspectOnPickup = dict[inheritanceName]["InspectOnPickup"];
 			modComponent.InspectDistance = dict[inheritanceName]["InspectDistance"];
-			modComponent.InspectAngles = ModComponentUtils.JsonUtils.MakeVector(dict[inheritanceName]["InspectAngles"]);
-			modComponent.InspectOffset = ModComponentUtils.JsonUtils.MakeVector(dict[inheritanceName]["InspectOffset"]);
-			modComponent.InspectScale = ModComponentUtils.JsonUtils.MakeVector(dict[inheritanceName]["InspectScale"]);
-			modComponent.NormalModel = ModComponentUtils.ModUtils.GetChild(modComponent.gameObject, dict[inheritanceName]["NormalModel"]);
-			modComponent.InspectModel = ModComponentUtils.ModUtils.GetChild(modComponent.gameObject, dict[inheritanceName]["InspectModel"]);
+			modComponent.InspectAngles = JsonUtils.MakeVector(dict[inheritanceName]["InspectAngles"]);
+			modComponent.InspectOffset = JsonUtils.MakeVector(dict[inheritanceName]["InspectOffset"]);
+			modComponent.InspectScale = JsonUtils.MakeVector(dict[inheritanceName]["InspectScale"]);
+			modComponent.NormalModel = ModUtils.GetChild(modComponent.gameObject, dict[inheritanceName]["NormalModel"]);
+			modComponent.InspectModel = ModUtils.GetChild(modComponent.gameObject, dict[inheritanceName]["InspectModel"]);
 		}
 
 		private static void InitializeEquippableComponent(EquippableModComponent equippable, ProxyObject dict, string inheritanceName)
@@ -220,8 +220,8 @@ namespace ModComponentMapper
 			modBed.WolfAttackModifier = dict[className]["WolfAttackModifier"];
 			modBed.OpenAudio = dict[className]["OpenAudio"];
 			modBed.CloseAudio = dict[className]["CloseAudio"];
-			modBed.PackedMesh = ModComponentUtils.ModUtils.GetChild(modBed.gameObject, dict[className]["PackedMesh"]);
-			modBed.UsableMesh = ModComponentUtils.ModUtils.GetChild(modBed.gameObject, dict[className]["UsableMesh"]);
+			modBed.PackedMesh = ModUtils.GetChild(modBed.gameObject, dict[className]["PackedMesh"]);
+			modBed.UsableMesh = ModUtils.GetChild(modBed.gameObject, dict[className]["UsableMesh"]);
 		}
 
 		private static void InitializeBodyHarvestComponent(ModBodyHarvestComponent modBodyHarvest, ProxyObject dict, string className = "ModBodyHarvestComponent")
@@ -259,8 +259,8 @@ namespace ModComponentMapper
 			modClothing.Region = (Region)Enum.Parse(typeof(Region), dict[className]["Region"], true);
 			modClothing.MinLayer = (Layer)Enum.Parse(typeof(Layer), dict[className]["MinLayer"], true);
 			modClothing.MaxLayer = (Layer)Enum.Parse(typeof(Layer), dict[className]["MaxLayer"], true);
-			modClothing.MovementSound = ModComponentUtils.EnumUtils.ParseEnum<MovementSound>(dict[className]["MovementSound"]);
-			modClothing.Footwear = ModComponentUtils.EnumUtils.ParseEnum<Footwear>(dict[className]["Footwear"]);
+			modClothing.MovementSound = EnumUtils.ParseEnum<MovementSound>(dict[className]["MovementSound"]);
+			modClothing.Footwear = EnumUtils.ParseEnum<Footwear>(dict[className]["Footwear"]);
 			modClothing.DaysToDecayWornOutside = dict[className]["DaysToDecayWornOutside"];
 			modClothing.DaysToDecayWornInside = dict[className]["DaysToDecayWornInside"];
 			modClothing.Warmth = dict[className]["Warmth"];
@@ -283,9 +283,9 @@ namespace ModComponentMapper
 		private static void InitializeCollectibleComponent(ModCollectibleComponent modCollectible, ProxyObject dict, string className = "ModCollectibleComponent")
 		{
 			InitializeBaseComponent(modCollectible, dict, className);
-			ModComponentUtils.JsonUtils.TrySetString(ref modCollectible.HudMessageLocalizationId, dict, className, "HudMessageLocalizationId");
-			ModComponentUtils.JsonUtils.TrySetString(ref modCollectible.NarrativeTextLocalizationId, dict, className, "NarrativeTextLocalizationId");
-			ModComponentUtils.JsonUtils.TrySetEnum<ModCollectibleComponent.Alignment>(ref modCollectible.TextAlignment, dict, className, "TextAlignment");
+			JsonUtils.TrySetString(ref modCollectible.HudMessageLocalizationId, dict, className, "HudMessageLocalizationId");
+			JsonUtils.TrySetString(ref modCollectible.NarrativeTextLocalizationId, dict, className, "NarrativeTextLocalizationId");
+			JsonUtils.TrySetEnum<ModCollectibleComponent.Alignment>(ref modCollectible.TextAlignment, dict, className, "TextAlignment");
 		}
 
 		private static void InitializeCookableComponent(ModCookableComponent modCookable, ProxyObject dict, string className = "ModCookableComponent")
@@ -306,7 +306,7 @@ namespace ModComponentMapper
 			}
 			modCookable.CookingUnitsRequired = dict[className]["CookingUnitsRequired"];
 			modCookable.CookingWaterRequired = dict[className]["CookingWaterRequired"];
-			modCookable.type = ModComponentUtils.EnumUtils.ParseEnum<CookableType>(dict[className]["Type"]);
+			modCookable.type = EnumUtils.ParseEnum<CookableType>(dict[className]["Type"]);
 		}
 
 		private static void InitializeCookingPotComponent(ModCookingPotComponent modCookingPot, ProxyObject dict, string className = "ModCookingPotComponent")
@@ -332,7 +332,7 @@ namespace ModComponentMapper
 			modFirstAid.ProgressBarMessage = dict[className]["ProgressBarMessage"];
 			modFirstAid.RemedyText = dict[className]["RemedyText"];
 			modFirstAid.InstantHealing = dict[className]["InstantHealing"];
-			modFirstAid.FirstAidType = ModComponentUtils.EnumUtils.ParseEnum<FirstAidType>(dict[className]["FirstAidType"]);
+			modFirstAid.FirstAidType = EnumUtils.ParseEnum<FirstAidType>(dict[className]["FirstAidType"]);
 			modFirstAid.TimeToUseSeconds = dict[className]["TimeToUseSeconds"];
 			modFirstAid.UnitsPerUse = dict[className]["UnitsPerUse"];
 			modFirstAid.UseAudio = dict[className]["UseAudio"];
@@ -354,7 +354,7 @@ namespace ModComponentMapper
 
 			modFood.FoodPoisoning = dict[className]["FoodPoisoning"];
 			modFood.FoodPoisoningLowCondition = dict[className]["FoodPoisoningLowCondition"];
-			modFood.ParasiteRiskIncrements = ModComponentUtils.JsonUtils.MakeFloatArray(dict[className]["ParasiteRiskIncrements"] as ProxyArray);
+			modFood.ParasiteRiskIncrements = JsonUtils.MakeFloatArray(dict[className]["ParasiteRiskIncrements"] as ProxyArray);
 
 			modFood.Natural = dict[className]["Natural"];
 			modFood.Raw = dict[className]["Raw"];
@@ -401,7 +401,7 @@ namespace ModComponentMapper
 		private static void InitializeLiquidComponent(ModLiquidComponent modLiquid, ProxyObject dict, string className = "ModLiquidComponent")
 		{
 			InitializeBaseComponent(modLiquid, dict, className);
-			modLiquid.LiquidType = ModComponentUtils.EnumUtils.ParseEnum<LiquidType>(dict[className]["LiquidType"]);
+			modLiquid.LiquidType = EnumUtils.ParseEnum<LiquidType>(dict[className]["LiquidType"]);
 			modLiquid.LiquidCapacityLiters = dict[className]["LiquidCapacityLiters"];
 			modLiquid.RandomizeQuantity = dict[className]["RandomizedQuantity"];
 			modLiquid.LiquidLiters = Mathf.Clamp(dict[className]["LiquidLiters"], 0f, modLiquid.LiquidCapacityLiters); //overridden if Randomized
@@ -410,7 +410,7 @@ namespace ModComponentMapper
 		private static void InitializePowderComponent(ModPowderComponent modPowder, ProxyObject dict, string className = "ModPowderComponent")
 		{
 			InitializeBaseComponent(modPowder, dict, className);
-			modPowder.PowderType = ModComponentUtils.EnumUtils.ParseEnum<PowderType>(dict[className]["PowderType"]);
+			modPowder.PowderType = EnumUtils.ParseEnum<PowderType>(dict[className]["PowderType"]);
 			modPowder.CapacityKG = dict[className]["CapacityKG"];
 			modPowder.ChanceFull = dict[className]["ChanceFull"];
 		}
@@ -418,14 +418,14 @@ namespace ModComponentMapper
 		private static void InitializeRandomItemComponent(ModRandomItemComponent modRandomItem, ProxyObject dict, string className = "ModRandomItemComponent")
 		{
 			InitializeBaseComponent(modRandomItem, dict, className);
-			ModComponentUtils.JsonUtils.TrySetStringArray(ref modRandomItem.ItemNames, dict, className, "ItemNames");
+			JsonUtils.TrySetStringArray(ref modRandomItem.ItemNames, dict, className, "ItemNames");
 		}
 
 		private static void InitializeRandomWeightedItemComponent(ModRandomWeightedItemComponent modRandomWeightedItem, ProxyObject dict, string className = "ModRandomWeightedItemComponent")
 		{
 			InitializeBaseComponent(modRandomWeightedItem, dict, className);
-			ModComponentUtils.JsonUtils.TrySetStringArray(ref modRandomWeightedItem.ItemNames, dict, className, "ItemNames");
-			ModComponentUtils.JsonUtils.TrySetIntArray(ref modRandomWeightedItem.ItemWeights, dict, className, "ItemWeights");
+			JsonUtils.TrySetStringArray(ref modRandomWeightedItem.ItemNames, dict, className, "ItemNames");
+			JsonUtils.TrySetIntArray(ref modRandomWeightedItem.ItemWeights, dict, className, "ItemWeights");
 		}
 
 		private static void InitializeRifleComponent(ModRifleComponent modRifle, ProxyObject dict, string className = "ModRifleComponent")
@@ -447,9 +447,9 @@ namespace ModComponentMapper
 		private static void InitializeToolComponent(ModToolComponent modTool, ProxyObject dict, string className = "ModToolComponent")
 		{
 			InitializeEquippableComponent(modTool, dict, className);
-			modTool.ToolType = ModComponentUtils.EnumUtils.ParseEnum<ToolType>(dict[className]["ToolType"]);
+			modTool.ToolType = EnumUtils.ParseEnum<ToolType>(dict[className]["ToolType"]);
 			modTool.DegradeOnUse = dict[className]["DegradeOnUse"];
-			modTool.Usage = ModComponentUtils.EnumUtils.ParseEnum<Usage>(dict[className]["Usage"]);
+			modTool.Usage = EnumUtils.ParseEnum<Usage>(dict[className]["Usage"]);
 			modTool.SkillBonus = dict[className]["SkillBonus"];
 
 			modTool.CraftingTimeMultiplier = dict[className]["CraftingTimeMultiplier"];
@@ -524,21 +524,21 @@ namespace ModComponentMapper
 		{
 			modHarvestable.Audio = dict[className]["Audio"];
 			modHarvestable.Minutes = dict[className]["Minutes"];
-			modHarvestable.YieldCounts = ModComponentUtils.JsonUtils.MakeIntArray(dict[className]["YieldCounts"] as ProxyArray);
-			modHarvestable.YieldNames = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["YieldNames"] as ProxyArray);
-			modHarvestable.RequiredToolNames = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["RequiredToolNames"] as ProxyArray);
+			modHarvestable.YieldCounts = JsonUtils.MakeIntArray(dict[className]["YieldCounts"] as ProxyArray);
+			modHarvestable.YieldNames = JsonUtils.MakeStringArray(dict[className]["YieldNames"] as ProxyArray);
+			modHarvestable.RequiredToolNames = JsonUtils.MakeStringArray(dict[className]["RequiredToolNames"] as ProxyArray);
 		}
 
 		private static void InitializeMillableComponent(ModMillableComponent modMillable, ProxyObject dict, string className = "ModMillableComponent")
 		{
 			modMillable.RepairDurationMinutes = dict[className]["RepairDurationMinutes"];
-			modMillable.RepairRequiredGear = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["RepairRequiredGear"] as ProxyArray);
-			modMillable.RepairRequiredGearUnits = ModComponentUtils.JsonUtils.MakeIntArray(dict[className]["RepairRequiredGearUnits"] as ProxyArray);
+			modMillable.RepairRequiredGear = JsonUtils.MakeStringArray(dict[className]["RepairRequiredGear"] as ProxyArray);
+			modMillable.RepairRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RepairRequiredGearUnits"] as ProxyArray);
 			modMillable.CanRestoreFromWornOut = dict[className]["CanRestoreFromWornOut"];
 			modMillable.RecoveryDurationMinutes = dict[className]["RecoveryDurationMinutes"];
-			modMillable.RestoreRequiredGear = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["RestoreRequiredGear"] as ProxyArray);
-			modMillable.RestoreRequiredGearUnits = ModComponentUtils.JsonUtils.MakeIntArray(dict[className]["RestoreRequiredGearUnits"] as ProxyArray);
-			modMillable.skill = ModComponentUtils.EnumUtils.ParseEnum<ModComponentAPI.SkillType>(dict[className]["Skill"]);
+			modMillable.RestoreRequiredGear = JsonUtils.MakeStringArray(dict[className]["RestoreRequiredGear"] as ProxyArray);
+			modMillable.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RestoreRequiredGearUnits"] as ProxyArray);
+			modMillable.skill = EnumUtils.ParseEnum<ModComponentAPI.SkillType>(dict[className]["Skill"]);
 		}
 
 		private static void InitializeRepairableComponent(ModRepairableComponent modRepairable, ProxyObject dict, string className = "ModRepairableComponent")
@@ -546,14 +546,14 @@ namespace ModComponentMapper
 			modRepairable.Audio = dict[className]["Audio"];
 			modRepairable.Minutes = dict[className]["Minutes"];
 			modRepairable.Condition = dict[className]["Condition"];
-			modRepairable.RequiredTools = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["RequiredTools"] as ProxyArray);
-			modRepairable.MaterialNames = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["MaterialNames"] as ProxyArray);
-			modRepairable.MaterialCounts = ModComponentUtils.JsonUtils.MakeIntArray(dict[className]["MaterialCounts"] as ProxyArray);
+			modRepairable.RequiredTools = JsonUtils.MakeStringArray(dict[className]["RequiredTools"] as ProxyArray);
+			modRepairable.MaterialNames = JsonUtils.MakeStringArray(dict[className]["MaterialNames"] as ProxyArray);
+			modRepairable.MaterialCounts = JsonUtils.MakeIntArray(dict[className]["MaterialCounts"] as ProxyArray);
 		}
 
 		private static void InitializeScentComponent(ModScentComponent modScent, ProxyObject dict, string className = "ModScentComponent")
 		{
-			modScent.scentCategory = ModComponentUtils.EnumUtils.ParseEnum<ScentCategory>(dict[className]["ScentCategory"]);
+			modScent.scentCategory = EnumUtils.ParseEnum<ScentCategory>(dict[className]["ScentCategory"]);
 		}
 
 		private static void InitializeSharpenableComponent(ModSharpenableComponent modSharpenable, ProxyObject dict, string className = "ModSharpenableComponent")
@@ -563,7 +563,7 @@ namespace ModComponentMapper
 			modSharpenable.MinutesMax = dict[className]["MinutesMax"];
 			modSharpenable.ConditionMin = dict[className]["ConditionMin"];
 			modSharpenable.ConditionMax = dict[className]["ConditionMax"];
-			modSharpenable.Tools = ModComponentUtils.JsonUtils.MakeStringArray(dict[className]["Tools"] as ProxyArray);
+			modSharpenable.Tools = JsonUtils.MakeStringArray(dict[className]["Tools"] as ProxyArray);
 		}
 
 		private static void InitializeStackableComponent(ModStackableComponent modStackable, ProxyObject dict, string className = "ModStackableComponent")
@@ -582,8 +582,8 @@ namespace ModComponentMapper
 		#region Modifications
 		private static void InitializeChangeLayer(ChangeLayer changeLayer, ProxyObject dict, string className = "ChangeLayer")
 		{
-			ModComponentUtils.JsonUtils.TrySetBool(ref changeLayer.Recursively, dict, className, "Recursively");
-			ModComponentUtils.JsonUtils.TrySetInt(ref changeLayer.Layer, dict, className, "Layer");
+			JsonUtils.TrySetBool(ref changeLayer.Recursively, dict, className, "Recursively");
+			JsonUtils.TrySetInt(ref changeLayer.Layer, dict, className, "Layer");
 		}
 		#endregion
 	}

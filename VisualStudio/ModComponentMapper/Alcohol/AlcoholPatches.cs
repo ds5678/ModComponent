@@ -22,7 +22,7 @@ namespace ModComponentMapper
 
 			private static ModHealthManagerData GetData(SaveProxy proxy)
 			{
-				if (proxy == null || string.IsNullOrEmpty(proxy.data)) return null;
+				if (proxy is null || string.IsNullOrEmpty(proxy.data)) return null;
 
 				return MelonLoader.TinyJSON.JSON.Load(proxy.data).Make<ModHealthManagerData>();
 			}

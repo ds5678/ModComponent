@@ -27,11 +27,11 @@ namespace ModComponentUtils
 		/// </summary>
 		public static UnityEngine.Object LoadAsset(AssetBundle assetBundle, string name, Type type)
 		{
-			if (assetBundle == null)
+			if (assetBundle is null)
 			{
 				throw new System.NullReferenceException("The asset bundle cannot be null.");
 			}
-			if (name == null)
+			if (name is null)
 			{
 				throw new System.NullReferenceException("The input asset name cannot be null.");
 			}
@@ -39,7 +39,7 @@ namespace ModComponentUtils
 			{
 				throw new System.ArgumentException("The input asset name cannot be empty.");
 			}
-			if (type == null)
+			if (type is null)
 			{
 				throw new System.NullReferenceException("The input type cannot be null.");
 			}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModComponentUtils;
+using System;
 using UnityEngine;
 
 namespace ModComponentAPI
@@ -8,13 +9,13 @@ namespace ModComponentAPI
 		/// <summary>
 		/// How many condition points are restored per hour by sleeping in this bed?<br/>
 		/// This is the base rate and applied for the first hour.<br/>
-		/// The second and following hours will benefit from 'UninterruptedRestPercentGainPerHour'.
+		/// The second and following hours will benefit from 'AdditionalConditionGainPerHour'.
 		/// </summary>
 		public float ConditionGainPerHour;
 
 		/// <summary>
 		/// Additionally restored condition points restored per hour.<br/>
-		/// The n-th hour of sleeping gives (n - 1) * UninterruptedRestGainPerHour additional health points.
+		/// The n-th hour of sleeping gives (n - 1) * AdditionalConditionGainPerHour additional health points.
 		/// </summary>
 		public float AdditionalConditionGainPerHour;
 

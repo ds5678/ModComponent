@@ -1,20 +1,33 @@
-﻿namespace ModComponentMapper
+﻿using Type = UnhollowerRuntimeLib.Il2CppType;
+
+namespace ModComponentMapper
 {
 	internal class TestFunctions
 	{
 		internal static void TestFunction()
 		{
-			/*foreach (var _ in new int[1000])
-			{
-				//Logger.Log(ModComponentUtils.RandomUtils.RandomInt().ToString());
-				//Logger.Log(ModComponentUtils.RandomUtils.RandomDouble().ToString());
-				Logger.Log(ModComponentUtils.RandomUtils.RandomFloat().ToString());
-			}
-			foreach (var _ in new int[1000])
-			{
-				Logger.Log(ModComponentUtils.RandomUtils.Range(0, 27).ToString());
-			}*/
+			//MelonLoader.MelonLogger.Log(InheritsFromMonobehaviour(Type.Of<ModComponentAPI.ModComponent>()).ToString());
+			//Il2CppSystem.Type type = ResolveIl2Cpp("ModComponentAPI.ModComponent", true);
+			//MelonLoader.MelonLogger.Log(InheritsFromMonobehaviour(type).ToString());
+		}
+		public static Il2CppSystem.Type ResolveIl2Cpp(string name, bool throwErrorOnFailure)
+		{
+			System.Type result = System.Type.GetType(name, false);
+			if (result != null) return Type.From(result);
 
+			System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+			foreach (System.Reflection.Assembly eachAssembly in assemblies)
+			{
+				result = eachAssembly.GetType(name, false);
+				if (result != null) return Type.From(result);
+			}
+
+			if (throwErrorOnFailure) throw new System.ArgumentException("Could not resolve type '" + name + "'. Are you missing an assembly?");
+			else return null;
+		}
+		public static bool InheritsFromMonobehaviour(Il2CppSystem.Type type)
+		{
+			return type.IsSubclassOf(Type.Of<UnityEngine.MonoBehaviour>());
 		}
 	}
 }

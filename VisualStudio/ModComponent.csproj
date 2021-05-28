@@ -63,6 +63,9 @@
     <Reference Include="UnityEngine.CoreModule">
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.IMGUIModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -71,8 +74,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetLoader\Assets\AlternateAssets.cs" />
+    <Compile Include="AssetLoader\Assets\AlternateAssetManager.cs" />
+    <Compile Include="AssetLoader\Assets\AlternateNameManager.cs" />
     <Compile Include="AssetLoader\Assets\AssetManager.cs" />
+    <Compile Include="ModComponentAPI\SpecialClasses\ModLootTable.cs" />
+    <Compile Include="ModComponentMapper\Skins\SkinManager.cs" />
     <Compile Include="ModComponentUtils\AssetBundleUtils.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasManager.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasUtils.cs" />
@@ -121,14 +127,14 @@
     <Compile Include="ModComponentAPI\Components\ModPowderComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModRifleComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModToolComponent.cs" />
-    <Compile Include="ModComponentAPI\Utils\CopyFieldHandler.cs" />
+    <Compile Include="ModComponentUtils\CopyFieldHandler.cs" />
     <Compile Include="ModComponentAPI\Enums\InitialCondition.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModBlueprint.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModSkill.cs" />
     <Compile Include="ModComponentAPI\Modifications\PlayAkSound.cs" />
     <Compile Include="ModComponentAPI\Enums\SkillType.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\Logger.cs" />
-    <Compile Include="ModComponentAPI\Utils\TypeResolver.cs" />
+    <Compile Include="ModComponentUtils\TypeResolver.cs" />
     <Compile Include="ModComponentMain\Implementation.cs" />
     <Compile Include="ModComponentMain\Injections.cs" />
     <Compile Include="ModComponentMain\Logger.cs" />
@@ -218,18 +224,13 @@
     <Compile Include="ModComponentUtils\EquipItemPopupUtils.cs" />
     <Compile Include="ModComponentUtils\FileUtils.cs" />
     <Compile Include="ModComponentUtils\JsonUtils.cs" />
+    <Compile Include="ModComponentUtils\Logger.cs" />
     <Compile Include="ModComponentUtils\MathUtils.cs" />
     <Compile Include="ModComponentUtils\NameUtils.cs" />
     <Compile Include="ModComponentUtils\PlayerUtils.cs" />
     <Compile Include="ModComponentUtils\RandomUtils.cs" />
     <Compile Include="ModComponentUtils\SkillUtils.cs" />
     <Compile Include="ModComponentUtils\UIUtils.cs" />
-    <Compile Include="Preloader\AlternativePreloader.cs" />
-    <Compile Include="Preloader\Logger.cs" />
-    <Compile Include="Preloader\PreloadingManager.cs" />
-    <Compile Include="Preloader\PreloadingPatches.cs" />
-    <Compile Include="Preloader\SceneObjects.cs" />
-    <Compile Include="Preloader\ScenePreloader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModComponentMapper\CustomSaveData\SaveDataManager.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\AlternativeToolManager.cs" />
@@ -249,6 +250,9 @@
     <Compile Include="ModComponentMapper\ItemPackManagement\AssetBundleManager.cs" />
     <Compile Include="ModComponentMapper\ItemPackManagement\ZipFileLoader.cs" />
     <Compile Include="SceneLoader\Logger.cs" />
+    <Compile Include="SceneLoader\Preloader.cs" />
+    <Compile Include="SceneLoader\Shaders\MaterialManager.cs" />
+    <Compile Include="SceneLoader\Shaders\ShaderList.cs" />
     <Compile Include="SceneLoader\Shaders\ShaderSubstitution.cs" />
   </ItemGroup>
   <ItemGroup>

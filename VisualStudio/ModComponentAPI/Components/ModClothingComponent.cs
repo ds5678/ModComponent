@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModComponentUtils;
+using System;
 using System.Reflection;
 using UnhollowerBaseLib.Attributes;
 
@@ -162,7 +163,7 @@ namespace ModComponentAPI
 
 			Type implementationType = TypeResolver.Resolve(ImplementationType, true);
 			object implementation = Activator.CreateInstance(implementationType);
-			if (implementation == null) return;
+			if (implementation is null) return;
 
 			Implementation = implementation;
 
@@ -174,7 +175,7 @@ namespace ModComponentAPI
 		private Action CreateImplementationActionDelegate(string methodName)
 		{
 			MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-			if (methodInfo == null) return null;
+			if (methodInfo is null) return null;
 
 			return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
 		}

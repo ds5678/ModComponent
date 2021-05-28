@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(GameObject prefab)
 		{
 			ModMillableComponent modMillable = ModComponentUtils.ComponentUtils.GetComponent<ModMillableComponent>(prefab);
-			if (modMillable == null) return;
+			if (modMillable is null) return;
 
 			Millable millable = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Millable>(modMillable);
 			millable.m_CanRestoreFromWornOut = modMillable.CanRestoreFromWornOut;

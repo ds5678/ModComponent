@@ -54,7 +54,7 @@ namespace ModComponentMapper
         public static void Postfix(SkillsManager __instance, ref string __result)
         {
             Dictionary<string, string> skillsData = JSON.Load(__result)?.Make<Dictionary<string, string>>();
-            if (skillsData == null) return;
+            if (skillsData is null) return;
 
             for (int i = 0; i < __instance.GetNumSkills(); i++)
             {

@@ -8,10 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
-			if (modFoodComponent == null)
-			{
-				return;
-			}
+			if (modFoodComponent is null) return;
 
 			FoodItem foodItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FoodItem>(modFoodComponent);
 

@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		public static void Configure(GameObject prefab)
 		{
 			ModAccelerantComponent modAccelerantComponent = ModComponentUtils.ComponentUtils.GetComponent<ModAccelerantComponent>(prefab);
-			if (modAccelerantComponent == null) return;
+			if (modAccelerantComponent is null) return;
 
 			FireStarterItem fireStarterItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FireStarterItem>(modAccelerantComponent);
 

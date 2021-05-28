@@ -11,7 +11,7 @@ namespace ModComponentMapper
 		internal static void MapBlueprint(ModBlueprint modBlueprint)
 		{
 			BlueprintItem bpItem = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
-			if (bpItem == null)
+			if (bpItem is null)
 			{
 				throw new Exception("Error creating Blueprint");
 			}
@@ -47,7 +47,7 @@ namespace ModComponentMapper
 		internal static void MapBlueprints()
 		{
 			GameObject blueprintsManager = GameManager.GetBlueprints();
-			if (blueprintsManager == null) return;
+			if (blueprintsManager is null) return;
 
 			foreach (ModBlueprint modBlueprint in blueprints)
 			{

@@ -9,6 +9,8 @@ namespace AssetLoader
 		public UIAtlas original;
 
 		public SaveAtlas(IntPtr intPtr) : base(intPtr) { }
+
+		static SaveAtlas() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AssetLoader.SaveAtlas>();
 	}
 
 	[HarmonyPatch(typeof(UISprite), "SetAtlasSprite")]
@@ -17,10 +19,7 @@ namespace AssetLoader
 		internal static void Postfix(UISprite __instance)
 		{
 			UIAtlas atlas = AtlasUtils.GetRequiredAtlas(__instance, __instance.mSpriteName);
-			if (__instance.atlas == atlas)
-			{
-				return;
-			}
+			if (__instance.atlas == atlas) return;
 
 			AtlasUtils.SaveOriginalAtlas(__instance);
 			__instance.atlas = atlas;

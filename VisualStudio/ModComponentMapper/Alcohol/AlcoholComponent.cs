@@ -11,6 +11,7 @@ namespace ModComponentMapper
 		public float AmountRemaining;
 		public float UptakeSeconds;
 		public AlcoholComponent(IntPtr intPtr) : base(intPtr) { }
+		static AlcoholComponent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.AlcoholComponent>();
 
 		[HideFromIl2Cpp]
 		public void Apply(float normalizedValue)
@@ -26,7 +27,7 @@ namespace ModComponentMapper
 			AlcoholComponent alcoholComponent = ModComponentUtils.ComponentUtils.GetComponent<AlcoholComponent>(foodItem);
 			if (alcoholComponent != null)
 			{
-				ModComponentAPI.CopyFieldHandler.UpdateFieldValues<AlcoholComponent>(alcoholComponent);
+				ModComponentUtils.CopyFieldHandler.UpdateFieldValues<AlcoholComponent>(alcoholComponent);
 				alcoholComponent.AmountRemaining = foodItem.m_CaloriesRemaining / foodItem.m_CaloriesTotal * alcoholComponent.AmountTotal;
 			}
 		}

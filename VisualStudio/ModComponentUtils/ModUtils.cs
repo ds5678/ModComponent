@@ -22,7 +22,7 @@ namespace ModComponentUtils
 			}
 			if (fieldInfos.Length == 0)
 			{
-				ModComponentMain.Logger.LogError("There were no fields to copy!");
+				Logger.LogError("There were no fields to copy!");
 			}
 		}
 
@@ -33,12 +33,12 @@ namespace ModComponentUtils
 
 		public static bool IsNonGameScene()
 		{
-			return GameManager.m_ActiveScene == null || GameManager.m_ActiveScene == "MainMenu" || GameManager.m_ActiveScene == "Boot" || GameManager.m_ActiveScene == "Empty";
+			return string.IsNullOrEmpty(GameManager.m_ActiveScene) || GameManager.m_ActiveScene == "MainMenu" || GameManager.m_ActiveScene == "Boot" || GameManager.m_ActiveScene == "Empty";
 		}
 
 		public static T[] NotNull<T>(T[] array)
 		{
-			if (array == null) return new T[0];
+			if (array is null) return new T[0];
 			else return array;
 		}
 
@@ -85,16 +85,16 @@ namespace ModComponentUtils
 			return null;
 		}
 
-		internal static T GetItem<T>(string name, string reference = null)
+		internal static T GetItem<T>(string name, string reference = null) where T : UnityEngine.Component
 		{
-			GameObject gameObject = Resources.Load(name).Cast<GameObject>();
+			GameObject gameObject = Resources.Load(name).TryCast<GameObject>();
 			if (gameObject is null)
 			{
 				throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
 			}
 
-			T targetType = gameObject.GetComponent<T>();
-			if (targetType == null)
+			T targetType = ComponentUtils.GetComponent<T>(gameObject);
+			if (targetType is null)
 			{
 				throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + " is not a '" + typeof(T).Name + "'.");
 			}
@@ -102,7 +102,7 @@ namespace ModComponentUtils
 			return targetType;
 		}
 
-		internal static T[] GetItems<T>(string[] names, string reference = null)
+		internal static T[] GetItems<T>(string[] names, string reference = null) where T : UnityEngine.Component
 		{
 			T[] result = new T[names.Length];
 
@@ -114,7 +114,7 @@ namespace ModComponentUtils
 			return result;
 		}
 
-		internal static T GetMatchingItem<T>(string name, string reference = null)
+		internal static T GetMatchingItem<T>(string name, string reference = null) where T : UnityEngine.Component
 		{
 			try
 			{
@@ -122,12 +122,12 @@ namespace ModComponentUtils
 			}
 			catch (ArgumentException e)
 			{
-				ModComponentMain.Logger.Log(e.Message);
+				Logger.LogError(e.Message);
 				return default(T);
 			}
 		}
 
-		internal static T[] GetMatchingItems<T>(string[] names, string reference = null)
+		internal static T[] GetMatchingItems<T>(string[] names, string reference = null) where T : UnityEngine.Component
 		{
 			names = ModComponentUtils.ModUtils.NotNull(names);
 

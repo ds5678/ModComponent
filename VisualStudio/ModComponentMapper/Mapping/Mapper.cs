@@ -15,10 +15,10 @@ namespace ModComponentMapper
 
 		public static void Map(GameObject prefab)
 		{
-			if (prefab == null) throw new ArgumentException("The prefab was NULL.");
+			if (prefab is null) throw new ArgumentException("The prefab was NULL.");
 
 			ModComponent modComponent = ModComponentUtils.ComponentUtils.GetModComponent(prefab);
-			if (modComponent == null)
+			if (modComponent is null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
 			}
@@ -26,8 +26,6 @@ namespace ModComponentMapper
 			bool hasModPlaceHolder = !(ModComponentUtils.ComponentUtils.GetComponent<ModPlaceHolderComponent>(prefab) is null);
 			if (prefab.GetComponent<GearItem>() is null || hasModPlaceHolder)
 			{
-				Logger.Log("Mapping {0}", prefab.name);
-
 				ConfigureBehaviours(modComponent);
 
 				EquippableMapper.Configure(modComponent);
@@ -72,10 +70,10 @@ namespace ModComponentMapper
 
 		internal static void ConfigureBehaviours(GameObject prefab)
 		{
-			if (prefab == null) throw new ArgumentException("The prefab was NULL.");
+			if (prefab is null) throw new ArgumentException("The prefab was NULL.");
 
 			ModComponent modComponent = ModComponentUtils.ComponentUtils.GetModComponent(prefab);
-			if (modComponent == null)
+			if (modComponent is null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
 			}
@@ -97,7 +95,6 @@ namespace ModComponentMapper
 			gearItem.m_WeightKG = modComponent.WeightKG;
 			gearItem.m_MaxHP = modComponent.MaxHP;
 			gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
-			//gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition)); //<===================================
 			gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition), false);
 			// OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
 
@@ -161,9 +158,7 @@ namespace ModComponentMapper
 			modComponent.gameObject.layer = vp_Layer.Gear;
 
 			GearItem gearItem = modComponent.GetComponent<GearItem>();
-			//gearItem.m_SkinnedMeshRenderers = ModComponentUtils.ModUtils.NotNull(gearItem.m_SkinnedMeshRenderers); //<================================================================
 			gearItem.m_SkinnedMeshRenderers = ModComponentUtils.ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
-			//I think this should be fine. It appears to just be a syntax error.
 
 			GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
 			MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
@@ -177,7 +172,7 @@ namespace ModComponentMapper
 						eachMaterial.shader = meshRenderer.material.shader;
 						eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
 
-						if (eachMaterial.GetTexture("_dmg_texture") == null)
+						if (eachMaterial.GetTexture("_dmg_texture") is null)
 						{
 							eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
 						}
@@ -185,7 +180,7 @@ namespace ModComponentMapper
 				}
 			}
 
-			NameUtils.RegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name);
+			ConsoleWaitlist.MaybeRegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name);
 
 			UnityEngine.Object.DontDestroyOnLoad(modComponent.gameObject);
 		}

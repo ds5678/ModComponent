@@ -12,6 +12,8 @@ namespace ModComponentMapper.InformationMenu
 			guiBuilder.AddEmptySetting("ModComponent", GetVersionString(typeof(ModComponentMain.Implementation)));
 			guiBuilder.AddHeader("Dependencies", false);
 			guiBuilder.AddEmptySetting("MelonLoader", GetVersionString(typeof(MelonLoader.MelonBase), 4));
+			guiBuilder.AddEmptySetting("Unhollower Base Library", GetVersionString(typeof(UnhollowerBaseLib.IL2CPP), 4));
+			guiBuilder.AddEmptySetting("Unhollower Runtime Library", GetVersionString(typeof(UnhollowerRuntimeLib.ClassInjector), 4));
 			guiBuilder.AddEmptySetting("ModSettings", GetVersionString(typeof(ModSettings.ModSettingsBase)));
 		}
 		public string GetVersionString(Type type) => GetVersionString(type, 3);

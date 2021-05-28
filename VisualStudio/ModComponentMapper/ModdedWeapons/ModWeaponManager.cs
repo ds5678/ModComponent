@@ -80,5 +80,7 @@ namespace ModComponentMapper
 		}
 
 		public FixMuzzleFlashTransformParent(IntPtr intPtr) : base(intPtr) { }
+
+		static FixMuzzleFlashTransformParent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.FixMuzzleFlashTransformParent>();
 	}
 }

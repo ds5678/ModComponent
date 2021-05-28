@@ -1,4 +1,6 @@
-﻿namespace ModComponentAPI
+﻿using ModComponentUtils;
+
+namespace ModComponentAPI
 {
 	public class ModGenericEquippableComponent : EquippableModComponent
 	{

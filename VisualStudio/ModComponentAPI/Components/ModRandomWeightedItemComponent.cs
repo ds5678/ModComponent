@@ -1,12 +1,19 @@
-﻿using UnhollowerBaseLib.Attributes;
+﻿using ModComponentUtils;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace ModComponentAPI
 {
 	public class ModRandomWeightedItemComponent : ModComponent
 	{
+		/// <summary>
+		/// The names of the gear items that this could spawn. Must be the same length as "ItemWeights"
+		/// </summary>
 		public string[] ItemNames = new string[0];
 
+		/// <summary>
+		/// The integer weights of the gear items that this could spawn. Must be the same length as "ItemNames"
+		/// </summary>
 		public int[] ItemWeights = new int[0];
 
 		public ModRandomWeightedItemComponent(System.IntPtr intPtr) : base(intPtr) { }

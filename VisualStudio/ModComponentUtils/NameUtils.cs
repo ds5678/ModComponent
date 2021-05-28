@@ -6,6 +6,7 @@
 		{
 			return new LocalizedString() { m_LocalizationID = key };
 		}
+
 		public static LocalizedString[] CreateLocalizedStrings(params string[] keys)
 		{
 			LocalizedString[] result = new LocalizedString[keys.Length];
@@ -17,17 +18,18 @@
 
 			return result;
 		}
-		public static string AddCraftingIconPrefix(string name)
+
+		internal static string AddCraftingIconPrefix(string name)
 		{
 			return "ico_CraftItem__" + name;
 		}
 
-		public static string RemoveCraftingIconPrefix(string iconFileName)
+		internal static string RemoveCraftingIconPrefix(string iconFileName)
 		{
 			return iconFileName.Replace("ico_CraftItem__", "");
 		}
 
-		public static string AddGearPrefix(string name)
+		internal static string AddGearPrefix(string name)
 		{
 			return "GEAR_" + name;
 		}
@@ -36,7 +38,7 @@
 		/// Returns a string with the 'GEAR_' prefix removed.
 		/// </summary>
 		/// <param name="gearName">The gear's name, ie 'GEAR_SampleItem'</param>
-		public static string RemoveGearPrefix(string gearName)
+		internal static string RemoveGearPrefix(string gearName)
 		{
 			return gearName.Replace("GEAR_", "");
 		}
@@ -48,17 +50,8 @@
 		/// <returns>Returns a new string without "(Clone)" or the whitespace</returns>
 		public static string NormalizeName(string name)
 		{
-			if (name == null) return null;
+			if (name is null) return null;
 			else return name.Replace("(Clone)", "").Trim();
-		}
-
-		internal static void RegisterConsoleGearName(string displayName, string prefabName)
-		{
-			if (ModComponentMapper.ConsoleWaitlist.IsConsoleManagerInitialized())
-			{
-				ConsoleManager.AddCustomGearName(displayName.ToLower(), prefabName.ToLower());
-			}
-			else ModComponentMapper.ConsoleWaitlist.AddToWaitlist(displayName, prefabName);
 		}
 	}
 }

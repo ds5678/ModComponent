@@ -9,7 +9,7 @@ namespace ModComponentUtils
 			return (T)Enum.Parse(typeof(T), text, true);
 		}
 
-		internal static T TranslateEnumValue<T, E>(E value)
+		internal static T TranslateEnumValue<T, E>(E value) where T : Enum where E : Enum
 		{
 			return (T)Enum.Parse(typeof(T), Enum.GetName(typeof(E), value));
 		}

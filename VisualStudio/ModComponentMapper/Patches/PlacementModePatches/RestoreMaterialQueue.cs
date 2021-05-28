@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,5 +32,7 @@ namespace ModComponentMapper
 		}
 
 		public RestoreMaterialQueue(IntPtr intPtr) : base(intPtr) { }
+		static RestoreMaterialQueue() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.RestoreMaterialQueue>();
 	}
 }
+*/

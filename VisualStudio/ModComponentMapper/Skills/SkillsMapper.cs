@@ -28,7 +28,7 @@ namespace ModComponentMapper
 		internal static void MapSkills()
 		{
 			SkillsManager skillsManager = GameManager.GetSkillsManager();
-			if (skillsManager == null) return;
+			if (skillsManager is null) return;
 
 			foreach (ModSkill eachModSkill in skills)
 			{

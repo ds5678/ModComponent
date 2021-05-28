@@ -1,10 +1,10 @@
-﻿namespace Preloader
+﻿namespace ModComponentUtils
 {
 	internal static class Logger
 	{
 		private static string GetFormattedString(string message, params object[] parameters)
 		{
-			return "[Preloader] " + string.Format(message, parameters);
+			return "[Utils] " + string.Format(message, parameters);
 		}
 
 		//Regular Messages show in white

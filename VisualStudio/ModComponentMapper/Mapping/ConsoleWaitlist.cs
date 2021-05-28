@@ -3,37 +3,56 @@ using System.Collections.Generic;
 
 namespace ModComponentMapper
 {
+	public readonly struct ModConsoleName
+	{
+		public readonly string displayName;
+		public readonly string prefabName;
+		public ModConsoleName(string displayName, string prefabName)
+		{
+			this.displayName = displayName;
+			this.prefabName = prefabName;
+		}
+	}
+
 	internal static class ConsoleWaitlist
 	{
-		private static List<string> commandWaitlistDisplay = new List<string>(0);
-		private static List<string> commandWaitlistPrefab = new List<string>(0);
+		private static List<ModConsoleName> commandWaitlist = new List<ModConsoleName>(0);
 
 		public static void AddToWaitlist(string displayName, string prefabName)
 		{
-			commandWaitlistDisplay.Add(displayName);
-			commandWaitlistPrefab.Add(prefabName);
+			commandWaitlist.Add(new ModConsoleName(displayName, prefabName));
 		}
-		public static bool IsConsoleManagerInitialized()
-		{
-			return ConsoleManager.m_Initialized;
-		}
+
+		public static bool IsConsoleManagerInitialized() => ConsoleManager.m_Initialized;
+
 		public static void TryUpdateWaitlist()
 		{
-			if (commandWaitlistDisplay.Count > 0 && IsConsoleManagerInitialized())
+			if (commandWaitlist.Count > 0 && IsConsoleManagerInitialized())
 			{
-				for (int i = 0; i < commandWaitlistDisplay.Count; i++)
+				foreach (ModConsoleName modConsoleName in commandWaitlist)
 				{
-					string displayName = commandWaitlistDisplay[i];
-					string prefabName = commandWaitlistPrefab[i];
-					ModComponentUtils.NameUtils.RegisterConsoleGearName(displayName, prefabName);
+					RegisterConsoleGearName(modConsoleName.displayName, modConsoleName.prefabName);
 				}
-				commandWaitlistDisplay = new List<string>(0);
-				commandWaitlistPrefab = new List<string>(0);
+				commandWaitlist.Clear();
 				Logger.Log("Console Commands added. The waitlist is empty.");
 			}
 		}
 
-		[HarmonyPatch(typeof(GameManager), "Update")]
+		internal static void MaybeRegisterConsoleGearName(string displayName, string prefabName)
+		{
+			if (IsConsoleManagerInitialized())
+			{
+				RegisterConsoleGearName(displayName, prefabName);
+			}
+			else AddToWaitlist(displayName, prefabName);
+		}
+
+		private static void RegisterConsoleGearName(string displayName, string prefabName)
+		{
+			ConsoleManager.AddCustomGearName(displayName.ToLower(), prefabName.ToLower());
+		}
+
+		[HarmonyPatch(typeof(ConsoleManager), "Initialize")]
 		internal static class UpdateConsoleCommands
 		{
 			private static void Postfix()

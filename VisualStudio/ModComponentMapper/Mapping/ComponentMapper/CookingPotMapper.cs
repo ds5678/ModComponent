@@ -8,10 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModCookingPotComponent modCookingPotComponent = modComponent.TryCast<ModCookingPotComponent>();
-			if (modCookingPotComponent == null)
-			{
-				return;
-			}
+			if (modCookingPotComponent is null) return;
 
 			CookingPotItem cookingPotItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<CookingPotItem>(modComponent);
 

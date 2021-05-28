@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Harmony;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModComponentMapper
@@ -53,7 +54,6 @@ namespace ModComponentMapper
 		internal static void Initialize()
 		{
 			GearSpawnReader.ReadDefinitions();
-
 			MapperImplementation.OnSceneReady += PrepareScene;
 		}
 
@@ -69,9 +69,9 @@ namespace ModComponentMapper
 				}
 
 				GameObject prefab = Resources.Load(eachEntry.PrefabName).Cast<GameObject>();
-				if (prefab == null)
+				if (prefab is null)
 				{
-					Logger.Log("Could not find prefab '{0}'.", eachEntry.PrefabName);
+					Logger.LogWarning("Could not find prefab '{0}'.", eachEntry.PrefabName);
 					continue;
 				}
 
@@ -80,16 +80,14 @@ namespace ModComponentMapper
 			}
 		}
 
-		private static void ConfigureLootTables(string sceneName)
+		private static void ConfigureLootTable(LootTable lootTable)
 		{
-			LootTable[] lootTables = Resources.FindObjectsOfTypeAll<LootTable>();
-			foreach (LootTable eachLootTable in lootTables)
+			if (lootTable is null) return;
+
+			List<LootTableEntry> entries;
+			if (lootTableEntries.TryGetValue(lootTable.name.ToLower(), out entries))
 			{
-				List<LootTableEntry> entries;
-				if (lootTableEntries.TryGetValue(eachLootTable.name.ToLower(), out entries))
-				{
-					AddEntries(eachLootTable, entries);
-				}
+				AddEntries(lootTable, entries);
 			}
 		}
 
@@ -112,8 +110,7 @@ namespace ModComponentMapper
 			{
 				return "gear_" + gearName;
 			}
-
-			return gearName;
+			else return gearName;
 		}
 
 		private static string GetNormalizedLootTableName(string lootTable)
@@ -122,19 +119,14 @@ namespace ModComponentMapper
 			{
 				return lootTable.ToLower();
 			}
-
 			if (lootTable.StartsWith("Cargo", System.StringComparison.InvariantCultureIgnoreCase))
 			{
 				return "loot" + lootTable.ToLower();
 			}
-
 			return "loottable" + lootTable.ToLower();
 		}
 
-		private static string GetNormalizedSceneName(string sceneName)
-		{
-			return sceneName.ToLower();
-		}
+		private static string GetNormalizedSceneName(string sceneName) => sceneName.ToLower();
 
 		private static IEnumerable<GearSpawnInfo> GetSpawnInfos(string sceneName)
 		{
@@ -151,23 +143,17 @@ namespace ModComponentMapper
 			{
 				return "gear_" + prefabName;
 			}
-
 			return prefabName;
 		}
 
 		private static void PrepareScene()
 		{
-			if (ModComponentUtils.ModUtils.IsNonGameScene())
-			{
-				return;
-			}
+			if (ModComponentUtils.ModUtils.IsNonGameScene()) return;
 
 			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 			stopwatch.Start();
 
-			string normalizedSceneName = GetNormalizedSceneName(GameManager.m_ActiveScene);
-			ConfigureLootTables(normalizedSceneName);
-			SpawnGearForScene(normalizedSceneName);
+			SpawnGearForScene(GetNormalizedSceneName(GameManager.m_ActiveScene));
 
 			stopwatch.Stop();
 			Logger.Log("Spawned '{0}' items for scene '{1}' in {2} ms", ProbabilityManager.GetDifficultyLevel(), GameManager.m_ActiveScene, stopwatch.ElapsedMilliseconds);
@@ -180,19 +166,16 @@ namespace ModComponentMapper
 		private static void SpawnGearForScene(string sceneName)
 		{
 			IEnumerable<GearSpawnInfo> sceneGearSpawnInfos = GetSpawnInfos(sceneName);
-			if (sceneGearSpawnInfos == null)
-			{
-				return;
-			}
+			if (sceneGearSpawnInfos is null) return;
 
 			foreach (GearSpawnInfo eachGearSpawnInfo in sceneGearSpawnInfos)
 			{
 				string normalizedGearName = GetNormalizedGearName(eachGearSpawnInfo.PrefabName);
 				Object prefab = Resources.Load(normalizedGearName);
 
-				if (prefab == null)
+				if (prefab is null)
 				{
-					Logger.Log("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
+					Logger.LogWarning("Could not find prefab '{0}' to spawn in scene '{1}'.", eachGearSpawnInfo.PrefabName, sceneName);
 					continue;
 				}
 
@@ -200,14 +183,20 @@ namespace ModComponentMapper
 				if (ModComponentUtils.RandomUtils.RollChance(spawnProbability))
 				{
 					Object gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation);
-					//Logger.Log("'{0}' instantiated in '{1}'", normalizedGearName, sceneName);
 					gear.name = prefab.name;
 					DisableObjectForXPMode xpmode = gear.Cast<GameObject>().GetComponent<DisableObjectForXPMode>();
-					if (xpmode != null)
-					{
-						Object.Destroy(xpmode);
-					}
+					if (xpmode != null) Object.Destroy(xpmode);
 				}
+			}
+		}
+
+		[HarmonyPatch(typeof(Container), "PopulateWithRandomGear")]
+		internal class Container_PopulateWithRandomGear
+		{
+			private static void Prefix(Container __instance)
+			{
+				ConfigureLootTable(__instance.m_LockedLootTablePrefab);
+				ConfigureLootTable(__instance.m_LootTablePrefab);
 			}
 		}
 	}

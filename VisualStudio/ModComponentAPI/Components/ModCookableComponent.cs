@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModComponentUtils;
+using System;
 using UnityEngine;
 
 namespace ModComponentAPI

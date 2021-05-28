@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using ModComponentUtils;
+using UnityEngine;
 
 namespace ModComponentAPI
 {
 	public class ModRandomItemComponent : ModComponent
 	{
+		/// <summary>
+		/// The names of the gear items that this could spawn.
+		/// </summary>
 		public string[] ItemNames = new string[0];
 
 		public ModRandomItemComponent(System.IntPtr intPtr) : base(intPtr) { }

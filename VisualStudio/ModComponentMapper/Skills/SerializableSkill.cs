@@ -20,7 +20,7 @@ namespace ModComponentMapper
 
 		public static string GetSkillSaveKey(Skill skill)
 		{
-			if (skill == null)
+			if (skill is null)
 			{
 				//Logger.Log("GetSkillSaveKey returned null");
 				return null;

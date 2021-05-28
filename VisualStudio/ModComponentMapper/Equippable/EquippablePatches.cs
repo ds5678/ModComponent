@@ -1,5 +1,6 @@
 ﻿using Harmony;
 using ModComponentAPI;
+using ModComponentUtils;
 using UnityEngine;
 
 namespace ModComponentMapper.Patches
@@ -9,7 +10,7 @@ namespace ModComponentMapper.Patches
 	{
 		internal static void Postfix(PlayerManager __instance)
 		{
-			GearEquipper.Unequip(ModComponentUtils.ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+			GearEquipper.Unequip(ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands));
 		}
 	}
 
@@ -18,7 +19,7 @@ namespace ModComponentMapper.Patches
 	{
 		internal static void Prefix(PlayerManager __instance)
 		{
-			GearEquipper.OnUnequipped(ModComponentUtils.ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+			GearEquipper.OnUnequipped(ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands));
 		}
 	}
 
@@ -27,16 +28,12 @@ namespace ModComponentMapper.Patches
 	{
 		internal static void Prefix(PlayerManager __instance, GearItem gi)
 		{
-			EquippableModComponent equippable = ModComponentUtils.ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
-			if (equippable != null)
-			{
-				__instance.UnequipItemInHands();
-			}
+			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
+			if (equippable != null) __instance.UnequipItemInHands();
 		}
 		internal static void Postfix(PlayerManager __instance)
 		{
-			//Logger.Log("equip item");
-			GearEquipper.Equip(ModComponentUtils.ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands));
+			GearEquipper.Equip(ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands));
 		}
 	}
 
@@ -51,7 +48,7 @@ namespace ModComponentMapper.Patches
 
 			lastMode = mode;
 
-			EquippableModComponent equippable = ModComponentUtils.ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
+			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
 			equippable?.OnControlModeChangedWhileEquipped?.Invoke();
 
 		}
@@ -62,20 +59,15 @@ namespace ModComponentMapper.Patches
 	{
 		internal static bool Prefix(PlayerManager __instance, GearItem gi)
 		{
-			if (ModComponentUtils.ComponentUtils.GetComponent<FirstPersonItem>(gi) != null) return true;
+			if (ComponentUtils.GetComponent<FirstPersonItem>(gi) != null) return true;
 
-			if (ModComponentUtils.ComponentUtils.GetEquippableModComponent(gi) == null) return true;
+			if (ComponentUtils.GetEquippableModComponent(gi) is null) return true;
 
 			var currentGi = __instance.m_ItemInHands;
-			if (currentGi != null)
-			{
-				__instance.UnequipItemInHands();
-			}
 
-			if (gi != currentGi)
-			{
-				__instance.EquipItem(gi, false);
-			}
+			if (currentGi != null) __instance.UnequipItemInHands();
+
+			if (gi != currentGi) __instance.EquipItem(gi, false);
 
 			return false;
 		}
@@ -87,13 +79,13 @@ namespace ModComponentMapper.Patches
 		public static bool Prefix(MonoBehaviour context)
 		{
 			PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-			if (playerManager == null || GameManager.ControlsLocked() || InterfaceManager.IsOverlayActiveImmediate() || !InputManager.GetFirePressed(context) || InputManager.GetFireReleased(context))
+			if (playerManager is null || GameManager.ControlsLocked() || InterfaceManager.IsOverlayActiveImmediate() || !InputManager.GetFirePressed(context) || InputManager.GetFireReleased(context))
 			{
 				return true;
 			}
 
-			EquippableModComponent equippable = ModComponentUtils.ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
-			if (equippable == null || equippable.Implementation == null) return true;
+			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
+			if (equippable?.Implementation is null) return true;
 
 			equippable.OnPrimaryAction?.Invoke();
 			return false;
@@ -107,13 +99,13 @@ namespace ModComponentMapper.Patches
 		public static bool Prefix()
 		{
 			PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-			if (playerManager == null || InterfaceManager.IsOverlayActiveImmediate() || playerManager.IsInPlacementMode() || playerManager.ItemInHandsPlaceable())
+			if (playerManager is null || InterfaceManager.IsOverlayActiveImmediate() || playerManager.IsInPlacementMode() || playerManager.ItemInHandsPlaceable())
 			{
 				return true;
 			}
 
-			EquippableModComponent equippable = ModComponentUtils.ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
-			if (equippable == null) return true;
+			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
+			if (equippable is null) return true;
 
 			equippable.OnSecondaryAction?.Invoke();
 			return false;
@@ -127,7 +119,7 @@ namespace ModComponentMapper.Patches
 		{
 			if (__result) return;
 
-			__result = ModComponentUtils.ComponentUtils.GetModComponent(GameManager.GetPlayerManagerComponent().m_ItemInHands) != null;
+			__result = ComponentUtils.GetModComponent(GameManager.GetPlayerManagerComponent().m_ItemInHands) != null;
 		}
 	}
 
@@ -139,8 +131,19 @@ namespace ModComponentMapper.Patches
 			if (enable)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-				GearEquipper.Unequip(ModComponentUtils.ComponentUtils.GetComponent<EquippableModComponent>(playerManager.m_ItemInHands));
+				GearEquipper.Unequip(ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands));
 			}
+		}
+	}
+
+	[HarmonyPatch(typeof(PlayerManager), "ItemCanEquipInHands")]//Positive Caller Count
+	internal class PlayerManager_ItemCanEquipInHands
+	{
+		private static void Postfix(GearItem gi, ref bool __result)
+		{
+			if (__result || gi is null) return;
+			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(gi);
+			if (equippable != null) __result = true;
 		}
 	}
 }
