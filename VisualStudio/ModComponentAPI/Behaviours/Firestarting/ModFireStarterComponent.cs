@@ -1,6 +1,6 @@
 ﻿namespace ModComponentAPI
 {
-	public class ModFireStarterComponent : ModFireStartingComponent
+	public class ModFireStarterComponent : ModFireMakingComponent
 	{
 		/// <summary>
 		/// How many in-game seconds this item will take to ignite tinder.
@@ -31,6 +31,11 @@
 		/// Set the condition to 0% after the fire starting finished (either successful or not).
 		/// </summary>
 		public bool RuinedAfterUse;
+
+		/// <summary>
+		/// Is the item destroyed immediately after use?
+		/// </summary>
+		public bool DestroyedOnUse;
 
 		public ModFireStarterComponent(System.IntPtr intPtr) : base(intPtr) { }
 	}

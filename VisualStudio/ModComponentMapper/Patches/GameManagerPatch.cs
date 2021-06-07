@@ -41,7 +41,7 @@ namespace ModComponentMapper
 	{
 		private static void Prefix()
 		{
-			MapperImplementation.SceneReady();
+			MapperCore.SceneReady();
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace AssetLoader
 
 		public static void RegisterSoundBank(string relativePath)
 		{
-			string modDirectory = ModComponentMain.Implementation.GetModsFolderPath();
+			string modDirectory = ModComponentUtils.FileUtils.GetModsFolderPath();
 			string soundBankPath = Path.Combine(modDirectory, relativePath);
 			if (!File.Exists(soundBankPath))
 			{

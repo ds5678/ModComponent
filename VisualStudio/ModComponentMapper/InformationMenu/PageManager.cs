@@ -13,5 +13,10 @@
 		}
 		internal static void AddToItemPacksPage(ItemPackData itemPackData) => itemPacksPage.AddToItemPackList(itemPackData);
 		internal static void SetItemPackNotWorking(string pathToAsset) => itemPacksPage.SetItemPackNotWorking(pathToAsset);
+		internal static void SetItemPackNotWorking(string pathToAsset, string errorMessage)
+		{
+			Logger.LogItemPackError(itemPacksPage.GetItemPackName(pathToAsset), errorMessage);
+			itemPacksPage.SetItemPackNotWorking(pathToAsset);
+		}
 	}
 }

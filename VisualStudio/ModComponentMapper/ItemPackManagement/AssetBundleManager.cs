@@ -38,8 +38,12 @@ namespace ModComponentMapper
 				}
 				catch (Exception e)
 				{
-					if (pendingAssetBundlePaths.ContainsKey(relativePath)) PageManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath]);
-					Logger.LogError("Could not map the assets in the bundle at '{0}'. {1}", relativePath, e.Message);
+					string errorMessage = string.Format("Could not map the assets in the bundle at '{0}'. {1}", relativePath, e.Message);
+					if (pendingAssetBundlePaths.ContainsKey(relativePath))
+					{
+						PageManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath], errorMessage);
+					}
+					Logger.LogError(errorMessage);
 				}
 			}
 			pendingAssetBundles.Clear();

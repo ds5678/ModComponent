@@ -24,23 +24,23 @@ namespace ModComponentAPI
 		}
 		void Update()
 		{
-			if (ModComponentMain.Settings.options.disableRandomItemSpawns) return;
+			if (ModComponentMain.Settings.instance.disableRandomItemSpawns) return;
 			if (this.ItemNames is null || this.ItemNames.Length == 0)
 			{
 				Logger.LogWarning("'{0}' had an invalid list of potential spawn items.", this.name);
-				GameObject.Destroy(this.gameObject);
+				Destroy(this.gameObject);
 				return;
 			}
 			if (this.ItemWeights is null || this.ItemWeights.Length == 0)
 			{
 				Logger.LogWarning("'{0}' had an invalid list of item spawn weights.", this.name);
-				GameObject.Destroy(this.gameObject);
+				Destroy(this.gameObject);
 				return;
 			}
 			if (this.ItemWeights.Length != this.ItemNames.Length)
 			{
 				Logger.LogWarning("The lists of item names and spawn weights for '{0}' had unequal length.", this.name);
-				GameObject.Destroy(this.gameObject);
+				Destroy(this.gameObject);
 				return;
 			}
 
@@ -49,15 +49,15 @@ namespace ModComponentAPI
 			if (prefab is null)
 			{
 				Logger.LogWarning("Could not use '{0}' to spawn random item '{1}'", this.name, this.ItemNames[index]);
-				GameObject.Destroy(this.gameObject);
+				Destroy(this.gameObject);
 				return;
 			}
 
-			GameObject gear = GameObject.Instantiate(prefab, this.transform.position, this.transform.rotation);
+			GameObject gear = Instantiate(prefab, this.transform.position, this.transform.rotation);
 			gear.name = prefab.name;
 			DisableObjectForXPMode xpmode = gear?.GetComponent<DisableObjectForXPMode>();
-			if (xpmode != null) GameObject.Destroy(xpmode);
-			GameObject.Destroy(this.gameObject);
+			if (xpmode != null) Destroy(xpmode);
+			Destroy(this.gameObject);
 		}
 
 		[HideFromIl2Cpp]
@@ -65,7 +65,7 @@ namespace ModComponentAPI
 		{
 			if (this.ItemNames.Length == 1) return 0;
 
-			int randomValue = ModComponentUtils.RandomUtils.Range(0, GetTotalWeight());
+			int randomValue = RandomUtils.Range(0, GetTotalWeight());
 			int runningTotal = 0;
 			int count = 0;
 			foreach (int weight in this.ItemWeights)

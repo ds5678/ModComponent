@@ -15,7 +15,7 @@ namespace SceneLoader
 			else
 			{
 				gameManagerObjectPrefab = new GameObject();
-				GameObject.DontDestroyOnLoad(gameManagerObjectPrefab);
+				Object.DontDestroyOnLoad(gameManagerObjectPrefab);
 				gameManagerObjectPrefab.SetActive(false);
 				gameManagerObjectPrefab.name = gameManager.name;
 
@@ -33,7 +33,7 @@ namespace SceneLoader
 			else
 			{
 				MelonLoader.MelonLogger.Log("instantiate");
-				GameObject.Instantiate(gameManagerObjectPrefab).SetActive(true);
+				Object.Instantiate(gameManagerObjectPrefab).SetActive(true);
 			}
 		}
 

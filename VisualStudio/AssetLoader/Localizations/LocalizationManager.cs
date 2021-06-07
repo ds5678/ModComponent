@@ -55,11 +55,11 @@ namespace AssetLoader
 			{
 				if (path.ToLower().EndsWith(".json"))
 				{
-					LocalizationManager.LoadJSONLocalization(asset);
+					LoadJSONLocalization(asset);
 				}
 				else if (path.ToLower().EndsWith(".csv"))
 				{
-					LocalizationManager.LoadCSVLocalization(asset);
+					LoadCSVLocalization(asset);
 				}
 				else
 				{
@@ -69,8 +69,8 @@ namespace AssetLoader
 			else
 			{
 				Logger.Log("Localization not initialized. Adding asset name to waitlist.");
-				LocalizationManager.localizationWaitlistAssets.Add(path);
-				LocalizationManager.localizationWaitlistBundles.Add(relativePath);
+				localizationWaitlistAssets.Add(path);
+				localizationWaitlistBundles.Add(relativePath);
 			}
 		}
 
@@ -78,12 +78,12 @@ namespace AssetLoader
 		{
 			if (Localization.IsInitialized())
 			{
-				LocalizationManager.LoadJSONLocalization(jsonContents);
+				LoadJSONLocalization(jsonContents);
 			}
 			else
 			{
 				Logger.Log("Localization not initialized. Adding asset name to waitlist.");
-				LocalizationManager.localizationWaitlistText.Add(jsonContents);
+				localizationWaitlistText.Add(jsonContents);
 			}
 		}
 
@@ -98,19 +98,19 @@ namespace AssetLoader
 		internal static void LoadPendingAssets()
 		{
 			Logger.Log("Loading Waitlisted Localization Assets");
-			for (int i = 0; i < LocalizationManager.localizationWaitlistAssets.Count; i++)
+			for (int i = 0; i < localizationWaitlistAssets.Count; i++)
 			{
-				string bundleName = LocalizationManager.localizationWaitlistBundles[i];
-				string assetName = LocalizationManager.localizationWaitlistAssets[i];
-				LocalizationManager.LoadLocalizationFromBundle(bundleName, assetName);
+				string bundleName = localizationWaitlistBundles[i];
+				string assetName = localizationWaitlistAssets[i];
+				LoadLocalizationFromBundle(bundleName, assetName);
 			}
-			for (int j = 0; j < LocalizationManager.localizationWaitlistText.Count; j++)
+			for (int j = 0; j < localizationWaitlistText.Count; j++)
 			{
-				LocalizationManager.LoadJSONLocalization(localizationWaitlistText[j]);
+				LoadJSONLocalization(localizationWaitlistText[j]);
 			}
-			LocalizationManager.localizationWaitlistAssets = new List<string>(0);
-			LocalizationManager.localizationWaitlistBundles = new List<string>(0);
-			LocalizationManager.localizationWaitlistText = new List<string>(0);
+			localizationWaitlistAssets = new List<string>(0);
+			localizationWaitlistBundles = new List<string>(0);
+			localizationWaitlistText = new List<string>(0);
 			//string text = MelonLoader.TinyJSON.JSON.Dump(localizationDictionary, EncodeOptions.PrettyPrint);
 			//Logger.Log(text);
 		}
@@ -121,11 +121,11 @@ namespace AssetLoader
 			Object asset = assetBundle.LoadAsset(assetName);
 			if (assetName.ToLower().EndsWith("json"))
 			{
-				LocalizationManager.LoadJSONLocalization(asset);
+				LoadJSONLocalization(asset);
 			}
 			else if (assetName.ToLower().EndsWith("csv"))
 			{
-				LocalizationManager.LoadCSVLocalization(asset);
+				LoadCSVLocalization(asset);
 			}
 			else
 			{

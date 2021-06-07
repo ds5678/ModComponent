@@ -2,47 +2,84 @@
 {
 	internal static class Injections
 	{
-		internal static void API_Injections()
+		private static void Inject<T>() where T : class
 		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ChangeLayer>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSaveBehaviour>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFireStartingComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModAccelerantComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModBurnableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModEvolveComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFireStarterComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModHarvestableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModMillableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModRepairableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModScentComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSharpenableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModStackableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.EquippableModComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModBedComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModBodyHarvestComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModClothingComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModCollectibleComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModCookableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModCookingPotComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModExplosiveComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModExplosiveSave>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFirstAidComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModFoodComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModGenericComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModGenericEquippableComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModLiquidComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModPowderComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModRandomItemComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModRandomWeightedItemComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModRifleComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModToolComponent>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.AddTag>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.AlternativeAction>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.AttachBehaviour>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModBlueprint>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.ModSkill>();
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentAPI.PlayAkSound>();
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<T>();
+		}
+
+		internal static void InjectAll()
+		{
+			API_Component_Injections();
+			API_Behaviour_Injections();
+			API_FireMaking_Injections();
+			API_Special_Injections();
+			SceneLoader_Injections();
+		}
+
+		private static void API_FireMaking_Injections()
+		{
+			Inject<ModComponentAPI.ModFireMakingComponent>();
+			Inject<ModComponentAPI.ModAccelerantComponent>();
+			Inject<ModComponentAPI.ModBurnableComponent>();
+			Inject<ModComponentAPI.ModFireStarterComponent>();
+			Inject<ModComponentAPI.ModTinderComponent>();
+		}
+
+		private static void API_Behaviour_Injections()
+		{
+			Inject<ModComponentAPI.ModCarryingCapacityComponent>();
+			Inject<ModComponentAPI.ModEvolveComponent>();
+			Inject<ModComponentAPI.ModHarvestableComponent>();
+			Inject<ModComponentAPI.ModMillableComponent>();
+			Inject<ModComponentAPI.ModRepairableComponent>();
+			Inject<ModComponentAPI.ModScentComponent>();
+			Inject<ModComponentAPI.ModSharpenableComponent>();
+			Inject<ModComponentAPI.ModStackableComponent>();
+		}
+
+		private static void API_Component_Injections()
+		{
+			Inject<ModComponentAPI.ChangeLayer>();
+			Inject<ModComponentAPI.ModSaveBehaviour>();
+			Inject<ModComponentAPI.ModComponent>();
+			Inject<ModComponentAPI.EquippableModComponent>();
+			Inject<ModComponentAPI.ModBedComponent>();
+			Inject<ModComponentAPI.ModBodyHarvestComponent>();
+			Inject<ModComponentAPI.ModCharcoalComponent>();
+			Inject<ModComponentAPI.ModClothingComponent>();
+			Inject<ModComponentAPI.ModCollectibleComponent>();
+			Inject<ModComponentAPI.ModCookableComponent>();
+			Inject<ModComponentAPI.ModCookingPotComponent>();
+			Inject<ModComponentAPI.ModExplosiveComponent>();
+			Inject<ModComponentAPI.ModExplosiveSave>();
+			Inject<ModComponentAPI.ModFirstAidComponent>();
+			Inject<ModComponentAPI.ModFoodComponent>();
+			Inject<ModComponentAPI.ModGenericComponent>();
+			Inject<ModComponentAPI.ModGenericEquippableComponent>();
+			Inject<ModComponentAPI.ModLiquidComponent>();
+			Inject<ModComponentAPI.ModPowderComponent>();
+			Inject<ModComponentAPI.ModPurificationComponent>();
+			Inject<ModComponentAPI.ModRandomItemComponent>();
+			Inject<ModComponentAPI.ModRandomWeightedItemComponent>();
+			Inject<ModComponentAPI.ModResearchComponent>();
+			Inject<ModComponentAPI.ModRifleComponent>();
+			Inject<ModComponentAPI.ModToolComponent>();
+		}
+
+		private static void API_Special_Injections()
+		{
+			Inject<ModComponentAPI.AddTag>();
+			Inject<ModComponentAPI.AlternativeAction>();
+			Inject<ModComponentAPI.AttachBehaviour>();
+			Inject<ModComponentAPI.ModBlueprint>();
+			Inject<ModComponentAPI.ModSkill>();
+			Inject<ModComponentAPI.PlayAkSound>();
+		}
+
+		private static void SceneLoader_Injections()
+		{
+			Inject<SceneLoader.Shaders.SubstituteShadersSingle>();
+			Inject<SceneLoader.Shaders.SubstituteShadersRecursive>();
 		}
 	}
 }

@@ -1,10 +1,16 @@
 ﻿using System;
+using System.IO;
 
 namespace ModComponentUtils
 {
 	public static class FileUtils
 	{
-		public static string GetRelativePath(string file, string directory)
+		public static string GetModsFolderPath()
+		{
+			return Path.GetFullPath(typeof(MelonLoader.MelonMod).Assembly.Location + @"\..\..\Mods");
+		}
+
+		internal static string GetRelativePath(string file, string directory)
 		{
 			if (file.StartsWith(directory))
 			{
@@ -12,6 +18,11 @@ namespace ModComponentUtils
 			}
 
 			throw new ArgumentException("Could not determine relative path of '" + file + "' to '" + directory + "'.");
+		}
+
+		internal static string GetPathRelativeToModsFolder(string fullPath)
+		{
+			return GetRelativePath(fullPath, GetModsFolderPath());
 		}
 	}
 }

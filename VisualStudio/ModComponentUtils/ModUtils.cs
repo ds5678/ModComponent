@@ -59,7 +59,17 @@ namespace ModComponentUtils
 		public static GameObject GetChild(GameObject gameObject, string childName)
 		{
 			if (string.IsNullOrEmpty(childName)) return null;
-			return gameObject.transform.FindChild(childName)?.gameObject;
+			return gameObject?.transform?.FindChild(childName)?.gameObject;
+		}
+
+		public static GameObject GetParent(GameObject gameObject)
+		{
+			return gameObject?.transform?.parent?.gameObject;
+		}
+
+		public static GameObject GetSibling(GameObject gameObject, string siblingName)
+		{
+			return GetChild(GetParent(gameObject), siblingName);
 		}
 
 		/// <summary>
@@ -129,7 +139,7 @@ namespace ModComponentUtils
 
 		internal static T[] GetMatchingItems<T>(string[] names, string reference = null) where T : UnityEngine.Component
 		{
-			names = ModComponentUtils.ModUtils.NotNull(names);
+			names = NotNull(names);
 
 			List<T> values = new List<T>();
 

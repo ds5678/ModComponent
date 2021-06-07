@@ -5,7 +5,6 @@ using ModComponentMapper.InformationMenu;
 using ModComponentUtils;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace ModComponentMapper
@@ -43,12 +42,9 @@ namespace ModComponentMapper
 
 	public static class ModExisting
 	{
-		public const string EXISTING_JSON_DIRECTORY_NAME = "existing-json";
 		private static bool isInitialized = false;
 
 		private static Dictionary<string, ModExistingEntry> modExistingEntries = new Dictionary<string, ModExistingEntry>();
-
-		public static string GetExistingJsonDirectory() => Path.Combine(ModComponentMain.Implementation.GetModsFolderPath(), EXISTING_JSON_DIRECTORY_NAME);
 
 		public static void Initialize()
 		{
@@ -61,20 +57,6 @@ namespace ModComponentMapper
 
 		private static void ReadDefinitions()
 		{
-#if DEBUG
-			string existingJsonDirectory = GetExistingJsonDirectory();
-			if (!Directory.Exists(existingJsonDirectory))
-			{
-				Logger.Log("Auxiliary Existing Json directory '{0}' does not exist. Creating...", existingJsonDirectory);
-				Directory.CreateDirectory(existingJsonDirectory);
-			}
-			ProcessFiles(existingJsonDirectory);
-#endif
-			ProcessFilesFromZips();
-		}
-
-		private static void ProcessFilesFromZips()
-		{
 			foreach (var pair in JsonHandler.existingJsons)
 			{
 				try
@@ -84,46 +66,19 @@ namespace ModComponentMapper
 				}
 				catch (Exception e)
 				{
-					PageManager.SetItemPackNotWorking(pair.Key);
-					Logger.LogError("Existing-json could not be loaded correctly at '{0}'. {1}", pair.Key, e.Message);
+					PageManager.SetItemPackNotWorking(pair.Key, $"Existing-json could not be loaded correctly at '{pair.Key}'. {e.Message}");
 				}
 			}
 			JsonHandler.existingJsons.Clear();
 		}
 
-		private static void ProcessFiles(string directory)
-		{
-			if (!Directory.Exists(directory)) return;
-			string[] directories = Directory.GetDirectories(directory);
-			foreach (string eachDirectory in directories)
-			{
-				ProcessFiles(eachDirectory);
-			}
-
-			string[] files = Directory.GetFiles(directory, "*.json");
-			foreach (string eachFile in files)
-			{
-				Logger.Log("Processing existing json definition. '{0}'", eachFile);
-				ProcessFile(eachFile);
-			}
-		}
-		private static void ProcessFile(string filePath)
-		{
-			if (string.IsNullOrEmpty(filePath))
-			{
-				Logger.LogWarning("In InitializeComponents, the filepath was null or empty.");
-			}
-			string data = File.ReadAllText(filePath);
-			ProcessFile(filePath, data);
-		}
 		private static void ProcessFile(string filePath, string fileText)
 		{
 			if (string.IsNullOrEmpty(fileText)) return;
 			ProxyObject dict = JSON.Load(fileText) as ProxyObject;
-			if (!ModComponentUtils.JsonUtils.ContainsKey(dict, "GearName"))
+			if (!JsonUtils.ContainsKey(dict, "GearName"))
 			{
-				Logger.LogWarning("The JSON file doesn't contain the key: 'GearName'");
-				PageManager.SetItemPackNotWorking(filePath);
+				PageManager.SetItemPackNotWorking(filePath, "The JSON file doesn't contain the key: 'GearName'");
 				return;
 			}
 
@@ -150,7 +105,7 @@ namespace ModComponentMapper
 
 		private static void ChangeWeight(GameObject item, float newWeight)
 		{
-			GearItem gearItem = ModComponentUtils.ComponentUtils.GetComponent<GearItem>(item);
+			GearItem gearItem = ComponentUtils.GetComponent<GearItem>(item);
 			if (gearItem is null)
 			{
 				Logger.Log("Could not assign new weight. Item has no GearItem component.");
@@ -174,11 +129,11 @@ namespace ModComponentMapper
 			{
 				ProxyObject dict = JSON.Load(JSON.Dump(entry.behaviourChanges)) as ProxyObject;
 				ComponentJson.InitializeComponents(ref item, dict);
-				if (ModComponentUtils.ComponentUtils.GetComponent<ModComponent>(item) is null)
+				if (ComponentUtils.GetComponent<ModComponent>(item) is null)
 				{
 					var placeholder = item.AddComponent<ModPlaceHolderComponent>();
 					Mapper.Map(item);
-					GameObject.Destroy(placeholder);
+					UnityEngine.Object.Destroy(placeholder);
 				}
 				else Mapper.Map(item);
 			}
@@ -186,7 +141,7 @@ namespace ModComponentMapper
 
 		private static void ChangePrefabs()
 		{
-			foreach(var pair in modExistingEntries)
+			foreach (var pair in modExistingEntries)
 			{
 				GameObject item = Resources.Load(pair.Key).TryCast<GameObject>();
 				if (item is null) continue;
@@ -200,11 +155,11 @@ namespace ModComponentMapper
 				{
 					ProxyObject dict = JSON.Load(JSON.Dump(entry.behaviourChanges)) as ProxyObject;
 					ComponentJson.InitializeComponents(ref item, dict);
-					if (ModComponentUtils.ComponentUtils.GetComponent<ModComponent>(item) is null)
+					if (ComponentUtils.GetComponent<ModComponent>(item) is null)
 					{
 						var placeholder = item.AddComponent<ModPlaceHolderComponent>();
 						Mapper.Map(item);
-						GameObject.Destroy(placeholder);
+						UnityEngine.Object.Destroy(placeholder);
 					}
 					else Mapper.Map(item);
 				}

@@ -1,6 +1,5 @@
 ﻿using ModComponentMapper.InformationMenu;
 using System.Globalization;
-using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -10,7 +9,6 @@ namespace ModComponentMapper
 	{
 		private const string NUMBER = @"-?\d+(?:\.\d+)?";
 		private const string VECTOR = NUMBER + @"\s*,\s*" + NUMBER + @"\s*,\s*" + NUMBER;
-		public const string GEARSPAWNS_DIRECTORY_NAME = "gear-spawns";
 
 		private static readonly Regex LOOTTABLE_ENTRY_REGEX = new Regex(
 			@"^item\s*=\s*(\w+)" +
@@ -26,62 +24,15 @@ namespace ModComponentMapper
 			@"(?:\W+r\s*=\s*(" + VECTOR + "))?" +
 			@"(?:\W+\s*c\s*=\s*(" + NUMBER + "))?$");
 
-		internal static void ReadDefinitions()
-		{
-#if DEBUG
-			string gearSpawnDirectory = GetGearSpawnsDirectory();
-			if (Directory.Exists(gearSpawnDirectory))
-			{
-				ReadDefinitions(gearSpawnDirectory);
-			}
-			else
-			{
-				Logger.Log("Auxiliary gear spawn directory '" + gearSpawnDirectory + "' does not exist. Creating...");
-				Directory.CreateDirectory(gearSpawnDirectory);
-			}
-#endif
-		}
-		private static void ReadDefinitions(string currentDirectory)
-		{
-			if (!Directory.Exists(currentDirectory)) return;
-
-			string[] directories = Directory.GetDirectories(currentDirectory);
-
-			foreach (string directory in directories)
-			{
-				ReadDefinitions(directory);
-			}
-
-
-			string[] files = Directory.GetFiles(currentDirectory, "*.txt");
-			foreach (string eachFile in files)
-			{
-				ProcessLines(File.ReadAllLines(eachFile), eachFile);
-			}
-		}
-
-		public static string GetGearSpawnsDirectory()
-		{
-			string modDirectory = ModComponentMain.Implementation.GetModsFolderPath();
-			return Path.Combine(modDirectory, GEARSPAWNS_DIRECTORY_NAME);
-		}
-
 		private static string GetTrimmedLine(string line)
 		{
-			if (line is null)
-			{
-				return "";
-			}
-
-			return line.Trim().ToLower();
+			if (line is null) return "";
+			else return line.Trim().ToLower();
 		}
 
 		private static float ParseFloat(string value, float defaultValue, string line, string path)
 		{
-			if (string.IsNullOrEmpty(value))
-			{
-				return defaultValue;
-			}
+			if (string.IsNullOrEmpty(value)) return defaultValue;
 
 			try
 			{
@@ -89,16 +40,13 @@ namespace ModComponentMapper
 			}
 			catch (System.Exception)
 			{
-				throw new System.ArgumentException("Could not parse '" + value + "' as numeric value in line " + line + " from file '" + path + "'.");
+				throw new System.ArgumentException($"Could not parse '{value}' as numeric value in line {line} from file '{path}'.");
 			}
 		}
 
 		private static int ParseInt(string value, int defaultValue, string line, string path)
 		{
-			if (string.IsNullOrEmpty(value))
-			{
-				return defaultValue;
-			}
+			if (string.IsNullOrEmpty(value)) return defaultValue;
 
 			try
 			{
@@ -112,10 +60,7 @@ namespace ModComponentMapper
 
 		private static Vector3 ParseVector(string value, string line, string path)
 		{
-			if (string.IsNullOrEmpty(value))
-			{
-				return Vector3.zero;
-			}
+			if (string.IsNullOrEmpty(value)) return Vector3.zero;
 
 			string[] components = value.Split(',');
 			if (components.Length != 3)
@@ -166,8 +111,7 @@ namespace ModComponentMapper
 				{
 					if (string.IsNullOrEmpty(scene))
 					{
-						PageManager.SetItemPackNotWorking(path);
-						Logger.LogError("No scene name defined before line '" + eachLine + "' from '" + path + "'. Did you forget a 'scene = <SceneName>'?");
+						PageManager.SetItemPackNotWorking(path, $"No scene name defined before line '{eachLine}' from '{path}'. Did you forget a 'scene = <SceneName>'?");
 						return;
 					}
 
@@ -198,8 +142,7 @@ namespace ModComponentMapper
 				{
 					if (string.IsNullOrEmpty(loottable))
 					{
-						PageManager.SetItemPackNotWorking(path);
-						Logger.LogError("No loottable name defined before line '" + eachLine + "' from '" + path + "'. Did you forget a 'loottable = <LootTableName>'?");
+						PageManager.SetItemPackNotWorking(path, $"No loottable name defined before line '{eachLine}' from '{path}'. Did you forget a 'loottable = <LootTableName>'?");
 						return;
 					}
 
@@ -211,20 +154,9 @@ namespace ModComponentMapper
 				}
 
 				//Only runs if nothing matches
-				PageManager.SetItemPackNotWorking(path);
-				Logger.LogError("Unrecognized line '" + eachLine + "' in '" + path + "'.");
+				PageManager.SetItemPackNotWorking(path, $"Unrecognized line '{eachLine}' in '{path}'.");
 				return;
 			}
-		}
-
-		public static bool CheckTagMatch(string line)
-		{
-			return TAG_REGEX.Match(GetTrimmedLine(line)).Success;
-		}
-
-		public static Match GetTagMatch(string line)
-		{
-			return TAG_REGEX.Match(GetTrimmedLine(line));
 		}
 	}
 }

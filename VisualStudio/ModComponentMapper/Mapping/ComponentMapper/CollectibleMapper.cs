@@ -1,6 +1,6 @@
 ﻿using ModComponentAPI;
 
-namespace ModComponentMapper
+namespace ModComponentMapper.ComponentMapper
 {
 	internal static class CollectibleMapper
 	{

@@ -2,11 +2,14 @@
 
 namespace ModComponentMapper
 {
-	public class MapperImplementation
+	public delegate void SceneReady();
+
+	public class MapperCore
 	{
+
 		public static event SceneReady OnSceneReady;
 
-		internal static void OnApplicationStart()
+		internal static void InitializeAndMapAssets()
 		{
 			PageManager.Initialize();
 
@@ -18,7 +21,7 @@ namespace ModComponentMapper
 			ModHealthManager.Initialize();
 			AssetBundleManager.LoadPendingAssetBundles();
 			GearSpawner.Initialize();
-			BlueprintReader.Initialize();
+			BlueprintReader.ReadDefinitions();
 		}
 
 		internal static void SceneReady()

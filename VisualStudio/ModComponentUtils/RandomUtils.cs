@@ -55,28 +55,28 @@ namespace ModComponentUtils
 		{
 			byte[] byteArray = new byte[4];
 			cryptoRandom.GetBytes(byteArray);
-			return System.BitConverter.ToInt32(byteArray, 0);
+			return BitConverter.ToInt32(byteArray, 0);
 		}
 
 		public static long RandomLong()
 		{
 			byte[] byteArray = new byte[8];
 			cryptoRandom.GetBytes(byteArray);
-			return System.BitConverter.ToInt64(byteArray, 0);
+			return BitConverter.ToInt64(byteArray, 0);
 		}
 
 		public static uint RandomUInt()
 		{
 			byte[] byteArray = new byte[4];
 			cryptoRandom.GetBytes(byteArray);
-			return System.BitConverter.ToUInt32(byteArray, 0);
+			return BitConverter.ToUInt32(byteArray, 0);
 		}
 
 		public static ulong RandomULong()
 		{
 			byte[] byteArray = new byte[8];
 			cryptoRandom.GetBytes(byteArray);
-			return System.BitConverter.ToUInt64(byteArray, 0);
+			return BitConverter.ToUInt64(byteArray, 0);
 		}
 
 		public static float RandomFloat()

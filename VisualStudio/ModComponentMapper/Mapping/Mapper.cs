@@ -17,13 +17,13 @@ namespace ModComponentMapper
 		{
 			if (prefab is null) throw new ArgumentException("The prefab was NULL.");
 
-			ModComponent modComponent = ModComponentUtils.ComponentUtils.GetModComponent(prefab);
+			ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
 			if (modComponent is null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
 			}
 
-			bool hasModPlaceHolder = !(ModComponentUtils.ComponentUtils.GetComponent<ModPlaceHolderComponent>(prefab) is null);
+			bool hasModPlaceHolder = !(ComponentUtils.GetComponent<ModPlaceHolderComponent>(prefab) is null);
 			if (prefab.GetComponent<GearItem>() is null || hasModPlaceHolder)
 			{
 				ConfigureBehaviours(modComponent);
@@ -37,6 +37,9 @@ namespace ModComponentMapper
 				RifleMapper.Configure(modComponent);
 				ClothingMapper.Configure(modComponent);
 				CollectibleMapper.Configure(modComponent);
+				CharcoalMapper.Configure(modComponent);
+				PurificationMapper.Configure(modComponent);
+				ResearchMapper.Configure(modComponent);
 				FirstAidMapper.Configure(modComponent);
 				ToolMapper.Configure(modComponent);
 				GenericEquippableMapper.Configure(modComponent);
@@ -56,23 +59,25 @@ namespace ModComponentMapper
 
 		internal static void ConfigureBehaviours(ModComponent modComponent)
 		{
-			HarvestableMapper.Configure(modComponent);
-			RepairableMapper.Configure(modComponent);
-			FireStarterMapper.Configure(modComponent);
 			AccelerantMapper.Configure(modComponent);
-			StackableMapper.Configure(modComponent);
 			BurnableMapper.Configure(modComponent);
+			FireStarterMapper.Configure(modComponent);
+			TinderMapper.Configure(modComponent);
+			CarryingCapacityMapper.Configure(modComponent);
+			EvolveMapper.Configure(modComponent);
+			HarvestableMapper.Configure(modComponent);
+			MillableMapper.Configure(modComponent);
+			RepairableMapper.Configure(modComponent);
 			ScentMapper.Configure(modComponent);
 			SharpenableMapper.Configure(modComponent);
-			EvolveMapper.Configure(modComponent);
-			MillableMapper.Configure(modComponent);
+			StackableMapper.Configure(modComponent);
 		}
 
 		internal static void ConfigureBehaviours(GameObject prefab)
 		{
 			if (prefab is null) throw new ArgumentException("The prefab was NULL.");
 
-			ModComponent modComponent = ModComponentUtils.ComponentUtils.GetModComponent(prefab);
+			ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
 			if (modComponent is null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
@@ -89,7 +94,7 @@ namespace ModComponentMapper
 
 		private static void ConfigureGearItem(ModComponent modComponent)
 		{
-			GearItem gearItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<GearItem>(modComponent);
+			GearItem gearItem = ComponentUtils.GetOrCreateComponent<GearItem>(modComponent);
 
 			gearItem.m_Type = GetGearType(modComponent);
 			gearItem.m_WeightKG = modComponent.WeightKG;
@@ -133,7 +138,7 @@ namespace ModComponentMapper
 		{
 			if (modComponent.InventoryCategory != InventoryCategory.Auto)
 			{
-				return ModComponentUtils.EnumUtils.TranslateEnumValue<GearTypeEnum, InventoryCategory>(modComponent.InventoryCategory);
+				return EnumUtils.TranslateEnumValue<GearTypeEnum, InventoryCategory>(modComponent.InventoryCategory);
 			}
 
 			if (modComponent is ModToolComponent) return GearTypeEnum.Tool;
@@ -145,7 +150,7 @@ namespace ModComponentMapper
 
 			if (modComponent is ModClothingComponent) return GearTypeEnum.Clothing;
 
-			if (ModComponentUtils.ComponentUtils.GetComponent<ModFireStartingComponent>(modComponent) != null || ModComponentUtils.ComponentUtils.GetComponent<ModBurnableComponent>(modComponent) != null)
+			if (ComponentUtils.GetComponent<ModFireMakingComponent>(modComponent) != null || ComponentUtils.GetComponent<ModBurnableComponent>(modComponent) != null)
 			{
 				return GearTypeEnum.Firestarting;
 			}
@@ -158,7 +163,7 @@ namespace ModComponentMapper
 			modComponent.gameObject.layer = vp_Layer.Gear;
 
 			GearItem gearItem = modComponent.GetComponent<GearItem>();
-			gearItem.m_SkinnedMeshRenderers = ModComponentUtils.ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
+			gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
 
 			GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
 			MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();

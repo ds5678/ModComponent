@@ -62,7 +62,7 @@ namespace ModComponentMapper.ComponentMapper
 			result.m_UnWieldAudio = template.m_UnWieldAudio;
 			result.m_WieldAudio = template.m_WieldAudio;
 			Logger.LogWarning("made it this far");
-			result.m_PlayerStateTransitions = UnityEngine.Object.Instantiate(template.m_PlayerStateTransitions);
+			result.m_PlayerStateTransitions = Object.Instantiate(template.m_PlayerStateTransitions);
 			Logger.LogWarning("farther");
 			//result.Awake();
 			Logger.LogWarning("the end");

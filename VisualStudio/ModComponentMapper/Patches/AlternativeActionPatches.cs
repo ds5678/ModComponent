@@ -35,7 +35,7 @@ namespace ModComponentMapper.Patches
 			AlternativeAction alternativeAction = ModComponentUtils.ComponentUtils.GetComponent<AlternativeAction>(__instance.m_InteractiveObjectUnderCrosshair);
 			if (alternativeAction is null) return;
 
-			if (InputManager.GetKeyDown(InputManager.m_CurrentContext, ModComponentMain.Settings.options.tertiaryKeyCode))
+			if (InputManager.GetKeyDown(InputManager.m_CurrentContext, ModComponentMain.Settings.instance.tertiaryKeyCode))
 			{
 				alternativeAction.ExecuteTertiary();
 			}

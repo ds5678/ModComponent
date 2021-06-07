@@ -3,6 +3,7 @@
                                 "BurningMinutes" : 5,
                                 "BurningMinutesBeforeAllowedToAdd" : 0,
                                 "SuccessModifier" : 60,
-                                "TempIncrease" : 0.5
+                                "TempIncrease" : 0.5,
+                                "DurationOffset" : 0
                             }
 }

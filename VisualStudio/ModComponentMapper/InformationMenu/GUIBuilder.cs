@@ -19,10 +19,10 @@ namespace ModComponentMapper.InformationMenu
 			var xpPanel = Resources.Load("Panel_CustomXPSetup").TryCast<GameObject>()?.GetComponent<Panel_CustomXPSetup>();
 			Transform firstSection = xpPanel?.m_ScrollPanelOffsetTransform.GetChild(0);
 
-			headerLabelPrefab = UnityEngine.Object.Instantiate(firstSection.Find("Header").gameObject);
+			headerLabelPrefab = Object.Instantiate(firstSection.Find("Header").gameObject);
 			headerLabelPrefab.SetActive(false);
 
-			comboBoxPrefab = UnityEngine.Object.Instantiate(xpPanel.m_AllowInteriorSpawnPopupList.gameObject);
+			comboBoxPrefab = Object.Instantiate(xpPanel.m_AllowInteriorSpawnPopupList.gameObject);
 			comboBoxPrefab.SetActive(false);
 		}
 
@@ -49,11 +49,11 @@ namespace ModComponentMapper.InformationMenu
 		{
 			Panel_OptionsMenu panel = InterfaceManager.m_Panel_OptionsMenu;
 			Transform pages = panel.transform.Find("Pages");
-			GameObject tab = UnityEngine.Object.Instantiate(panel.m_QualityTab, pages);
+			GameObject tab = Object.Instantiate(panel.m_QualityTab, pages);
 			tab.name = "ModComponent";
 
 			Transform titleLabel = tab.transform.Find("TitleDisplay/Label");
-			UnityEngine.Object.Destroy(titleLabel.GetComponent<UILocalize>());
+			Object.Destroy(titleLabel.GetComponent<UILocalize>());
 			titleLabel.GetComponent<UILabel>().text = "ModComponent";
 
 			panel.m_MainMenuItemTabs.Add(tab);
@@ -134,7 +134,7 @@ namespace ModComponentMapper.InformationMenu
 			}
 			else
 			{
-				UnityEngine.Object.Destroy(transform.GetComponent<UILocalize>());
+				Object.Destroy(transform.GetComponent<UILocalize>());
 				UILabel uiLabel = transform.GetComponent<UILabel>();
 				uiLabel.text = text;
 			}

@@ -7,20 +7,23 @@ namespace ModComponentAPI
 		public static readonly string[] Behaviours = new string[]
 		{
 			"ModAccelerantComponent",
-			"ModFireStarterComponent",
 			"ModBurnableComponent",
+			"ModCarryingCapacityComponent",
 			"ModEvolveComponent",
+			"ModFireStarterComponent",
 			"ModHarvestableComponent",
 			"ModMillableComponent",
 			"ModRepairableComponent",
 			"ModScentComponent",
 			"ModSharpenableComponent",
-			"ModStackableComponent"
+			"ModStackableComponent",
+			"ModTinderComponent"
 		};
 		public static readonly string[] Components = new string[]
 		{
 			"ModBedComponent",
 			"ModBodyHarvestComponent",
+			"ModCharcoalComponent",
 			"ModClothingComponent",
 			"ModCollectibleComponent",
 			"ModCookableComponent",
@@ -32,8 +35,10 @@ namespace ModComponentAPI
 			"ModGenericEquippableComponent",
 			"ModLiquidComponent",
 			"ModPowderComponent",
+			"ModPurificationComponent",
 			"ModRandomItemComponent",
 			"ModRandomWeightedItemComponent",
+			"ModResearchComponent",
 			"ModRifleComponent",
 			"ModToolComponent"
 		};

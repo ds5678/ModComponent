@@ -27,6 +27,7 @@ namespace AssetLoader
 			}
 			internal static bool Prefix(ref string path, ref UnityEngine.Object __result)
 			{
+				//Logger.LogBlue(path);
 				if (AlternateNameManager.ContainsKey(path)) path = AlternateNameManager.GetAlternateName(path);
 
 				if (!AssetManager.IsKnownAsset(path)) return true;
@@ -45,6 +46,7 @@ namespace AssetLoader
 		{
 			private static bool Prefix(ref string name, ref UnityEngine.Object __result)
 			{
+				//Logger.LogBlue(name);
 				if (AlternateNameManager.ContainsKey(name)) name = AlternateNameManager.GetAlternateName(name);
 
 				if (!AssetManager.IsKnownAsset(name)) return true;

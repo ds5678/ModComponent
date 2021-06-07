@@ -1,4 +1,5 @@
 ﻿using ModComponentAPI;
+using ModComponentUtils;
 using System;
 using UnityEngine;
 
@@ -6,13 +7,13 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class RepairableMapper
 	{
-		internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+		internal static void Configure(ModComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		internal static void Configure(GameObject prefab)
 		{
-			ModRepairableComponent modRepairableComponent = ModComponentUtils.ComponentUtils.GetComponent<ModRepairableComponent>(prefab);
+			ModRepairableComponent modRepairableComponent = ComponentUtils.GetComponent<ModRepairableComponent>(prefab);
 			if (modRepairableComponent is null) return;
 
-			Repairable repairable = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
+			Repairable repairable = ComponentUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
 			repairable.m_RepairAudio = modRepairableComponent.Audio;
 			repairable.m_DurationMinutes = modRepairableComponent.Minutes;
 			repairable.m_ConditionIncrease = modRepairableComponent.Condition;
@@ -22,10 +23,10 @@ namespace ModComponentMapper.ComponentMapper
 				throw new ArgumentException("MaterialNames and MaterialCounts do not have the same length on gear item '" + modRepairableComponent.name + "'.");
 			}
 
-			repairable.m_RequiredGear = ModComponentUtils.ModUtils.GetItems<GearItem>(modRepairableComponent.MaterialNames, modRepairableComponent.name);
+			repairable.m_RequiredGear = ModUtils.GetItems<GearItem>(modRepairableComponent.MaterialNames, modRepairableComponent.name);
 			repairable.m_RequiredGearUnits = modRepairableComponent.MaterialCounts;
 
-			repairable.m_RepairToolChoices = ModComponentUtils.ModUtils.GetItems<ToolsItem>(modRepairableComponent.RequiredTools, modRepairableComponent.name);
+			repairable.m_RepairToolChoices = ModUtils.GetItems<ToolsItem>(modRepairableComponent.RequiredTools, modRepairableComponent.name);
 			repairable.m_RequiresToolToRepair = repairable.m_RepairToolChoices.Length > 0;
 		}
 	}

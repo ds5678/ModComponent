@@ -1,78 +1,16 @@
 ﻿using AssetLoader;
 using ModComponentAPI;
 using System;
-using System.IO;
 using System.Reflection;
 using UnityEngine;
-
-//did a first pass through; didn't find anything
-//does not need to be declared
 
 namespace ModComponentMapper
 {
 	public static class AutoMapper
 	{
-		private const string AUTO_MAPPER_DIRECTORY_NAME = "auto-mapped";
-
-		public static string GetAutoMapperDirectory() => Path.Combine(ModComponentMain.Implementation.GetModsFolderPath(), AUTO_MAPPER_DIRECTORY_NAME);
-
 		internal static void Initialize()
 		{
-			AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-#if DEBUG
-			JsonHandler.RegisterDirectory(AutoMapper.GetAutoMapperDirectory());
-			string modDirectory = ModComponentMain.Implementation.GetModsFolderPath();
-			string autoMapperDirectory = GetAutoMapperDirectory();
-			if (Directory.Exists(autoMapperDirectory))
-			{
-				Logger.Log("Loading files from '{0}' ...", autoMapperDirectory);
-				AutoMapDirectory(autoMapperDirectory, modDirectory);
-			}
-			else
-			{
-				Logger.Log("Directory '{0}' does not exist. Creating ...", autoMapperDirectory);
-				Directory.CreateDirectory(autoMapperDirectory);
-				return;
-			}
-#endif
-		}
-
-		private static void AutoMapDirectory(string directory, string modDirectory)
-		{
-			string[] directories = Directory.GetDirectories(directory);
-			foreach (string eachDirectory in directories)
-			{
-				AutoMapDirectory(eachDirectory, modDirectory);
-			}
-
-			string[] files = Directory.GetFiles(directory);
-			foreach (string eachFile in files)
-			{
-				string relativePath = ModComponentUtils.FileUtils.GetRelativePath(eachFile, modDirectory);
-
-				if (relativePath.ToLower().EndsWith(".json")) continue;
-
-				Logger.Log("Found '{0}'", eachFile);
-				if (relativePath.ToLower().EndsWith(".unity3d"))
-				{
-					RegisterAssetBundle(relativePath);
-					continue;
-				}
-
-				if (relativePath.ToLower().EndsWith(".bnk"))
-				{
-					LoadSoundBank(relativePath);
-					continue;
-				}
-
-				if (relativePath.ToLower().EndsWith(".dll"))
-				{
-					LoadDll(eachFile);
-					continue;
-				}
-
-				Logger.Log("Ignoring '{0}' - Don't know how to handle this file type.", eachFile);
-			}
+			//AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly; //I think this might only have applied to 1.56
 		}
 
 		private static void AutoMapPrefab(string prefabName)
@@ -85,16 +23,9 @@ namespace ModComponentMapper
 			}
 			if (prefab.name.StartsWith("GEAR_")) MapModComponent(prefab);
 			//MapBlueprint(prefab, assetBundlePath);
-			if (prefab.name.StartsWith("SKILL_")) MapSkill(prefab);
+			//if (prefab.name.StartsWith("SKILL_")) MapSkill(prefab);
 		}
 
-
-
-		private static void RegisterAssetBundle(string relativePath)
-		{
-			ModAssetBundleManager.RegisterAssetBundle(relativePath);
-			AssetBundleManager.Add(relativePath);
-		}
 		internal static void LoadAssetBundle(string relativePath)
 		{
 			LoadAssetBundle(ModAssetBundleManager.GetAssetBundle(relativePath));
@@ -110,20 +41,6 @@ namespace ModComponentMapper
 					AutoMapPrefab(eachAssetName);
 				}
 			}
-		}
-
-		private static void LoadDll(string relativePath)
-		{
-			Logger.Log("Loading '{0}' ...", relativePath);
-
-			string modDirectory = ModComponentMain.Implementation.GetModsFolderPath();
-			string absolutePath = Path.Combine(modDirectory, relativePath);
-			Assembly.LoadFrom(absolutePath);
-		}
-
-		private static void LoadSoundBank(string relativePath)
-		{
-			ModSoundBankManager.RegisterSoundBank(relativePath);
 		}
 
 		private static void MapSkill(GameObject prefab)

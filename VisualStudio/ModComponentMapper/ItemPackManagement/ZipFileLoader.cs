@@ -1,5 +1,6 @@
 ﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
 using ModComponentMapper.InformationMenu;
+using ModComponentUtils;
 using System;
 using System.IO;
 using System.Reflection;
@@ -24,7 +25,7 @@ namespace ModComponentMapper
 	{
 		public const string ZIP_FOLDER_NAME = "ModComponentZips";
 
-		internal static string GetZipFolderPath() => Path.Combine(ModComponentMain.Implementation.GetModsFolderPath(), ZIP_FOLDER_NAME);
+		internal static string GetZipFolderPath() => Path.Combine(ModComponentUtils.FileUtils.GetModsFolderPath(), ZIP_FOLDER_NAME);
 
 		internal static void Initialize()
 		{
@@ -50,22 +51,18 @@ namespace ModComponentMapper
 			{
 #if DEBUG
 				if (eachFile.ToLower().EndsWith(".modcomponent") || eachFile.ToLower().EndsWith(".zip"))
-				{
-					PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
-					LoadZipFile(eachFile);
-				}
 #else
 				if (eachFile.ToLower().EndsWith(".modcomponent"))
+#endif
 				{
 					PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
 					LoadZipFile(eachFile);
 				}
-#endif
 			}
 		}
 		internal static void LoadZipFile(string zipFilePath)
 		{
-			Logger.Log("Reading zip file at: '{0}'", zipFilePath);
+			Logger.LogGreen("Reading zip file at: '{0}'", zipFilePath);
 			var fileStream = File.OpenRead(zipFilePath);
 			var zipInputStream = new ZipInputStream(fileStream);
 			ZipEntry entry;
@@ -111,8 +108,7 @@ namespace ModComponentMapper
 							AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
 							break;
 						case FileType.image:
-							//Logger.Log("Loading image from zip at '{0}'", internalPath);
-							//SkinManager.ConvertImage(internalPath,unzippedFileStream.ToArray());
+							HandleImage(internalPath, unzippedFileStream.ToArray(), fullPath);
 							break;
 					}
 				}
@@ -184,20 +180,30 @@ namespace ModComponentMapper
 				try
 				{
 					AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
-					string relativePath = GetPathRelativeToModsFolder(fullPath);
+					string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
 					AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
 					AssetBundleManager.Add(relativePath, fullPath);
 				}
 				catch (Exception e)
 				{
-					PageManager.SetItemPackNotWorking(fullPath);
-					Logger.LogError("Could not load asset bundle '{0}'. {1}", fullPath, e.Message);
+					PageManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
 				}
 			}
 		}
-		private static string GetPathRelativeToModsFolder(string fullPath)
+		
+		private static void HandleImage(string internalPath, byte[] data, string fullPath)
 		{
-			return ModComponentUtils.FileUtils.GetRelativePath(fullPath, ModComponentMain.Implementation.GetModsFolderPath());
+			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
+			if (internalPath.StartsWith(@"skins/"))
+			{
+				Logger.Log("Loading skin image from zip at '{0}'", internalPath);
+				AssetLoader.SkinManager.AddToTextureList(filenameNoExtension, data);
+			}
+			else if (internalPath.StartsWith(@"icons/"))
+			{
+				Logger.Log("Loading icon image from zip at '{0}'", internalPath);
+				AssetLoader.AlternateIconManager.AddToTextureList(filenameNoExtension, data);
+			}
 		}
 	}
 }

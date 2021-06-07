@@ -53,7 +53,7 @@ namespace ModComponentMapper
 			}
 
 			GameObject equippedModelPrefab = Resources.Load(modRifleComponent.EquippedModelPrefabName)?.Cast<GameObject>();
-			GameObject equippedModel = UnityEngine.GameObject.Instantiate(equippedModelPrefab, weapon.transform);
+			GameObject equippedModel = UnityEngine.Object.Instantiate(equippedModelPrefab, weapon.transform);
 			equippedModel.name = (name + "_rig").ToLower();
 
 		}

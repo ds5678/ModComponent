@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AssetLoader
 {
@@ -26,7 +22,7 @@ namespace AssetLoader
 				Logger.LogWarning($"AlternateNameManager already has an entry for '{originalName}'. Replacing...");
 				alternateNames[originalName] = alternateName;
 			}
-			else alternateNames.Add(originalName,alternateName);
+			else alternateNames.Add(originalName, alternateName);
 		}
 		public static string GetAlternateName(string originalName)
 		{

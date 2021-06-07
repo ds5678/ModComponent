@@ -1,17 +1,18 @@
 ﻿using ModComponentAPI;
+using ModComponentUtils;
 using UnityEngine;
 
 namespace ModComponentMapper.ComponentMapper
 {
 	internal static class AccelerantMapper
 	{
-		internal static void Configure(ModComponent modComponent) => Configure(modComponent.gameObject);
+		internal static void Configure(ModComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		public static void Configure(GameObject prefab)
 		{
-			ModAccelerantComponent modAccelerantComponent = ModComponentUtils.ComponentUtils.GetComponent<ModAccelerantComponent>(prefab);
+			ModAccelerantComponent modAccelerantComponent = ComponentUtils.GetComponent<ModAccelerantComponent>(prefab);
 			if (modAccelerantComponent is null) return;
 
-			FireStarterItem fireStarterItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FireStarterItem>(modAccelerantComponent);
+			FireStarterItem fireStarterItem = ComponentUtils.GetOrCreateComponent<FireStarterItem>(modAccelerantComponent);
 
 			fireStarterItem.m_IsAccelerant = true;
 			fireStarterItem.m_FireStartDurationModifier = modAccelerantComponent.DurationOffset;

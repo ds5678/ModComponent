@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
@@ -75,10 +77,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssetLoader\Assets\AlternateAssetManager.cs" />
+    <Compile Include="AssetLoader\Assets\AlternateIconManager.cs" />
     <Compile Include="AssetLoader\Assets\AlternateNameManager.cs" />
     <Compile Include="AssetLoader\Assets\AssetManager.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\ModCarryingCapacityComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModTinderComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModCharcoalComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModPurificationComponent.cs" />
+    <Compile Include="ModComponentAPI\Components\ModResearchComponent.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModLootTable.cs" />
-    <Compile Include="ModComponentMapper\Skins\SkinManager.cs" />
+    <Compile Include="AssetLoader\Assets\SkinManager.cs" />
+    <Compile Include="ModComponentMain\BuildInfo.cs" />
+    <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\CarryingCapacityMapper.cs" />
+    <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\TinderMapper.cs" />
+    <Compile Include="ModComponentMapper\Mapping\ComponentMapper\CharcoalMapper.cs" />
+    <Compile Include="ModComponentMapper\Mapping\ComponentMapper\PurificationMapper.cs" />
+    <Compile Include="ModComponentMapper\Mapping\ComponentMapper\ResearchMapper.cs" />
     <Compile Include="ModComponentUtils\AssetBundleUtils.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasManager.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasUtils.cs" />
@@ -99,11 +113,11 @@
     <Compile Include="ModComponentAPI\SpecialClasses\AlternativeAction.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\APIClassLists.cs" />
     <Compile Include="ModComponentAPI\Modifications\AttachBehaviour.cs" />
-    <Compile Include="ModComponentAPI\Behaviours\ModAccelerantComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviours\ModBurnableComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModAccelerantComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModBurnableComponent.cs" />
     <Compile Include="ModComponentAPI\Behaviours\ModEvolveComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviours\ModFireStarterComponent.cs" />
-    <Compile Include="ModComponentAPI\Behaviours\ModFireStartingComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModFireStarterComponent.cs" />
+    <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModFireMakingComponent.cs" />
     <Compile Include="ModComponentAPI\Behaviours\ModHarvestableComponent.cs" />
     <Compile Include="ModComponentAPI\Behaviours\ModMillableComponent.cs" />
     <Compile Include="ModComponentAPI\Behaviours\ModRepairableComponent.cs" />
@@ -127,6 +141,7 @@
     <Compile Include="ModComponentAPI\Components\ModPowderComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModRifleComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModToolComponent.cs" />
+    <Compile Include="ModComponentUtils\ConversionUtils.cs" />
     <Compile Include="ModComponentUtils\CopyFieldHandler.cs" />
     <Compile Include="ModComponentAPI\Enums\InitialCondition.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModBlueprint.cs" />
@@ -134,6 +149,7 @@
     <Compile Include="ModComponentAPI\Modifications\PlayAkSound.cs" />
     <Compile Include="ModComponentAPI\Enums\SkillType.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\Logger.cs" />
+    <Compile Include="ModComponentUtils\ActionPickerUtilities.cs" />
     <Compile Include="ModComponentUtils\TypeResolver.cs" />
     <Compile Include="ModComponentMain\Implementation.cs" />
     <Compile Include="ModComponentMain\Injections.cs" />
@@ -171,7 +187,6 @@
     <Compile Include="ModComponentMapper\InformationMenu\Pages\ItemPacksTestPage.cs" />
     <Compile Include="ModComponentMapper\InformationMenu\Pages\VersionInfoPage.cs" />
     <Compile Include="ModComponentMapper\ItemPackManagement\ItemPackData.cs" />
-    <Compile Include="ModComponentMapper\MainFiles\Events.cs" />
     <Compile Include="ModComponentMapper\Mapping\AutoMapper.cs" />
     <Compile Include="ModComponentMapper\Blueprints\BlueprintReader.cs" />
     <Compile Include="ModComponentAPI\Modifications\ChangeLayer.cs" />
@@ -189,7 +204,7 @@
     <Compile Include="ModComponentMapper\Clothing\BrightnessChanger.cs" />
     <Compile Include="ModComponentMapper\GearSpawns\ProbabilityManager.cs" />
     <Compile Include="ModComponentMapper\GearSpawns\GearSpawnReader.cs" />
-    <Compile Include="ModComponentMapper\MainFiles\MapperImplementation.cs" />
+    <Compile Include="ModComponentMapper\MainFiles\MapperCore.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\CookableMapper.cs" />
     <Compile Include="ModComponentMapper\Patches\AlternativeActionPatches.cs" />
     <Compile Include="ModComponentMapper\Equippable\EquippablePatches.cs" />
@@ -251,9 +266,10 @@
     <Compile Include="ModComponentMapper\ItemPackManagement\ZipFileLoader.cs" />
     <Compile Include="SceneLoader\Logger.cs" />
     <Compile Include="SceneLoader\Preloader.cs" />
-    <Compile Include="SceneLoader\Shaders\MaterialManager.cs" />
     <Compile Include="SceneLoader\Shaders\ShaderList.cs" />
-    <Compile Include="SceneLoader\Shaders\ShaderSubstitution.cs" />
+    <Compile Include="SceneLoader\Shaders\ShaderSubstitutionManager.cs" />
+    <Compile Include="SceneLoader\Shaders\SubstituteShadersRecursive.cs" />
+    <Compile Include="SceneLoader\Shaders\SubstituteShadersSingle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />

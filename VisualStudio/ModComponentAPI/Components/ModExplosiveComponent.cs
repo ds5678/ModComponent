@@ -24,7 +24,7 @@ namespace ModComponentAPI
 		{
 			GameAudioManager.Play3DSound(this.explosionAudio, this.gameObject);
 			GameManager.GetConditionComponent().AddHealth(-1 * GetDamageToPlayer(), DamageSource.Unspecified);
-			UnityEngine.Object.Destroy(this.gameObject);
+			Destroy(this.gameObject);
 		}
 
 		[HideFromIl2Cpp]
@@ -39,7 +39,7 @@ namespace ModComponentAPI
 		[HideFromIl2Cpp]
 		public void TriggerCountdown()
 		{
-			ModExplosiveSave explosiveSave = ModComponentUtils.ComponentUtils.GetComponent<ModExplosiveSave>(this);
+			ModExplosiveSave explosiveSave = ComponentUtils.GetComponent<ModExplosiveSave>(this);
 			if (explosiveSave is null)
 			{
 				Logger.LogError("Could not trigger countdown. No ModExplosiveSave!");
@@ -60,7 +60,7 @@ namespace ModComponentAPI
 		[HideFromIl2Cpp]
 		private void TriggerExplosion()
 		{
-			ModExplosiveComponent explosiveComponent = ModComponentUtils.ComponentUtils.GetComponent<ModExplosiveComponent>(this);
+			ModExplosiveComponent explosiveComponent = ComponentUtils.GetComponent<ModExplosiveComponent>(this);
 			if (explosiveComponent is null)
 			{
 				Logger.LogError("Could not trigger explosion. No ModExplosiveComponent!");
@@ -80,7 +80,7 @@ namespace ModComponentAPI
 		public void Update()
 		{
 			if (!isTriggered) return;
-			timeUntilExplosion -= UnityEngine.Time.deltaTime;
+			timeUntilExplosion -= Time.deltaTime;
 			if (timeUntilExplosion <= 0) TriggerExplosion();
 		}
 

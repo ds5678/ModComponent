@@ -24,6 +24,8 @@ namespace ModComponentMapper
 		private static Dictionary<string, List<GearSpawnInfo>> gearSpawnInfos = new Dictionary<string, List<GearSpawnInfo>>();
 		private static Dictionary<string, List<LootTableEntry>> lootTableEntries = new Dictionary<string, List<LootTableEntry>>();
 
+		internal static void Initialize() => MapperCore.OnSceneReady += PrepareScene;
+
 		internal static void AddGearSpawnInfo(string sceneName, GearSpawnInfo gearSpawnInfo)
 		{
 			string normalizedSceneName = GetNormalizedSceneName(sceneName);
@@ -49,12 +51,6 @@ namespace ModComponentMapper
 			entry.Weight = Mathf.Clamp(entry.Weight, 0, int.MaxValue);
 
 			lootTableEntries[normalizedLootTableName].Add(entry);
-		}
-
-		internal static void Initialize()
-		{
-			GearSpawnReader.ReadDefinitions();
-			MapperImplementation.OnSceneReady += PrepareScene;
 		}
 
 		private static void AddEntries(LootTable lootTable, List<LootTableEntry> entries)
@@ -190,13 +186,20 @@ namespace ModComponentMapper
 			}
 		}
 
-		[HarmonyPatch(typeof(Container), "PopulateWithRandomGear")]
-		internal class Container_PopulateWithRandomGear
+		[HarmonyPatch(typeof(LootTable), "GetPrefab")]
+		internal class LootTable_GetPrefab
 		{
-			private static void Prefix(Container __instance)
+			private static void Prefix(LootTable __instance)
 			{
-				ConfigureLootTable(__instance.m_LockedLootTablePrefab);
-				ConfigureLootTable(__instance.m_LootTablePrefab);
+				ConfigureLootTable(__instance);
+			}
+		}
+		[HarmonyPatch(typeof(LootTable), "GetRandomGearPrefab")]
+		internal class LootTable_GetRandomGearPrefab
+		{
+			private static void Prefix(LootTable __instance)
+			{
+				ConfigureLootTable(__instance);
 			}
 		}
 	}

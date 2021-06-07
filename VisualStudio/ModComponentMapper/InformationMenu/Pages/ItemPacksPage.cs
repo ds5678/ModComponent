@@ -48,5 +48,14 @@ namespace ModComponentMapper.InformationMenu
 				if (pathToAsset.StartsWith(itemPack.GetZipFilePath())) itemPack.SetLoadedIncorrectly();
 			}
 		}
+		internal string GetItemPackName(string pathToAsset)
+		{
+			foreach (var itemPack in itemPackList)
+			{
+				if (pathToAsset.StartsWith(itemPack.GetZipFilePath())) return itemPack.GetName();
+			}
+
+			return string.Empty;
+		}
 	}
 }

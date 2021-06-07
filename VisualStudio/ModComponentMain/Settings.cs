@@ -2,8 +2,10 @@
 
 namespace ModComponentMain
 {
-	internal class ModComponentSettings : JsonModSettings
+	internal class Settings : JsonModSettings
 	{
+		internal static Settings instance = new Settings();
+
 		[Section("Loose Item Spawn Probability Multipliers")]
 		[Name("Pilgram / Very High Loot Custom")]
 		[Description("Scales the default probability of finding MODDED spawns on this game mode. Setting to zero disables loose item spawns on this game mode. Doesn't affect container loot. Can be overridden by mod-specific settings.")]
@@ -52,15 +54,5 @@ namespace ModComponentMain
 		[Name("Disable Random Item Spawns")]
 		[Description("Set this to No. It's for new spawn point creation.")]
 		public bool disableRandomItemSpawns = false;
-	}
-
-	internal static class Settings
-	{
-		internal static ModComponentSettings options;
-		internal static void OnLoad()
-		{
-			options = new ModComponentSettings();
-			options.AddToModSettings("ModComponent");
-		}
 	}
 }

@@ -32,9 +32,9 @@ namespace ModComponentAPI
 			GearItem gearItem = this.GetComponent<GearItem>();
 			if (powderItem && gearItem && !gearItem.m_BeenInspected && ChanceFull != 100f)
 			{
-				if (!ModComponentUtils.RandomUtils.RollChance(ChanceFull))
+				if (!RandomUtils.RollChance(ChanceFull))
 				{
-					powderItem.m_WeightKG = powderItem.m_WeightLimitKG * ModComponentUtils.RandomUtils.Range(0.125f, 1f);
+					powderItem.m_WeightKG = powderItem.m_WeightLimitKG * RandomUtils.Range(0.125f, 1f);
 				}
 			}
 		}

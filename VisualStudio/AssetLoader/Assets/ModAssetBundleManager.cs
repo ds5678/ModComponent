@@ -13,14 +13,14 @@ namespace AssetLoader
 		private const string ASSET_NAME_SUFFIX = "atlas";
 		private const string ASSET_PATH_SUFFIX_PREFAB = ".prefab";
 
-		private static readonly string[] RESOURCE_FOLDER = 
-		{ 
-			"assets/", 
-			"logimages/", 
-			"clothingpaperdoll/female/", 
-			"clothingpaperdoll/male/", 
-			"inventorygridicons/", 
-			"craftingicons/" 
+		private static readonly string[] RESOURCE_FOLDER =
+		{
+			"assets/",
+			"logimages/",
+			"clothingpaperdoll/female/",
+			"clothingpaperdoll/male/",
+			"inventorygridicons/",
+			"craftingicons/"
 		};
 
 		private static Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
@@ -65,7 +65,7 @@ namespace AssetLoader
 				return;
 			}
 
-			string modDirectory = ModComponentMain.Implementation.GetModsFolderPath();
+			string modDirectory = ModComponentUtils.FileUtils.GetModsFolderPath();
 			string fullPath = Path.Combine(modDirectory, relativePath);
 
 			if (File.Exists(fullPath)) LoadAssetBundle(relativePath, fullPath);
