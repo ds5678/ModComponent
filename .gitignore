@@ -1,4 +1,5 @@
 bin
 obj
 .vs
-ModComponent.csproj.user
+*.csproj.user
+.idea
