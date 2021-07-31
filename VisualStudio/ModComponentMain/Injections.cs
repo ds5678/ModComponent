@@ -4,7 +4,7 @@
 	{
 		private static void Inject<T>() where T : class
 		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<T>();
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<T>(false);
 		}
 
 		internal static void InjectAll()
@@ -71,7 +71,6 @@
 			Inject<ModComponentAPI.AddTag>();
 			Inject<ModComponentAPI.AlternativeAction>();
 			Inject<ModComponentAPI.AttachBehaviour>();
-			Inject<ModComponentAPI.ModBlueprint>();
 			Inject<ModComponentAPI.ModSkill>();
 			Inject<ModComponentAPI.PlayAkSound>();
 		}

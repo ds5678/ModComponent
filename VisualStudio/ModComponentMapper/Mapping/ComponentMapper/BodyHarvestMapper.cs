@@ -8,7 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModBodyHarvestComponent modBodyHarvestComponent = modComponent.TryCast<ModBodyHarvestComponent>();
-			if (modBodyHarvestComponent is null) return;
+			if (modBodyHarvestComponent == null) return;
 
 			BodyHarvest bodyHarvest = ModComponentUtils.ComponentUtils.GetOrCreateComponent<BodyHarvest>(modBodyHarvestComponent);
 			bodyHarvest.m_AllowDecay = false;

@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using ModComponentUtils;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace SceneLoader
 
 		private static void Initialize(GameManager gameManager)
 		{
-			if (initialized || gameManager is null) return;
+			if (initialized || gameManager == null) return;
 			else
 			{
 				gameManagerObjectPrefab = new GameObject();
@@ -26,13 +26,13 @@ namespace SceneLoader
 
 		public static void InstantiateGameManager()
 		{
-			if (gameManagerObjectPrefab is null)
+			if (gameManagerObjectPrefab == null)
 			{
-				MelonLoader.MelonLogger.LogError("gameManagerObjectPrefab is null!");
+				Logger.LogError("gameManagerObjectPrefab == null!");
 			}
 			else
 			{
-				MelonLoader.MelonLogger.Log("instantiate");
+				Logger.Log("instantiate");
 				Object.Instantiate(gameManagerObjectPrefab).SetActive(true);
 			}
 		}
@@ -46,9 +46,9 @@ namespace SceneLoader
 				{
 					Initialize(__instance);
 				}
-				if (gameManagerObjectPrefab is null)
+				if (gameManagerObjectPrefab == null)
 				{
-					MelonLoader.MelonLogger.LogError("The GameManager prefab was destroyed!!!!!!!!!!!!");
+					Logger.LogError("The GameManager prefab was destroyed!!!!!!!!!!!!");
 				}
 			}
 		}

@@ -40,7 +40,7 @@ namespace ModComponentAPI
 		public void TriggerCountdown()
 		{
 			ModExplosiveSave explosiveSave = ComponentUtils.GetComponent<ModExplosiveSave>(this);
-			if (explosiveSave is null)
+			if (explosiveSave == null)
 			{
 				Logger.LogError("Could not trigger countdown. No ModExplosiveSave!");
 				return;
@@ -61,7 +61,7 @@ namespace ModComponentAPI
 		private void TriggerExplosion()
 		{
 			ModExplosiveComponent explosiveComponent = ComponentUtils.GetComponent<ModExplosiveComponent>(this);
-			if (explosiveComponent is null)
+			if (explosiveComponent == null)
 			{
 				Logger.LogError("Could not trigger explosion. No ModExplosiveComponent!");
 				return;

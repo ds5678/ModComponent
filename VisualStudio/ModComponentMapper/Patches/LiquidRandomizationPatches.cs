@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 
 namespace ModComponentMapper.Patches
 {
@@ -6,7 +6,7 @@ namespace ModComponentMapper.Patches
 	{
 		//make water containers able to have randomized initial quantities
 		[HarmonyPatch(typeof(LiquidItem), "Awake")]
-		internal class LiquidItem_Awake
+		internal static class LiquidItem_Awake
 		{
 			private static void Postfix(LiquidItem __instance)
 			{

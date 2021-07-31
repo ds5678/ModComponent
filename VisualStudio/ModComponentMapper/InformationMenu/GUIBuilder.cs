@@ -45,23 +45,6 @@ namespace ModComponentMapper.InformationMenu
 			menuGroup = new MenuGroup(modName, settingsGUI);
 		}
 
-		internal static GameObject CreateModComponentTab()
-		{
-			Panel_OptionsMenu panel = InterfaceManager.m_Panel_OptionsMenu;
-			Transform pages = panel.transform.Find("Pages");
-			GameObject tab = Object.Instantiate(panel.m_QualityTab, pages);
-			tab.name = "ModComponent";
-
-			Transform titleLabel = tab.transform.Find("TitleDisplay/Label");
-			Object.Destroy(titleLabel.GetComponent<UILocalize>());
-			titleLabel.GetComponent<UILabel>().text = "ModComponent";
-
-			panel.m_MainMenuItemTabs.Add(tab);
-			panel.m_Tabs.Add(tab);
-
-			return tab;
-		}
-
 		internal void AddPage(InfoPage infoPage)
 		{
 			menuGroup.NotifyChildAdded(infoPage.IsVisible());

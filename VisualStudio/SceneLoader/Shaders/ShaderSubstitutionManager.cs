@@ -12,7 +12,7 @@ namespace SceneLoader.Shaders
 		/// </summary>
 		public static void ReplaceDummyShaders(GameObject obj, bool recursive)
 		{
-			if (obj is null) return;
+			if (obj == null) return;
 
 			if (recursive)
 			{
@@ -32,7 +32,7 @@ namespace SceneLoader.Shaders
 
 		public static void ReplaceDummyShaders(Renderer renderer)
 		{
-			if (renderer is null) return;
+			if (renderer == null) return;
 
 			try
 			{
@@ -41,13 +41,13 @@ namespace SceneLoader.Shaders
 					if (!fixedMaterials.Contains(material))
 					{
 						fixedMaterials.Add(material);
-						if (ShaderList.DummyShaderReplacements.ContainsKey(material.shader.name))
+						if (material.shader.name.StartsWith("Dummy"))
+						{
+							material.shader = Shader.Find(material.shader.name.Replace("Dummy", "")) ?? material.shader;
+						}
+						else if (ShaderList.DummyShaderReplacements.ContainsKey(material.shader.name))
 						{
 							material.shader = Shader.Find(ShaderList.DummyShaderReplacements[material.shader.name]);
-						}
-						else if (Shader.Find(material.shader.name.Replace("SLZ", "SDK")) != null)
-						{
-							material.shader = Shader.Find(material.shader.name.Replace("SLZ", "SDK"));
 						}
 					}
 				}

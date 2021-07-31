@@ -50,7 +50,7 @@
 		/// <returns>Returns a new string without "(Clone)" or the whitespace</returns>
 		public static string NormalizeName(string name)
 		{
-			if (name is null) return null;
+			if (name == null) return null;
 			else return name.Replace("(Clone)", "").Trim();
 		}
 	}

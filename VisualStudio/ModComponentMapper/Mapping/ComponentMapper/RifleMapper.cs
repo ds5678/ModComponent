@@ -8,7 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModRifleComponent modRifleComponent = modComponent?.TryCast<ModRifleComponent>();
-			if (modRifleComponent is null) return;
+			if (modRifleComponent == null) return;
 
 			GunItem gunItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<GunItem>(modRifleComponent);
 
@@ -51,11 +51,11 @@ namespace ModComponentMapper.ComponentMapper
 			FirstPersonItem result = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FirstPersonItem>(modRifleComponent);
 
 			GameObject revolver = Resources.Load<GameObject>("GEAR_Revolver");
-			if (revolver is null) Logger.LogWarning("Could not load revolver gameobject!");
+			if (revolver == null) Logger.LogWarning("Could not load revolver gameobject!");
 			else Logger.LogWarning("Loaded revolver gameobject!");
 
 			FirstPersonItem template = revolver?.GetComponent<FirstPersonItem>();
-			if (template is null) Logger.LogWarning("Could not load first person template from revolver!");
+			if (template == null) Logger.LogWarning("Could not load first person template from revolver!");
 			else Logger.LogWarning("Loaded first person template from revolver!");
 
 			result.m_FirstPersonObjectName = ModComponentUtils.NameUtils.NormalizeName(modRifleComponent.name);

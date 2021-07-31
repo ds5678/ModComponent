@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 
 namespace ModComponentMapper.Patches
 {
@@ -8,7 +8,7 @@ namespace ModComponentMapper.Patches
 	}
 
 	[HarmonyPatch(typeof(Panel_Crafting), "HandleCraftingSuccess")]
-	internal class Panel_Crafting_CraftingEnd
+	internal static class Panel_Crafting_CraftingEnd
 	{
 		private static void Prefix()
 		{
@@ -20,7 +20,7 @@ namespace ModComponentMapper.Patches
 		}
 	}
 	[HarmonyPatch(typeof(PlayerManager), "InstantiateItemInPlayerInventoryInternal")]
-	internal class PlayerManager_InstantiateItemInPlayerInventory
+	internal static class PlayerManager_InstantiateItemInPlayerInventory
 	{
 		private static void Postfix(ref GearItem __result, float condition)
 		{

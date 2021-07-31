@@ -7,7 +7,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModPurificationComponent modPurification = modComponent.TryCast<ModPurificationComponent>();
-			if (modPurification is null) return;
+			if (modPurification == null) return;
 
 			PurifyWater purificationItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<PurifyWater>(modPurification);
 			purificationItem.m_LocalizedProgressBarMessage = new LocalizedString() { m_LocalizationID = modPurification.ProgressBarLocalizationID };

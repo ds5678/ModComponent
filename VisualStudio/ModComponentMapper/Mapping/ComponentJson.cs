@@ -21,7 +21,7 @@ namespace ModComponentMapper
 		#region InitializeComponents
 		public static void InitializeComponents(ref GameObject prefab, ProxyObject dict)
 		{
-			if (ComponentUtils.GetModComponent(prefab) != null || dict is null) return;
+			if (ComponentUtils.GetModComponent(prefab) != null || dict == null) return;
 
 			#region Mod Components
 			if (JsonUtils.ContainsKey(dict, "ModBedComponent"))
@@ -197,7 +197,7 @@ namespace ModComponentMapper
 			}
 			#endregion
 		}
-#endregion
+		#endregion
 
 		//************// 
 		// COMPONENTS //
@@ -445,7 +445,7 @@ namespace ModComponentMapper
 		private static void InitializePowderComponent(ModPowderComponent modPowder, ProxyObject dict, string className = "ModPowderComponent")
 		{
 			InitializeBaseComponent(modPowder, dict, className);
-			modPowder.PowderType = EnumUtils.ParseEnum<PowderType>(dict[className]["PowderType"]);
+			modPowder.PowderType = EnumUtils.ParseEnum<ModPowderType>(dict[className]["PowderType"]);
 			modPowder.CapacityKG = dict[className]["CapacityKG"];
 			modPowder.ChanceFull = dict[className]["ChanceFull"];
 		}

@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using MelonLoader.TinyJSON;
 using ModComponentAPI;
 using ModComponentMapper.InformationMenu;
@@ -13,7 +13,7 @@ namespace ModComponentMapper
 	{
 		public ModPlaceHolderComponent(System.IntPtr intPtr) : base(intPtr) { }
 
-		static ModPlaceHolderComponent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModPlaceHolderComponent>();
+		static ModPlaceHolderComponent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModPlaceHolderComponent>(false);
 	}
 
 	internal class ModExistingEntry
@@ -106,7 +106,7 @@ namespace ModComponentMapper
 		private static void ChangeWeight(GameObject item, float newWeight)
 		{
 			GearItem gearItem = ComponentUtils.GetComponent<GearItem>(item);
-			if (gearItem is null)
+			if (gearItem == null)
 			{
 				Logger.Log("Could not assign new weight. Item has no GearItem component.");
 				return;
@@ -117,7 +117,7 @@ namespace ModComponentMapper
 		private static void ChangeGameObject(GameObject item)
 		{
 
-			if (item is null) return;
+			if (item == null) return;
 			string name = NameUtils.NormalizeName(item.name);
 			if (!modExistingEntries.ContainsKey(name)) return;
 			ModExistingEntry entry = modExistingEntries[name];
@@ -129,7 +129,7 @@ namespace ModComponentMapper
 			{
 				ProxyObject dict = JSON.Load(JSON.Dump(entry.behaviourChanges)) as ProxyObject;
 				ComponentJson.InitializeComponents(ref item, dict);
-				if (ComponentUtils.GetComponent<ModComponent>(item) is null)
+				if (ComponentUtils.GetComponent<ModComponent>(item) == null)
 				{
 					var placeholder = item.AddComponent<ModPlaceHolderComponent>();
 					Mapper.Map(item);
@@ -144,7 +144,7 @@ namespace ModComponentMapper
 			foreach (var pair in modExistingEntries)
 			{
 				GameObject item = Resources.Load(pair.Key).TryCast<GameObject>();
-				if (item is null) continue;
+				if (item == null) continue;
 
 				ModExistingEntry entry = pair.Value;
 				if (entry.changeWeight)
@@ -155,7 +155,7 @@ namespace ModComponentMapper
 				{
 					ProxyObject dict = JSON.Load(JSON.Dump(entry.behaviourChanges)) as ProxyObject;
 					ComponentJson.InitializeComponents(ref item, dict);
-					if (ComponentUtils.GetComponent<ModComponent>(item) is null)
+					if (ComponentUtils.GetComponent<ModComponent>(item) == null)
 					{
 						var placeholder = item.AddComponent<ModPlaceHolderComponent>();
 						Mapper.Map(item);
@@ -178,7 +178,7 @@ namespace ModComponentMapper
 
 			private static void FixName(Component component)
 			{
-				if (component?.name is null) return;
+				if (component?.name == null) return;
 				if (component.name.Contains(" ("))
 				{
 					component.name = component.name.Substring(0, component.name.IndexOf(" ("));

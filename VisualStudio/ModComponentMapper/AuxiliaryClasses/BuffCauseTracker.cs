@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System.Collections.Generic;
 
 namespace ModComponentMapper
@@ -28,18 +28,18 @@ namespace ModComponentMapper
 	}
 
 	[HarmonyPatch(typeof(FatigueBuff), "Apply")]//Exists
-	internal class FagtigueBuffApplyPatch
+	internal static class FagtigueBuffApplyPatch
 	{
 		public static void Postfix(FatigueBuff __instance)
 		{
 			GearItem gearItem = ModComponentUtils.ComponentUtils.GetComponent<GearItem>(__instance);
-			if (gearItem is null) return;
+			if (gearItem == null) return;
 			else BuffCauseTracker.setCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());
 		}
 	}
 
 	[HarmonyPatch(typeof(AfflictionButton), "SetCauseAndEffect")]//positive caller count
-	class AfflictionButtonSetCauseAndEffectPatch
+	internal static class AfflictionButtonSetCauseAndEffectPatch
 	{
 		public static void Prefix(ref string causeStr, AfflictionType affType)
 		{

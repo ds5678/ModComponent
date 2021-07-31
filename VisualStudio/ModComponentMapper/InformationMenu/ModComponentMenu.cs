@@ -34,7 +34,7 @@ namespace ModComponentMapper.InformationMenu
 
 		internal static void BuildGUI()
 		{
-			GameObject modSettingsTab = GUIBuilder.CreateModComponentTab();
+			GameObject modSettingsTab = CreateModComponentTab();
 			modComponentGUI = modSettingsTab.AddComponent<GUI>();
 			modComponentGUI.Build();
 
@@ -50,6 +50,23 @@ namespace ModComponentMapper.InformationMenu
 			{
 				itemPackList.SetMenuVisible(visible);
 			}
+		}
+
+		internal static GameObject CreateModComponentTab()
+		{
+			Panel_OptionsMenu panel = InterfaceManager.m_Panel_OptionsMenu;
+			Transform pages = panel.transform.Find("Pages");
+			GameObject tab = UnityEngine.Object.Instantiate(panel.m_QualityTab, pages);
+			tab.name = "ModComponent";
+
+			Transform titleLabel = tab.transform.Find("TitleDisplay/Label");
+			UnityEngine.Object.Destroy(titleLabel.GetComponent<UILocalize>());
+			titleLabel.GetComponent<UILabel>().text = "ModComponent";
+
+			panel.m_MainMenuItemTabs.Add(tab);
+			panel.m_Tabs.Add(tab);
+
+			return tab;
 		}
 
 		/// <summary>

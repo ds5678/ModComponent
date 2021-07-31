@@ -7,7 +7,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModCollectibleComponent modCollectible = modComponent.TryCast<ModCollectibleComponent>();
-			if (modCollectible is null) return;
+			if (modCollectible == null) return;
 
 			NarrativeCollectibleItem narrativeCollectible = ModComponentUtils.ComponentUtils.GetOrCreateComponent<NarrativeCollectibleItem>(modCollectible);
 			narrativeCollectible.m_HudMessageOnPickup = new LocalizedString() { m_LocalizationID = modCollectible.HudMessageLocalizationId };

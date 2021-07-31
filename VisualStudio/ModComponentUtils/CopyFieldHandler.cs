@@ -9,7 +9,7 @@ namespace ModComponentUtils
 		{
 			string gearName = NormalizeName(componentToUpdate.name);
 			GameObject prefab = Resources.Load(gearName)?.TryCast<GameObject>();
-			if (prefab is null)
+			if (prefab == null)
 			{
 				Logger.Log("While copying fields for '{0}', the prefab was null.");
 			}
@@ -34,7 +34,7 @@ namespace ModComponentUtils
 			}
 			if (fieldInfos.Length == 0)
 			{
-				MelonLoader.MelonLogger.LogError("There were no fields to copy!");
+				Logger.LogWarning("There were no fields to copy!");
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace ModComponentUtils
 			}
 			if (fieldInfos.Length == 0)
 			{
-				MelonLoader.MelonLogger.LogError("There were no fields to copy!");
+				Logger.LogWarning("There were no fields to copy!");
 			}
 		}
 	}

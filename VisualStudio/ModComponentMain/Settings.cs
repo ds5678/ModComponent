@@ -46,6 +46,11 @@ namespace ModComponentMain
 		[Description("The key for tertiary actions. Does nothing unless a mod uses this feature.")]
 		public UnityEngine.KeyCode tertiaryKeyCode = UnityEngine.KeyCode.Mouse2;
 
+		[Name("Crafting Menu Scroll Steps")]
+		[Description("Number of steps moved in the crafting menu for one scroll. Default = 7")]
+		[Slider(1, 7)]
+		public int numCraftingSteps = 7;
+
 		[Section("Advanced")]
 		[Name("Always Spawn Loose Items")]
 		[Description("For testing and new spawn point creation. Converts all loose spawn points into guaranteed spawns. Does not necessarily work on existing saves.")]

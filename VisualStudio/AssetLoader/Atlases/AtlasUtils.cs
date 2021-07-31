@@ -27,7 +27,7 @@
 		internal static void SaveOriginalAtlas(UISprite sprite)
 		{
 			SaveAtlas restoreAtlas = sprite.gameObject.GetComponent<SaveAtlas>();
-			if (restoreAtlas is null)
+			if (restoreAtlas == null)
 			{
 				restoreAtlas = sprite.gameObject.AddComponent<SaveAtlas>();
 				restoreAtlas.original = sprite.atlas;

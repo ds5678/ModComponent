@@ -38,7 +38,7 @@ namespace ModComponentUtils
 
 		public static T[] NotNull<T>(T[] array)
 		{
-			if (array is null) return new T[0];
+			if (array == null) return new T[0];
 			else return array;
 		}
 
@@ -52,7 +52,7 @@ namespace ModComponentUtils
 		internal static Delegate CreateDelegate(Type delegateType, object target, string methodName)
 		{
 			MethodInfo methodInfo = target.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-			if (methodInfo is null) return null;
+			if (methodInfo == null) return null;
 			else return Delegate.CreateDelegate(delegateType, target, methodInfo);
 		}
 
@@ -98,13 +98,13 @@ namespace ModComponentUtils
 		internal static T GetItem<T>(string name, string reference = null) where T : UnityEngine.Component
 		{
 			GameObject gameObject = Resources.Load(name).TryCast<GameObject>();
-			if (gameObject is null)
+			if (gameObject == null)
 			{
 				throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
 			}
 
 			T targetType = ComponentUtils.GetComponent<T>(gameObject);
-			if (targetType is null)
+			if (targetType == null)
 			{
 				throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + " is not a '" + typeof(T).Name + "'.");
 			}

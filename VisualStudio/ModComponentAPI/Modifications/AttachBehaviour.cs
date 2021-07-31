@@ -14,9 +14,9 @@ namespace ModComponentAPI
 		public string BehaviourName;
 
 		/// <summary>
-		/// Should this fail if the behaviour cannot be loaded or attached?
+		/// Should this throw an exception if the behaviour cannot be loaded or attached?
 		/// </summary>
-		public bool FailOnError = true;
+		public bool ThrowOnError = true;
 
 		public void Start()
 		{
@@ -29,7 +29,7 @@ namespace ModComponentAPI
 			{
 				Logger.LogError("Could not load behaviour '" + BehaviourName + "': " + e.Message);
 
-				if (FailOnError) throw e;
+				if (ThrowOnError) throw e;
 			}
 		}
 

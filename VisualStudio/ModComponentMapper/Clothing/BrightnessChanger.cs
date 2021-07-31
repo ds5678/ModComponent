@@ -1,6 +1,4 @@
-﻿using Harmony;
-
-namespace ModComponentMapper
+﻿namespace ModComponentMapper
 {
 	public static class BrightnessChanger
 	{
@@ -21,12 +19,12 @@ namespace ModComponentMapper
 		}
 	}
 
-	[HarmonyPatch(typeof(UnityEngine.Rendering.PostProcessing.ColorGrading), "GetBlendGammaForBrightness")]
-	internal class ColorGrading_GetBlendGammaForBrightness
-	{
-		private static void Postfix(ref float __result)
-		{
-			//__result *= 4;//makes it darker
-		}
-	}
+	/*[HarmonyPatch(typeof(UnityEngine.Rendering.PostProcessing.ColorGrading), "GetBlendGammaForBrightness")]
+    internal static class ColorGrading_GetBlendGammaForBrightness
+    {
+        private static void Postfix(ref float __result)
+        {
+            //__result *= 4;//makes it darker
+        }
+    }*/
 }

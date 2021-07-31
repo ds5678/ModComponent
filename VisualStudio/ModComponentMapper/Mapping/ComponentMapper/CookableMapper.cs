@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModCookableComponent modCookableComponent = modComponent.TryCast<ModCookableComponent>();
-			if (modCookableComponent is null || !modCookableComponent.Cooking)
+			if (modCookableComponent == null || !modCookableComponent.Cooking)
 			{
 				return;
 			}
@@ -32,7 +32,7 @@ namespace ModComponentMapper.ComponentMapper
 			cookable.m_LiquidMeshRenderer = template?.m_LiquidMeshRenderer;
 
 			// either just heat or convert, but not both
-			if (modCookableComponent.CookingResult is null)
+			if (modCookableComponent.CookingResult == null)
 			{
 				// no conversion, just heating
 				FoodItem foodItem = ModComponentUtils.ComponentUtils.GetComponent<FoodItem>(modCookableComponent);
@@ -45,7 +45,7 @@ namespace ModComponentMapper.ComponentMapper
 			{
 				// no heating, but instead convert the item when cooking completes
 				GearItem cookedGearItem = modCookableComponent.CookingResult.GetComponent<GearItem>();
-				if (cookedGearItem is null)
+				if (cookedGearItem == null)
 				{
 					// not mapped yet, do it now
 					AutoMapper.MapModComponent(modCookableComponent.CookingResult);

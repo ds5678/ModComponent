@@ -7,13 +7,13 @@ namespace ModComponentMapper
 {
 #if DEBUG
 	[HarmonyPatch(typeof(vp_FPSShooter), "Refresh")]//zero caller count
-	class vp_FPSShooterRefreshPatch
+	internal static class vp_FPSShooterRefreshPatch
 	{
 		public static void Postfix(vp_FPSShooter __instance)
 		{
 			PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 			ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-			if (animation is null)
+			if (animation == null)
 			{
 				return;
 			}

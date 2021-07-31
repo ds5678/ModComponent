@@ -11,7 +11,7 @@ using UnityEngine;
 namespace ModComponentMapper
 {
 	[HarmonyPatch(typeof(PlayerManager), "RestoreOriginalTint")]//Exists
-	internal class PlayerManager_RestoreOriginalTint
+	internal static class PlayerManager_RestoreOriginalTint
 	{
 		internal static void Postfix(PlayerManager __instance, GameObject go)
 		{
@@ -21,7 +21,7 @@ namespace ModComponentMapper
 	}
 
 	//[HarmonyPatch(typeof(PlayerManager), "StoreOriginalTint")]//DOES NOT EXIST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//internal class PlayerManager_StoreOriginalTint
+	//internal static class PlayerManager_StoreOriginalTint
 	//{
 	//    internal static void Prefix(PlayerManager __instance, GameObject go)
 	//    {
@@ -31,7 +31,7 @@ namespace ModComponentMapper
 
 	//Replacement Patches
 	[HarmonyPatch(typeof(PlayerManager), "PrepareGhostedObject")]//inlined?
-	internal class PlayerManager_PrepareGhostedObject
+	internal static class PlayerManager_PrepareGhostedObject
 	{
 		internal static void Prefix(PlayerManager __instance)
 		{
@@ -44,7 +44,7 @@ namespace ModComponentMapper
 	}
 
 	[HarmonyPatch(typeof(PlayerManager), "OnPlaceMeshAnimationEvent")]//inlined
-	internal class PlayerManager_OnPlaceMeshAnimationEvent
+	internal static class PlayerManager_OnPlaceMeshAnimationEvent
 	{
 		internal static void Prefix(PlayerManager __instance)
 		{

@@ -2,8 +2,10 @@
 using ModComponentMapper.InformationMenu;
 using ModComponentUtils;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -23,13 +25,10 @@ namespace ModComponentMapper
 
 	internal static class ZipFileLoader
 	{
-		public const string ZIP_FOLDER_NAME = "ModComponentZips";
-
-		internal static string GetZipFolderPath() => Path.Combine(ModComponentUtils.FileUtils.GetModsFolderPath(), ZIP_FOLDER_NAME);
-
+		internal static readonly List<byte[]> hashes = new List<byte[]>();
 		internal static void Initialize()
 		{
-			string zipFolderDirectory = GetZipFolderPath();
+			string zipFolderDirectory = ModComponentUtils.FileUtils.GetModComponentZipsFolderPath();
 			if (!Directory.Exists(zipFolderDirectory))
 			{
 				Logger.Log("Directory '{0}' does not exist. Creating ...", zipFolderDirectory);
@@ -64,6 +63,10 @@ namespace ModComponentMapper
 		{
 			Logger.LogGreen("Reading zip file at: '{0}'", zipFilePath);
 			var fileStream = File.OpenRead(zipFilePath);
+
+			hashes.Add(SHA256.Create().ComputeHash(fileStream));
+			fileStream.Position = 0;
+
 			var zipInputStream = new ZipInputStream(fileStream);
 			ZipEntry entry;
 			while ((entry = zipInputStream.GetNextEntry()) != null)
@@ -190,7 +193,7 @@ namespace ModComponentMapper
 				}
 			}
 		}
-		
+
 		private static void HandleImage(string internalPath, byte[] data, string fullPath)
 		{
 			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);

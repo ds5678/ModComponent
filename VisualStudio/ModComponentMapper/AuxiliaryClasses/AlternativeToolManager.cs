@@ -33,7 +33,7 @@ namespace ModComponentMapper
 		private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
 		{
 			GameObject original = Resources.Load(templateName).Cast<GameObject>();
-			if (original is null) return;
+			if (original == null) return;
 
 			AlternateTools alternateTools = ModComponentUtils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
 			List<GameObject> list = new List<GameObject>();

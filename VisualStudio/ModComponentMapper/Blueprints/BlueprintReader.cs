@@ -27,10 +27,10 @@ namespace ModComponentMapper
 			try
 			{
 				ModBlueprint blueprint = MelonLoader.TinyJSON.JSON.Load(text).Make<ModBlueprint>();
-				if (!(blueprint is null)) BlueprintMapper.RegisterBlueprint(blueprint, path);
+				if (!(blueprint == null)) BlueprintMapper.RegisterBlueprint(blueprint, path);
 				else
 				{
-					PageManager.SetItemPackNotWorking(path, "Skipping because blueprint is null");
+					PageManager.SetItemPackNotWorking(path, "Skipping because blueprint == null");
 				}
 			}
 			catch (Exception e)

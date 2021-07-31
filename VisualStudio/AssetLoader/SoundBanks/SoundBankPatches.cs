@@ -1,9 +1,9 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 
 namespace AssetLoader
 {
 	[HarmonyPatch(typeof(GameAudioManager), "Start")]
-	internal class GameAudioManager_LoadSoundBanksPath
+	internal static class GameAudioManager_LoadSoundBanksPath
 	{
 		internal static void Postfix()
 		{

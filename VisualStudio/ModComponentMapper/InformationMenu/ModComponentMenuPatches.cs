@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ namespace ModComponentMapper.InformationMenu
 					return;
 
 				BasicMenu basicMenu = __instance.m_BasicMenu;
-				if (basicMenu is null)
+				if (basicMenu == null)
 					return;
 
 				//AddAnotherMenuItem(basicMenu); // We need one more than they have...

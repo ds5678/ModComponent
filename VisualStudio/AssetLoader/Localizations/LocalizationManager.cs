@@ -87,9 +87,14 @@ namespace AssetLoader
 			}
 		}
 
+		internal static bool HasPendingAssets()
+		{
+			return localizationWaitlistAssets.Count > 0 || localizationWaitlistText.Count > 0;
+		}
+
 		internal static void MaybeLoadPendingAssets()
 		{
-			if (localizationWaitlistAssets.Count > 0 && Localization.IsInitialized())
+			if (Localization.IsInitialized() && HasPendingAssets())
 			{
 				LoadPendingAssets();
 			}
@@ -172,7 +177,7 @@ namespace AssetLoader
 		private static void LoadCSVLocalization(Object asset)
 		{
 			TextAsset textAsset = asset.Cast<TextAsset>();
-			if (textAsset is null)
+			if (textAsset == null)
 			{
 				Logger.LogWarning("Asset called '{0}' is not a TextAsset as expected.", asset.name);
 				return;
@@ -186,7 +191,7 @@ namespace AssetLoader
 			while (true)
 			{
 				string[] values = byteReader.ReadCSV()?.ToArray();
-				if (values is null || languages is null || values.Length == 0 || languages.Length == 0)
+				if (values == null || languages == null || values.Length == 0 || languages.Length == 0)
 				{
 					break;
 				}
@@ -210,7 +215,7 @@ namespace AssetLoader
 		private static bool LoadJSONLocalization(Object asset)
 		{
 			TextAsset textAsset = asset.Cast<TextAsset>();
-			if (textAsset is null)
+			if (textAsset == null)
 			{
 				Logger.LogWarning("Asset called '{0}' is not a TextAsset as expected.", asset.name);
 				return false;

@@ -38,25 +38,25 @@
     <Reference Include="Assembly-CSharp">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MelonLoader.ModHandler, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Il2Cppmscorlib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TheLongDark\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ModSettings, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Il2CppSystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MelonLoader, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ModSettings, Version=1.8.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnhollowerRuntimeLib, Version=0.4.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
@@ -65,13 +65,16 @@
     <Reference Include="UnityEngine.CoreModule">
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.IMGUIModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule, Version=3.7.1.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -85,14 +88,23 @@
     <Compile Include="ModComponentAPI\Components\ModCharcoalComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModPurificationComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModResearchComponent.cs" />
+    <Compile Include="ModComponentAPI\Recipes\ModIngredient.cs" />
+    <Compile Include="ModComponentAPI\Recipes\ModPowderIngredient.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModLootTable.cs" />
     <Compile Include="AssetLoader\Assets\SkinManager.cs" />
+    <Compile Include="ModComponentAPI\Recipes\ModRecipe.cs" />
     <Compile Include="ModComponentMain\BuildInfo.cs" />
+    <Compile Include="ModComponentMapper\CraftingMenu\CraftingExtensions.cs" />
+    <Compile Include="ModComponentMapper\CraftingMenu\CraftingMenuPatches.cs" />
+    <Compile Include="ModComponentMapper\CraftingMenu\MethodReplacements.cs" />
+    <Compile Include="ModComponentMapper\CraftingMenu\RecipeDisplayItem.cs" />
+    <Compile Include="ModComponentMapper\CraftingMenu\RecipeMenuGUI.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\CarryingCapacityMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\TinderMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\CharcoalMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\PurificationMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\ResearchMapper.cs" />
+    <Compile Include="ModComponentMapper\Patches\AlternativePowderPatches.cs" />
     <Compile Include="ModComponentUtils\AssetBundleUtils.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasManager.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasUtils.cs" />

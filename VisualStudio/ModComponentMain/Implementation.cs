@@ -1,6 +1,5 @@
 ﻿using MelonLoader;
 using System;
-using System.IO;
 using UnityEngine;
 
 namespace ModComponentMain
@@ -29,5 +28,7 @@ namespace ModComponentMain
 
 		[Obsolete("Use ModComponentUtils.FileUtils.GetModsFolderPath instead")]
 		public static string GetModsFolderPath() => ModComponentUtils.FileUtils.GetModsFolderPath();
+
+		public static byte[][] GetItemPackHashes() => ModComponentMapper.ZipFileLoader.hashes.ToArray();
 	}
 }

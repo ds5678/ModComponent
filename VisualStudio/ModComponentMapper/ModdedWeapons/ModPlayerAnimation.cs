@@ -54,7 +54,7 @@ namespace ModComponentMapper
 		[HideFromIl2Cpp]
 		static ModAnimationStateMachine()
 		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModAnimationStateMachine>();
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModAnimationStateMachine>(false);
 
 			transitionStates.Add(Equipping, Showing);
 			transitionDelays.Add(Equipping, 0.3f);

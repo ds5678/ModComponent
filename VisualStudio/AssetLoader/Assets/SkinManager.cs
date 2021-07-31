@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using ModComponentUtils;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +11,13 @@ namespace AssetLoader
 
 		internal static void AddToTextureList(string name, byte[] array)
 		{
-			if (string.IsNullOrWhiteSpace(name) || array is null || array.Length == 0) return;
+			if (string.IsNullOrWhiteSpace(name) || array == null || array.Length == 0) return;
 			textures.Add(name, array);
 		}
 
 		internal static bool ContainsKey(string key)
 		{
-			if (key is null) return false;
+			if (key == null) return false;
 			else return textures.ContainsKey(key);
 		}
 
@@ -41,7 +41,7 @@ namespace AssetLoader
 
 		internal static void ReplaceTextures(GameObject gameObject)
 		{
-			if (gameObject is null) return;
+			if (gameObject == null) return;
 			foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>(true))
 			{
 				foreach (Material mat in renderer.GetMaterialArray())
@@ -58,7 +58,7 @@ namespace AssetLoader
 		internal static GameObject GetFirstPersonObject() => ModUtils.GetSibling(GameManager.GetPlayerObject(), "NEW_FPHand_Rig");
 
 		[HarmonyPatch(typeof(SaveGameSystem), "LoadSceneData")]
-		internal class SaveGameSystem_LoadSceneData
+		internal static class SaveGameSystem_LoadSceneData
 		{
 			private static void Postfix()
 			{
@@ -74,7 +74,7 @@ namespace AssetLoader
 		}
 
 		[HarmonyPatch(typeof(GearItem), "Awake")]
-		internal class GearItem_Awake
+		internal static class GearItem_Awake
 		{
 			private static void Postfix(GearItem __instance)
 			{

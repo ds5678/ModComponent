@@ -15,16 +15,16 @@ namespace ModComponentMapper
 
 		public static void Map(GameObject prefab)
 		{
-			if (prefab is null) throw new ArgumentException("The prefab was NULL.");
+			if (prefab == null) throw new ArgumentException("The prefab was NULL.");
 
 			ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
-			if (modComponent is null)
+			if (modComponent == null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
 			}
 
-			bool hasModPlaceHolder = !(ComponentUtils.GetComponent<ModPlaceHolderComponent>(prefab) is null);
-			if (prefab.GetComponent<GearItem>() is null || hasModPlaceHolder)
+			bool hasModPlaceHolder = !(ComponentUtils.GetComponent<ModPlaceHolderComponent>(prefab) == null);
+			if (prefab.GetComponent<GearItem>() == null || hasModPlaceHolder)
 			{
 				ConfigureBehaviours(modComponent);
 
@@ -75,10 +75,10 @@ namespace ModComponentMapper
 
 		internal static void ConfigureBehaviours(GameObject prefab)
 		{
-			if (prefab is null) throw new ArgumentException("The prefab was NULL.");
+			if (prefab == null) throw new ArgumentException("The prefab was NULL.");
 
 			ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
-			if (modComponent is null)
+			if (modComponent == null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
 			}
@@ -177,7 +177,7 @@ namespace ModComponentMapper
 						eachMaterial.shader = meshRenderer.material.shader;
 						eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
 
-						if (eachMaterial.GetTexture("_dmg_texture") is null)
+						if (eachMaterial.GetTexture("_dmg_texture") == null)
 						{
 							eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
 						}

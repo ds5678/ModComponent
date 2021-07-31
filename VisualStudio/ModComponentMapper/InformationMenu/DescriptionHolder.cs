@@ -8,7 +8,7 @@ namespace ModComponentMapper.InformationMenu
 
 		static DescriptionHolder()
 		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<DescriptionHolder>();
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<DescriptionHolder>(false);
 		}
 		public DescriptionHolder(System.IntPtr ptr) : base(ptr) { }
 

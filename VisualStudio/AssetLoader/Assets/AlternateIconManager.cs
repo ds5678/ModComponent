@@ -9,13 +9,13 @@ namespace AssetLoader
 
 		internal static void AddToTextureList(string name, byte[] array)
 		{
-			if (string.IsNullOrWhiteSpace(name) || array is null || array.Length == 0) return;
+			if (string.IsNullOrWhiteSpace(name) || array == null || array.Length == 0) return;
 			textures.Add(name, array);
 		}
 
 		internal static bool ContainsKey(string key)
 		{
-			if (key is null) return false;
+			if (key == null) return false;
 			else return textures.ContainsKey(key);
 		}
 

@@ -11,7 +11,7 @@ namespace ModComponentMapper
 		internal static void MapBlueprint(ModBlueprint modBlueprint)
 		{
 			BlueprintItem bpItem = GameManager.GetBlueprints().AddComponent<BlueprintItem>();
-			if (bpItem is null)
+			if (bpItem == null)
 			{
 				throw new Exception("Error creating Blueprint");
 			}
@@ -47,7 +47,7 @@ namespace ModComponentMapper
 		internal static void MapBlueprints()
 		{
 			GameObject blueprintsManager = GameManager.GetBlueprints();
-			if (blueprintsManager is null) return;
+			if (blueprintsManager == null) return;
 
 			foreach (ModBlueprint modBlueprint in blueprints)
 			{
@@ -83,8 +83,8 @@ namespace ModComponentMapper
 			}
 			catch (Exception e)
 			{
-				if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentException("Validation of blueprint " + modBlueprint.name + " failed: " + e.Message + "\nThe blueprint was provided by '" + sourcePath + "', which may be out-of-date or installed incorrectly.");
-				else throw new ArgumentException("Validation of blueprint " + modBlueprint.name + " failed: " + e.Message + "\nThe blueprint may be out-of-date or installed incorrectly.");
+				if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentException("Validation of blueprint failed: " + e.Message + "\nThe blueprint was provided by '" + sourcePath + "', which may be out-of-date or installed incorrectly.");
+				else throw new ArgumentException("Validation of blueprint failed: " + e.Message + "\nThe blueprint may be out-of-date or installed incorrectly.");
 			}
 		}
 	}

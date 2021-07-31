@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System;
 using UnityEngine;
 
@@ -7,7 +7,7 @@ namespace ModComponentMapper
 	internal static class AlcoholPatches
 	{
 		[HarmonyPatch(typeof(SaveGameSystem), "RestoreGlobalData")]
-		internal class SaveGameSystem_RestoreGlobalData
+		internal static class SaveGameSystem_RestoreGlobalData
 		{
 			public static void Postfix(string name)
 			{
@@ -22,14 +22,14 @@ namespace ModComponentMapper
 
 			private static ModHealthManagerData GetData(SaveProxy proxy)
 			{
-				if (proxy is null || string.IsNullOrEmpty(proxy.data)) return null;
+				if (proxy == null || string.IsNullOrEmpty(proxy.data)) return null;
 
 				return MelonLoader.TinyJSON.JSON.Load(proxy.data).Make<ModHealthManagerData>();
 			}
 		}
 
 		[HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]//Exists
-		internal class SaveGameSystem_SaveGlobalData
+		internal static class SaveGameSystem_SaveGlobalData
 		{
 			public static void Postfix(SaveSlotType gameMode, string name)
 			{
@@ -40,7 +40,7 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(StatusBar), "GetRateOfChange")]//positive caller count
-		internal class StatusBar_GetRateOfChange
+		internal static class StatusBar_GetRateOfChange
 		{
 			private static void Postfix(StatusBar __instance, ref float __result)
 			{
@@ -58,7 +58,7 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(Condition), "UpdateBlurEffect")]//positive caller count
-		internal class Condition_UpdateBlurEffect
+		internal static class Condition_UpdateBlurEffect
 		{
 			public static void Prefix(Condition __instance, ref float percentCondition, ref bool lowHealthStagger)
 			{
@@ -74,7 +74,7 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(Freezing), "CalculateBodyTemperature")]//positive caller count
-		internal class Freezing_CalculateBodyTemperature
+		internal static class Freezing_CalculateBodyTemperature
 		{
 			public static void Postfix(ref float __result)
 			{
@@ -83,7 +83,7 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(Frostbite), "CalculateBodyTemperatureWithoutClothing")]//positive caller count
-		internal class Frostbite_CalculateBodyTemperatureWithoutClothing
+		internal static class Frostbite_CalculateBodyTemperatureWithoutClothing
 		{
 			public static void Postfix(ref float __result)
 			{
@@ -92,7 +92,7 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(GameManager), "Start")]//runs
-		internal class GameManagerStartPatch
+		internal static class GameManagerStartPatch
 		{
 			public static void Postfix(PlayerManager __instance)
 			{

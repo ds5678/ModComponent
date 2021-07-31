@@ -11,7 +11,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(GameObject prefab)
 		{
 			ModRepairableComponent modRepairableComponent = ComponentUtils.GetComponent<ModRepairableComponent>(prefab);
-			if (modRepairableComponent is null) return;
+			if (modRepairableComponent == null) return;
 
 			Repairable repairable = ComponentUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);
 			repairable.m_RepairAudio = modRepairableComponent.Audio;

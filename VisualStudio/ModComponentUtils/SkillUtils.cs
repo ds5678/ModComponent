@@ -9,7 +9,7 @@ namespace ModComponentUtils
 			if (string.IsNullOrEmpty(name)) return null;
 
 			SkillsManager skillsManager = GameManager.GetSkillsManager();
-			if (skillsManager is null) return null;
+			if (skillsManager == null) return null;
 
 			for (int i = 0; i < skillsManager.GetNumSkills(); i++)
 			{
@@ -26,7 +26,7 @@ namespace ModComponentUtils
 			if (string.IsNullOrEmpty(name)) return null;
 
 			SkillsManager skillsManager = GameManager.GetSkillsManager();
-			if (skillsManager is null) return null;
+			if (skillsManager == null) return null;
 
 			for (int i = 0; i < skillsManager.GetNumSkills(); i++)
 			{

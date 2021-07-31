@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace ModComponentMapper
 		public float AmountRemaining;
 		public float UptakeSeconds;
 		public AlcoholComponent(IntPtr intPtr) : base(intPtr) { }
-		static AlcoholComponent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.AlcoholComponent>();
+		static AlcoholComponent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.AlcoholComponent>(false);
 
 		[HideFromIl2Cpp]
 		public void Apply(float normalizedValue)
@@ -34,7 +34,7 @@ namespace ModComponentMapper
 	}
 
 	[HarmonyPatch(typeof(GearItem), "ApplyBuffs")]//positive caller count
-	internal class AlcoholComponentHook
+	internal static class AlcoholComponentHook
 	{
 		public static void Postfix(GearItem __instance, float normalizedValue)
 		{
@@ -47,7 +47,7 @@ namespace ModComponentMapper
 	}
 
 	[HarmonyPatch(typeof(FoodItem), "Deserialize")]//Exists
-	internal class FoodItem_Deserialize
+	internal static class FoodItem_Deserialize
 	{
 		public static void Postfix(FoodItem __instance)
 		{
@@ -56,7 +56,7 @@ namespace ModComponentMapper
 	}
 
 	[HarmonyPatch(typeof(FoodItem), "Awake")]//Exists
-	internal class FoodItem_Awake
+	internal static class FoodItem_Awake
 	{
 		public static void Postfix(FoodItem __instance)
 		{

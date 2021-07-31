@@ -10,7 +10,7 @@ namespace ModComponentMapper.InformationMenu
 
 		static GUI()
 		{
-			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<GUI>();
+			UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<GUI>(false);
 		}
 
 		public GUI(System.IntPtr ptr) : base(ptr) { }
@@ -117,7 +117,7 @@ namespace ModComponentMapper.InformationMenu
 
 		internal void Update()
 		{
-			if (currentTab is null)
+			if (currentTab == null)
 				return;
 			if (InputManager.GetEscapePressed(InterfaceManager.m_Panel_OptionsMenu))
 			{
@@ -176,7 +176,7 @@ namespace ModComponentMapper.InformationMenu
 			GameObject setting = currentTab.menuItems[selectedIndex];
 			DescriptionHolder description = setting.GetComponent<DescriptionHolder>();
 
-			if (description is null)
+			if (description == null)
 				return;
 
 			UILabel descriptionLabel = InterfaceManager.m_Panel_OptionsMenu.m_OptionDescriptionLabel;

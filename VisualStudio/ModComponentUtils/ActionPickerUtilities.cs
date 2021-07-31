@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace ModComponentUtils
@@ -21,26 +19,22 @@ namespace ModComponentUtils
 			}
 			public static implicit operator Panel_ActionPicker.ActionPickerItemData(ActionPickerData data)
 			{
-				return new Panel_ActionPicker.ActionPickerItemData(data.SpriteName,data.LocID,data.Callback);
+				return new Panel_ActionPicker.ActionPickerItemData(data.SpriteName, data.LocID, data.Callback);
 			}
 		}
-		public static void ShowCustomActionPicker(GameObject objectInteractedWith,List<ActionPickerData> actionList)
+		public static void ShowCustomActionPicker(GameObject objectInteractedWith, List<ActionPickerData> actionList)
 		{
-			if (InterfaceManager.m_Panel_ActionPicker is null || InterfaceManager.IsOverlayActiveCached()) return;
+			Panel_ActionPicker panel = InterfaceManager.m_Panel_ActionPicker;
+			if (panel == null || InterfaceManager.IsOverlayActiveCached()) return;
 
-			if(ReplaceList(InterfaceManager.m_Panel_ActionPicker.m_ActionPickerItemDataList, actionList))
-			{
-				InterfaceManager.m_Panel_ActionPicker.m_ObjectInteractedWith = objectInteractedWith;
-				InterfaceManager.m_Panel_ActionPicker.EnableWithCurrentList();
-			}
-		}
-		internal static bool ReplaceList(Il2CppSystem.Collections.Generic.List<Panel_ActionPicker.ActionPickerItemData> original, List<ActionPickerData> actionList)
-		{
-			if (actionList is null) return false;
-			if (original is null) original = new Il2CppSystem.Collections.Generic.List<Panel_ActionPicker.ActionPickerItemData>();
-			else original.Clear();
-			foreach (var element in actionList) original.Add(element);
-			return true;
+			if (panel.m_ActionPickerItemDataList == null)
+				panel.m_ActionPickerItemDataList = new Il2CppSystem.Collections.Generic.List<Panel_ActionPicker.ActionPickerItemData>();
+			else panel.m_ActionPickerItemDataList.Clear();
+			foreach (var element in actionList)
+				panel.m_ActionPickerItemDataList.Add(element);
+
+			InterfaceManager.m_Panel_ActionPicker.m_ObjectInteractedWith = objectInteractedWith;
+			InterfaceManager.m_Panel_ActionPicker.EnableWithCurrentList();
 		}
 	}
 }

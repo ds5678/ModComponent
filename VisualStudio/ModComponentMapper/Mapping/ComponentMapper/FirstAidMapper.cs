@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModFirstAidComponent modFirstAidComponent = modComponent.TryCast<ModFirstAidComponent>();
-			if (modFirstAidComponent is null) return;
+			if (modFirstAidComponent == null) return;
 
 			FirstAidItem firstAidItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FirstAidItem>(modFirstAidComponent);
 

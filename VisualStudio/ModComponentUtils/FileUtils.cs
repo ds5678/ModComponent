@@ -7,7 +7,12 @@ namespace ModComponentUtils
 	{
 		public static string GetModsFolderPath()
 		{
-			return Path.GetFullPath(typeof(MelonLoader.MelonMod).Assembly.Location + @"\..\..\Mods");
+			return Path.Combine(MelonLoader.MelonUtils.GameDirectory, @"Mods");
+		}
+
+		public static string GetModComponentZipsFolderPath()
+		{
+			return Path.Combine(MelonLoader.MelonUtils.GameDirectory, @"Mods", @"ModComponentZips");
 		}
 
 		internal static string GetRelativePath(string file, string directory)

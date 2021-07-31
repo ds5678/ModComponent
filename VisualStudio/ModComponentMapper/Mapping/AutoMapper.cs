@@ -17,7 +17,7 @@ namespace ModComponentMapper
 		{
 			//Logger.Log("AutoMapPrefab called");
 			GameObject prefab = Resources.Load(prefabName)?.Cast<GameObject>();
-			if (prefab is null)
+			if (prefab == null)
 			{
 				throw new System.NullReferenceException("In AutoMapper.AutoMapPrefab, Resources.Load did not return a GameObject.");
 			}
@@ -53,24 +53,15 @@ namespace ModComponentMapper
 			}
 		}
 
-		private static void MapBlueprint(GameObject prefab, string sourcePath)
-		{
-			ModBlueprint modBlueprint = ModComponentUtils.ComponentUtils.GetComponent<ModBlueprint>(prefab);
-			if (modBlueprint != null)
-			{
-				BlueprintMapper.RegisterBlueprint(modBlueprint, sourcePath);
-			}
-		}
-
 
 		internal static void MapModComponent(GameObject prefab)
 		{
-			if (prefab is null) throw new System.ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
+			if (prefab == null) throw new System.ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
 
 			ComponentJson.InitializeComponents(ref prefab);
 			ModComponent modComponent = ModComponentUtils.ComponentUtils.GetModComponent(prefab);
 
-			if (modComponent is null) throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
+			if (modComponent == null) throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
 
 			Logger.Log("Mapping {0}", prefab.name);
 			Mapper.Map(prefab);

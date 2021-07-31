@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 		public static void Configure(GameObject prefab)
 		{
 			ModTinderComponent modBurnableComponent = ComponentUtils.GetComponent<ModTinderComponent>(prefab);
-			if (modBurnableComponent is null) return;
+			if (modBurnableComponent == null) return;
 
 			FuelSourceItem fuelSourceItem = ComponentUtils.GetOrCreateComponent<FuelSourceItem>(modBurnableComponent);
 			fuelSourceItem.m_BurnDurationHours = 0.02f;

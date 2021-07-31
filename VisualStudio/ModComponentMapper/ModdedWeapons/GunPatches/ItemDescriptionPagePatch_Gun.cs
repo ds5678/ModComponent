@@ -1,13 +1,12 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 
 namespace ModComponentMapper.Patches
 {
-	[HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]//positive caller count
-	class ItemDescriptionPageCanExaminePatch
+	[HarmonyPatch(typeof(ItemDescriptionPage), "CanExamine")]
+	internal static class ItemDescriptionPageCanExaminePatch
 	{
 		public static void Postfix(GearItem gi, ref bool __result)
 		{
-			// guns can always be examined
 			__result |= ModComponentUtils.ComponentUtils.GetComponent<GunItem>(gi) != null;
 		}
 	}

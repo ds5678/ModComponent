@@ -7,7 +7,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModResearchComponent modResearch = modComponent.TryCast<ModResearchComponent>();
-			if (modResearch is null) return;
+			if (modResearch == null) return;
 
 			ResearchItem researchItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<ResearchItem>(modResearch);
 			researchItem.m_ReadAudio = modResearch.ReadAudio;

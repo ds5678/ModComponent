@@ -108,7 +108,7 @@ namespace ModComponentAPI
 		protected Action CreateImplementationActionDelegate(string methodName)
 		{
 			MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-			if (methodInfo is null) return null;
+			if (methodInfo == null) return null;
 
 			return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
 		}
@@ -129,12 +129,12 @@ namespace ModComponentAPI
             {
                 this.Implementation = this.gameObject.AddComponent(implementationTypeIl2Cpp);
             }
-            else if (!(implementationTypeMono is null))
+            else if (!(implementationTypeMono == null))
             {
                 this.Implementation = Activator.CreateInstance(implementationTypeMono);
             }*/
 
-			if (this.Implementation is null) return;
+			if (this.Implementation == null) return;
 
 			OnEquipped = CreateImplementationActionDelegate("OnEquipped");
 			OnUnequipped = CreateImplementationActionDelegate("OnUnequipped");

@@ -32,7 +32,7 @@ namespace ModComponentMapper
 		}
 
 		public RestoreMaterialQueue(IntPtr intPtr) : base(intPtr) { }
-		static RestoreMaterialQueue() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.RestoreMaterialQueue>();
+		static RestoreMaterialQueue() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<RestoreMaterialQueue>(false);
 	}
 }
 */

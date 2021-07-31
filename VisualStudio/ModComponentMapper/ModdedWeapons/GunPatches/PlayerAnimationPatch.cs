@@ -1,22 +1,23 @@
-﻿using Harmony;
-#if DEBUG
+﻿#if DEBUG
 using static PlayerAnimation;
 using static PlayerAnimation.State;
 #endif
 
 //has some inlined methods
 
+using HarmonyLib;
+
 namespace ModComponentMapper
 {
 	class PlayerAnimationPatch
 	{
 		[HarmonyPatch(typeof(PlayerAnimation), "IsDequipping")]//zero caller count
-		class PlayerAnimation_IsDequipping
+		internal static class PlayerAnimation_IsDequipping
 		{
 			public static bool Prefix(ref bool __result)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
-				if (ModComponentUtils.ComponentUtils.GetModComponent(playerManager.m_ItemInHands) is null)
+				if (ModComponentUtils.ComponentUtils.GetModComponent(playerManager.m_ItemInHands) == null)
 				{
 					return true;
 				}
@@ -27,13 +28,13 @@ namespace ModComponentMapper
 		}
 #if DEBUG
 		[HarmonyPatch(typeof(PlayerAnimation), "IsAiming")]//zero caller count
-		class PlayerAnimationIsAimingPatch
+		internal static class PlayerAnimationIsAimingPatch
 		{
 			public static bool Prefix(ref bool __result)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -44,13 +45,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "IsAllowedToFire")]//positive caller count
-		class PlayerAnimationIsAllowedToFirePatch
+		internal static class PlayerAnimationIsAllowedToFirePatch
 		{
 			public static bool Prefix(ref bool __result)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -61,13 +62,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "CanTransitionToState")]//positive caller count
-		class PlayerAnimationCanTransitionToStatePatch
+		internal static class PlayerAnimationCanTransitionToStatePatch
 		{
 			public static bool Prefix(PlayerAnimation __instance, PlayerAnimation.State state, ref bool __result)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -78,13 +79,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "GetFirstPersonWeaponCanSwitch")]//zero caller count
-		class PlayerAnimationGetFirstPersonWeaponCanSwitchPatch
+		internal static class PlayerAnimationGetFirstPersonWeaponCanSwitchPatch
 		{
 			public static bool Prefix(ref bool __result)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -95,13 +96,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "UpdateReloadCount")]//positive caller count
-		class PlayerAnimationUpdateReloadCountPatch
+		internal static class PlayerAnimationUpdateReloadCountPatch
 		{
 			public static bool Prefix()
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -111,13 +112,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Reload")]//positive caller count
-		class PlayerAnimationTrigger_Generic_ReloadPatch
+		internal static class PlayerAnimationTrigger_Generic_ReloadPatch
 		{
 			public static bool Prefix(int bulletsToReload, OnAnimationEvent roundLoadedEventCallback, OnAnimationEvent clipLoadedEventCallback, OnAnimationEvent reloadCompleteEventCallback)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -206,13 +207,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Aim")]//positive caller count
-		class PlayerAnimationTrigger_Generic_AimPatch
+		internal static class PlayerAnimationTrigger_Generic_AimPatch
 		{
 			public static bool Prefix(PlayerAnimation.OnAnimationEvent onAnimationComplete)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -223,13 +224,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "Update_Aiming")]//zero caller count
-		class PlayerAnimationUpdate_AimingPatch
+		internal static class PlayerAnimationUpdate_AimingPatch
 		{
 			public static bool Prefix()
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -239,13 +240,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Aim_Cancel")]//positive caller count
-		class PlayerAnimationTrigger_Generic_Aim_CancelPatch
+		internal static class PlayerAnimationTrigger_Generic_Aim_CancelPatch
 		{
 			public static bool Prefix(OnAnimationEvent onAnimationComplete)
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -256,13 +257,13 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "Trigger_Generic_Fire")]//positive caller count
-		class PlayerAnimationTrigger_Generic_FirePatch
+		internal static class PlayerAnimationTrigger_Generic_FirePatch
 		{
 			public static bool Prefix()
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}
@@ -275,7 +276,7 @@ namespace ModComponentMapper
 		}
 
 		[HarmonyPatch(typeof(PlayerAnimation), "Update_WeaponFatigue")]//positive caller count
-		class PlayerAnimationUpdate_WeaponFatiguePatch
+		internal static class PlayerAnimationUpdate_WeaponFatiguePatch
 		{
 			private static UnityEngine.Vector3 MAX_SHAKE_AMPLITUDE = new UnityEngine.Vector3(0.2f, 0f, 0.1f);
 
@@ -283,7 +284,7 @@ namespace ModComponentMapper
 			{
 				PlayerManager playerManager = GameManager.GetPlayerManagerComponent();
 				ModAnimationStateMachine animation = ModComponentUtils.ComponentUtils.GetComponent<ModAnimationStateMachine>(playerManager.m_ItemInHands);
-				if (animation is null)
+				if (animation == null)
 				{
 					return true;
 				}

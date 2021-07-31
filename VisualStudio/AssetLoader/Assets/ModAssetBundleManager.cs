@@ -35,7 +35,7 @@ namespace AssetLoader
 
 		public static bool IsKnownAsset(string name)
 		{
-			if (name is null) return false;
+			if (name == null) return false;
 			else return getFullAssetName(name) != null;
 		}
 
@@ -84,7 +84,7 @@ namespace AssetLoader
 			{
 				Logger.Log("AssetBundle '{0}' has already been registered.", relativePath);
 			}
-			else if (assetBundle is null) throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
+			else if (assetBundle == null) throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
 			else LoadAssetBundle(relativePath, assetBundle);
 		}
 
@@ -235,7 +235,7 @@ namespace AssetLoader
 			while (true)
 			{
 				string resourceFolder = RESOURCE_FOLDER.Where(eachResourceFolder => result.StartsWith(eachResourceFolder)).FirstOrDefault();
-				if (resourceFolder is null)
+				if (resourceFolder == null)
 				{
 					break;
 				}

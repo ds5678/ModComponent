@@ -7,7 +7,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModClothingComponent modClothingItem = modComponent.TryCast<ModClothingComponent>();
-			if (modClothingItem is null) return;
+			if (modClothingItem == null) return;
 
 			ClothingItem clothingItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
 

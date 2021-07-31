@@ -163,7 +163,7 @@ namespace ModComponentAPI
 
 			Type implementationType = TypeResolver.Resolve(ImplementationType, true);
 			object implementation = Activator.CreateInstance(implementationType);
-			if (implementation is null) return;
+			if (implementation == null) return;
 
 			Implementation = implementation;
 
@@ -175,7 +175,7 @@ namespace ModComponentAPI
 		private Action CreateImplementationActionDelegate(string methodName)
 		{
 			MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-			if (methodInfo is null) return null;
+			if (methodInfo == null) return null;
 
 			return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
 		}

@@ -25,13 +25,13 @@ namespace ModComponentAPI
 		void Update()
 		{
 			if (ModComponentMain.Settings.instance.disableRandomItemSpawns) return;
-			if (this.ItemNames is null || this.ItemNames.Length == 0)
+			if (this.ItemNames == null || this.ItemNames.Length == 0)
 			{
 				Logger.LogWarning("'{0}' had an invalid list of potential spawn items.", this.name);
 				Destroy(this.gameObject);
 				return;
 			}
-			if (this.ItemWeights is null || this.ItemWeights.Length == 0)
+			if (this.ItemWeights == null || this.ItemWeights.Length == 0)
 			{
 				Logger.LogWarning("'{0}' had an invalid list of item spawn weights.", this.name);
 				Destroy(this.gameObject);
@@ -46,7 +46,7 @@ namespace ModComponentAPI
 
 			int index = this.GetIndex();
 			GameObject prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
-			if (prefab is null)
+			if (prefab == null)
 			{
 				Logger.LogWarning("Could not use '{0}' to spawn random item '{1}'", this.name, this.ItemNames[index]);
 				Destroy(this.gameObject);
@@ -81,7 +81,7 @@ namespace ModComponentAPI
 		[HideFromIl2Cpp]
 		private int GetTotalWeight()
 		{
-			if (this.ItemWeights is null) return 0;
+			if (this.ItemWeights == null) return 0;
 			int result = 0;
 			foreach (int weight in this.ItemWeights)
 			{

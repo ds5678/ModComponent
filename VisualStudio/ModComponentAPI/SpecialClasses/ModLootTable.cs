@@ -9,7 +9,7 @@ namespace ModComponentAPI
 		int[] weights = new int[0];
 
 		public ModLootTable(System.IntPtr intPtr) : base(intPtr) { }
-		static ModLootTable() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModLootTable>();
+		static ModLootTable() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModLootTable>(false);
 
 		void Awake()
 		{
@@ -21,7 +21,7 @@ namespace ModComponentAPI
 			for (int i = 0; i < len; i++)
 			{
 				GameObject go = Resources.Load(prefabNames[i])?.TryCast<GameObject>();
-				if (go is null || weights[i] <= 0) continue;
+				if (go == null || weights[i] <= 0) continue;
 				else
 				{
 					m_Prefabs.Add(go);

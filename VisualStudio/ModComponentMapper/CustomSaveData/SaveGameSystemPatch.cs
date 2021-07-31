@@ -1,11 +1,11 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using ModComponentAPI;
 using ModComponentMapper.SaveData;
 
 namespace ModComponentMapper.Patches
 {
 	[HarmonyPatch(typeof(GearItem), "Deserialize")]//Exists
-	public class GearItem_Deserialize
+	public static class GearItem_Deserialize
 	{
 		[HarmonyPriority(Priority.Last)]
 		public static void Postfix(GearItem __instance)
@@ -18,7 +18,7 @@ namespace ModComponentMapper.Patches
 			//foreach (ModSaveBehaviour modSaveBehaviour in modSaveComponents)
 			{
 				ModSaveBehaviour modSaveBehaviour = component.TryCast<ModSaveBehaviour>();
-				if (modSaveBehaviour is null)
+				if (modSaveBehaviour == null)
 				{
 					continue;
 				}
@@ -26,7 +26,7 @@ namespace ModComponentMapper.Patches
 				try
 				{
 					string data = SaveDataManager.GetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType());
-					//if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+					//if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
 					//if (!string.IsNullOrEmpty(data)) Logger.Log(data);
 					modSaveBehaviour.Deserialize(data);
 					//Logger.Log("Deserialized custom save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -37,7 +37,7 @@ namespace ModComponentMapper.Patches
 				}
 			}
 			/*ModSaveBehaviour modSaveBehaviour = __instance.GetComponent<ModSaveBehaviour>();
-            if (modSaveBehaviour is null)
+            if (modSaveBehaviour == null)
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace ModComponentMapper.Patches
             try
             {
                 string data = SaveDataManager.GetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType());
-                if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+                if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
                 if (!string.IsNullOrEmpty(data)) Logger.Log(data);
                 modSaveBehaviour.Deserialize(data);
                 Logger.Log("Deserialized custom save data for {0} of type {1}",modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -59,7 +59,7 @@ namespace ModComponentMapper.Patches
 	}
 
 	[HarmonyPatch(typeof(GearItem), "Serialize")]//Exists
-	public class GearItem_Serialize
+	public static class GearItem_Serialize
 	{
 		[HarmonyPriority(Priority.Last)]
 		public static void Prefix(GearItem __instance)
@@ -68,7 +68,7 @@ namespace ModComponentMapper.Patches
 			foreach (UnityEngine.Component component in components)
 			{
 				ModSaveBehaviour modSaveBehaviour = component.TryCast<ModSaveBehaviour>();
-				if (modSaveBehaviour is null)
+				if (modSaveBehaviour == null)
 				{
 					continue;
 				}
@@ -76,7 +76,7 @@ namespace ModComponentMapper.Patches
 				try
 				{
 					string data = modSaveBehaviour.Serialize();
-					//if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+					//if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
 					//if (!string.IsNullOrEmpty(data)) Logger.Log(data);
 					SaveDataManager.SetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType(), data);
 					//Logger.Log("Serialized custom save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -88,7 +88,7 @@ namespace ModComponentMapper.Patches
 			}
 
 			/*ModSaveBehaviour modSaveBehaviour = __instance.GetComponent<ModSaveBehaviour>();
-            if (modSaveBehaviour is null)
+            if (modSaveBehaviour == null)
             {
                 return;
             }
@@ -96,7 +96,7 @@ namespace ModComponentMapper.Patches
             try
             {
                 string data = modSaveBehaviour.Serialize();
-                if (data is null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
+                if (data == null) Logger.Log("Null save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
                 if (!string.IsNullOrEmpty(data)) Logger.Log(data);
                 SaveDataManager.SetSaveData(__instance.m_InstanceID, modSaveBehaviour.GetType(), data);
                 Logger.Log("Serialized custom save data for {0} of type {1}", modSaveBehaviour.name, modSaveBehaviour.GetType().ToString());
@@ -109,7 +109,7 @@ namespace ModComponentMapper.Patches
 	}
 
 	[HarmonyPatch(typeof(SaveGameSystem), "LoadSceneData")]//Exists
-	public class SaveGameSystemPatch_LoadSceneData
+	public static class SaveGameSystemPatch_LoadSceneData
 	{
 		public static void Postfix()
 		{
@@ -125,14 +125,14 @@ namespace ModComponentMapper.Patches
 			//Logger.Log("Filename: '{0}'",filename);
 			//string text = SaveGameSlots.LoadDataFromSlot(name, sceneSaveName + SaveDataManager.DATA_FILENAME_SUFFIX);
 			string text = SaveGameSlots.LoadDataFromSlot(name, filename);
-			//if (text is null) Logger.LogError("Found no data in the slot!");
+			//if (text == null) Logger.LogError("Found no data in the slot!");
 			//else Logger.Log(text);
 			SaveDataManager.Deserialize(text);
 		}
 	}
 
 	[HarmonyPatch(typeof(SaveGameSystem), "RestoreGlobalData")]//Exists
-	public class SaveGameSystemPatch_RestoreGlobalData
+	public static class SaveGameSystemPatch_RestoreGlobalData
 	{
 		public static void Postfix()
 		{
@@ -147,14 +147,14 @@ namespace ModComponentMapper.Patches
 			string filename = "global" + SaveDataManager.DATA_FILENAME_SUFFIX;
 			//Logger.Log("Filename: '{0}'", filename);
 			string text = SaveGameSlots.LoadDataFromSlot(name, filename);
-			//if (text is null) Logger.LogError("Found no data in the slot!");
+			//if (text == null) Logger.LogError("Found no data in the slot!");
 			//else Logger.Log(text);
 			SaveDataManager.Deserialize(text);
 		}
 	}
 
 	[HarmonyPatch(typeof(SaveGameSystem), "SaveGlobalData")]//Exists
-	public class SaveGameSystemPatch_SaveGlobalData
+	public static class SaveGameSystemPatch_SaveGlobalData
 	{
 		public static void Postfix(SaveSlotType gameMode, string name)
 		{
@@ -177,7 +177,7 @@ namespace ModComponentMapper.Patches
 	}
 
 	[HarmonyPatch(typeof(SaveGameSystem), "SaveSceneData")]//Exists
-	public class SaveGameSystemPatch_SaveSceneData
+	public static class SaveGameSystemPatch_SaveSceneData
 	{
 		public static void Postfix(SaveSlotType gameMode, string name, string sceneSaveName)
 		{

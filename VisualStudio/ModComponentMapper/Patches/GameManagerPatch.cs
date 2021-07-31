@@ -1,9 +1,9 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 
 namespace ModComponentMapper
 {
-	[HarmonyPatch(typeof(GameManager), "Awake")]//Exists
-	internal class GameManager_Awake
+	[HarmonyPatch(typeof(GameManager), "Awake")]
+	internal static class GameManager_Awake
 	{
 		private static void Postfix()
 		{
@@ -37,7 +37,7 @@ namespace ModComponentMapper
 	}
 
 	[HarmonyPatch(typeof(GameManager), "SetAudioModeForLoadedScene")]//Exists
-	internal class GameManager_SetAudioModeForLoadedScene
+	internal static class GameManager_SetAudioModeForLoadedScene
 	{
 		private static void Prefix()
 		{

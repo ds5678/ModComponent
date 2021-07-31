@@ -7,7 +7,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModComponent modComponent)
 		{
 			ModLiquidComponent modLiquidComponent = modComponent.TryCast<ModLiquidComponent>();
-			if (modLiquidComponent is null) return;
+			if (modLiquidComponent == null) return;
 
 			LiquidItem liquidItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<LiquidItem>(modComponent);
 			liquidItem.m_LiquidCapacityLiters = modLiquidComponent.LiquidCapacityLiters;

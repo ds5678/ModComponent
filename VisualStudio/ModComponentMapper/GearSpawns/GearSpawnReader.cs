@@ -26,7 +26,7 @@ namespace ModComponentMapper
 
 		private static string GetTrimmedLine(string line)
 		{
-			if (line is null) return "";
+			if (line == null) return "";
 			else return line.Trim().ToLower();
 		}
 

@@ -3,9 +3,9 @@
 namespace ModComponentMapper
 {
 	/*[HarmonyPatch(typeof(SkillsManager), "Deserialize")]//Exists
-    public class SkillManager_Deserialize
+    internal static class SkillManager_Deserialize
     {
-        public static void Postfix(SkillsManager __instance,ref string text)
+        private static void Postfix(SkillsManager __instance,ref string text)
         {
             //SkillsDataObject skdata = Utils.DeserializeObject<SkillsDataObject>(text);
             Dictionary<string, string> skillsData = MelonLoader.TinyJSON.JSON.Load(text).Make<Dictionary<string, string>>();
@@ -36,9 +36,9 @@ namespace ModComponentMapper
     }*/
 
 	/*[HarmonyPatch(typeof(SkillsManager), "GetSkill")]//Exists
-    public class SkillManager_GetSkill
+    internal static class SkillManager_GetSkill
     {
-        public static bool Prefix(SkillsManager __instance, ref Skill __result, SkillType skillType)
+        private static bool Prefix(SkillsManager __instance, ref Skill __result, SkillType skillType)
         {
             //List<Skill> m_Skills = ModComponentUtils.ModUtils.GetFieldValue<List<Skill>>(__instance, "m_Skills");
             //__result = m_Skills.Find(skill => skill.m_SkillType == skillType);
@@ -49,12 +49,12 @@ namespace ModComponentMapper
     }*/
 
 	/*[HarmonyPatch(typeof(SkillsManager), "Serialize")]//Exists
-    public class SkillManager_Serialize
+    internal static class SkillManager_Serialize
     {
-        public static void Postfix(SkillsManager __instance, ref string __result)
+        private static void Postfix(SkillsManager __instance, ref string __result)
         {
             Dictionary<string, string> skillsData = JSON.Load(__result)?.Make<Dictionary<string, string>>();
-            if (skillsData is null) return;
+            if (skillsData == null) return;
 
             for (int i = 0; i < __instance.GetNumSkills(); i++)
             {

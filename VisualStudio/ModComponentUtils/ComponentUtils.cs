@@ -7,29 +7,29 @@ namespace ModComponentUtils
 	{
 		public static T GetComponent<T>(Component component) where T : Component
 		{
-			if (component is null) return default;
+			if (component == null) return default;
 			else return GetComponent<T>(GetGameObject(component));
 		}
 
 		public static T GetComponent<T>(GameObject gameObject) where T : Component
 		{
-			if (gameObject is null) return default;
+			if (gameObject == null) return default;
 			else return gameObject.GetComponent<T>();
 		}
 
 		public static T GetOrCreateComponent<T>(Component component) where T : Component
 		{
-			if (component is null) return default;
+			if (component == null) return default;
 			else return GetOrCreateComponent<T>(GetGameObject(component));
 		}
 
 		public static T GetOrCreateComponent<T>(GameObject gameObject) where T : Component
 		{
-			if (gameObject is null) return default;
+			if (gameObject == null) return default;
 
 			T result = GetComponent<T>(gameObject);
 
-			if (result is null) result = gameObject.AddComponent<T>();
+			if (result == null) result = gameObject.AddComponent<T>();
 
 			return result;
 		}
@@ -58,12 +58,14 @@ namespace ModComponentUtils
 		{
 			try
 			{
-				if (component is null) return null;
+				if (component == null) return null;
 				else return component.gameObject;
 			}
 			catch (System.Exception exception)
 			{
-				Logger.LogError("Returning null since this could not obtain a Game Object from the component. Stack trace:\n{0}", exception.Message);
+#if DEBUG
+                Logger.LogError("Returning null since this could not obtain a Game Object from the component. Stack trace:\n{0}", exception.Message);
+#endif
 				return null;
 			}
 		}

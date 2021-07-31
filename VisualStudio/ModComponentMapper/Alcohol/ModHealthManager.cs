@@ -36,11 +36,11 @@ namespace ModComponentMapper
 		}
 
 		public ModHealthManager(IntPtr intPtr) : base(intPtr) { }
-		static ModHealthManager() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModHealthManager>();
+		static ModHealthManager() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModHealthManager>(false);
 
 		public static void DrankAlcohol(float amount, float uptakeGameSeconds)
 		{
-			if (instance is null)
+			if (instance == null)
 			{
 				Logger.Log("ModHealthManager not initialized.");
 				return;
@@ -76,7 +76,7 @@ namespace ModComponentMapper
 
 		internal static void SetData(ModHealthManagerData data)
 		{
-			if (data is null) return;
+			if (data == null) return;
 
 			instance.permille = NotNan(data.alcoholPermille, "Nan in ModHealthManager.SetData");
 
@@ -94,7 +94,7 @@ namespace ModComponentMapper
 			if (float.IsNaN(number))
 			{
 				if (!string.IsNullOrEmpty(message)) Logger.LogError(message);
-				else Logger.LogError("Nan value found");
+				else Logger.LogError("Nan value found in ModHealthManager");
 				return 0;
 			}
 			else return number;

@@ -20,7 +20,7 @@ namespace ModComponentMapper
 
 		public static string GetSkillSaveKey(Skill skill)
 		{
-			if (skill is null)
+			if (skill == null)
 			{
 				//Logger.Log("GetSkillSaveKey returned null");
 				return null;
@@ -37,7 +37,7 @@ namespace ModComponentMapper
 		{
 			if (!registeredInIl2Cpp)
 			{
-				UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<SerializableSkill>();
+				UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<SerializableSkill>(false);
 				registeredInIl2Cpp = true;
 			}
 		}

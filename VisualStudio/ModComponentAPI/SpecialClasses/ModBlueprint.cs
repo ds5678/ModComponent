@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ModComponentAPI
+﻿namespace ModComponentAPI
 {
 	public enum CraftingLocation
 	{
@@ -10,7 +8,7 @@ namespace ModComponentAPI
 		AmmoWorkbench
 	}
 
-	public class ModBlueprint : MonoBehaviour
+	public class ModBlueprint
 	{
 		/// <summary>
 		/// The name of each gear needed to craft this item (e.g. GEAR_Line)
@@ -92,8 +90,5 @@ namespace ModComponentAPI
 		/// The skill improved on crafting success.
 		/// </summary>
 		public SkillType ImprovedSkill = SkillType.None;
-
-		public ModBlueprint() { }
-		public ModBlueprint(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

@@ -16,15 +16,15 @@ namespace ModComponentMain
 
 		#region Log Functions
 		//Regular Messages show in white
-		internal static void Log(string message, params object[] parameters) => MelonLogger.Log(message, parameters);
+		internal static void Log(string message, params object[] parameters) => MelonLogger.Msg(message, parameters);
 
 
 		//Warning Messages show in yellow
-		internal static void LogWarning(string message, params object[] parameters) => MelonLogger.LogWarning(message, parameters);
+		internal static void LogWarning(string message, params object[] parameters) => MelonLogger.Warning(message, parameters);
 
 
 		//Error Messages show in red
-		internal static void LogError(string message, params object[] parameters) => MelonLogger.LogError(message, parameters);
+		internal static void LogError(string message, params object[] parameters) => MelonLogger.Error(message, parameters);
 
 
 		//This is for when item packs error while loading.
@@ -50,11 +50,11 @@ namespace ModComponentMain
 
 
 		//Blue Messages
-		internal static void LogBlue(string message, params object[] parameters) => MelonLogger.Log(ConsoleColor.Blue, message, parameters);
+		internal static void LogBlue(string message, params object[] parameters) => MelonLogger.Msg(ConsoleColor.Blue, message, parameters);
 
 
 		//Green Messages
-		internal static void LogGreen(string message, params object[] parameters) => MelonLogger.Log(ConsoleColor.Green, message, parameters);
+		internal static void LogGreen(string message, params object[] parameters) => MelonLogger.Msg(ConsoleColor.Green, message, parameters);
 
 
 		//Debug Messages show only when in debug mode
@@ -75,19 +75,14 @@ namespace ModComponentMain
 
 		private static void GetHiddenLogMethods()
 		{
-			MelonLogger.Log("");
-			MelonLogger.Log("Attempting to get hidden log methods");
 			Type type = typeof(MelonLogger);
 			foreach (MethodInfo method in type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
 			{
-				MelonLogger.Log($"'{method.Name}'");
-
 				if (method.Name == "LogMelonError")
 				{
 					reflectionSuccessful = true;
 					isMelonLoader3 = false;
 					m2_LogMelonError = method;
-					MelonLogger.Log("Found LogMelonError");
 					return;
 				}
 
@@ -95,20 +90,16 @@ namespace ModComponentMain
 				{
 					isMelonLoader3 = true;
 					m3_Internal_Error = method;
-					MelonLogger.Log("Found Internal_Error");
 					continue;
 				}
 				if (method.Name == "RunErrorCallbacks")
 				{
 					isMelonLoader3 = true;
 					m3_RunErrorCallbacks = method;
-					MelonLogger.Log("Found RunErrorCallbacks");
 					continue;
 				}
 			}
 			reflectionSuccessful = m3_Internal_Error != null && m3_RunErrorCallbacks != null;
-			MelonLogger.Log($"Reflection Successful: {reflectionSuccessful}");
-			MelonLogger.Log("");
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using System;
 using UnityEngine;
 
@@ -10,11 +10,11 @@ namespace AssetLoader
 
 		public SaveAtlas(IntPtr intPtr) : base(intPtr) { }
 
-		static SaveAtlas() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AssetLoader.SaveAtlas>();
+		static SaveAtlas() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AssetLoader.SaveAtlas>(false);
 	}
 
 	[HarmonyPatch(typeof(UISprite), "SetAtlasSprite")]
-	internal class UISprite_set_spriteName
+	internal static class UISprite_set_spriteName
 	{
 		internal static void Postfix(UISprite __instance)
 		{

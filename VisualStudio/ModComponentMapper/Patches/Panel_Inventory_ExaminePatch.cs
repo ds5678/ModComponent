@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using UnityEngine;
 
 //Appears to handle an issue occuring when something harvests into more than two item types
@@ -7,11 +7,11 @@ using UnityEngine;
 namespace ModComponentMapper
 {
 	[HarmonyPatch(typeof(Panel_Inventory_Examine), "Start")]//runs
-	internal class Panel_Inventory_Examine_Start
+	internal static class Panel_Inventory_Examine_Start
 	{
 		internal static void Postfix(Panel_Inventory_Examine __instance)
 		{
-			if (__instance.m_HarvestYields is null || __instance.m_HarvestYields.Length > 2)
+			if (__instance.m_HarvestYields == null || __instance.m_HarvestYields.Length > 2)
 			{
 				return;
 			}
