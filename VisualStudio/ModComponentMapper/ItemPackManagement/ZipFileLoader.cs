@@ -54,7 +54,7 @@ namespace ModComponentMapper
 				if (eachFile.ToLower().EndsWith(".modcomponent"))
 #endif
 				{
-					PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
+					//PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
 					LoadZipFile(eachFile);
 				}
 			}

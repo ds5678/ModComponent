@@ -48,7 +48,7 @@ namespace ModComponentMapper.CraftingMenu
 			}
 		}
 
-		[HarmonyPatch(typeof(Panel_Crafting), "Start")]
+		[HarmonyPatch(typeof(Panel_Crafting), "Initialize")]
 		internal static class Panel_Crafting_Start
 		{
 			private static void Postfix(Panel_Crafting __instance)

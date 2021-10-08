@@ -27,7 +27,7 @@ namespace AssetLoader
 		public static string Get(string key)
 		{
 			string language = "English";
-			if (Localization.IsInitialized()) language = Localization.Language;
+			//if (Localization.IsInitialized()) language = Localization.Language;
 			return GetForLang(key, language);
 		}
 
@@ -51,7 +51,8 @@ namespace AssetLoader
 
 		internal static void AddToWaitlist(Object asset, string path, string relativePath)
 		{
-			if (Localization.IsInitialized())
+			//if (Localization.IsInitialized())
+			if(false)
 			{
 				if (path.ToLower().EndsWith(".json"))
 				{
@@ -76,7 +77,8 @@ namespace AssetLoader
 
 		internal static void AddToWaitlist(string jsonContents)
 		{
-			if (Localization.IsInitialized())
+			//if (Localization.IsInitialized())
+			if(false)
 			{
 				LoadJSONLocalization(jsonContents);
 			}
@@ -94,10 +96,10 @@ namespace AssetLoader
 
 		internal static void MaybeLoadPendingAssets()
 		{
-			if (Localization.IsInitialized() && HasPendingAssets())
-			{
-				LoadPendingAssets();
-			}
+			//if (Localization.IsInitialized() && HasPendingAssets())
+			//{
+			//	LoadPendingAssets();
+			//}
 		}
 
 		internal static void LoadPendingAssets()
