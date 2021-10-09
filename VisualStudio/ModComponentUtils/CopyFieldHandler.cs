@@ -3,7 +3,7 @@ using static ModComponentUtils.NameUtils;
 
 namespace ModComponentUtils
 {
-	internal static class CopyFieldHandler
+	public static class CopyFieldHandler
 	{
 		public static void UpdateFieldValues<T>(T componentToUpdate) where T : UnityEngine.Component
 		{
@@ -23,7 +23,7 @@ namespace ModComponentUtils
 			}
 		}
 
-		public static void CopyFieldsMono<T>(T copyTo, T copyFrom)
+		internal static void CopyFieldsMono<T>(T copyTo, T copyFrom)
 		{
 			System.Type typeOfT = typeof(T);
 			System.Reflection.FieldInfo[] fieldInfos = typeOfT.GetFields();
@@ -38,7 +38,7 @@ namespace ModComponentUtils
 			}
 		}
 
-		public static void CopyFieldsIl2Cpp<T>(T copyTo, T copyFrom) where T : Il2CppSystem.Object
+		internal static void CopyFieldsIl2Cpp<T>(T copyTo, T copyFrom) where T : Il2CppSystem.Object
 		{
 			Il2CppSystem.Type typeOfT = UnhollowerRuntimeLib.Il2CppType.Of<T>();
 			Il2CppSystem.Reflection.FieldInfo[] fieldInfos = typeOfT.GetFields();

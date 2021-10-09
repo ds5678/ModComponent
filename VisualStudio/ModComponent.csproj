@@ -91,6 +91,7 @@
     <Compile Include="ModComponentAPI\Components\ModResearchComponent.cs" />
     <Compile Include="ModComponentAPI\Recipes\ModIngredient.cs" />
     <Compile Include="ModComponentAPI\Recipes\ModPowderIngredient.cs" />
+    <Compile Include="ModComponentAPI\SpecialClasses\AlcoholComponent.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModLootTable.cs" />
     <Compile Include="AssetLoader\Assets\SkinManager.cs" />
     <Compile Include="ModComponentAPI\Recipes\ModRecipe.cs" />
@@ -164,9 +165,6 @@
     <Compile Include="ModComponentMain\Implementation.cs" />
     <Compile Include="ModComponentMain\Logger.cs" />
     <Compile Include="ModComponentMain\Settings.cs" />
-    <Compile Include="ModComponentMapper\Alcohol\AlcoholPatches.cs" />
-    <Compile Include="ModComponentMapper\Alcohol\AlcoholSupportClasses.cs" />
-    <Compile Include="ModComponentMapper\Alcohol\StatMonitor.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\AccelerantMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\BurnableMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\StackableMapper.cs" />
@@ -206,7 +204,6 @@
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\CookableMapper.cs" />
     <Compile Include="ModComponentMapper\Equippable\EquippablePatches.cs" />
     <Compile Include="ModComponentMapper\Clothing\ModClothingPatches.cs" />
-    <Compile Include="ModComponentMapper\Alcohol\AlcoholComponent.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\ExecutionValve.cs" />
     <Compile Include="ModComponentMapper\Equippable\GearEquipper.cs" />
     <Compile Include="ModComponentMapper\AuxiliaryClasses\BuffCauseTracker.cs" />
@@ -217,7 +214,6 @@
     <Compile Include="ModComponentMapper\Patches\OverrideCraftingResultConditionPatches.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\ItemDescriptionPagePatch_Gun.cs" />
     <Compile Include="ModComponentMapper\Mapping\Mapper.cs" />
-    <Compile Include="ModComponentMapper\Alcohol\ModHealthManager.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\ModWeaponManager.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\ModPlayerAnimation.cs" />
     <Compile Include="ModComponentMapper\Patches\GameManagerPatch.cs" />

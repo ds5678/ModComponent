@@ -18,7 +18,6 @@ namespace ModComponentMapper
 			ZipFileLoader.Initialize();
 
 			AutoMapper.Initialize();
-			ModHealthManager.Initialize();
 			AssetBundleManager.LoadPendingAssetBundles();
 			GearSpawner.Initialize();
 			BlueprintReader.ReadDefinitions();
