@@ -43,16 +43,6 @@ namespace ModComponentMapper
 			}
 		}
 
-		private static void MapSkill(GameObject prefab)
-		{
-			SkillJson.InitializeModSkill(ref prefab);
-			ModSkill modSkill = ModComponentUtils.ComponentUtils.GetComponent<ModSkill>(prefab);
-			if (modSkill != null)
-			{
-				SkillsMapper.RegisterSkill(modSkill);
-			}
-		}
-
 
 		internal static void MapModComponent(GameObject prefab)
 		{

@@ -157,7 +157,6 @@
     <Compile Include="ModComponentUtils\CopyFieldHandler.cs" />
     <Compile Include="ModComponentAPI\Enums\InitialCondition.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\ModBlueprint.cs" />
-    <Compile Include="ModComponentAPI\SpecialClasses\ModSkill.cs" />
     <Compile Include="ModComponentAPI\Modifications\PlayAkSound.cs" />
     <Compile Include="ModComponentAPI\Enums\SkillType.cs" />
     <Compile Include="ModComponentAPI\SpecialClasses\Logger.cs" />
@@ -225,12 +224,9 @@
     <Compile Include="ModComponentMapper\Patches\GameManagerPatch.cs" />
     <Compile Include="ModComponentMapper\Patches\PlacementModePatches\RestoreMaterialQueue.cs" />
     <Compile Include="ModComponentMapper\CustomSaveData\SaveGameSystemPatch.cs" />
-    <Compile Include="ModComponentMapper\Skills\SkillJson.cs" />
-    <Compile Include="ModComponentMapper\Skills\SkillsManagerPatch.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\vp_MuzzleFlashPatch.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\PlayerAnimationPatch.cs" />
     <Compile Include="ModComponentMapper\Patches\PlacementModePatches\PlayerManagerPatch.cs" />
-    <Compile Include="ModComponentMapper\Skills\SkillsMapper.cs" />
     <Compile Include="ModComponentUtils\ComponentUtils.cs" />
     <Compile Include="ModComponentUtils\DiagnosticUtils.cs" />
     <Compile Include="ModComponentUtils\EnumUtils.cs" />
@@ -242,7 +238,6 @@
     <Compile Include="ModComponentUtils\NameUtils.cs" />
     <Compile Include="ModComponentUtils\PlayerUtils.cs" />
     <Compile Include="ModComponentUtils\RandomUtils.cs" />
-    <Compile Include="ModComponentUtils\SkillUtils.cs" />
     <Compile Include="ModComponentUtils\UIUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModComponentMapper\CustomSaveData\SaveDataManager.cs" />
@@ -256,7 +251,6 @@
     <Compile Include="ModComponentMapper\ActiveDevelopment\TestPatches.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentJson.cs" />
     <Compile Include="ModComponentMapper\Mapping\ConsoleWaitlist.cs" />
-    <Compile Include="ModComponentMapper\Skills\SerializableSkill.cs" />
     <Compile Include="ModComponentUtils\ModUtils.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\vp_FPSPlayerPatch.cs" />
     <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\vp_FPSShooterPatch.cs" />

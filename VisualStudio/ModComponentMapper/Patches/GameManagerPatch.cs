@@ -9,18 +9,10 @@ namespace ModComponentMapper
 		{
 			Logger.Log("The Long Dark version: '{0}'", GameManager.GetVersionString());
 
-			SerializableSkill.MaybeRegisterInIl2Cpp();
-
 			try { BlueprintMapper.MapBlueprints(); }
 			catch (System.Exception e)
 			{
 				Logger.LogError("Blueprint Mapping failed: " + e);
-			}
-
-			try { SkillsMapper.MapSkills(); }
-			catch (System.Exception e)
-			{
-				Logger.LogError("Skills Mapping failed: " + e);
 			}
 
 
