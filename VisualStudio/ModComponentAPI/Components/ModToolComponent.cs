@@ -18,6 +18,7 @@ namespace ModComponentAPI
 		RepairOnly,
 	}
 
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModToolComponent : EquippableModComponent
 	{
 		/// <summary>

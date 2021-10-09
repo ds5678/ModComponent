@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	internal class ModLootTable : LootTable
 	{
 		string[] prefabNames = new string[0];

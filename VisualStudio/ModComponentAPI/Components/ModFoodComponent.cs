@@ -3,6 +3,7 @@ using System;
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModFoodComponent : ModCookableComponent
 	{
 		/// <summary>

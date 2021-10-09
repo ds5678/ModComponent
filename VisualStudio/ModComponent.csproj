@@ -164,7 +164,6 @@
     <Compile Include="ModComponentUtils\ActionPickerUtilities.cs" />
     <Compile Include="ModComponentUtils\TypeResolver.cs" />
     <Compile Include="ModComponentMain\Implementation.cs" />
-    <Compile Include="ModComponentMain\Injections.cs" />
     <Compile Include="ModComponentMain\Logger.cs" />
     <Compile Include="ModComponentMain\Settings.cs" />
     <Compile Include="ModComponentMapper\Alcohol\AlcoholPatches.cs" />

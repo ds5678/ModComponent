@@ -9,6 +9,7 @@ namespace ModComponentAPI
 		Yeast
 	}
 
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModPowderComponent : ModComponent
 	{
 		/// <summary>

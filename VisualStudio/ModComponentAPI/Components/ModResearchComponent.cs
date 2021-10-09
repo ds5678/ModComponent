@@ -1,5 +1,6 @@
 ﻿namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModResearchComponent : ModComponent
 	{
 		public SkillType SkillType = SkillType.None;

@@ -12,7 +12,6 @@ namespace ModComponentMain
 
 			InitialLogStatements();
 			Settings.instance.AddToModSettings("ModComponent");
-			Injections.InjectAll();
 
 			//ModComponentMapper.TestFunctions.TestFunction();
 

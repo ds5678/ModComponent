@@ -12,6 +12,7 @@ namespace ModComponentAPI
 		QUARTER,
 	}
 
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModScentComponent : MonoBehaviour
 	{
 		/// <summary>

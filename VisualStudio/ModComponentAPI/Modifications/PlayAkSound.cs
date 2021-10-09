@@ -2,6 +2,7 @@
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class PlayAkSound : MonoBehaviour
 	{
 		/// <summary>

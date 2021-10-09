@@ -1,5 +1,6 @@
 ﻿namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCollectibleComponent : ModComponent
 	{
 		public enum Alignment

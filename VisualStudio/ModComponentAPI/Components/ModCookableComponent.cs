@@ -11,6 +11,7 @@ namespace ModComponentAPI
 		Liquid,
 	}
 
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCookableComponent : ModComponent
 	{
 		/// <summary>

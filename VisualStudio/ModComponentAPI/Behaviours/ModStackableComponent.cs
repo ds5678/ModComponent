@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModStackableComponent : MonoBehaviour
 	{
 		/// <summary>

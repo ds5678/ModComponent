@@ -5,6 +5,7 @@ namespace ModComponentAPI
 	/// <summary>
 	/// The base class for all modded components involved in making fires
 	/// </summary>
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public abstract class ModFireMakingComponent : MonoBehaviour
 	{
 		/// <summary>

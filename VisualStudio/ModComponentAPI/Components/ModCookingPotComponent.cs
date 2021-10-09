@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCookingPotComponent : ModComponent
 	{
 		/// <summary>

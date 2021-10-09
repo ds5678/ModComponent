@@ -8,6 +8,7 @@ namespace ModComponentAPI
 		Kerosene
 	}
 
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModLiquidComponent : ModComponent
 	{
 		/// <summary>

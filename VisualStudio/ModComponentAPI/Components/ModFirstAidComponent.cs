@@ -11,6 +11,7 @@ namespace ModComponentAPI
 		PainKiller,
 	}
 
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModFirstAidComponent : ModComponent
 	{
 		/// <summary>

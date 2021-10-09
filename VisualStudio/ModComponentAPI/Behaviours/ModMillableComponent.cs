@@ -2,6 +2,7 @@
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModMillableComponent : MonoBehaviour
 	{
 		/// <summary>

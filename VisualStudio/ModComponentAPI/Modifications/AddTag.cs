@@ -2,6 +2,7 @@
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class AddTag : MonoBehaviour
 	{
 		public string Tag;

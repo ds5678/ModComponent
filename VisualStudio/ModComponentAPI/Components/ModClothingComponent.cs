@@ -5,6 +5,7 @@ using UnhollowerBaseLib.Attributes;
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModClothingComponent : ModComponent
 	{
 		/// <summary>

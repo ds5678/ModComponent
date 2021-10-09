@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace ModComponentAPI
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public abstract class EquippableModComponent : ModComponent
 	{
 		public EquippableModComponent(IntPtr intPtr) : base(intPtr) { }
