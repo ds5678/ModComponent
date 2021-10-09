@@ -123,7 +123,6 @@
     <Compile Include="ModComponentAPI\Enums\ClothingEnums.cs" />
     <Compile Include="ModComponentAPI\Enums\InventoryCategory.cs" />
     <Compile Include="ModComponentAPI\Modifications\AddTag.cs" />
-    <Compile Include="ModComponentAPI\SpecialClasses\APIClassLists.cs" />
     <Compile Include="ModComponentAPI\Modifications\AttachBehaviour.cs" />
     <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModAccelerantComponent.cs" />
     <Compile Include="ModComponentAPI\Behaviours\Firestarting\ModBurnableComponent.cs" />
