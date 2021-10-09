@@ -150,7 +150,6 @@ namespace ModComponentMapper
 
 			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 			stopwatch.Start();
-
 			string sceneName = GameManager.m_ActiveScene;
 			string sceneNameWithGuid = GameManager.m_SceneTransitionData?.m_SceneSaveFilenameCurrent;
 			string currentSlotName = SaveGameSystem.m_CurrentSaveName;
@@ -164,7 +163,7 @@ namespace ModComponentMapper
 			stopwatch.Stop();
 			Logger.Log("Spawned '{0}' items for scene '{1}' in {2} ms", ProbabilityManager.GetDifficultyLevel(), sceneName, stopwatch.ElapsedMilliseconds);
 
-			OnSpawnGearItems.Invoke(spawnedItems);
+			OnSpawnGearItems?.Invoke(spawnedItems);
 		}
 
 		/// <summary>
@@ -201,7 +200,7 @@ namespace ModComponentMapper
 			}
 			return spawnedItems.ToArray();
 		}
-
+		/*
 		[HarmonyPatch(typeof(LootTable), "GetPrefab")]
 		internal static class LootTable_GetPrefab
 		{
@@ -211,6 +210,14 @@ namespace ModComponentMapper
 			}
 		}
 		[HarmonyPatch(typeof(LootTable), "GetRandomGearPrefab")]
+		internal static class LootTable_GetRandomGearPrefab
+		{
+			private static void Prefix(LootTable __instance)
+			{
+				ConfigureLootTable(__instance);
+			}
+		}*/
+		[HarmonyPatch(typeof(LootTable), MethodType.Constructor)]
 		internal static class LootTable_GetRandomGearPrefab
 		{
 			private static void Prefix(LootTable __instance)

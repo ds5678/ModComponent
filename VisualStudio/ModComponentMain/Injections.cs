@@ -69,7 +69,6 @@
 		private static void API_Special_Injections()
 		{
 			Inject<ModComponentAPI.AddTag>();
-			Inject<ModComponentAPI.AlternativeAction>();
 			Inject<ModComponentAPI.AttachBehaviour>();
 			Inject<ModComponentAPI.ModSkill>();
 			Inject<ModComponentAPI.PlayAkSound>();

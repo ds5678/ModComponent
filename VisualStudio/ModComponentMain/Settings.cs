@@ -42,10 +42,6 @@ namespace ModComponentMain
 		[Description("If yes, plastic water bottles will have a random amount of water when you find them.")]
 		public bool randomPlasticWaterBottles = false;
 
-		[Name("Tertiary Key Code")]
-		[Description("The key for tertiary actions. Does nothing unless a mod uses this feature.")]
-		public UnityEngine.KeyCode tertiaryKeyCode = UnityEngine.KeyCode.Mouse2;
-
 		[Name("Crafting Menu Scroll Steps")]
 		[Description("Number of steps moved in the crafting menu for one scroll. Default = 7")]
 		[Slider(1, 7)]
