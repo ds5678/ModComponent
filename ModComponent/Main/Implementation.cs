@@ -7,12 +7,8 @@ namespace ModComponentMain
 	{
 		public override void OnApplicationStart()
 		{
-			//ModComponentMapper.TestFunctions.TestFunction();
-
 			InitialLogStatements();
 			Settings.instance.AddToModSettings("ModComponent");
-
-			//ModComponentMapper.TestFunctions.TestFunction();
 
 			ModComponentMapper.MapperCore.InitializeAndMapAssets();
 		}

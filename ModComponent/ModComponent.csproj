@@ -206,7 +206,6 @@
     <Compile Include="Mapper\Mapping\ComponentMapper\CookableMapper.cs" />
     <Compile Include="Mapper\Equippable\EquippablePatches.cs" />
     <Compile Include="Mapper\Clothing\ModClothingPatches.cs" />
-    <Compile Include="Mapper\AuxiliaryClasses\ExecutionValve.cs" />
     <Compile Include="Mapper\Equippable\GearEquipper.cs" />
     <Compile Include="Mapper\AuxiliaryClasses\BuffCauseTracker.cs" />
     <Compile Include="Mapper\GearSpawns\GearSpawner.cs" />
@@ -234,12 +233,10 @@
     <Compile Include="Mapper\CustomSaveData\SaveDataManager.cs" />
     <Compile Include="Mapper\AuxiliaryClasses\AlternativeToolManager.cs" />
     <Compile Include="Mapper\MainFiles\Logger.cs" />
-    <Compile Include="Mapper\ActiveDevelopment\TestFunctions.cs" />
     <Compile Include="Mapper\ActiveDevelopment\ModExisting.cs" />
     <Compile Include="Mapper\Mapping\JsonHandler.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\ExplosiveMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\MillableMapper.cs" />
-    <Compile Include="Mapper\ActiveDevelopment\TestPatches.cs" />
     <Compile Include="Mapper\Mapping\ComponentJson.cs" />
     <Compile Include="Mapper\Mapping\ConsoleWaitlist.cs" />
     <Compile Include="Utils\ModUtils.cs" />
