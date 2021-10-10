@@ -214,9 +214,7 @@
     <Compile Include="Mapper\Patches\OverrideCraftingResultConditionPatches.cs" />
     <Compile Include="Mapper\Mapping\Mapper.cs" />
     <Compile Include="Mapper\Patches\GameManagerPatch.cs" />
-    <Compile Include="Mapper\Patches\PlacementModePatches\RestoreMaterialQueue.cs" />
     <Compile Include="Mapper\CustomSaveData\SaveGameSystemPatch.cs" />
-    <Compile Include="Mapper\Patches\PlacementModePatches\PlayerManagerPatch.cs" />
     <Compile Include="Utils\ComponentUtils.cs" />
     <Compile Include="Utils\DiagnosticUtils.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
