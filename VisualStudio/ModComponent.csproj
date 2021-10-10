@@ -101,6 +101,10 @@
     <Compile Include="ModComponentMapper\CraftingMenu\MethodReplacements.cs" />
     <Compile Include="ModComponentMapper\CraftingMenu\RecipeDisplayItem.cs" />
     <Compile Include="ModComponentMapper\CraftingMenu\RecipeMenuGUI.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\DifficultyLevel.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\FirearmAvailability.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\GearSpawnInfo.cs" />
+    <Compile Include="ModComponentMapper\GearSpawns\LootTableEntry.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\CarryingCapacityMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\BehaviorMapper\TinderMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\CharcoalMapper.cs" />

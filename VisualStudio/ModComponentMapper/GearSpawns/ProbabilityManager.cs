@@ -3,24 +3,6 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-	public enum DifficultyLevel
-	{
-		Pilgram,
-		Voyager,
-		Stalker,
-		Interloper,
-		Challenge,
-		Storymode,
-		Other
-	}
-
-	public enum FirearmAvailability
-	{
-		None,
-		Revolver,
-		Rifle,
-		All
-	}
 
 	internal static class ProbabilityManager
 	{

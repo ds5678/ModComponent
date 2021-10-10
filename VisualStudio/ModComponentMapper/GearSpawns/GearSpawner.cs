@@ -4,21 +4,6 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-	public struct GearSpawnInfo
-	{
-		public string tag;
-		public Vector3 Position;
-		public string PrefabName;
-		public Quaternion Rotation;
-		public float SpawnChance;
-	}
-
-	public struct LootTableEntry
-	{
-		public string PrefabName;
-		public int Weight;
-	}
-
 	public static class GearSpawner
 	{
 		private static Dictionary<string, List<GearSpawnInfo>> gearSpawnInfos = new Dictionary<string, List<GearSpawnInfo>>();
@@ -151,13 +136,13 @@ namespace ModComponentMapper
 			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 			stopwatch.Start();
 			string sceneName = GameManager.m_ActiveScene;
-			string sceneNameWithGuid = GameManager.m_SceneTransitionData?.m_SceneSaveFilenameCurrent;
-			string currentSlotName = SaveGameSystem.m_CurrentSaveName;
-			bool noData = string.IsNullOrWhiteSpace(SaveGameSlots.LoadDataFromSlot(currentSlotName, sceneNameWithGuid));
-			Logger.Log($"Scene name: {sceneName}");
-			Logger.Log($"Scene name with guid: {sceneNameWithGuid}");
-			Logger.Log($"Slot name: {currentSlotName}");
-			Logger.Log($"Scene has no data: {noData.ToString()}");
+			//string sceneNameWithGuid = GameManager.m_SceneTransitionData?.m_SceneSaveFilenameCurrent;
+			//string currentSlotName = SaveGameSystem.m_CurrentSaveName;
+			//bool noData = string.IsNullOrWhiteSpace(SaveGameSlots.LoadDataFromSlot(currentSlotName, sceneNameWithGuid));
+			//Logger.Log($"Scene name: {sceneName}");
+			//Logger.Log($"Scene name with guid: {sceneNameWithGuid}");
+			//Logger.Log($"Slot name: {currentSlotName}");
+			//Logger.Log($"Scene has no data: {noData.ToString()}");//can give false negatives
 			GearItem[] spawnedItems = SpawnGearForScene(GetNormalizedSceneName(sceneName));
 
 			stopwatch.Stop();
