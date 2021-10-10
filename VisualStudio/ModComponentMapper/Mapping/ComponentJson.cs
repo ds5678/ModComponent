@@ -114,11 +114,6 @@ namespace ModComponentMapper
 				ModResearchComponent newComponent = ComponentUtils.GetOrCreateComponent<ModResearchComponent>(prefab);
 				InitializeResearchComponent(newComponent, dict);
 			}
-			else if (JsonUtils.ContainsKey(dict, "ModRifleComponent"))
-			{
-				ModRifleComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRifleComponent>(prefab);
-				InitializeRifleComponent(newComponent, dict);
-			}
 			else if (JsonUtils.ContainsKey(dict, "ModToolComponent"))
 			{
 				ModToolComponent newComponent = ComponentUtils.GetOrCreateComponent<ModToolComponent>(prefab);
@@ -480,22 +475,6 @@ namespace ModComponentMapper
 			JsonUtils.TrySetInt(ref modResearch.SkillPoints, dict, className, "SkillPoints");
 			JsonUtils.TrySetInt(ref modResearch.NoBenefitAtSkillLevel, dict, className, "NoBenefitAtSkillLevel");
 			JsonUtils.TrySetString(ref modResearch.ReadAudio, dict, className, "ReadAudio");
-		}
-
-		private static void InitializeRifleComponent(ModRifleComponent modRifle, ProxyObject dict, string className = "ModRifleComponent")
-		{
-			InitializeEquippableComponent(modRifle, dict, className);
-			modRifle.ClipSize = dict[className]["ClipSize"];
-			modRifle.DamagePerShot = dict[className]["DamagePerShot"];
-			modRifle.Range = dict[className]["Range"];
-			modRifle.FiringDelay = dict[className]["FiringDelay"];
-			modRifle.ReloadDelay = dict[className]["ReloadDelay"];
-			modRifle.AimDelay = dict[className]["AimDelay"];
-			modRifle.MuzzleFlashDelay = dict[className]["MuzzleFlashDelay"];
-			modRifle.MuzzleSmokeDelay = dict[className]["MuzzleSmokeDelay"];
-			modRifle.MinSway = dict[className]["MinSway"];
-			modRifle.MaxSway = dict[className]["MaxSway"];
-			modRifle.SwayIncrement = dict[className]["SwayIncrement"];
 		}
 
 		private static void InitializeToolComponent(ModToolComponent modTool, ProxyObject dict, string className = "ModToolComponent")

@@ -34,7 +34,6 @@ namespace ModComponentMapper
 				FoodMapper.Configure(modComponent);
 				CookableMapper.Configure(modComponent);
 				CookingPotMapper.Configure(modComponent);
-				RifleMapper.Configure(modComponent);
 				ClothingMapper.Configure(modComponent);
 				CollectibleMapper.Configure(modComponent);
 				CharcoalMapper.Configure(modComponent);

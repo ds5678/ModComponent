@@ -151,7 +151,6 @@
     <Compile Include="ModComponentAPI\Components\ModGenericEquippableComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModLiquidComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModPowderComponent.cs" />
-    <Compile Include="ModComponentAPI\Components\ModRifleComponent.cs" />
     <Compile Include="ModComponentAPI\Components\ModToolComponent.cs" />
     <Compile Include="ModComponentUtils\ConversionUtils.cs" />
     <Compile Include="ModComponentUtils\CopyFieldHandler.cs" />
@@ -178,7 +177,6 @@
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\GenericEquippableMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\LiquidMapper.cs" />
     <Compile Include="ModComponentMapper\Mapping\ComponentMapper\PowderMapper.cs" />
-    <Compile Include="ModComponentMapper\Mapping\ComponentMapper\RifleMapper.cs" />
     <Compile Include="ModComponentMapper\Equippable\ItemDescriptionPagePatch_Equippable.cs" />
     <Compile Include="ModComponentMapper\GearSpawns\SpawnTagManager.cs" />
     <Compile Include="ModComponentMapper\InformationMenu\PageManager.cs" />
@@ -212,15 +210,10 @@
     <Compile Include="ModComponentMapper\Clothing\DefaultDrawLayers.cs" />
     <Compile Include="ModComponentMapper\Patches\FirestartingPatches.cs" />
     <Compile Include="ModComponentMapper\Patches\OverrideCraftingResultConditionPatches.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\ItemDescriptionPagePatch_Gun.cs" />
     <Compile Include="ModComponentMapper\Mapping\Mapper.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\ModWeaponManager.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\ModPlayerAnimation.cs" />
     <Compile Include="ModComponentMapper\Patches\GameManagerPatch.cs" />
     <Compile Include="ModComponentMapper\Patches\PlacementModePatches\RestoreMaterialQueue.cs" />
     <Compile Include="ModComponentMapper\CustomSaveData\SaveGameSystemPatch.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\vp_MuzzleFlashPatch.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\PlayerAnimationPatch.cs" />
     <Compile Include="ModComponentMapper\Patches\PlacementModePatches\PlayerManagerPatch.cs" />
     <Compile Include="ModComponentUtils\ComponentUtils.cs" />
     <Compile Include="ModComponentUtils\DiagnosticUtils.cs" />
@@ -247,8 +240,6 @@
     <Compile Include="ModComponentMapper\Mapping\ComponentJson.cs" />
     <Compile Include="ModComponentMapper\Mapping\ConsoleWaitlist.cs" />
     <Compile Include="ModComponentUtils\ModUtils.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\vp_FPSPlayerPatch.cs" />
-    <Compile Include="ModComponentMapper\ModdedWeapons\GunPatches\vp_FPSShooterPatch.cs" />
     <Compile Include="ModComponentMapper\ItemPackManagement\AssetBundleManager.cs" />
     <Compile Include="ModComponentMapper\ItemPackManagement\ZipFileLoader.cs" />
     <Compile Include="SceneLoader\Logger.cs" />
