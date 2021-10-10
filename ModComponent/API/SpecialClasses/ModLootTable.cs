@@ -10,7 +10,6 @@ namespace ModComponentAPI
 		int[] weights = new int[0];
 
 		public ModLootTable(System.IntPtr intPtr) : base(intPtr) { }
-		static ModLootTable() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModLootTable>(false);
 
 		void Awake()
 		{

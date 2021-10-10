@@ -9,11 +9,10 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	internal class ModPlaceHolderComponent : ModComponentAPI.ModBaseComponent
 	{
 		public ModPlaceHolderComponent(System.IntPtr intPtr) : base(intPtr) { }
-
-		static ModPlaceHolderComponent() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<ModComponentMapper.ModPlaceHolderComponent>(false);
 	}
 
 	internal class ModExistingEntry
