@@ -66,7 +66,7 @@ namespace ModComponentMapper
 				}
 				catch (Exception e)
 				{
-					PageManager.SetItemPackNotWorking(pair.Key, $"Existing-json could not be loaded correctly at '{pair.Key}'. {e.Message}");
+					InformationMenu.PackManager.SetItemPackNotWorking(pair.Key, $"Existing-json could not be loaded correctly at '{pair.Key}'. {e.Message}");
 				}
 			}
 			JsonHandler.existingJsons.Clear();
@@ -78,7 +78,7 @@ namespace ModComponentMapper
 			ProxyObject dict = JSON.Load(fileText) as ProxyObject;
 			if (!JsonUtils.ContainsKey(dict, "GearName"))
 			{
-				PageManager.SetItemPackNotWorking(filePath, "The JSON file doesn't contain the key: 'GearName'");
+				InformationMenu.PackManager.SetItemPackNotWorking(filePath, "The JSON file doesn't contain the key: 'GearName'");
 				return;
 			}
 

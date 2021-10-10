@@ -11,8 +11,6 @@ namespace ModComponentMapper
 
 		internal static void InitializeAndMapAssets()
 		{
-			PageManager.Initialize();
-
 			Logger.LogDebug("Running in Debug Mode");
 
 			ZipFileLoader.Initialize();

@@ -111,7 +111,7 @@ namespace ModComponentMapper
 				{
 					if (string.IsNullOrEmpty(scene))
 					{
-						PageManager.SetItemPackNotWorking(path, $"No scene name defined before line '{eachLine}' from '{path}'. Did you forget a 'scene = <SceneName>'?");
+						InformationMenu.PackManager.SetItemPackNotWorking(path, $"No scene name defined before line '{eachLine}' from '{path}'. Did you forget a 'scene = <SceneName>'?");
 						return;
 					}
 
@@ -142,7 +142,7 @@ namespace ModComponentMapper
 				{
 					if (string.IsNullOrEmpty(loottable))
 					{
-						PageManager.SetItemPackNotWorking(path, $"No loottable name defined before line '{eachLine}' from '{path}'. Did you forget a 'loottable = <LootTableName>'?");
+						InformationMenu.PackManager.SetItemPackNotWorking(path, $"No loottable name defined before line '{eachLine}' from '{path}'. Did you forget a 'loottable = <LootTableName>'?");
 						return;
 					}
 
@@ -154,7 +154,7 @@ namespace ModComponentMapper
 				}
 
 				//Only runs if nothing matches
-				PageManager.SetItemPackNotWorking(path, $"Unrecognized line '{eachLine}' in '{path}'.");
+				InformationMenu.PackManager.SetItemPackNotWorking(path, $"Unrecognized line '{eachLine}' in '{path}'.");
 				return;
 			}
 		}

@@ -20,7 +20,7 @@ namespace ModComponentMapper
 		{
 			if (string.IsNullOrWhiteSpace(text))
 			{
-				PageManager.SetItemPackNotWorking(path, "Skipping because blueprint text contains no information");
+				InformationMenu.PackManager.SetItemPackNotWorking(path, "Skipping because blueprint text contains no information");
 				return;
 			}
 
@@ -30,12 +30,12 @@ namespace ModComponentMapper
 				if (!(blueprint == null)) BlueprintMapper.RegisterBlueprint(blueprint, path);
 				else
 				{
-					PageManager.SetItemPackNotWorking(path, "Skipping because blueprint == null");
+					InformationMenu.PackManager.SetItemPackNotWorking(path, "Skipping because blueprint == null");
 				}
 			}
 			catch (Exception e)
 			{
-				PageManager.SetItemPackNotWorking(path, $"Could not read blueprint from '{path}'. {e.Message}");
+				InformationMenu.PackManager.SetItemPackNotWorking(path, $"Could not read blueprint from '{path}'. {e.Message}");
 			}
 		}
 	}

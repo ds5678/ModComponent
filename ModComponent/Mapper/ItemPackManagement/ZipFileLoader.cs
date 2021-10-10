@@ -189,7 +189,7 @@ namespace ModComponentMapper
 				}
 				catch (Exception e)
 				{
-					PageManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
+					InformationMenu.PackManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
 				}
 			}
 		}

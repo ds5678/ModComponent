@@ -183,7 +183,7 @@
     <Compile Include="Mapper\Mapping\ComponentMapper\PowderMapper.cs" />
     <Compile Include="Mapper\Equippable\ItemDescriptionPagePatch_Equippable.cs" />
     <Compile Include="Mapper\GearSpawns\SpawnTagManager.cs" />
-    <Compile Include="Mapper\InformationMenu\PageManager.cs" />
+    <Compile Include="Mapper\ItemPackManagement\PackManager.cs" />
     <Compile Include="Mapper\ItemPackManagement\ItemPackData.cs" />
     <Compile Include="Mapper\Mapping\AutoMapper.cs" />
     <Compile Include="Mapper\Blueprints\BlueprintReader.cs" />

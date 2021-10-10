@@ -41,7 +41,7 @@ namespace ModComponentMapper
 					string errorMessage = string.Format("Could not map the assets in the bundle at '{0}'. {1}", relativePath, e);
 					if (pendingAssetBundlePaths.ContainsKey(relativePath))
 					{
-						PageManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath], errorMessage);
+						InformationMenu.PackManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath], errorMessage);
 					}
 					Logger.LogError(errorMessage);
 				}
