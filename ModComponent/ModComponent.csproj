@@ -101,7 +101,6 @@
     <Compile Include="Mapper\CraftingMenu\MethodReplacements.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeDisplayItem.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeMenuGUI.cs" />
-    <Compile Include="Mapper\CustomSaveData\SaveProxy.cs" />
     <Compile Include="Mapper\GearSpawns\DifficultyLevel.cs" />
     <Compile Include="Mapper\GearSpawns\FirearmAvailability.cs" />
     <Compile Include="Mapper\GearSpawns\GearSpawnInfo.cs" />
@@ -137,7 +136,6 @@
     <Compile Include="API\Behaviours\ModHarvestableBehaviour.cs" />
     <Compile Include="API\Behaviours\ModMillableBehaviour.cs" />
     <Compile Include="API\Behaviours\ModRepairableBehaviour.cs" />
-    <Compile Include="API\SpecialClasses\ModSaveBehaviour.cs" />
     <Compile Include="API\Behaviours\ModScentBehaviour.cs" />
     <Compile Include="API\Behaviours\ModSharpenableBehaviour.cs" />
     <Compile Include="API\Behaviours\ModStackableBehaviour.cs" />
@@ -198,7 +196,6 @@
     <Compile Include="Mapper\Mapping\BehaviorMapper\ScentMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\SharpenableMapper.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\ToolMapper.cs" />
-    <Compile Include="Mapper\CustomSaveData\SaveData.cs" />
     <Compile Include="Mapper\Clothing\BrightnessChanger.cs" />
     <Compile Include="Mapper\GearSpawns\ProbabilityManager.cs" />
     <Compile Include="Mapper\GearSpawns\GearSpawnReader.cs" />
@@ -215,7 +212,6 @@
     <Compile Include="Mapper\Patches\OverrideCraftingResultConditionPatches.cs" />
     <Compile Include="Mapper\Mapping\Mapper.cs" />
     <Compile Include="Mapper\Patches\GameManagerPatch.cs" />
-    <Compile Include="Mapper\CustomSaveData\SaveGameSystemPatch.cs" />
     <Compile Include="Utils\ComponentUtils.cs" />
     <Compile Include="Utils\DiagnosticUtils.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
@@ -228,7 +224,6 @@
     <Compile Include="Utils\RandomUtils.cs" />
     <Compile Include="Utils\UIUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Mapper\CustomSaveData\SaveDataManager.cs" />
     <Compile Include="Mapper\AuxiliaryClasses\AlternativeToolManager.cs" />
     <Compile Include="Mapper\MainFiles\Logger.cs" />
     <Compile Include="Mapper\ActiveDevelopment\ModExisting.cs" />

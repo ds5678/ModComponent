@@ -1,5 +1,4 @@
-﻿using MelonLoader.TinyJSON;
-using ModComponent.Utils;
+﻿using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -37,78 +36,6 @@ namespace ModComponentAPI
 			return 100f * killPlayerRange * killPlayerRange / (distance * distance);
 		}
 
-		[HideFromIl2Cpp]
-		public void TriggerCountdown()
-		{
-			ModExplosiveSave explosiveSave = ComponentUtils.GetComponent<ModExplosiveSave>(this);
-			if (explosiveSave == null)
-			{
-				Logger.LogError("Could not trigger countdown. No ModExplosiveSave!");
-				return;
-			}
-			explosiveSave.TriggerCountdown(explosionDelay);
-		}
-
 		public ModExplosiveComponent(System.IntPtr intPtr) : base(intPtr) { }
-	}
-
-	internal class ModExplosiveSave : ModSaveBehaviour
-	{
-		public bool isTriggered = false;
-		public float timeUntilExplosion = float.MaxValue;
-		public ModExplosiveSave(System.IntPtr intPtr) : base(intPtr) { }
-
-		[HideFromIl2Cpp]
-		private void TriggerExplosion()
-		{
-			ModExplosiveComponent explosiveComponent = ComponentUtils.GetComponent<ModExplosiveComponent>(this);
-			if (explosiveComponent == null)
-			{
-				Logger.LogError("Could not trigger explosion. No ModExplosiveComponent!");
-				return;
-			}
-			explosiveComponent.OnExplode();
-		}
-
-		[HideFromIl2Cpp]
-		internal void TriggerCountdown(float timeUntilExplosion)
-		{
-			if (isTriggered) return;
-			isTriggered = true;
-			this.timeUntilExplosion = timeUntilExplosion;
-		}
-
-		public void Update()
-		{
-			if (!isTriggered) return;
-			timeUntilExplosion -= Time.deltaTime;
-			if (timeUntilExplosion <= 0) TriggerExplosion();
-		}
-
-		[HideFromIl2Cpp]
-		public override void Deserialize(string data)
-		{
-			if (string.IsNullOrWhiteSpace(data)) return;
-			ModExplosiveData modExplosiveData = JSON.Load(data).Make<ModExplosiveData>();
-			this.isTriggered = modExplosiveData.isTriggered;
-			this.timeUntilExplosion = modExplosiveData.timeUntilExplosion;
-		}
-
-		[HideFromIl2Cpp]
-		public override string Serialize()
-		{
-			return JSON.Dump(new ModExplosiveData(this));
-		}
-	}
-
-	internal struct ModExplosiveData
-	{
-		public bool isTriggered;
-		public float timeUntilExplosion;
-		public ModExplosiveData(ModExplosiveSave modExplosiveSave)
-		{
-			this.isTriggered = modExplosiveSave.isTriggered;
-			this.timeUntilExplosion = modExplosiveSave.timeUntilExplosion;
-		}
 	}
 }
