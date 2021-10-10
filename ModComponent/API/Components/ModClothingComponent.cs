@@ -6,7 +6,7 @@ using UnhollowerBaseLib.Attributes;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModClothingComponent : ModComponent
+	public class ModClothingComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// The body region this clothing item can be worn.

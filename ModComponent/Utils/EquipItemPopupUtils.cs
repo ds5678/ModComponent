@@ -10,7 +10,7 @@ namespace ModComponent.Utils
 			ShowItemIcons(equipItemPopup, primaryAction, secondaryAction, showAmmo);
 			equipItemPopup.OnOverlappingDecalChange(true);
 
-			if (Utils.IsGamepadActive())
+			if (global::Utils.IsGamepadActive())
 			{
 				//Logger.Log("Gamepad active");
 				equipItemPopup.m_ButtonPromptFire.ShowPromptForKey(primaryAction, "Fire");

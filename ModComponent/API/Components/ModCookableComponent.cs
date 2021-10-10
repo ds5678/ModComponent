@@ -12,7 +12,7 @@ namespace ModComponentAPI
 	}
 
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModCookableComponent : ModComponent
+	public class ModCookableComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// Can this be cooked/heated?<br/>

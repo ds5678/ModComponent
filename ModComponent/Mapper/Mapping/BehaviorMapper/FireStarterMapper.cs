@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class FireStarterMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModFireStarterComponent modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModFireStarterComponent>(modComponent);
 			if (modFireStarterComponent == null) return;

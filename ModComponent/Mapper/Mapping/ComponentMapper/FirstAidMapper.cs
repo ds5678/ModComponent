@@ -6,7 +6,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class FirstAidMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModFirstAidComponent modFirstAidComponent = modComponent.TryCast<ModFirstAidComponent>();
 			if (modFirstAidComponent == null) return;

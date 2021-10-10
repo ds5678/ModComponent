@@ -10,7 +10,7 @@ namespace ModComponentMapper.Patches
 		{
 			if (__result != string.Empty) return;
 
-			ModComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(gi);
+			ModBaseComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(gi);
 			if (modComponent != null)
 			{
 				//Strangely, this is what allows items to be equipped

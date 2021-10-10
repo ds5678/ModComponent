@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-	internal class ModPlaceHolderComponent : ModComponentAPI.ModComponent
+	internal class ModPlaceHolderComponent : ModComponentAPI.ModBaseComponent
 	{
 		public ModPlaceHolderComponent(System.IntPtr intPtr) : base(intPtr) { }
 
@@ -129,7 +129,7 @@ namespace ModComponentMapper
 			{
 				ProxyObject dict = JSON.Load(JSON.Dump(entry.behaviourChanges)) as ProxyObject;
 				ComponentJson.InitializeComponents(ref item, dict);
-				if (ComponentUtils.GetComponent<ModComponent>(item) == null)
+				if (ComponentUtils.GetComponent<ModBaseComponent>(item) == null)
 				{
 					var placeholder = item.AddComponent<ModPlaceHolderComponent>();
 					Mapper.Map(item);
@@ -155,7 +155,7 @@ namespace ModComponentMapper
 				{
 					ProxyObject dict = JSON.Load(JSON.Dump(entry.behaviourChanges)) as ProxyObject;
 					ComponentJson.InitializeComponents(ref item, dict);
-					if (ComponentUtils.GetComponent<ModComponent>(item) == null)
+					if (ComponentUtils.GetComponent<ModBaseComponent>(item) == null)
 					{
 						var placeholder = item.AddComponent<ModPlaceHolderComponent>();
 						Mapper.Map(item);

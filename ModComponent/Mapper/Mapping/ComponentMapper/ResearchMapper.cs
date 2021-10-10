@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class ResearchMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModResearchComponent modResearch = modComponent.TryCast<ModResearchComponent>();
 			if (modResearch == null) return;

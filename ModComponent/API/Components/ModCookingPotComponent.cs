@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModCookingPotComponent : ModComponent
+	public class ModCookingPotComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// Can the item cook liquids?

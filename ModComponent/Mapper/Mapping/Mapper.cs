@@ -9,7 +9,7 @@ namespace ModComponentMapper
 {
 	public static class Mapper
 	{
-		private static List<ModComponent> mappedItems = new List<ModComponent>();
+		private static List<ModBaseComponent> mappedItems = new List<ModBaseComponent>();
 
 		public static void Map(string prefabName) => Map(Resources.Load(prefabName)?.TryCast<GameObject>());
 
@@ -17,7 +17,7 @@ namespace ModComponentMapper
 		{
 			if (prefab == null) throw new ArgumentException("The prefab was NULL.");
 
-			ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
+			ModBaseComponent modComponent = ComponentUtils.GetModComponent(prefab);
 			if (modComponent == null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
@@ -56,7 +56,7 @@ namespace ModComponentMapper
 			}
 		}
 
-		internal static void ConfigureBehaviours(ModComponent modComponent)
+		internal static void ConfigureBehaviours(ModBaseComponent modComponent)
 		{
 			AccelerantMapper.Configure(modComponent);
 			BurnableMapper.Configure(modComponent);
@@ -76,7 +76,7 @@ namespace ModComponentMapper
 		{
 			if (prefab == null) throw new ArgumentException("The prefab was NULL.");
 
-			ModComponent modComponent = ComponentUtils.GetModComponent(prefab);
+			ModBaseComponent modComponent = ComponentUtils.GetModComponent(prefab);
 			if (modComponent == null)
 			{
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
@@ -91,7 +91,7 @@ namespace ModComponentMapper
 			else return 0;
 		}
 
-		private static void ConfigureGearItem(ModComponent modComponent)
+		private static void ConfigureGearItem(ModBaseComponent modComponent)
 		{
 			GearItem gearItem = ComponentUtils.GetOrCreateComponent<GearItem>(modComponent);
 
@@ -116,7 +116,7 @@ namespace ModComponentMapper
 			gearItem.Awake();
 		}
 
-		private static ConditionTableManager.ConditionTableType GetConditionTableType(ModComponent modComponent)
+		private static ConditionTableManager.ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
 		{
 			if (modComponent is ModFoodComponent)
 			{
@@ -133,7 +133,7 @@ namespace ModComponentMapper
 			return ConditionTableManager.ConditionTableType.Unknown;
 		}
 
-		private static GearTypeEnum GetGearType(ModComponent modComponent)
+		private static GearTypeEnum GetGearType(ModBaseComponent modComponent)
 		{
 			if (modComponent.InventoryCategory != InventoryCategory.Auto)
 			{
@@ -157,7 +157,7 @@ namespace ModComponentMapper
 			return GearTypeEnum.Other;
 		}
 
-		private static void PostProcess(ModComponent modComponent)
+		private static void PostProcess(ModBaseComponent modComponent)
 		{
 			modComponent.gameObject.layer = vp_Layer.Gear;
 

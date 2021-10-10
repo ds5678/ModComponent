@@ -10,7 +10,7 @@ namespace ModComponentAPI
 	}
 
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModPowderComponent : ModComponent
+	public class ModPowderComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// The type of powder this container holds. "Gunpowder", "Salt", or "Yeast"

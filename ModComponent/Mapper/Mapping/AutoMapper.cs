@@ -49,7 +49,7 @@ namespace ModComponentMapper
 			if (prefab == null) throw new System.ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
 
 			ComponentJson.InitializeComponents(ref prefab);
-			ModComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(prefab);
+			ModBaseComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(prefab);
 
 			if (modComponent == null) throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
 
@@ -68,7 +68,7 @@ namespace ModComponentMapper
 				return Assembly.GetExecutingAssembly();
 			}
 
-			Assembly modComponentAPI = typeof(ModComponent).Assembly;
+			Assembly modComponentAPI = typeof(ModBaseComponent).Assembly;
 			if (IsCompatible(requestedAssemblyName, modComponentAPI.GetName()))
 			{
 				Logger.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentAPI.GetName());

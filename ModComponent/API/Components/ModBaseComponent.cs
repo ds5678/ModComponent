@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public abstract class ModComponent : MonoBehaviour
+	public abstract class ModBaseComponent : MonoBehaviour
 	{
 		/// <summary>
 		/// How this item will be called in the DeveloperConsole. <br/>
@@ -130,6 +130,6 @@ namespace ModComponentAPI
 			return this.ConsoleName;
 		}
 
-		public ModComponent(IntPtr intPtr) : base(intPtr) { }
+		public ModBaseComponent(IntPtr intPtr) : base(intPtr) { }
 	}
 }

@@ -12,7 +12,7 @@ namespace ModComponentAPI
 	}
 
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModFirstAidComponent : ModComponent
+	public class ModFirstAidComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// Localization key to be used to show a description text while using the item. <br/>

@@ -5,7 +5,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class PowderMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModPowderComponent modPowderComponent = modComponent.TryCast<ModPowderComponent>();
 			if (modPowderComponent == null) return;

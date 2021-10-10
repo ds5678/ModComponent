@@ -9,7 +9,7 @@ namespace ModComponentAPI
 	}
 
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModLiquidComponent : ModComponent
+	public class ModLiquidComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// The type of liquid this item contains.

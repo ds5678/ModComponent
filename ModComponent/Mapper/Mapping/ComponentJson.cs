@@ -198,7 +198,7 @@ namespace ModComponentMapper
 		// COMPONENTS //
 		//************//
 		#region Components
-		private static void InitializeBaseComponent(ModComponent modComponent, ProxyObject dict, string inheritanceName)
+		private static void InitializeBaseComponent(ModBaseComponent modComponent, ProxyObject dict, string inheritanceName)
 		{
 			modComponent.ConsoleName = NameUtils.RemoveGearPrefix(modComponent.gameObject.name);
 			JsonUtils.TrySetString(ref modComponent.DisplayNameLocalizationId, dict, inheritanceName, "DisplayNameLocalizationId");

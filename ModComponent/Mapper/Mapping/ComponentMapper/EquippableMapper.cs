@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class EquippableMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			EquippableModComponent equippableModComponent = modComponent.TryCast<EquippableModComponent>();
 			if (equippableModComponent == null) return;

@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class InspectMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			if (!modComponent.InspectOnPickup) return;
 

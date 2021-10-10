@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class ClothingMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModClothingComponent modClothingItem = modComponent.TryCast<ModClothingComponent>();
 			if (modClothingItem == null) return;

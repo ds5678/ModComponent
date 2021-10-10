@@ -3,7 +3,7 @@
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModBodyHarvestComponent : ModComponent
+	public class ModBodyHarvestComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// Can this be carried like a rabbit carcass?

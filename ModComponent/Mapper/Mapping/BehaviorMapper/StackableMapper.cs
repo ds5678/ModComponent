@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class StackableMapper
 	{
-		public static void Configure(ModComponent modComponent)
+		public static void Configure(ModBaseComponent modComponent)
 		{
 			ModStackableComponent modStackableComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModStackableComponent>(modComponent);
 			if (modStackableComponent == null) return;

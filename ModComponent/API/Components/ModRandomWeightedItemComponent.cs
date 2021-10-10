@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModRandomWeightedItemComponent : ModComponent
+	public class ModRandomWeightedItemComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// The names of the gear items that this could spawn. Must be the same length as "ItemWeights"

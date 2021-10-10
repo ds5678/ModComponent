@@ -1,7 +1,7 @@
 ﻿namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModCharcoalComponent : ModComponent
+	public class ModCharcoalComponent : ModBaseComponent
 	{
 		public float SurveyGameMinutes = 15;
 		public float SurveyRealSeconds = 3;

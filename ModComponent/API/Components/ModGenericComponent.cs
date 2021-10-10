@@ -4,7 +4,7 @@ using System;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModGenericComponent : ModComponent
+	public class ModGenericComponent : ModBaseComponent
 	{
 		void Awake()
 		{

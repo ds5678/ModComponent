@@ -1,7 +1,7 @@
 ﻿namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModResearchComponent : ModComponent
+	public class ModResearchComponent : ModBaseComponent
 	{
 		public SkillType SkillType = SkillType.None;
 		public int TimeRequirementHours = 5;

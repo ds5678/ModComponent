@@ -5,7 +5,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class BodyHarvestMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModBodyHarvestComponent modBodyHarvestComponent = modComponent.TryCast<ModBodyHarvestComponent>();
 			if (modBodyHarvestComponent == null) return;

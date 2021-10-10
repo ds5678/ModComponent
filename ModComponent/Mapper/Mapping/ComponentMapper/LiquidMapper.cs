@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class LiquidMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModLiquidComponent modLiquidComponent = modComponent.TryCast<ModLiquidComponent>();
 			if (modLiquidComponent == null) return;

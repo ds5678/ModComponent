@@ -145,7 +145,7 @@
     <Compile Include="API\Components\ModBedComponent.cs" />
     <Compile Include="API\Components\ModBodyHarvestComponent.cs" />
     <Compile Include="API\Components\ModClothingComponent.cs" />
-    <Compile Include="API\Components\ModComponent.cs" />
+    <Compile Include="API\Components\ModBaseComponent.cs" />
     <Compile Include="API\Components\ModCookableComponent.cs" />
     <Compile Include="API\Components\ModCookingPotComponent.cs" />
     <Compile Include="API\Components\ModExplosiveComponent.cs" />

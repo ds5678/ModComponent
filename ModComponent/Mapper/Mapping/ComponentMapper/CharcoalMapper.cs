@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class CharcoalMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModCharcoalComponent modCharcoal = modComponent.TryCast<ModCharcoalComponent>();
 			if (modCharcoal == null) return;

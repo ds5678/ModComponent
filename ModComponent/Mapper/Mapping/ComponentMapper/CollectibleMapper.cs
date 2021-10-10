@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class CollectibleMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModCollectibleComponent modCollectible = modComponent.TryCast<ModCollectibleComponent>();
 			if (modCollectible == null) return;

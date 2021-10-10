@@ -5,7 +5,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class BedMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModBedComponent modBedComponent = modComponent.TryCast<ModBedComponent>();
 			if (modBedComponent == null) return;

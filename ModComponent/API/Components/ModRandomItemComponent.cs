@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModRandomItemComponent : ModComponent
+	public class ModRandomItemComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// The names of the gear items that this could spawn.

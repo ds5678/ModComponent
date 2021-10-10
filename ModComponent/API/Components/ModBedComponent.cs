@@ -5,7 +5,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModBedComponent : ModComponent
+	public class ModBedComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// How many condition points are restored per hour by sleeping in this bed?<br/>

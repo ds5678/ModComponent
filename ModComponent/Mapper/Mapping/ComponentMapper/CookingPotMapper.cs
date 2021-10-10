@@ -5,7 +5,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class CookingPotMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModCookingPotComponent modCookingPotComponent = modComponent.TryCast<ModCookingPotComponent>();
 			if (modCookingPotComponent == null) return;

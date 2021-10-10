@@ -1,7 +1,7 @@
 ﻿namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModPurificationComponent : ModComponent
+	public class ModPurificationComponent : ModBaseComponent
 	{
 		public float LitersPurify = 1f;
 		public float ProgressBarDurationSeconds = 5f;

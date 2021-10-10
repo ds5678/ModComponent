@@ -4,7 +4,7 @@ namespace ModComponentMapper.ComponentMapper
 {
 	internal static class PurificationMapper
 	{
-		internal static void Configure(ModComponent modComponent)
+		internal static void Configure(ModBaseComponent modComponent)
 		{
 			ModPurificationComponent modPurification = modComponent.TryCast<ModPurificationComponent>();
 			if (modPurification == null) return;
