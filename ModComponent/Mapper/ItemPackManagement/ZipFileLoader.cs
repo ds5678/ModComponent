@@ -108,7 +108,7 @@ namespace ModComponentMapper
 							break;
 						case FileType.bnk:
 							Logger.Log("Loading bnk from zip at '{0}'", internalPath);
-							AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
+							ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
 							break;
 						case FileType.image:
 							HandleImage(internalPath, unzippedFileStream.ToArray(), fullPath);
@@ -163,7 +163,7 @@ namespace ModComponentMapper
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
 				Logger.Log("Reading json localization from zip at '{0}'", internalPath);
-				AssetLoader.LocalizationManager.AddToWaitlist(text);
+				ModComponent.AssetLoader.LocalizationManager.AddToWaitlist(text);
 			}
 		}
 		private static void HandleTxt(string internalPath, string text, string fullPath)
@@ -184,7 +184,7 @@ namespace ModComponentMapper
 				{
 					AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
 					string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
-					AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
+					ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
 					AssetBundleManager.Add(relativePath, fullPath);
 				}
 				catch (Exception e)
@@ -200,12 +200,12 @@ namespace ModComponentMapper
 			if (internalPath.StartsWith(@"skins/"))
 			{
 				Logger.Log("Loading skin image from zip at '{0}'", internalPath);
-				AssetLoader.SkinManager.AddToTextureList(filenameNoExtension, data);
+				ModComponent.AssetLoader.SkinManager.AddToTextureList(filenameNoExtension, data);
 			}
 			else if (internalPath.StartsWith(@"icons/"))
 			{
 				Logger.Log("Loading icon image from zip at '{0}'", internalPath);
-				AssetLoader.AlternateIconManager.AddToTextureList(filenameNoExtension, data);
+				ModComponent.AssetLoader.AlternateIconManager.AddToTextureList(filenameNoExtension, data);
 			}
 		}
 	}

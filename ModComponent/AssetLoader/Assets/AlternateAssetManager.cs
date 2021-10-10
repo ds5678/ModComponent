@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	public static class AlternateAssetManager
 	{

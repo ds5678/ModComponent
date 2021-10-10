@@ -2,15 +2,14 @@
 using System;
 using UnityEngine;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
+	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class SaveAtlas : MonoBehaviour
 	{
 		public UIAtlas original;
 
 		public SaveAtlas(IntPtr intPtr) : base(intPtr) { }
-
-		static SaveAtlas() => UnhollowerRuntimeLib.ClassInjector.RegisterTypeInIl2Cpp<AssetLoader.SaveAtlas>(false);
 	}
 
 	[HarmonyPatch(typeof(UISprite), "SetAtlasSprite")]

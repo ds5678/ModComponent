@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	internal static class AtlasManager
 	{

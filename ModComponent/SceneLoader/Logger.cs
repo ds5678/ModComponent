@@ -1,4 +1,4 @@
-﻿namespace SceneLoader
+﻿namespace ModComponent.SceneLoader
 {
 	internal static class Logger
 	{

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SceneLoader.Shaders
+namespace ModComponent.SceneLoader.Shaders
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	internal class SubstituteShadersSingle : MonoBehaviour

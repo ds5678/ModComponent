@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	internal static class Localization_Patches
 	{

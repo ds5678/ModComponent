@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	public static class ModSoundBankManager
 	{

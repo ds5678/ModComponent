@@ -1,4 +1,4 @@
-﻿namespace AssetLoader
+﻿namespace ModComponent.AssetLoader
 {
 	public static class AssetManager
 	{

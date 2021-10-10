@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SceneLoader.Shaders
+namespace ModComponent.SceneLoader.Shaders
 {
 	internal static class ShaderSubstitutionManager
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SceneLoader.Shaders
+namespace ModComponent.SceneLoader.Shaders
 {
 	internal static class ShaderList
 	{

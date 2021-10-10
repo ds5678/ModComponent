@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	public static class AlternateNameManager
 	{

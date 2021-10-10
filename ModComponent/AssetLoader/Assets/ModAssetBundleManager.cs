@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	public static class ModAssetBundleManager
 	{

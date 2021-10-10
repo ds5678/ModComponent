@@ -1,4 +1,4 @@
-﻿using AssetLoader;
+﻿using ModComponent.AssetLoader;
 using ModComponentAPI;
 using System;
 using System.Reflection;

@@ -79,7 +79,7 @@ namespace ModComponentMapper
 			string[] files = Directory.GetFiles(directory);
 			foreach (string eachFile in files)
 			{
-				string name = AssetLoader.ModAssetBundleManager.GetAssetName(eachFile);
+				string name = ModComponent.AssetLoader.ModAssetBundleManager.GetAssetName(eachFile);
 				if (eachFile.ToLower().EndsWith(".json"))
 				{
 					Logger.Log("Found '{0}'", eachFile);

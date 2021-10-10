@@ -2,7 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 
-namespace AssetLoader
+namespace ModComponent.AssetLoader
 {
 	static class ResourcePatches
 	{

@@ -2,7 +2,7 @@
 using ModComponent.Utils;
 using UnityEngine;
 
-namespace SceneLoader
+namespace ModComponent.SceneLoader
 {
 	public static class Preloader
 	{

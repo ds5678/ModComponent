@@ -12,7 +12,7 @@ namespace ModComponentMapper
 		public ItemPackData(string zipFilePath)
 		{
 			this.name = ParseNameFromZipFilePath(zipFilePath);
-			this.zipFileName = AssetLoader.ModAssetBundleManager.GetAssetName(zipFilePath, false);
+			this.zipFileName = ModComponent.AssetLoader.ModAssetBundleManager.GetAssetName(zipFilePath, false);
 			this.zipFilePath = zipFilePath;
 		}
 		public ItemPackData(string zipFilePath, string zipFileName)
@@ -35,7 +35,7 @@ namespace ModComponentMapper
 		{
 			string trimmed = zipFilePath.Trim();
 			//Logger.Log(trimmed);
-			string noPathNoExtensions = AssetLoader.ModAssetBundleManager.GetAssetName(trimmed);
+			string noPathNoExtensions = ModComponent.AssetLoader.ModAssetBundleManager.GetAssetName(trimmed);
 			//Logger.Log(noPathNoExtensions);
 			string[] splitBySeparators = noPathNoExtensions.Split(new char[] { '-', '_', ' ' });
 			//Logger.Log(JSON.Dump(splitBySeparators));
