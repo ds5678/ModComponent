@@ -577,7 +577,7 @@ namespace ModComponentMapper
 			modMillable.RecoveryDurationMinutes = dict[className]["RecoveryDurationMinutes"];
 			modMillable.RestoreRequiredGear = JsonUtils.MakeStringArray(dict[className]["RestoreRequiredGear"] as ProxyArray);
 			modMillable.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RestoreRequiredGearUnits"] as ProxyArray);
-			modMillable.skill = EnumUtils.ParseEnum<ModComponentAPI.SkillType>(dict[className]["Skill"]);
+			modMillable.Skill = EnumUtils.ParseEnum<ModComponentAPI.SkillType>(dict[className]["Skill"]);
 		}
 
 		private static void InitializeRepairableComponent(ModRepairableBehaviour modRepairable, ProxyObject dict, string className = "ModRepairableComponent")

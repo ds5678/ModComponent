@@ -43,7 +43,7 @@ namespace ModComponentAPI
 		/// <summary>
 		/// The skill associated with repairing this item.
 		/// </summary>
-		public SkillType skill = SkillType.None;
+		public SkillType Skill = SkillType.None;
 
 		public ModMillableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
