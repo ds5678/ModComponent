@@ -1,30 +1,24 @@
-﻿using System;
+﻿using MelonLoader.TinyJSON;
+using System;
 using System.Collections.Generic;
-using UnhollowerBaseLib.Attributes;
-
-//did a first pass through; didn't find anything
-//MIGHT NEED to add constructor 
-//declared class for MelonLoader
 
 namespace ModComponentMapper.SaveData
 {
-	public class SaveData
+	internal class SaveData
 	{
-		public Dictionary<string, string> itemSaveData = new Dictionary<string, string>();
+		private Dictionary<string, string> itemSaveData = new Dictionary<string, string>();
 
 		public void Clear()
 		{
 			this.itemSaveData.Clear();
 		}
 
-		[HideFromIl2Cpp]
 		public string GetSaveData(int itemId, Type itemType)
 		{
 			this.itemSaveData.TryGetValue(GetKey(itemId, itemType), out string data);
 			return data;
 		}
 
-		[HideFromIl2Cpp]
 		public void SetSaveData(int itemId, Type itemType, string data)
 		{
 			this.itemSaveData[GetKey(itemId, itemType)] = data;
@@ -35,6 +29,17 @@ namespace ModComponentMapper.SaveData
 			return itemId + "_" + itemType.Name;
 		}
 
-		public SaveData() { }
+		internal string DumpJson()
+		{
+			return JSON.Dump(this, EncodeOptions.NoTypeHints);
+		}
+
+		internal static SaveData ParseJson(string jsonText)
+		{
+			var result = new SaveData();
+			var dict = MelonLoader.TinyJSON.JSON.Load(jsonText) as MelonLoader.TinyJSON.ProxyObject;
+			result.itemSaveData = dict["itemSaveData"].Make<Dictionary<string, string>>();
+			return result;
+		}
 	}
 }

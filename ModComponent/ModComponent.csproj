@@ -101,6 +101,7 @@
     <Compile Include="Mapper\CraftingMenu\MethodReplacements.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeDisplayItem.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeMenuGUI.cs" />
+    <Compile Include="Mapper\CustomSaveData\SaveProxy.cs" />
     <Compile Include="Mapper\GearSpawns\DifficultyLevel.cs" />
     <Compile Include="Mapper\GearSpawns\FirearmAvailability.cs" />
     <Compile Include="Mapper\GearSpawns\GearSpawnInfo.cs" />

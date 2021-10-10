@@ -1,23 +1,14 @@
-﻿using MelonLoader.TinyJSON;
-using System;
-
-//did a first pass through; has a conversion issue which I think I fixed
-//does not need to be declared
+﻿using System;
 
 namespace ModComponentMapper.SaveData
 {
-	public struct SaveProxy
-	{
-		public string data;
-	}
-
 	internal static class SaveDataManager
 	{
 		internal static string DATA_FILENAME_SUFFIX = "/ModComponent/CustomSaveData";
 
 		private static SaveData saveData = new SaveData();
 
-		public static void Clear()
+		internal static void Clear()
 		{
 			saveData.Clear();
 		}
@@ -32,27 +23,22 @@ namespace ModComponentMapper.SaveData
 			{
 				try
 				{
-					SaveProxy saveProxy = JSON.Load(data).Make<SaveProxy>();
-					saveData = JSON.Load(saveProxy.data).Make<SaveData>();
+					SaveProxy saveProxy = SaveProxy.ParseJson(data);
+					saveData = SaveData.ParseJson(saveProxy.data);
 				}
 				catch
 				{
 					Logger.LogWarning("Save Data was in an invalid format");
 					saveData = new SaveData();
 				}
-
 			}
 		}
 
 		public static string Serialize()
 		{
-			SaveProxy saveProxy = new SaveProxy
-			{
-				data = JSON.Dump(saveData)
-			};
+			SaveProxy saveProxy = new SaveProxy(saveData.DumpJson());
 
-			return JSON.Dump(saveProxy);
-
+			return saveProxy.DumpJson();
 		}
 
 		public static string GetSaveData(int itemId, Type itemType)
