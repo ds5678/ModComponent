@@ -85,7 +85,7 @@
     <Compile Include="AssetLoader\Assets\AlternateNameManager.cs" />
     <Compile Include="AssetLoader\Assets\AssetManager.cs" />
     <Compile Include="API\Behaviours\ModCarryingCapacityComponent.cs" />
-    <Compile Include="API\Behaviours\Firestarting\ModTinderComponent.cs" />
+    <Compile Include="API\Behaviours\ModTinderComponent.cs" />
     <Compile Include="API\Components\ModCharcoalComponent.cs" />
     <Compile Include="API\Components\ModPurificationComponent.cs" />
     <Compile Include="API\Components\ModResearchComponent.cs" />
@@ -129,11 +129,11 @@
     <Compile Include="API\Enums\InventoryCategory.cs" />
     <Compile Include="API\Modifications\AddTag.cs" />
     <Compile Include="API\Modifications\AttachBehaviour.cs" />
-    <Compile Include="API\Behaviours\Firestarting\ModAccelerantComponent.cs" />
-    <Compile Include="API\Behaviours\Firestarting\ModBurnableComponent.cs" />
+    <Compile Include="API\Behaviours\ModAccelerantComponent.cs" />
+    <Compile Include="API\Behaviours\ModBurnableComponent.cs" />
     <Compile Include="API\Behaviours\ModEvolveComponent.cs" />
-    <Compile Include="API\Behaviours\Firestarting\ModFireStarterComponent.cs" />
-    <Compile Include="API\Behaviours\Firestarting\ModFireMakingComponent.cs" />
+    <Compile Include="API\Behaviours\ModFireStarterComponent.cs" />
+    <Compile Include="API\Behaviours\ModFireMakingComponent.cs" />
     <Compile Include="API\Behaviours\ModHarvestableComponent.cs" />
     <Compile Include="API\Behaviours\ModMillableComponent.cs" />
     <Compile Include="API\Behaviours\ModRepairableComponent.cs" />
