@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	public static class DiagnosticUtils
 	{

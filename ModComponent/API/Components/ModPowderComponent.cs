@@ -1,4 +1,4 @@
-﻿using ModComponentUtils;
+﻿using ModComponent.Utils;
 
 namespace ModComponentAPI
 {

@@ -1,6 +1,6 @@
 ﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
 using ModComponentMapper.InformationMenu;
-using ModComponentUtils;
+using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,7 +28,7 @@ namespace ModComponentMapper
 		internal static readonly List<byte[]> hashes = new List<byte[]>();
 		internal static void Initialize()
 		{
-			string zipFolderDirectory = ModComponentUtils.FileUtils.GetModComponentZipsFolderPath();
+			string zipFolderDirectory = ModComponent.Utils.FileUtils.GetModComponentZipsFolderPath();
 			if (!Directory.Exists(zipFolderDirectory))
 			{
 				Logger.Log("Directory '{0}' does not exist. Creating ...", zipFolderDirectory);

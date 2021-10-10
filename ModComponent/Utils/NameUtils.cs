@@ -1,4 +1,4 @@
-﻿namespace ModComponentUtils
+﻿namespace ModComponent.Utils
 {
 	public static class NameUtils
 	{

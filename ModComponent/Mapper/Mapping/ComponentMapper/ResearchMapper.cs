@@ -9,11 +9,11 @@ namespace ModComponentMapper.ComponentMapper
 			ModResearchComponent modResearch = modComponent.TryCast<ModResearchComponent>();
 			if (modResearch == null) return;
 
-			ResearchItem researchItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<ResearchItem>(modResearch);
+			ResearchItem researchItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ResearchItem>(modResearch);
 			researchItem.m_ReadAudio = modResearch.ReadAudio;
 			researchItem.m_SkillPoints = modResearch.SkillPoints;
 			researchItem.m_NoBenefitAtSkillLevel = modResearch.NoBenefitAtSkillLevel;
-			researchItem.m_SkillType = ModComponentUtils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modResearch.SkillType);
+			researchItem.m_SkillType = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modResearch.SkillType);
 			researchItem.m_TimeRequirementHours = modResearch.TimeRequirementHours;
 		}
 	}

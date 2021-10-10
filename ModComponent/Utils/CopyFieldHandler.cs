@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
-using static ModComponentUtils.NameUtils;
+using static ModComponent.Utils.NameUtils;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	public static class CopyFieldHandler
 	{

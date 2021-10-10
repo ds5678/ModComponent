@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 			ModBodyHarvestComponent modBodyHarvestComponent = modComponent.TryCast<ModBodyHarvestComponent>();
 			if (modBodyHarvestComponent == null) return;
 
-			BodyHarvest bodyHarvest = ModComponentUtils.ComponentUtils.GetOrCreateComponent<BodyHarvest>(modBodyHarvestComponent);
+			BodyHarvest bodyHarvest = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<BodyHarvest>(modBodyHarvestComponent);
 			bodyHarvest.m_AllowDecay = false;
 			bodyHarvest.m_CanCarry = modBodyHarvestComponent.CanCarry;
 			bodyHarvest.m_CanQuarter = modBodyHarvestComponent.CanQuarter;
@@ -23,7 +23,7 @@ namespace ModComponentMapper.ComponentMapper
 			bodyHarvest.m_HidePrefab = Resources.Load(modBodyHarvestComponent.HidePrefab)?.Cast<GameObject>();
 			bodyHarvest.m_HideWeightKgPerUnit = modBodyHarvestComponent.HideWeightKgPerUnit;
 			bodyHarvest.m_IsBigCarry = false;
-			bodyHarvest.m_LocalizedDisplayName = ModComponentUtils.NameUtils.CreateLocalizedString(modBodyHarvestComponent.DisplayNameLocalizationId);
+			bodyHarvest.m_LocalizedDisplayName = ModComponent.Utils.NameUtils.CreateLocalizedString(modBodyHarvestComponent.DisplayNameLocalizationId);
 			bodyHarvest.m_MeatAvailableMaxKG = modBodyHarvestComponent.MeatAvailableMaxKG;
 			bodyHarvest.m_MeatAvailableMinKG = modBodyHarvestComponent.MeatAvailableMinKG;
 			bodyHarvest.m_MeatPrefab = Resources.Load(modBodyHarvestComponent.MeatPrefab)?.Cast<GameObject>();

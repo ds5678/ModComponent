@@ -20,7 +20,7 @@ namespace ModComponentMapper
 			equippable.OnEquipped?.Invoke();
 
 			InterfaceManager.QuitCurrentScreens();
-			ModComponentUtils.ModUtils.PlayAudio(equippable.EquippingAudio);
+			ModComponent.Utils.ModUtils.PlayAudio(equippable.EquippingAudio);
 		}
 
 		public static void Unequip(EquippableModComponent modComponent)
@@ -40,7 +40,7 @@ namespace ModComponentMapper
 			}
 
 			modComponent.OnUnequipped?.Invoke();
-			ModComponentUtils.ModUtils.PlayAudio(modComponent.StowAudio);
+			ModComponent.Utils.ModUtils.PlayAudio(modComponent.StowAudio);
 		}
 	}
 }

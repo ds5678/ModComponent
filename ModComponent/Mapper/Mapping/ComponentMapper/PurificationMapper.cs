@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 			ModPurificationComponent modPurification = modComponent.TryCast<ModPurificationComponent>();
 			if (modPurification == null) return;
 
-			PurifyWater purificationItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<PurifyWater>(modPurification);
+			PurifyWater purificationItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<PurifyWater>(modPurification);
 			purificationItem.m_LocalizedProgressBarMessage = new LocalizedString() { m_LocalizationID = modPurification.ProgressBarLocalizationID };
 			purificationItem.m_ProgressBarDurationSeconds = modPurification.ProgressBarDurationSeconds;
 			purificationItem.m_PurifyAudio = modPurification.PurifyAudio;

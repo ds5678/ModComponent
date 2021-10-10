@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	public static class EquipItemPopupUtils
 	{

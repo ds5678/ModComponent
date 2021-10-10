@@ -131,7 +131,7 @@ namespace ModComponentMapper
 
 		private static void PrepareScene()
 		{
-			if (ModComponentUtils.ModUtils.IsNonGameScene()) return;
+			if (ModComponent.Utils.ModUtils.IsNonGameScene()) return;
 
 			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 			stopwatch.Start();
@@ -174,7 +174,7 @@ namespace ModComponentMapper
 				}
 
 				float spawnProbability = ProbabilityManager.GetAdjustedProbability(eachGearSpawnInfo);
-				if (ModComponentUtils.RandomUtils.RollChance(spawnProbability))
+				if (ModComponent.Utils.RandomUtils.RollChance(spawnProbability))
 				{
 					GameObject gear = Object.Instantiate(prefab, eachGearSpawnInfo.Position, eachGearSpawnInfo.Rotation).Cast<GameObject>();
 					gear.name = prefab.name;

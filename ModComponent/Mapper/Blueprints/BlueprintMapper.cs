@@ -19,7 +19,7 @@ namespace ModComponentMapper
 			bpItem.m_DurationMinutes = modBlueprint.DurationMinutes;
 			bpItem.m_CraftingAudio = modBlueprint.CraftingAudio;
 
-			bpItem.m_RequiredCraftingLocation = ModComponentUtils.EnumUtils.TranslateEnumValue<CraftingLocation, ModComponentAPI.CraftingLocation>(modBlueprint.RequiredCraftingLocation);
+			bpItem.m_RequiredCraftingLocation = ModComponent.Utils.EnumUtils.TranslateEnumValue<CraftingLocation, ModComponentAPI.CraftingLocation>(modBlueprint.RequiredCraftingLocation);
 			bpItem.m_RequiresLitFire = modBlueprint.RequiresLitFire;
 			bpItem.m_RequiresLight = modBlueprint.RequiresLight;
 
@@ -27,21 +27,21 @@ namespace ModComponentMapper
 			bpItem.m_AppearsInStoryOnly = false;
 
 			bpItem.m_CraftedResultCount = modBlueprint.CraftedResultCount;
-			bpItem.m_CraftedResult = ModComponentUtils.ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
+			bpItem.m_CraftedResult = ModComponent.Utils.ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
 
 			if (!string.IsNullOrEmpty(modBlueprint.RequiredTool))
 			{
-				bpItem.m_RequiredTool = ModComponentUtils.ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+				bpItem.m_RequiredTool = ModComponent.Utils.ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
 			}
-			bpItem.m_OptionalTools = ModComponentUtils.ModUtils.NotNull(ModComponentUtils.ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools));
+			bpItem.m_OptionalTools = ModComponent.Utils.ModUtils.NotNull(ModComponent.Utils.ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools));
 
-			bpItem.m_RequiredGear = ModComponentUtils.ModUtils.NotNull(ModComponentUtils.ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear));
+			bpItem.m_RequiredGear = ModComponent.Utils.ModUtils.NotNull(ModComponent.Utils.ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear));
 			bpItem.m_RequiredGearUnits = modBlueprint.RequiredGearUnits;
 			bpItem.m_KeroseneLitersRequired = modBlueprint.KeroseneLitersRequired;
 			bpItem.m_GunpowderKGRequired = modBlueprint.GunpowderKGRequired;
 
-			bpItem.m_AppliedSkill = ModComponentUtils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.AppliedSkill);
-			bpItem.m_ImprovedSkill = ModComponentUtils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.ImprovedSkill);
+			bpItem.m_AppliedSkill = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.AppliedSkill);
+			bpItem.m_ImprovedSkill = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.ImprovedSkill);
 		}
 
 		internal static void MapBlueprints()
@@ -66,19 +66,19 @@ namespace ModComponentMapper
 		{
 			try
 			{
-				ModComponentUtils.ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
+				ModComponent.Utils.ModUtils.GetItem<GearItem>(modBlueprint.CraftedResult);
 
 				if (!string.IsNullOrEmpty(modBlueprint.RequiredTool))
 				{
-					ModComponentUtils.ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
+					ModComponent.Utils.ModUtils.GetItem<ToolsItem>(modBlueprint.RequiredTool);
 				}
 
 				if (modBlueprint.OptionalTools != null)
 				{
-					ModComponentUtils.ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
+					ModComponent.Utils.ModUtils.GetMatchingItems<ToolsItem>(modBlueprint.OptionalTools);
 				}
 
-				ModComponentUtils.ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
+				ModComponent.Utils.ModUtils.GetMatchingItems<GearItem>(modBlueprint.RequiredGear);
 
 			}
 			catch (Exception e)

@@ -1,5 +1,5 @@
 ﻿using ModComponentAPI;
-using ModComponentUtils;
+using ModComponent.Utils;
 using System;
 using UnityEngine;
 

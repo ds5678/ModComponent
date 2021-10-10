@@ -1,5 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponentUtils;
+using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 

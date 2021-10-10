@@ -15,7 +15,7 @@ namespace ModComponentMapper.Patches
 		}
 		private static void Postfix(GearItem gi)
 		{
-			ModClothingComponent modClothingComponent = ModComponentUtils.ComponentUtils.GetComponent<ModClothingComponent>(gi);
+			ModClothingComponent modClothingComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModClothingComponent>(gi);
 			modClothingComponent?.OnPutOn?.Invoke();
 		}
 	}
@@ -25,7 +25,7 @@ namespace ModComponentMapper.Patches
 	{
 		internal static void Postfix(GearItem gi)
 		{
-			ModClothingComponent modClothingComponent = ModComponentUtils.ComponentUtils.GetComponent<ModClothingComponent>(gi);
+			ModClothingComponent modClothingComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModClothingComponent>(gi);
 			modClothingComponent?.OnTakeOff?.Invoke();
 		}
 	}
@@ -37,7 +37,7 @@ namespace ModComponentMapper.Patches
 		{
 			int defaultDrawLayer = DefaultDrawLayers.GetDefaultDrawLayer(__instance.m_ClothingRegion, __instance.m_ClothingLayer);
 
-			ModClothingComponent clothingComponent = ModComponentUtils.ComponentUtils.GetComponent<ModClothingComponent>(__instance.m_GearItem);
+			ModClothingComponent clothingComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModClothingComponent>(__instance.m_GearItem);
 			if (clothingComponent == null)
 			{
 				if (__instance.m_GearItem != null)

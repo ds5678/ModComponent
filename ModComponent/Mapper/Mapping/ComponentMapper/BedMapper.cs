@@ -10,9 +10,9 @@ namespace ModComponentMapper.ComponentMapper
 			ModBedComponent modBedComponent = modComponent.TryCast<ModBedComponent>();
 			if (modBedComponent == null) return;
 
-			Bed bed = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Bed>(modBedComponent);
+			Bed bed = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<Bed>(modBedComponent);
 
-			bed.m_LocalizedDisplayName = ModComponentUtils.NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
+			bed.m_LocalizedDisplayName = ModComponent.Utils.NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
 			bed.m_ConditionPercentGainPerHour = modBedComponent.ConditionGainPerHour;
 			bed.m_UinterruptedRestPercentGainPerHour = modBedComponent.AdditionalConditionGainPerHour;
 			bed.m_WarmthBonusCelsius = modBedComponent.WarmthBonusCelsius;
@@ -20,8 +20,8 @@ namespace ModComponentMapper.ComponentMapper
 			bed.m_PercentChanceReduceBearAttackWhenSleeping = modBedComponent.BearAttackModifier;
 			bed.m_PercentChanceReduceWolfAttackWhenSleeping = modBedComponent.WolfAttackModifier;
 
-			bed.m_OpenAudio = ModComponentUtils.ModUtils.DefaultIfEmpty(modBedComponent.OpenAudio, "PLAY_SNDGENSLEEPINGBAGCLOSE");
-			bed.m_CloseAudio = ModComponentUtils.ModUtils.DefaultIfEmpty(modBedComponent.CloseAudio, "PLAY_SNDGENSLEEPINGBAGOPEN");
+			bed.m_OpenAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modBedComponent.OpenAudio, "PLAY_SNDGENSLEEPINGBAGCLOSE");
+			bed.m_CloseAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modBedComponent.CloseAudio, "PLAY_SNDGENSLEEPINGBAGOPEN");
 
 			bed.m_BedRollMesh = modBedComponent.PackedMesh ?? modBedComponent.gameObject;
 			bed.m_BedRollMesh.layer = vp_Layer.Gear;
@@ -29,11 +29,11 @@ namespace ModComponentMapper.ComponentMapper
 			bed.m_BedRollPlacedMesh.layer = vp_Layer.Gear;
 			bed.SetState(BedRollState.Rolled);
 
-			DegradeOnUse degradeOnUse = ModComponentUtils.ComponentUtils.GetOrCreateComponent<DegradeOnUse>(modBedComponent);
+			DegradeOnUse degradeOnUse = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<DegradeOnUse>(modBedComponent);
 			degradeOnUse.m_DegradeHP = Mathf.Max(degradeOnUse.m_DegradeHP, modBedComponent.DegradePerHour);
 
-			//PlaceableItem placeableItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
-			ModComponentUtils.ComponentUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
+			//PlaceableItem placeableItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
+			ModComponent.Utils.ComponentUtils.GetOrCreateComponent<PlaceableItem>(modBedComponent);
 			//placeableItem.m_Range = 4;
 			//m_prefab_name ???
 		}

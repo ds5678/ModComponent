@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 			ModClothingComponent modClothingItem = modComponent.TryCast<ModClothingComponent>();
 			if (modClothingItem == null) return;
 
-			ClothingItem clothingItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
+			ClothingItem clothingItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
 
 			clothingItem.m_DailyHPDecayWhenWornInside = Mapper.GetDecayPerStep(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
 			clothingItem.m_DailyHPDecayWhenWornOutside = Mapper.GetDecayPerStep(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
@@ -18,11 +18,11 @@ namespace ModComponentMapper.ComponentMapper
 			clothingItem.m_DryPercentPerHourNoFire = 100f / modClothingItem.HoursToDryWithoutFire;
 			clothingItem.m_FreezePercentPerHour = 100f / modClothingItem.HoursToFreeze;
 
-			clothingItem.m_Region = ModComponentUtils.EnumUtils.TranslateEnumValue<ClothingRegion, Region>(modClothingItem.Region);
-			clothingItem.m_MaxLayer = ModComponentUtils.EnumUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MaxLayer);
-			clothingItem.m_MinLayer = ModComponentUtils.EnumUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MinLayer);
-			clothingItem.m_FootwearType = ModComponentUtils.EnumUtils.TranslateEnumValue<FootwearType, Footwear>(modClothingItem.Footwear);
-			clothingItem.m_WornMovementSoundCategory = ModComponentUtils.EnumUtils.TranslateEnumValue<ClothingMovementSound, MovementSound>(modClothingItem.MovementSound);
+			clothingItem.m_Region = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingRegion, Region>(modClothingItem.Region);
+			clothingItem.m_MaxLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MaxLayer);
+			clothingItem.m_MinLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MinLayer);
+			clothingItem.m_FootwearType = ModComponent.Utils.EnumUtils.TranslateEnumValue<FootwearType, Footwear>(modClothingItem.Footwear);
+			clothingItem.m_WornMovementSoundCategory = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingMovementSound, MovementSound>(modClothingItem.MovementSound);
 
 			clothingItem.m_PaperDollTextureName = modClothingItem.MainTexture;
 			clothingItem.m_PaperDollBlendmapName = modClothingItem.BlendTexture;
@@ -44,7 +44,7 @@ namespace ModComponentMapper.ComponentMapper
 				return;
 			}
 
-			WolfIntimidationBuff wolfIntimidationBuff = ModComponentUtils.ComponentUtils.GetOrCreateComponent<WolfIntimidationBuff>(modClothingItem);
+			WolfIntimidationBuff wolfIntimidationBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<WolfIntimidationBuff>(modClothingItem);
 			wolfIntimidationBuff.m_DecreaseAttackChancePercentagePoints = modClothingItem.DecreaseAttackChance;
 			wolfIntimidationBuff.m_IncreaseFleePercentagePoints = modClothingItem.IncreaseFleeChance;
 		}

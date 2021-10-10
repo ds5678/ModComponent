@@ -2,7 +2,7 @@
 using MelonLoader.TinyJSON;
 using ModComponentAPI;
 using ModComponentMapper.InformationMenu;
-using ModComponentUtils;
+using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

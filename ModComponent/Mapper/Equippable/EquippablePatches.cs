@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using ModComponentAPI;
-using ModComponentUtils;
+using ModComponent.Utils;
 using UnityEngine;
 
 namespace ModComponentMapper.Patches

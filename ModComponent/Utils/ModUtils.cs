@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	public static class ModUtils
 	{

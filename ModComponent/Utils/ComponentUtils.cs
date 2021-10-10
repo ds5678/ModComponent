@@ -1,7 +1,7 @@
 ﻿using ModComponentAPI;
 using UnityEngine;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	public static class ComponentUtils
 	{

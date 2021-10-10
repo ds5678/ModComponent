@@ -45,7 +45,7 @@ namespace AssetLoader
 
 			if (knownAssetNames.TryGetValue(fullAssetName, out AssetBundle assetBundle))
 			{
-				UnityEngine.Object result = ModComponentUtils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
+				UnityEngine.Object result = ModComponent.Utils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
 				return result;
 			}
 
@@ -65,7 +65,7 @@ namespace AssetLoader
 				return;
 			}
 
-			string modDirectory = ModComponentUtils.FileUtils.GetModsFolderPath();
+			string modDirectory = ModComponent.Utils.FileUtils.GetModsFolderPath();
 			string fullPath = Path.Combine(modDirectory, relativePath);
 
 			if (File.Exists(fullPath)) LoadAssetBundle(relativePath, fullPath);

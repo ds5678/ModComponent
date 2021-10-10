@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	internal static class ActionPickerUtilities
 	{

@@ -6,10 +6,10 @@ namespace ModComponentMapper.ComponentMapper
 	{
 		public static void Configure(ModComponent modComponent)
 		{
-			ModStackableComponent modStackableComponent = ModComponentUtils.ComponentUtils.GetComponent<ModStackableComponent>(modComponent);
+			ModStackableComponent modStackableComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModStackableComponent>(modComponent);
 			if (modStackableComponent == null) return;
 
-			StackableItem stackableItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<StackableItem>(modStackableComponent);
+			StackableItem stackableItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<StackableItem>(modStackableComponent);
 
 			stackableItem.m_LocalizedMultipleUnitText = new LocalizedString { m_LocalizationID = modStackableComponent.MultipleUnitTextID };
 

@@ -49,7 +49,7 @@ namespace ModComponentMapper
 			if (prefab == null) throw new System.ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
 
 			ComponentJson.InitializeComponents(ref prefab);
-			ModComponent modComponent = ModComponentUtils.ComponentUtils.GetModComponent(prefab);
+			ModComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(prefab);
 
 			if (modComponent == null) throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
 

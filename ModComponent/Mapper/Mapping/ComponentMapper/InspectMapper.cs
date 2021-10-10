@@ -8,7 +8,7 @@ namespace ModComponentMapper.ComponentMapper
 		{
 			if (!modComponent.InspectOnPickup) return;
 
-			Inspect inspect = ModComponentUtils.ComponentUtils.GetOrCreateComponent<Inspect>(modComponent);
+			Inspect inspect = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<Inspect>(modComponent);
 			inspect.m_DistanceFromCamera = modComponent.InspectDistance;
 			inspect.m_Scale = modComponent.InspectScale;
 			inspect.m_Angles = modComponent.InspectAngles;

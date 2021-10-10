@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using ModComponentUtils;
+using ModComponent.Utils;
 using UnityEngine;
 
 namespace SceneLoader

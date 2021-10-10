@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 			ModCookingPotComponent modCookingPotComponent = modComponent.TryCast<ModCookingPotComponent>();
 			if (modCookingPotComponent == null) return;
 
-			CookingPotItem cookingPotItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<CookingPotItem>(modComponent);
+			CookingPotItem cookingPotItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<CookingPotItem>(modComponent);
 
 			cookingPotItem.m_WaterCapacityLiters = modCookingPotComponent.Capacity;
 			cookingPotItem.m_CanCookGrub = modCookingPotComponent.CanCookGrub;
@@ -18,7 +18,7 @@ namespace ModComponentMapper.ComponentMapper
 			cookingPotItem.m_CanCookMeat = modCookingPotComponent.CanCookMeat;
 			cookingPotItem.m_CanOnlyWarmUpFood = false;
 
-			CookingPotItem template = ModComponentUtils.ModUtils.GetItem<CookingPotItem>(modCookingPotComponent.Template, modComponent.name);
+			CookingPotItem template = ModComponent.Utils.ModUtils.GetItem<CookingPotItem>(modCookingPotComponent.Template, modComponent.name);
 			cookingPotItem.m_BoilingTimeMultiplier = template.m_BoilingTimeMultiplier;
 			cookingPotItem.m_BoilWaterPotMaterialsList = template.m_BoilWaterPotMaterialsList;
 			cookingPotItem.m_BoilWaterReadyMaterialsList = template.m_BoilWaterReadyMaterialsList;
@@ -47,7 +47,7 @@ namespace ModComponentMapper.ComponentMapper
 			cookingPotItem.m_GrubMeshFilter = grubMesh.GetComponent<MeshFilter>();
 			cookingPotItem.m_GrubMeshRenderer = grubMesh.GetComponent<MeshRenderer>();
 
-			PlaceableItem placeableItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<PlaceableItem>(modComponent);
+			PlaceableItem placeableItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<PlaceableItem>(modComponent);
 			//placeableItem.m_Range = template.GetComponent<PlaceableItem>()?.m_Range ?? 3; //<============================================
 		}
 	}

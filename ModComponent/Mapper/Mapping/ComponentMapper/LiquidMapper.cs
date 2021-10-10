@@ -9,9 +9,9 @@ namespace ModComponentMapper.ComponentMapper
 			ModLiquidComponent modLiquidComponent = modComponent.TryCast<ModLiquidComponent>();
 			if (modLiquidComponent == null) return;
 
-			LiquidItem liquidItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<LiquidItem>(modComponent);
+			LiquidItem liquidItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<LiquidItem>(modComponent);
 			liquidItem.m_LiquidCapacityLiters = modLiquidComponent.LiquidCapacityLiters;
-			liquidItem.m_LiquidType = ModComponentUtils.EnumUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidComponent.LiquidType);
+			liquidItem.m_LiquidType = ModComponent.Utils.EnumUtils.TranslateEnumValue<GearLiquidTypeEnum, LiquidType>(modLiquidComponent.LiquidType);
 			liquidItem.m_RandomizeQuantity = modLiquidComponent.RandomizeQuantity;
 			liquidItem.m_LiquidLiters = modLiquidComponent.LiquidLiters;
 			liquidItem.m_DrinkingAudio = "Play_DrinkWater";

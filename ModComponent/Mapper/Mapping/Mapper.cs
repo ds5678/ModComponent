@@ -1,6 +1,6 @@
 ﻿using ModComponentAPI;
 using ModComponentMapper.ComponentMapper;
-using ModComponentUtils;
+using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

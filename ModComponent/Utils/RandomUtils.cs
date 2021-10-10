@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	public static class RandomUtils
 	{

@@ -1,7 +1,7 @@
 ﻿using Il2Cpp = Il2CppSystem.Collections.Generic;
 using Standard = System.Collections.Generic;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	internal static class ConversionUtils
 	{

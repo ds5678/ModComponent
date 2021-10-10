@@ -6,10 +6,10 @@ namespace ModComponentMapper.ComponentMapper
 	{
 		internal static void Configure(ModComponent modComponent)
 		{
-			ModFireStarterComponent modFireStarterComponent = ModComponentUtils.ComponentUtils.GetComponent<ModFireStarterComponent>(modComponent);
+			ModFireStarterComponent modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModFireStarterComponent>(modComponent);
 			if (modFireStarterComponent == null) return;
 
-			FireStarterItem fireStarterItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
+			FireStarterItem fireStarterItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
 
 			fireStarterItem.m_SecondsToIgniteTinder = modFireStarterComponent.SecondsToIgniteTinder;
 			fireStarterItem.m_SecondsToIgniteTorch = modFireStarterComponent.SecondsToIgniteTorch;

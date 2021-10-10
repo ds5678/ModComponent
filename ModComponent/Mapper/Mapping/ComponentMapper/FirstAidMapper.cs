@@ -11,7 +11,7 @@ namespace ModComponentMapper.ComponentMapper
 			ModFirstAidComponent modFirstAidComponent = modComponent.TryCast<ModFirstAidComponent>();
 			if (modFirstAidComponent == null) return;
 
-			FirstAidItem firstAidItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FirstAidItem>(modFirstAidComponent);
+			FirstAidItem firstAidItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FirstAidItem>(modFirstAidComponent);
 
 			// not used
 			firstAidItem.m_AppliesSutures = false;

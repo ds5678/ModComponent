@@ -1,7 +1,7 @@
 ﻿using Il2CppSystem;
 using UnityEngine;
 
-namespace ModComponentUtils
+namespace ModComponent.Utils
 {
 	/// <summary>
 	/// Alternative asset loading methods to avoid triggering the AssetLoader patches

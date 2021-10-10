@@ -35,7 +35,7 @@ namespace ModComponentMapper
 			GameObject original = Resources.Load(templateName).Cast<GameObject>();
 			if (original == null) return;
 
-			AlternateTools alternateTools = ModComponentUtils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
+			AlternateTools alternateTools = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
 			List<GameObject> list = new List<GameObject>();
 			if (alternateTools.m_AlternateToolsList != null)
 			{

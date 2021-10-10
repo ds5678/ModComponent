@@ -10,7 +10,7 @@ namespace ModComponentMapper.Patches
 		{
 			if (!__result) return;
 
-			ModFireStarterComponent modFireStarterComponent = ModComponentUtils.ComponentUtils.GetComponent<ModFireStarterComponent>(starter);
+			ModFireStarterComponent modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModFireStarterComponent>(starter);
 			if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse) return;
 
 			GearItem gearItem = starter.GetComponent<GearItem>();

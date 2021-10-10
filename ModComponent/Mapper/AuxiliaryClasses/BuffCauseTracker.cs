@@ -32,7 +32,7 @@ namespace ModComponentMapper
 	{
 		public static void Postfix(FatigueBuff __instance)
 		{
-			GearItem gearItem = ModComponentUtils.ComponentUtils.GetComponent<GearItem>(__instance);
+			GearItem gearItem = ModComponent.Utils.ComponentUtils.GetComponent<GearItem>(__instance);
 			if (gearItem == null) return;
 			else BuffCauseTracker.setCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());
 		}

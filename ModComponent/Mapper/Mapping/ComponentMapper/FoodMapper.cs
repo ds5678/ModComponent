@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 			ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
 			if (modFoodComponent == null) return;
 
-			FoodItem foodItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FoodItem>(modFoodComponent);
+			FoodItem foodItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FoodItem>(modFoodComponent);
 
 			foodItem.m_CaloriesTotal = modFoodComponent.Calories;
 			foodItem.m_CaloriesRemaining = modFoodComponent.Calories;
@@ -34,7 +34,7 @@ namespace ModComponentMapper.ComponentMapper
 			foodItem.m_IsRawMeat = modFoodComponent.Raw;
 			foodItem.m_IsNatural = modFoodComponent.Natural;
 			foodItem.m_MustConsumeAll = false;
-			foodItem.m_ParasiteRiskPercentIncrease = ModComponentUtils.ModUtils.NotNull(modFoodComponent.ParasiteRiskIncrements);
+			foodItem.m_ParasiteRiskPercentIncrease = ModComponent.Utils.ModUtils.NotNull(modFoodComponent.ParasiteRiskIncrements);
 
 			foodItem.m_PercentHeatLossPerMinuteIndoors = 1;
 			foodItem.m_PercentHeatLossPerMinuteOutdoors = 2;
@@ -48,7 +48,7 @@ namespace ModComponentMapper.ComponentMapper
 
 				if (modFoodComponent.OpeningWithSmashing)
 				{
-					SmashableItem smashableItem = ModComponentUtils.ComponentUtils.GetOrCreateComponent<SmashableItem>(modFoodComponent);
+					SmashableItem smashableItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<SmashableItem>(modFoodComponent);
 					smashableItem.m_MinPercentLoss = 10;
 					smashableItem.m_MaxPercentLoss = 30;
 					smashableItem.m_TimeToSmash = 6;
@@ -63,7 +63,7 @@ namespace ModComponentMapper.ComponentMapper
 
 			if (modFoodComponent.AffectRest)
 			{
-				FatigueBuff fatigueBuff = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FatigueBuff>(modFoodComponent);
+				FatigueBuff fatigueBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FatigueBuff>(modFoodComponent);
 				fatigueBuff.m_InitialPercentDecrease = modFoodComponent.InstantRestChange;
 				fatigueBuff.m_RateOfIncreaseScale = modFoodComponent.RestFactor;
 				fatigueBuff.m_DurationHours = modFoodComponent.RestFactorMinutes / 60f;
@@ -71,7 +71,7 @@ namespace ModComponentMapper.ComponentMapper
 
 			if (modFoodComponent.AffectCold)
 			{
-				FreezingBuff freezingBuff = ModComponentUtils.ComponentUtils.GetOrCreateComponent<FreezingBuff>(modFoodComponent);
+				FreezingBuff freezingBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FreezingBuff>(modFoodComponent);
 				freezingBuff.m_InitialPercentDecrease = modFoodComponent.InstantColdChange;
 				freezingBuff.m_RateOfIncreaseScale = modFoodComponent.ColdFactor;
 				freezingBuff.m_DurationHours = modFoodComponent.ColdFactorMinutes / 60f;
@@ -79,20 +79,20 @@ namespace ModComponentMapper.ComponentMapper
 
 			if (modFoodComponent.AffectCondition)
 			{
-				ConditionRestBuff conditionRestBuff = ModComponentUtils.ComponentUtils.GetOrCreateComponent<ConditionRestBuff>(modFoodComponent);
+				ConditionRestBuff conditionRestBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ConditionRestBuff>(modFoodComponent);
 				conditionRestBuff.m_ConditionRestBonus = modFoodComponent.ConditionRestBonus;
 				conditionRestBuff.m_NumHoursRestAffected = modFoodComponent.ConditionRestMinutes / 60f;
 			}
 
 			if (modFoodComponent.ContainsAlcohol)
 			{
-				AlcoholComponent alcohol = ModComponentUtils.ComponentUtils.GetOrCreateComponent<AlcoholComponent>(modFoodComponent);
+				AlcoholComponent alcohol = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<AlcoholComponent>(modFoodComponent);
 				alcohol.AmountTotal = modFoodComponent.WeightKG * modFoodComponent.AlcoholPercentage * 0.01f;
 				alcohol.AmountRemaining = alcohol.AmountTotal;
 				alcohol.UptakeSeconds = modFoodComponent.AlcoholUptakeMinutes * 60;
 			}
 
-			HoverIconsToShow hoverIconsToShow = ModComponentUtils.ComponentUtils.GetOrCreateComponent<HoverIconsToShow>(modFoodComponent);
+			HoverIconsToShow hoverIconsToShow = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<HoverIconsToShow>(modFoodComponent);
 			hoverIconsToShow.m_HoverIcons = new HoverIconsToShow.HoverIcons[] { HoverIconsToShow.HoverIcons.Food };
 		}
 	}
