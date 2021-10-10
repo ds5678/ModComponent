@@ -1,10 +1,9 @@
 ﻿using MelonLoader;
-using System;
 using UnityEngine;
 
 namespace ModComponentMain
 {
-	public class Implementation : MelonMod
+	internal class Implementation : MelonMod
 	{
 		public override void OnApplicationStart()
 		{
@@ -24,9 +23,6 @@ namespace ModComponentMain
 			Logger.LogDebug("Debug Compilation");
 			Logger.LogNotDebug("Release Compilation");
 		}
-
-		[Obsolete("Use ModComponentUtils.FileUtils.GetModsFolderPath instead")]
-		public static string GetModsFolderPath() => ModComponentUtils.FileUtils.GetModsFolderPath();
 
 		public static byte[][] GetItemPackHashes() => ModComponentMapper.ZipFileLoader.hashes.ToArray();
 	}

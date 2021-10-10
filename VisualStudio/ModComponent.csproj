@@ -226,7 +226,6 @@
     <Compile Include="ModComponentUtils\FileUtils.cs" />
     <Compile Include="ModComponentUtils\JsonUtils.cs" />
     <Compile Include="ModComponentUtils\Logger.cs" />
-    <Compile Include="ModComponentUtils\MathUtils.cs" />
     <Compile Include="ModComponentUtils\NameUtils.cs" />
     <Compile Include="ModComponentUtils\PlayerUtils.cs" />
     <Compile Include="ModComponentUtils\RandomUtils.cs" />
