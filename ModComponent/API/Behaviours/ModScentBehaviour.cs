@@ -13,13 +13,13 @@ namespace ModComponentAPI
 	}
 
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModScentComponent : MonoBehaviour
+	public class ModScentBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// What type of smell does this item have? Affects wildlife detection radius and smell strength.
 		/// </summary>
 		public ScentCategory scentCategory = ScentCategory.RAW_MEAT;
 
-		public ModScentComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModScentBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

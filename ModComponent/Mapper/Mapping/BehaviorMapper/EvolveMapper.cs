@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		internal static void Configure(GameObject prefab)
 		{
-			ModEvolveComponent modEvolveComponent = ComponentUtils.GetComponent<ModEvolveComponent>(prefab);
+			ModEvolveBehaviour modEvolveComponent = ComponentUtils.GetComponent<ModEvolveBehaviour>(prefab);
 			if (modEvolveComponent == null) return;
 
 			EvolveItem evolveItem = ComponentUtils.GetOrCreateComponent<EvolveItem>(modEvolveComponent);

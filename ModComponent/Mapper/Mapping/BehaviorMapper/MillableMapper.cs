@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		internal static void Configure(GameObject prefab)
 		{
-			ModMillableComponent modMillable = ComponentUtils.GetComponent<ModMillableComponent>(prefab);
+			ModMillableBehaviour modMillable = ComponentUtils.GetComponent<ModMillableBehaviour>(prefab);
 			if (modMillable == null) return;
 
 			Millable millable = ComponentUtils.GetOrCreateComponent<Millable>(modMillable);

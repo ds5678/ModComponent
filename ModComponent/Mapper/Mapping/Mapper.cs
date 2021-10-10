@@ -149,7 +149,7 @@ namespace ModComponentMapper
 
 			if (modComponent is ModClothingComponent) return GearTypeEnum.Clothing;
 
-			if (ComponentUtils.GetComponent<ModFireMakingComponent>(modComponent) != null || ComponentUtils.GetComponent<ModBurnableComponent>(modComponent) != null)
+			if (ComponentUtils.GetComponent<ModFireMakingBaseBehaviour>(modComponent) != null || ComponentUtils.GetComponent<ModBurnableBehaviour>(modComponent) != null)
 			{
 				return GearTypeEnum.Firestarting;
 			}

@@ -3,7 +3,7 @@
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModMillableComponent : MonoBehaviour
+	public class ModMillableBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// Can this item be restored from a ruined condition?
@@ -45,6 +45,6 @@ namespace ModComponentAPI
 		/// </summary>
 		public SkillType skill = SkillType.None;
 
-		public ModMillableComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModMillableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

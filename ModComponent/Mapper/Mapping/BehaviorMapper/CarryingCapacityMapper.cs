@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		public static void Configure(GameObject prefab)
 		{
-			ModCarryingCapacityComponent capacityComponent = ComponentUtils.GetComponent<ModCarryingCapacityComponent>(prefab);
+			ModCarryingCapacityBehaviour capacityComponent = ComponentUtils.GetComponent<ModCarryingCapacityBehaviour>(prefab);
 			if (capacityComponent == null) return;
 
 			CarryingCapacityBuff capacityBuff = ComponentUtils.GetOrCreateComponent<CarryingCapacityBuff>(capacityComponent);

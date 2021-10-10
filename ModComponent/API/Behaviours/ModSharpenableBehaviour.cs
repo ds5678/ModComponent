@@ -3,7 +3,7 @@
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModSharpenableComponent : MonoBehaviour
+	public class ModSharpenableBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// Which tools can be used to sharpen this item, e.g. 'GEAR_SharpeningStone'. <br/>
@@ -36,6 +36,6 @@ namespace ModComponentAPI
 		/// </summary>
 		public string Audio;
 
-		public ModSharpenableComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModSharpenableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

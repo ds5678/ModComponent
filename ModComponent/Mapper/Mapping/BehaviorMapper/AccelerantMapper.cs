@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		public static void Configure(GameObject prefab)
 		{
-			ModAccelerantComponent modAccelerantComponent = ComponentUtils.GetComponent<ModAccelerantComponent>(prefab);
+			ModAccelerantBehaviour modAccelerantComponent = ComponentUtils.GetComponent<ModAccelerantBehaviour>(prefab);
 			if (modAccelerantComponent == null) return;
 
 			FireStarterItem fireStarterItem = ComponentUtils.GetOrCreateComponent<FireStarterItem>(modAccelerantComponent);

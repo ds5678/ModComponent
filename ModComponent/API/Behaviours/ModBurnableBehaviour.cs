@@ -1,7 +1,7 @@
 ﻿namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModBurnableComponent : ModFireMakingComponent
+	public class ModBurnableBehaviour : ModFireMakingBaseBehaviour
 	{
 		/// <summary>
 		/// Number of minutes this item adds to the remaining burn time of the fire.
@@ -18,6 +18,6 @@
 		/// </summary>
 		public float TempIncrease;
 
-		public ModBurnableComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModBurnableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

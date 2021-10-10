@@ -3,7 +3,7 @@
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModEvolveComponent : MonoBehaviour
+	public class ModEvolveBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// Name of the item into which this item will. E.g. 'GEAR_GutDried'
@@ -20,6 +20,6 @@ namespace ModComponentAPI
 		/// </summary>
 		public int EvolveHours = 1;
 
-		public ModEvolveComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModEvolveBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

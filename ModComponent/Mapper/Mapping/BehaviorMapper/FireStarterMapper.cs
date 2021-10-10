@@ -6,7 +6,7 @@ namespace ModComponentMapper.ComponentMapper
 	{
 		internal static void Configure(ModBaseComponent modComponent)
 		{
-			ModFireStarterComponent modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModFireStarterComponent>(modComponent);
+			ModFireStarterBehaviour modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModFireStarterBehaviour>(modComponent);
 			if (modFireStarterComponent == null) return;
 
 			FireStarterItem fireStarterItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);

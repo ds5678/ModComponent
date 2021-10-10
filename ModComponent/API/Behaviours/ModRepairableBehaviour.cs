@@ -3,7 +3,7 @@
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModRepairableComponent : MonoBehaviour
+	public class ModRepairableBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// The audio to play while repairing.
@@ -36,6 +36,6 @@ namespace ModComponentAPI
 		/// </summary>
 		public int[] MaterialCounts;
 
-		public ModRepairableComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModRepairableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

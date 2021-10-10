@@ -6,7 +6,7 @@ namespace ModComponentAPI
 	/// The base class for all modded components involved in making fires
 	/// </summary>
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public abstract class ModFireMakingComponent : MonoBehaviour
+	public abstract class ModFireMakingBaseBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// Does this item affect the chance for success? Represents percentage points.<br/>
@@ -20,6 +20,6 @@ namespace ModComponentAPI
 		/// </summary>
 		public float DurationOffset;
 
-		public ModFireMakingComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModFireMakingBaseBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

@@ -10,7 +10,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		public static void Configure(GameObject prefab)
 		{
-			ModSharpenableComponent modSharpenableComponent = ComponentUtils.GetComponent<ModSharpenableComponent>(prefab);
+			ModSharpenableBehaviour modSharpenableComponent = ComponentUtils.GetComponent<ModSharpenableBehaviour>(prefab);
 			if (modSharpenableComponent == null) return;
 
 			Sharpenable sharpenable = ComponentUtils.GetOrCreateComponent<Sharpenable>(modSharpenableComponent);

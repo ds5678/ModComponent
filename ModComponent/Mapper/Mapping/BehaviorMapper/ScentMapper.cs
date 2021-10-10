@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		internal static void Configure(GameObject prefab)
 		{
-			ModScentComponent modScentComponent = ComponentUtils.GetComponent<ModScentComponent>(prefab);
+			ModScentBehaviour modScentComponent = ComponentUtils.GetComponent<ModScentBehaviour>(prefab);
 			if (modScentComponent == null) return;
 
 			Scent scent = ComponentUtils.GetOrCreateComponent<Scent>(modScentComponent);

@@ -1,7 +1,7 @@
 ﻿namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModFireStarterComponent : ModFireMakingComponent
+	public class ModFireStarterBehaviour : ModFireMakingBaseBehaviour
 	{
 		/// <summary>
 		/// How many in-game seconds this item will take to ignite tinder.
@@ -38,6 +38,6 @@
 		/// </summary>
 		public bool DestroyedOnUse;
 
-		public ModFireStarterComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModFireStarterBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

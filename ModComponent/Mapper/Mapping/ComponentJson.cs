@@ -124,62 +124,62 @@ namespace ModComponentMapper
 			#region Behaviour Components
 			if (JsonUtils.ContainsKey(dict, "ModAccelerantComponent"))
 			{
-				ModAccelerantComponent newComponent = ComponentUtils.GetOrCreateComponent<ModAccelerantComponent>(prefab);
+				ModAccelerantBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModAccelerantBehaviour>(prefab);
 				InitializeAccelerantComponent(newComponent, dict);
 			}
 			else if (JsonUtils.ContainsKey(dict, "ModBurnableComponent"))
 			{
-				ModBurnableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModBurnableComponent>(prefab);
+				ModBurnableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModBurnableBehaviour>(prefab);
 				InitializeBurnableComponent(newComponent, dict);
 			}
 			else if (JsonUtils.ContainsKey(dict, "ModFireStarterComponent"))
 			{
-				ModFireStarterComponent newComponent = ComponentUtils.GetOrCreateComponent<ModFireStarterComponent>(prefab);
+				ModFireStarterBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModFireStarterBehaviour>(prefab);
 				InitializeFireStarterComponent(newComponent, dict);
 			}
 			else if (JsonUtils.ContainsKey(dict, "ModTinderComponent"))
 			{
-				ModTinderComponent newComponent = ComponentUtils.GetOrCreateComponent<ModTinderComponent>(prefab);
+				ModTinderBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModTinderBehaviour>(prefab);
 				InitializeTinderComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModCarryingCapacityComponent"))
 			{
-				ModCarryingCapacityComponent newComponent = ComponentUtils.GetOrCreateComponent<ModCarryingCapacityComponent>(prefab);
+				ModCarryingCapacityBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModCarryingCapacityBehaviour>(prefab);
 				InitializeCarryingCapacityComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModEvolveComponent"))
 			{
-				ModEvolveComponent newComponent = ComponentUtils.GetOrCreateComponent<ModEvolveComponent>(prefab);
+				ModEvolveBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModEvolveBehaviour>(prefab);
 				InitializeEvolveComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModHarvestableComponent"))
 			{
-				ModHarvestableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModHarvestableComponent>(prefab);
+				ModHarvestableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModHarvestableBehaviour>(prefab);
 				InitializeHarvestableComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModMillableComponent"))
 			{
-				ModMillableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModMillableComponent>(prefab);
+				ModMillableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModMillableBehaviour>(prefab);
 				InitializeMillableComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModRepairableComponent"))
 			{
-				ModRepairableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModRepairableComponent>(prefab);
+				ModRepairableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModRepairableBehaviour>(prefab);
 				InitializeRepairableComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModScentComponent"))
 			{
-				ModScentComponent newComponent = ComponentUtils.GetOrCreateComponent<ModScentComponent>(prefab);
+				ModScentBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModScentBehaviour>(prefab);
 				InitializeScentComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModSharpenableComponent"))
 			{
-				ModSharpenableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModSharpenableComponent>(prefab);
+				ModSharpenableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModSharpenableBehaviour>(prefab);
 				InitializeSharpenableComponent(newComponent, dict);
 			}
 			if (JsonUtils.ContainsKey(dict, "ModStackableComponent"))
 			{
-				ModStackableComponent newComponent = ComponentUtils.GetOrCreateComponent<ModStackableComponent>(prefab);
+				ModStackableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModStackableBehaviour>(prefab);
 				InitializeStackableComponent(newComponent, dict);
 			}
 			#endregion
@@ -519,14 +519,14 @@ namespace ModComponentMapper
 		// BEHAVIOURS //
 		//************//
 		#region Behaviours
-		private static void InitializeAccelerantComponent(ModAccelerantComponent modAccelerant, ProxyObject dict, string className = "ModAccelerantComponent")
+		private static void InitializeAccelerantComponent(ModAccelerantBehaviour modAccelerant, ProxyObject dict, string className = "ModAccelerantComponent")
 		{
 			modAccelerant.DestroyedOnUse = dict[className]["DestroyedOnUse"];
 			modAccelerant.DurationOffset = dict[className]["DurationOffset"];
 			modAccelerant.SuccessModifier = dict[className]["SuccessModifier"];
 		}
 
-		private static void InitializeBurnableComponent(ModBurnableComponent modBurnable, ProxyObject dict, string className = "ModBurnableComponent")
+		private static void InitializeBurnableComponent(ModBurnableBehaviour modBurnable, ProxyObject dict, string className = "ModBurnableComponent")
 		{
 			modBurnable.BurningMinutes = dict[className]["BurningMinutes"];
 			modBurnable.BurningMinutesBeforeAllowedToAdd = dict[className]["BurningMinutesBeforeAllowedToAdd"];
@@ -535,19 +535,19 @@ namespace ModComponentMapper
 			JsonUtils.TrySetFloat(ref modBurnable.DurationOffset, dict, className, "DurationOffset");
 		}
 
-		private static void InitializeCarryingCapacityComponent(ModCarryingCapacityComponent modCarry, ProxyObject dict, string className = "ModCarryingCapacityComponent")
+		private static void InitializeCarryingCapacityComponent(ModCarryingCapacityBehaviour modCarry, ProxyObject dict, string className = "ModCarryingCapacityComponent")
 		{
 			modCarry.MaxCarryCapacityKGBuff = dict[className]["MaxCarryCapacityKGBuff"];
 		}
 
-		private static void InitializeEvolveComponent(ModEvolveComponent modEvolve, ProxyObject dict, string className = "ModEvolveComponent")
+		private static void InitializeEvolveComponent(ModEvolveBehaviour modEvolve, ProxyObject dict, string className = "ModEvolveComponent")
 		{
 			modEvolve.TargetItemName = dict[className]["TargetItemName"];
 			modEvolve.EvolveHours = dict[className]["EvolveHours"];
 			modEvolve.IndoorsOnly = dict[className]["IndoorsOnly"];
 		}
 
-		private static void InitializeFireStarterComponent(ModFireStarterComponent modFireStarter, ProxyObject dict, string className = "ModFireStarterComponent")
+		private static void InitializeFireStarterComponent(ModFireStarterBehaviour modFireStarter, ProxyObject dict, string className = "ModFireStarterComponent")
 		{
 			modFireStarter.DestroyedOnUse = dict[className]["DestroyedOnUse"];
 			modFireStarter.NumberOfUses = dict[className]["NumberOfUses"];
@@ -559,7 +559,7 @@ namespace ModComponentMapper
 			modFireStarter.SuccessModifier = dict[className]["SuccessModifier"];
 		}
 
-		private static void InitializeHarvestableComponent(ModHarvestableComponent modHarvestable, ProxyObject dict, string className = "ModHarvestableComponent")
+		private static void InitializeHarvestableComponent(ModHarvestableBehaviour modHarvestable, ProxyObject dict, string className = "ModHarvestableComponent")
 		{
 			modHarvestable.Audio = dict[className]["Audio"];
 			modHarvestable.Minutes = dict[className]["Minutes"];
@@ -568,7 +568,7 @@ namespace ModComponentMapper
 			modHarvestable.RequiredToolNames = JsonUtils.MakeStringArray(dict[className]["RequiredToolNames"] as ProxyArray);
 		}
 
-		private static void InitializeMillableComponent(ModMillableComponent modMillable, ProxyObject dict, string className = "ModMillableComponent")
+		private static void InitializeMillableComponent(ModMillableBehaviour modMillable, ProxyObject dict, string className = "ModMillableComponent")
 		{
 			modMillable.RepairDurationMinutes = dict[className]["RepairDurationMinutes"];
 			modMillable.RepairRequiredGear = JsonUtils.MakeStringArray(dict[className]["RepairRequiredGear"] as ProxyArray);
@@ -580,7 +580,7 @@ namespace ModComponentMapper
 			modMillable.skill = EnumUtils.ParseEnum<ModComponentAPI.SkillType>(dict[className]["Skill"]);
 		}
 
-		private static void InitializeRepairableComponent(ModRepairableComponent modRepairable, ProxyObject dict, string className = "ModRepairableComponent")
+		private static void InitializeRepairableComponent(ModRepairableBehaviour modRepairable, ProxyObject dict, string className = "ModRepairableComponent")
 		{
 			modRepairable.Audio = dict[className]["Audio"];
 			modRepairable.Minutes = dict[className]["Minutes"];
@@ -590,12 +590,12 @@ namespace ModComponentMapper
 			modRepairable.MaterialCounts = JsonUtils.MakeIntArray(dict[className]["MaterialCounts"] as ProxyArray);
 		}
 
-		private static void InitializeScentComponent(ModScentComponent modScent, ProxyObject dict, string className = "ModScentComponent")
+		private static void InitializeScentComponent(ModScentBehaviour modScent, ProxyObject dict, string className = "ModScentComponent")
 		{
 			modScent.scentCategory = EnumUtils.ParseEnum<ScentCategory>(dict[className]["ScentCategory"]);
 		}
 
-		private static void InitializeSharpenableComponent(ModSharpenableComponent modSharpenable, ProxyObject dict, string className = "ModSharpenableComponent")
+		private static void InitializeSharpenableComponent(ModSharpenableBehaviour modSharpenable, ProxyObject dict, string className = "ModSharpenableComponent")
 		{
 			modSharpenable.Audio = dict[className]["Audio"];
 			modSharpenable.MinutesMin = dict[className]["MinutesMin"];
@@ -605,7 +605,7 @@ namespace ModComponentMapper
 			modSharpenable.Tools = JsonUtils.MakeStringArray(dict[className]["Tools"] as ProxyArray);
 		}
 
-		private static void InitializeStackableComponent(ModStackableComponent modStackable, ProxyObject dict, string className = "ModStackableComponent")
+		private static void InitializeStackableComponent(ModStackableBehaviour modStackable, ProxyObject dict, string className = "ModStackableComponent")
 		{
 			modStackable.MultipleUnitTextID = dict[className]["MultipleUnitTextId"];
 			modStackable.StackSprite = dict[className]["StackSprite"];
@@ -614,7 +614,7 @@ namespace ModComponentMapper
 			modStackable.ChanceFull = dict[className]["ChanceFull"];
 		}
 
-		private static void InitializeTinderComponent(ModTinderComponent modTinder, ProxyObject dict, string className = "ModTinderComponent")
+		private static void InitializeTinderComponent(ModTinderBehaviour modTinder, ProxyObject dict, string className = "ModTinderComponent")
 		{
 			JsonUtils.TrySetFloat(ref modTinder.SuccessModifier, dict, className, "SuccessModifier");
 			JsonUtils.TrySetFloat(ref modTinder.DurationOffset, dict, className, "DurationOffset");

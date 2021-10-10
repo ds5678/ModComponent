@@ -3,7 +3,7 @@
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModHarvestableComponent : MonoBehaviour
+	public class ModHarvestableBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// The audio to play while harvesting
@@ -30,6 +30,6 @@ namespace ModComponentAPI
 		/// </summary>
 		public string[] RequiredToolNames;
 
-		public ModHarvestableComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModHarvestableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

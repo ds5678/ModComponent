@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModStackableComponent : MonoBehaviour
+	public class ModStackableBehaviour : MonoBehaviour
 	{
 		/// <summary>
 		/// Localization key to be used for stacks with a singular item. E.g. '1 arrow'.
@@ -33,7 +33,7 @@ namespace ModComponentAPI
 
 		void Awake()
 		{
-			CopyFieldHandler.UpdateFieldValues<ModStackableComponent>(this);
+			CopyFieldHandler.UpdateFieldValues<ModStackableBehaviour>(this);
 			GearItem gearItem = this.GetComponent<GearItem>();
 			StackableItem stackable = gearItem?.GetComponent<StackableItem>();
 			if (stackable && gearItem && !gearItem.m_BeenInspected)
@@ -49,6 +49,6 @@ namespace ModComponentAPI
 			}
 		}
 
-		public ModStackableComponent(System.IntPtr intPtr) : base(intPtr) { }
+		public ModStackableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 	}
 }

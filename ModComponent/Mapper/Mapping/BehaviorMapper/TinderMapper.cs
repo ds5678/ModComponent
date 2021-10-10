@@ -9,7 +9,7 @@ namespace ModComponentMapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		public static void Configure(GameObject prefab)
 		{
-			ModTinderComponent modBurnableComponent = ComponentUtils.GetComponent<ModTinderComponent>(prefab);
+			ModTinderBehaviour modBurnableComponent = ComponentUtils.GetComponent<ModTinderBehaviour>(prefab);
 			if (modBurnableComponent == null) return;
 
 			FuelSourceItem fuelSourceItem = ComponentUtils.GetOrCreateComponent<FuelSourceItem>(modBurnableComponent);
