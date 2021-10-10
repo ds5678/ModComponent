@@ -18,11 +18,11 @@ namespace ModComponentMapper.ComponentMapper
 			clothingItem.m_DryPercentPerHourNoFire = 100f / modClothingItem.HoursToDryWithoutFire;
 			clothingItem.m_FreezePercentPerHour = 100f / modClothingItem.HoursToFreeze;
 
-			clothingItem.m_Region = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingRegion, Region>(modClothingItem.Region);
-			clothingItem.m_MaxLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MaxLayer);
-			clothingItem.m_MinLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, Layer>(modClothingItem.MinLayer);
-			clothingItem.m_FootwearType = ModComponent.Utils.EnumUtils.TranslateEnumValue<FootwearType, Footwear>(modClothingItem.Footwear);
-			clothingItem.m_WornMovementSoundCategory = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingMovementSound, MovementSound>(modClothingItem.MovementSound);
+			clothingItem.m_Region = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingRegion, ModClothingComponent.BodyRegion>(modClothingItem.Region);
+			clothingItem.m_MaxLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, ModClothingComponent.Layer>(modClothingItem.MaxLayer);
+			clothingItem.m_MinLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, ModClothingComponent.Layer>(modClothingItem.MinLayer);
+			clothingItem.m_FootwearType = ModComponent.Utils.EnumUtils.TranslateEnumValue<FootwearType, ModClothingComponent.FootwearType>(modClothingItem.Footwear);
+			clothingItem.m_WornMovementSoundCategory = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingMovementSound, ModClothingComponent.MovementSounds>(modClothingItem.MovementSound);
 
 			clothingItem.m_PaperDollTextureName = modClothingItem.MainTexture;
 			clothingItem.m_PaperDollBlendmapName = modClothingItem.BlendTexture;

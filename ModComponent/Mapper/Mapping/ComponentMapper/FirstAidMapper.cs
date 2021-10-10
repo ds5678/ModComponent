@@ -19,19 +19,19 @@ namespace ModComponentMapper.ComponentMapper
 
 			switch (modFirstAidComponent.FirstAidType)
 			{
-				case FirstAidType.Antibiotics:
+				case ModFirstAidComponent.FirstAidKind.Antibiotics:
 					firstAidItem.m_ProvidesAntibiotics = true;
 					break;
 
-				case FirstAidType.Bandage:
+				case ModFirstAidComponent.FirstAidKind.Bandage:
 					firstAidItem.m_AppliesBandage = true;
 					break;
 
-				case FirstAidType.Disinfectant:
+				case ModFirstAidComponent.FirstAidKind.Disinfectant:
 					firstAidItem.m_CleansWounds = true;
 					break;
 
-				case FirstAidType.PainKiller:
+				case ModFirstAidComponent.FirstAidKind.PainKiller:
 					firstAidItem.m_KillsPain = true;
 					break;
 			}

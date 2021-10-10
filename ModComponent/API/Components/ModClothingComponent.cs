@@ -11,7 +11,7 @@ namespace ModComponentAPI
 		/// <summary>
 		/// The body region this clothing item can be worn.
 		/// </summary>
-		public Region Region;
+		public BodyRegion Region;
 
 		/// <summary>
 		/// The innermost layer at which the clothing item can be worn.<br/>
@@ -30,12 +30,12 @@ namespace ModComponentAPI
 		/// <summary>
 		/// The type of sound to make when moving while wearing this clothing item.
 		/// </summary>
-		public MovementSound MovementSound;
+		public MovementSounds MovementSound;
 
 		/// <summary>
 		/// The type footwear (as in Boots) this clothing item represents. Leave at 'None' if it is not a footwear item at all.
 		/// </summary>
-		public Footwear Footwear;
+		public FootwearType Footwear;
 
 
 		/// <summary>
@@ -182,5 +182,42 @@ namespace ModComponentAPI
 		}
 
 		public ModClothingComponent(IntPtr intPtr) : base(intPtr) { }
+
+		public enum BodyRegion
+		{
+			Head,
+			Hands,
+			Chest,
+			Legs,
+			Feet,
+			Accessory,
+		}
+
+		public enum Layer
+		{
+			Base,
+			Mid,
+			Top,
+			Top2,
+		}
+
+		public enum FootwearType
+		{
+			None,
+			Boots,
+			Deerskin,
+			Shoes,
+		}
+
+		public enum MovementSounds
+		{
+			None,
+			HeavyNylon,
+			LeatherHide,
+			LightCotton,
+			LightNylon,
+			SoftCloth,
+			Wool,
+		}
 	}
 }

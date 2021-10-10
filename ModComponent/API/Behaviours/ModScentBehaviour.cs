@@ -2,16 +2,6 @@
 
 namespace ModComponentAPI
 {
-	public enum ScentCategory
-	{
-		RAW_MEAT,
-		RAW_FISH,
-		COOKED_MEAT,
-		COOKED_FISH,
-		GUTS,
-		QUARTER,
-	}
-
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModScentBehaviour : MonoBehaviour
 	{
@@ -21,5 +11,15 @@ namespace ModComponentAPI
 		public ScentCategory scentCategory = ScentCategory.RAW_MEAT;
 
 		public ModScentBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		public enum ScentCategory
+		{
+			RAW_MEAT,
+			RAW_FISH,
+			COOKED_MEAT,
+			COOKED_FISH,
+			GUTS,
+			QUARTER,
+		}
 	}
 }

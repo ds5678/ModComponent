@@ -142,7 +142,7 @@ namespace ModComponentMapper
 
 			if (modComponent is ModToolComponent) return GearTypeEnum.Tool;
 
-			if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == LiquidType.Water)
+			if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == ModLiquidComponent.LiquidKind.Water)
 			{
 				return GearTypeEnum.Food;
 			}

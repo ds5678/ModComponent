@@ -2,19 +2,13 @@
 
 namespace ModComponentAPI
 {
-	public enum LiquidType
-	{
-		Water,
-		Kerosene
-	}
-
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModLiquidComponent : ModBaseComponent
 	{
 		/// <summary>
 		/// The type of liquid this item contains.
 		/// </summary>
-		public LiquidType LiquidType = LiquidType.Water;
+		public LiquidKind LiquidType = LiquidKind.Water;
 
 		/// <summary>
 		/// The capacity of this container in liters
@@ -37,5 +31,11 @@ namespace ModComponentAPI
 		}
 
 		public ModLiquidComponent(System.IntPtr intPtr) : base(intPtr) { }
+
+		public enum LiquidKind
+		{
+			Water,
+			Kerosene
+		}
 	}
 }

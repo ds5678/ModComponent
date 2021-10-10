@@ -286,11 +286,11 @@ namespace ModComponentMapper
 		private static void InitializeClothingComponent(ModClothingComponent modClothing, ProxyObject dict, string className = "ModClothingComponent")
 		{
 			InitializeBaseComponent(modClothing, dict, className);
-			modClothing.Region = (Region)Enum.Parse(typeof(Region), dict[className]["Region"], true);
-			modClothing.MinLayer = (Layer)Enum.Parse(typeof(Layer), dict[className]["MinLayer"], true);
-			modClothing.MaxLayer = (Layer)Enum.Parse(typeof(Layer), dict[className]["MaxLayer"], true);
-			modClothing.MovementSound = EnumUtils.ParseEnum<MovementSound>(dict[className]["MovementSound"]);
-			modClothing.Footwear = EnumUtils.ParseEnum<Footwear>(dict[className]["Footwear"]);
+			modClothing.Region = EnumUtils.ParseEnum < ModClothingComponent.BodyRegion>(dict[className]["Region"]);
+			modClothing.MinLayer = EnumUtils.ParseEnum < ModClothingComponent.Layer>(dict[className]["MinLayer"]);
+			modClothing.MaxLayer = EnumUtils.ParseEnum < ModClothingComponent.Layer>(dict[className]["MaxLayer"]);
+			modClothing.MovementSound = EnumUtils.ParseEnum<ModClothingComponent.MovementSounds>(dict[className]["MovementSound"]);
+			modClothing.Footwear = EnumUtils.ParseEnum<ModClothingComponent.FootwearType>(dict[className]["Footwear"]);
 			modClothing.DaysToDecayWornOutside = dict[className]["DaysToDecayWornOutside"];
 			modClothing.DaysToDecayWornInside = dict[className]["DaysToDecayWornInside"];
 			modClothing.Warmth = dict[className]["Warmth"];
@@ -336,7 +336,7 @@ namespace ModComponentMapper
 			}
 			modCookable.CookingUnitsRequired = dict[className]["CookingUnitsRequired"];
 			modCookable.CookingWaterRequired = dict[className]["CookingWaterRequired"];
-			modCookable.type = EnumUtils.ParseEnum<CookableType>(dict[className]["Type"]);
+			modCookable.Type = EnumUtils.ParseEnum<ModCookableComponent.CookableType>(dict[className]["Type"]);
 		}
 
 		private static void InitializeCookingPotComponent(ModCookingPotComponent modCookingPot, ProxyObject dict, string className = "ModCookingPotComponent")
@@ -362,7 +362,7 @@ namespace ModComponentMapper
 			modFirstAid.ProgressBarMessage = dict[className]["ProgressBarMessage"];
 			modFirstAid.RemedyText = dict[className]["RemedyText"];
 			modFirstAid.InstantHealing = dict[className]["InstantHealing"];
-			modFirstAid.FirstAidType = EnumUtils.ParseEnum<FirstAidType>(dict[className]["FirstAidType"]);
+			modFirstAid.FirstAidType = EnumUtils.ParseEnum<ModFirstAidComponent.FirstAidKind>(dict[className]["FirstAidType"]);
 			modFirstAid.TimeToUseSeconds = dict[className]["TimeToUseSeconds"];
 			modFirstAid.UnitsPerUse = dict[className]["UnitsPerUse"];
 			modFirstAid.UseAudio = dict[className]["UseAudio"];
@@ -431,7 +431,7 @@ namespace ModComponentMapper
 		private static void InitializeLiquidComponent(ModLiquidComponent modLiquid, ProxyObject dict, string className = "ModLiquidComponent")
 		{
 			InitializeBaseComponent(modLiquid, dict, className);
-			modLiquid.LiquidType = EnumUtils.ParseEnum<LiquidType>(dict[className]["LiquidType"]);
+			modLiquid.LiquidType = EnumUtils.ParseEnum<ModLiquidComponent.LiquidKind>(dict[className]["LiquidType"]);
 			modLiquid.LiquidCapacityLiters = dict[className]["LiquidCapacityLiters"];
 			modLiquid.RandomizeQuantity = dict[className]["RandomizedQuantity"];
 			modLiquid.LiquidLiters = Mathf.Clamp(dict[className]["LiquidLiters"], 0f, modLiquid.LiquidCapacityLiters); //overridden if Randomized
@@ -440,7 +440,7 @@ namespace ModComponentMapper
 		private static void InitializePowderComponent(ModPowderComponent modPowder, ProxyObject dict, string className = "ModPowderComponent")
 		{
 			InitializeBaseComponent(modPowder, dict, className);
-			modPowder.PowderType = EnumUtils.ParseEnum<ModPowderType>(dict[className]["PowderType"]);
+			modPowder.PowderType = EnumUtils.ParseEnum<ModPowderComponent.ModPowderType>(dict[className]["PowderType"]);
 			modPowder.CapacityKG = dict[className]["CapacityKG"];
 			modPowder.ChanceFull = dict[className]["ChanceFull"];
 		}
@@ -480,9 +480,9 @@ namespace ModComponentMapper
 		private static void InitializeToolComponent(ModToolComponent modTool, ProxyObject dict, string className = "ModToolComponent")
 		{
 			InitializeEquippableComponent(modTool, dict, className);
-			modTool.ToolType = EnumUtils.ParseEnum<ToolType>(dict[className]["ToolType"]);
+			modTool.ToolType = EnumUtils.ParseEnum<ModToolComponent.ToolKind>(dict[className]["ToolType"]);
 			modTool.DegradeOnUse = dict[className]["DegradeOnUse"];
-			modTool.Usage = EnumUtils.ParseEnum<Usage>(dict[className]["Usage"]);
+			modTool.Usage = EnumUtils.ParseEnum<ModToolComponent.ToolUsage>(dict[className]["Usage"]);
 			modTool.SkillBonus = dict[className]["SkillBonus"];
 
 			modTool.CraftingTimeMultiplier = dict[className]["CraftingTimeMultiplier"];
@@ -592,7 +592,7 @@ namespace ModComponentMapper
 
 		private static void InitializeScentComponent(ModScentBehaviour modScent, ProxyObject dict, string className = "ModScentComponent")
 		{
-			modScent.scentCategory = EnumUtils.ParseEnum<ScentCategory>(dict[className]["ScentCategory"]);
+			modScent.scentCategory = EnumUtils.ParseEnum<ModScentBehaviour.ScentCategory>(dict[className]["ScentCategory"]);
 		}
 
 		private static void InitializeSharpenableComponent(ModSharpenableBehaviour modSharpenable, ProxyObject dict, string className = "ModSharpenableComponent")

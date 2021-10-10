@@ -2,13 +2,6 @@
 
 namespace ModComponentAPI
 {
-	public enum ModPowderType
-	{
-		Gunpowder,
-		Salt,
-		Yeast
-	}
-
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModPowderComponent : ModBaseComponent
 	{
@@ -69,5 +62,12 @@ namespace ModComponentAPI
 		}
 
 		public ModPowderComponent(System.IntPtr intPtr) : base(intPtr) { }
+
+		public enum ModPowderType
+		{
+			Gunpowder,
+			Salt,
+			Yeast
+		}
 	}
 }

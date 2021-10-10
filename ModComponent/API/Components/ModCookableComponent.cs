@@ -4,13 +4,6 @@ using UnityEngine;
 
 namespace ModComponentAPI
 {
-	public enum CookableType
-	{
-		Meat,
-		Grub,
-		Liquid,
-	}
-
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCookableComponent : ModBaseComponent
 	{
@@ -24,7 +17,7 @@ namespace ModComponentAPI
 		/// What type of cookable is this? <br/>
 		/// Affects where and how this item can be cooked.
 		/// </summary>
-		public CookableType type = CookableType.Meat;
+		public CookableType Type = CookableType.Meat;
 
 		/// <summary>
 		/// How many in-game minutes does it take to cook/heat this item?
@@ -70,5 +63,12 @@ namespace ModComponentAPI
 		}
 
 		public ModCookableComponent(IntPtr intPtr) : base(intPtr) { }
+
+		public enum CookableType
+		{
+			Meat,
+			Grub,
+			Liquid,
+		}
 	}
 }

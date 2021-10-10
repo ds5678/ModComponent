@@ -12,8 +12,8 @@ namespace ModComponentMapper.ComponentMapper
 
 			ToolsItem toolsItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
 
-			toolsItem.m_ToolType = ModComponent.Utils.EnumUtils.TranslateEnumValue<ToolsItem.ToolType, Usage>(modToolComponent.Usage);
-			toolsItem.m_CuttingToolType = ModComponent.Utils.EnumUtils.TranslateEnumValue<ToolsItem.CuttingToolType, ToolType>(modToolComponent.ToolType);
+			toolsItem.m_ToolType = ModComponent.Utils.EnumUtils.TranslateEnumValue<ToolsItem.ToolType, ModToolComponent.ToolUsage>(modToolComponent.Usage);
+			toolsItem.m_CuttingToolType = ModComponent.Utils.EnumUtils.TranslateEnumValue<ToolsItem.CuttingToolType, ModToolComponent.ToolKind>(modToolComponent.ToolType);
 
 			toolsItem.m_CraftingAndRepairSkillModifier = modToolComponent.SkillBonus;
 			toolsItem.m_CraftingAndRepairTimeModifier = modToolComponent.CraftingTimeMultiplier;
@@ -112,13 +112,13 @@ namespace ModComponentMapper.ComponentMapper
 		{
 			switch (modToolComponent.ToolType)
 			{
-				case ToolType.Hatchet:
+				case ModToolComponent.ToolKind.Hatchet:
 					return StruggleBonus.StruggleWeaponType.Hatchet;
 
-				case ToolType.Hammer:
+				case ModToolComponent.ToolKind.Hammer:
 					return StruggleBonus.StruggleWeaponType.Hammer;
 
-				case ToolType.Knife:
+				case ModToolComponent.ToolKind.Knife:
 					return StruggleBonus.StruggleWeaponType.Knife;
 
 				default:
@@ -130,16 +130,16 @@ namespace ModComponentMapper.ComponentMapper
 		{
 			switch (modToolComponent.ToolType)
 			{
-				case ToolType.HackSaw:
+				case ModToolComponent.ToolKind.HackSaw:
 					return "GEAR_Hacksaw";
 
-				case ToolType.Hatchet:
+				case ModToolComponent.ToolKind.Hatchet:
 					return "GEAR_Hatchet";
 
-				case ToolType.Hammer:
+				case ModToolComponent.ToolKind.Hammer:
 					return "GEAR_Hammer";
 
-				case ToolType.Knife:
+				case ModToolComponent.ToolKind.Knife:
 					return "GEAR_Knife";
 
 				default:

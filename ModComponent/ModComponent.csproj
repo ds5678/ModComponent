@@ -125,7 +125,6 @@
     <Compile Include="API\Components\ModRandomItemComponent.cs" />
     <Compile Include="API\Components\ModRandomWeightedItemComponent.cs" />
     <Compile Include="API\Components\ModCollectibleComponent.cs" />
-    <Compile Include="API\Enums\ClothingEnums.cs" />
     <Compile Include="API\Enums\InventoryCategory.cs" />
     <Compile Include="API\Modifications\AddTag.cs" />
     <Compile Include="API\Modifications\AttachBehaviour.cs" />

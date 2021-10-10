@@ -3,14 +3,6 @@ using System;
 
 namespace ModComponentAPI
 {
-	public enum FirstAidType
-	{
-		Antibiotics,
-		Bandage,
-		Disinfectant,
-		PainKiller,
-	}
-
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModFirstAidComponent : ModBaseComponent
 	{
@@ -34,7 +26,7 @@ namespace ModComponentAPI
 		/// <summary>
 		/// What type of treatment does this item provide?
 		/// </summary>
-		public FirstAidType FirstAidType = FirstAidType.Antibiotics;
+		public FirstAidKind FirstAidType = FirstAidKind.Antibiotics;
 
 		/// <summary>
 		/// Time in seconds to use this item. <br/>
@@ -58,5 +50,13 @@ namespace ModComponentAPI
 		}
 
 		public ModFirstAidComponent(IntPtr intPtr) : base(intPtr) { }
+
+		public enum FirstAidKind
+		{
+			Antibiotics,
+			Bandage,
+			Disinfectant,
+			PainKiller,
+		}
 	}
 }

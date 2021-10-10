@@ -16,7 +16,7 @@ namespace ModComponentMapper.ComponentMapper
 
 			Cookable cookable = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<Cookable>(modCookableComponent);
 
-			cookable.m_CookableType = ModComponent.Utils.EnumUtils.TranslateEnumValue<Cookable.CookableType, CookableType>(modCookableComponent.type);
+			cookable.m_CookableType = ModComponent.Utils.EnumUtils.TranslateEnumValue<Cookable.CookableType, ModCookableComponent.CookableType>(modCookableComponent.Type);
 			cookable.m_CookTimeMinutes = modCookableComponent.CookingMinutes;
 			cookable.m_ReadyTimeMinutes = modCookableComponent.BurntMinutes;
 			cookable.m_NumUnitsRequired = modCookableComponent.CookingUnitsRequired;
@@ -58,11 +58,11 @@ namespace ModComponentMapper.ComponentMapper
 
 		private static string GetDefaultCookAudio(ModCookableComponent modCookableComponent)
 		{
-			switch (modCookableComponent.type)
+			switch (modCookableComponent.Type)
 			{
-				case CookableType.Grub:
+				case ModCookableComponent.CookableType.Grub:
 					return "Play_BoilingLiquidThickHeavy";
-				case CookableType.Meat:
+				case ModCookableComponent.CookableType.Meat:
 					return "Play_FryingHeavy";
 				default:
 					return "Play_BoilingLiquidLight";
@@ -71,11 +71,11 @@ namespace ModComponentMapper.ComponentMapper
 
 		private static string GetDefaultStartCookingAudio(ModCookableComponent modCookableComponent)
 		{
-			switch (modCookableComponent.type)
+			switch (modCookableComponent.Type)
 			{
-				case CookableType.Grub:
+				case ModCookableComponent.CookableType.Grub:
 					return "Play_AddSlopToPot";
-				case CookableType.Meat:
+				case ModCookableComponent.CookableType.Meat:
 					return "Play_AddMeatPan";
 				default:
 					return "Play_AddWaterToPot";

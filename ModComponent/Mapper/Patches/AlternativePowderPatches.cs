@@ -13,8 +13,8 @@ namespace ModComponentMapper.Patches
 
 			private static bool Prefix(PlayerManager __instance, float amount, GearPowderType type)
 			{
-				ModPowderType modPowderType = ModPowderComponent.GetPowderType(type);
-				if (modPowderType == ModPowderType.Gunpowder) return true;
+				ModPowderComponent.ModPowderType modPowderType = ModPowderComponent.GetPowderType(type);
+				if (modPowderType == ModPowderComponent.ModPowderType.Gunpowder) return true;
 
 				float num = amount;
 				foreach (GearItemObject gearItemObject in GameManager.GetInventoryComponent().m_Items)
@@ -27,8 +27,8 @@ namespace ModComponentMapper.Patches
 				}
 
 				string prefabName = null;
-				if (modPowderType == ModPowderType.Salt) prefabName = saltPrefabName;
-				else if (modPowderType == ModPowderType.Yeast) prefabName = yeastPrefabName;
+				if (modPowderType == ModPowderComponent.ModPowderType.Salt) prefabName = saltPrefabName;
+				else if (modPowderType == ModPowderComponent.ModPowderType.Yeast) prefabName = yeastPrefabName;
 
 				if (!Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
 				{

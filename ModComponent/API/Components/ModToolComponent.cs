@@ -2,22 +2,6 @@
 
 namespace ModComponentAPI
 {
-	public enum ToolType
-	{
-		None,
-		HackSaw,
-		Hatchet,
-		Hammer,
-		Knife,
-	}
-
-	public enum Usage
-	{
-		All,
-		CraftOnly,
-		RepairOnly,
-	}
-
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModToolComponent : EquippableModComponent
 	{
@@ -25,7 +9,7 @@ namespace ModComponentAPI
 		/// The type of the tool item. This determines for which actions it can be used.
 		/// E.g. 'Knife' for cutting, 'Hammer' for pounding, etc.
 		/// </summary>
-		public ToolType ToolType = ToolType.None;
+		public ToolKind ToolType = ToolKind.None;
 
 		/// <summary>
 		/// How many condition points per use does this tool item lose?
@@ -37,7 +21,7 @@ namespace ModComponentAPI
 		/// <summary>
 		/// Can this item be used for crafting, repairing or both?
 		/// </summary>
-		public Usage Usage = Usage.All;
+		public ToolUsage Usage = ToolUsage.All;
 
 		/// <summary>
 		/// Bonus to the relevant skill when using this item. E.g. the sewing kit gives a bonus of +20.
@@ -167,5 +151,21 @@ namespace ModComponentAPI
 		}
 
 		public ModToolComponent(System.IntPtr intPtr) : base(intPtr) { }
+
+		public enum ToolKind
+		{
+			None,
+			HackSaw,
+			Hatchet,
+			Hammer,
+			Knife,
+		}
+
+		public enum ToolUsage
+		{
+			All,
+			CraftOnly,
+			RepairOnly,
+		}
 	}
 }

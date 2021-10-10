@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ModComponentAPI
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModExplosiveComponent : EquippableModComponent
+	internal class ModExplosiveComponent : EquippableModComponent
 	{
 		public float killPlayerRange = 5;
 
