@@ -1,7 +1,7 @@
 ﻿using MelonLoader;
 using UnityEngine;
 
-namespace ModComponentMain
+namespace ModComponent.Main
 {
 	internal class Implementation : MelonMod
 	{

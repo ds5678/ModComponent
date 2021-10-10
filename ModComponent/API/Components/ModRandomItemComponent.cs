@@ -19,7 +19,7 @@ namespace ModComponentAPI
 		}
 		void Update()
 		{
-			if (ModComponentMain.Settings.instance.disableRandomItemSpawns) return;
+			if (ModComponent.Main.Settings.instance.disableRandomItemSpawns) return;
 			if (this.ItemNames == null || this.ItemNames.Length == 0)
 			{
 				Logger.LogWarning("'{0}' had an invalid list of potential spawn items.", this.name);

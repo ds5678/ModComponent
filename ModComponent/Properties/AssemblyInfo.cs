@@ -1,7 +1,7 @@
 ﻿using MelonLoader;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using BuildInfo = ModComponentMain.BuildInfo;
+using BuildInfo = ModComponent.Main.BuildInfo;
 
 [assembly: ComVisible(false)]
 [assembly: Guid("b809c688-2a3f-4573-821f-fb90ea433dad")]
@@ -16,5 +16,5 @@ using BuildInfo = ModComponentMain.BuildInfo;
 
 [assembly: AssemblyVersion(BuildInfo.Version)]
 [assembly: AssemblyFileVersion(BuildInfo.Version)]
-[assembly: MelonInfo(typeof(ModComponentMain.Implementation), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, BuildInfo.DownloadLink)]
+[assembly: MelonInfo(typeof(ModComponent.Main.Implementation), BuildInfo.Name, BuildInfo.Version, BuildInfo.Author, BuildInfo.DownloadLink)]
 [assembly: MelonGame("Hinterland", "TheLongDark")]

@@ -110,7 +110,7 @@ namespace ModComponentMapper.CraftingMenu
 				int numFilteredItems = __instance.m_FilteredBlueprintItems.Count;
 				if (!Utils.IsZero(axisScrollWheel, 0.0001f) && numFilteredItems > numBlueprintDisplays)
 				{
-					int maxChange = Mathf.Clamp(ModComponentMain.Settings.instance.numCraftingSteps, 0, numBlueprintDisplays);
+					int maxChange = Mathf.Clamp(ModComponent.Main.Settings.instance.numCraftingSteps, 0, numBlueprintDisplays);
 					int num = __instance.m_CurrentBlueprintDisplayOffset;
 					num += ((axisScrollWheel < 0f) ? maxChange : (-maxChange));
 					num = Mathf.Clamp(num, 0, numFilteredItems - numBlueprintDisplays);

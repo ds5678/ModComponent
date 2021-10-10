@@ -8,7 +8,7 @@ namespace ModComponentMapper
 	{
 		internal static float GetAdjustedProbability(GearSpawnInfo gearSpawnInfo)
 		{
-			if (ModComponentMain.Settings.instance.alwaysSpawnItems) return 100f; //overrides everything else
+			if (ModComponent.Main.Settings.instance.alwaysSpawnItems) return 100f; //overrides everything else
 
 			DifficultyLevel difficultyLevel = GetDifficultyLevel();
 			FirearmAvailability firearmAvailability = GetFirearmAvailability();
@@ -26,22 +26,22 @@ namespace ModComponentMapper
 			switch (difficultyLevel)
 			{
 				case DifficultyLevel.Pilgram:
-					multiplier = Math.Max(0f, ModComponentMain.Settings.instance.pilgramSpawnProbabilityMultiplier);
+					multiplier = Math.Max(0f, ModComponent.Main.Settings.instance.pilgramSpawnProbabilityMultiplier);
 					break;
 				case DifficultyLevel.Voyager:
-					multiplier = Math.Max(0f, ModComponentMain.Settings.instance.voyagerSpawnProbabilityMultiplier);
+					multiplier = Math.Max(0f, ModComponent.Main.Settings.instance.voyagerSpawnProbabilityMultiplier);
 					break;
 				case DifficultyLevel.Stalker:
-					multiplier = Math.Max(0f, ModComponentMain.Settings.instance.stalkerSpawnProbabilityMultiplier);
+					multiplier = Math.Max(0f, ModComponent.Main.Settings.instance.stalkerSpawnProbabilityMultiplier);
 					break;
 				case DifficultyLevel.Interloper:
-					multiplier = Math.Max(0f, ModComponentMain.Settings.instance.interloperSpawnProbabilityMultiplier);
+					multiplier = Math.Max(0f, ModComponent.Main.Settings.instance.interloperSpawnProbabilityMultiplier);
 					break;
 				case DifficultyLevel.Storymode:
-					multiplier = Math.Max(0f, ModComponentMain.Settings.instance.storySpawnProbabilityMultiplier);
+					multiplier = Math.Max(0f, ModComponent.Main.Settings.instance.storySpawnProbabilityMultiplier);
 					break;
 				case DifficultyLevel.Challenge:
-					multiplier = Math.Max(0f, ModComponentMain.Settings.instance.challengeSpawnProbabilityMultiplier);
+					multiplier = Math.Max(0f, ModComponent.Main.Settings.instance.challengeSpawnProbabilityMultiplier);
 					break;
 			}
 			if (multiplier == 0f) return 0f; //can disable spawns for a game mode
