@@ -1,5 +1,4 @@
-﻿using ModComponent.API;
-using ModComponent.API.Components;
+﻿using ModComponent.API.Components;
 using UnityEngine;
 
 namespace ModComponent.Mapper.ComponentMapper

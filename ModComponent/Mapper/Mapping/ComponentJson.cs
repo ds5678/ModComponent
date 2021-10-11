@@ -1,10 +1,8 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponent.API;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.API.Modifications;
 using ModComponent.Utils;
-using System;
 using UnityEngine;
 
 namespace ModComponent.Mapper
