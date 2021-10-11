@@ -207,8 +207,8 @@ namespace ModComponent.Mapper
 			modComponent.WeightKG = dict[inheritanceName]["WeightKG"];
 			modComponent.DaysToDecay = dict[inheritanceName]["DaysToDecay"];
 			modComponent.MaxHP = dict[inheritanceName]["MaxHP"];
-			modComponent.InitialCondition = EnumUtils.ParseEnum<InitialCondition>(dict[inheritanceName]["InitialCondition"]);
-			modComponent.InventoryCategory = EnumUtils.ParseEnum<InventoryCategory>(dict[inheritanceName]["InventoryCategory"]);
+			modComponent.InitialCondition = EnumUtils.ParseEnum<ModBaseComponent.StartingCondition>(dict[inheritanceName]["InitialCondition"]);
+			modComponent.InventoryCategory = EnumUtils.ParseEnum<ModBaseComponent.ItemCategory>(dict[inheritanceName]["InventoryCategory"]);
 			modComponent.PickUpAudio = dict[inheritanceName]["PickUpAudio"];
 			modComponent.PutBackAudio = dict[inheritanceName]["PutBackAudio"];
 			modComponent.StowAudio = dict[inheritanceName]["StowAudio"];

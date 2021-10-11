@@ -28,7 +28,7 @@ namespace ModComponent.API
 		/// The inventory category to be used for this item. <br/>
 		/// Leave at 'Auto' for a sensible default.
 		/// </summary>
-		public InventoryCategory InventoryCategory = InventoryCategory.Auto;
+		public ItemCategory InventoryCategory = ItemCategory.Auto;
 
 		/// <summary>
 		/// Localization key to be used for the 'Action' (e.g. 'Equip', 'Eat', ...) button in the inventory.<br/>
@@ -77,7 +77,7 @@ namespace ModComponent.API
 		/// <summary>
 		/// The initial condition of the item when found or crafted.
 		/// </summary>
-		public InitialCondition InitialCondition;
+		public StartingCondition InitialCondition;
 
 
 		/// <summary>
@@ -131,5 +131,25 @@ namespace ModComponent.API
 		}
 
 		public ModBaseComponent(IntPtr intPtr) : base(intPtr) { }
+
+		public enum StartingCondition
+		{
+			Random,
+			Perfect,
+			High,
+			Medium,
+			Low
+		}
+
+		public enum ItemCategory
+		{
+			Auto,
+			Clothing,
+			FirstAid,
+			Firestarting,
+			Food,
+			Material,
+			Tool
+		}
 	}
 }

@@ -109,7 +109,6 @@
     <Compile Include="API\Components\ModRandomItemComponent.cs" />
     <Compile Include="API\Components\ModRandomWeightedItemComponent.cs" />
     <Compile Include="API\Components\ModCollectibleComponent.cs" />
-    <Compile Include="API\Enums\InventoryCategory.cs" />
     <Compile Include="API\Modifications\AddTag.cs" />
     <Compile Include="API\Modifications\AttachBehaviour.cs" />
     <Compile Include="API\Behaviours\ModAccelerantBehaviour.cs" />
@@ -140,10 +139,9 @@
     <Compile Include="API\Components\ModToolComponent.cs" />
     <Compile Include="Utils\ConversionUtils.cs" />
     <Compile Include="Utils\CopyFieldHandler.cs" />
-    <Compile Include="API\Enums\InitialCondition.cs" />
     <Compile Include="API\ModBlueprint.cs" />
     <Compile Include="API\Modifications\PlayAkSound.cs" />
-    <Compile Include="API\Enums\SkillType.cs" />
+    <Compile Include="API\SkillType.cs" />
     <Compile Include="API\Logger.cs" />
     <Compile Include="Utils\ActionPickerUtilities.cs" />
     <Compile Include="Utils\TypeResolver.cs" />

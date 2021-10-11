@@ -96,7 +96,7 @@ namespace ModComponent.Mapper
 			gearItem.m_WeightKG = modComponent.WeightKG;
 			gearItem.m_MaxHP = modComponent.MaxHP;
 			gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
-			gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, InitialCondition>(modComponent.InitialCondition), false);
+			gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, ModBaseComponent.StartingCondition>(modComponent.InitialCondition), false);
 			// OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
 
 			gearItem.m_LocalizedDisplayName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
@@ -132,9 +132,9 @@ namespace ModComponent.Mapper
 
 		private static GearTypeEnum GetGearType(ModBaseComponent modComponent)
 		{
-			if (modComponent.InventoryCategory != InventoryCategory.Auto)
+			if (modComponent.InventoryCategory != ModBaseComponent.ItemCategory.Auto)
 			{
-				return EnumUtils.TranslateEnumValue<GearTypeEnum, InventoryCategory>(modComponent.InventoryCategory);
+				return EnumUtils.TranslateEnumValue<GearTypeEnum, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
 			}
 
 			if (modComponent is ModToolComponent) return GearTypeEnum.Tool;
