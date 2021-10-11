@@ -78,8 +78,8 @@
     <Compile Include="API\Components\ModResearchComponent.cs" />
     <Compile Include="API\Recipes\ModIngredient.cs" />
     <Compile Include="API\Recipes\ModPowderIngredient.cs" />
-    <Compile Include="API\SpecialClasses\AlcoholComponent.cs" />
-    <Compile Include="API\SpecialClasses\ModLootTable.cs" />
+    <Compile Include="API\AlcoholComponent.cs" />
+    <Compile Include="API\ModLootTable.cs" />
     <Compile Include="API\Recipes\ModRecipe.cs" />
     <Compile Include="Main\BuildInfo.cs" />
     <Compile Include="Mapper\CraftingMenu\CraftingExtensions.cs" />
@@ -141,10 +141,10 @@
     <Compile Include="Utils\ConversionUtils.cs" />
     <Compile Include="Utils\CopyFieldHandler.cs" />
     <Compile Include="API\Enums\InitialCondition.cs" />
-    <Compile Include="API\SpecialClasses\ModBlueprint.cs" />
+    <Compile Include="API\ModBlueprint.cs" />
     <Compile Include="API\Modifications\PlayAkSound.cs" />
     <Compile Include="API\Enums\SkillType.cs" />
-    <Compile Include="API\SpecialClasses\Logger.cs" />
+    <Compile Include="API\Logger.cs" />
     <Compile Include="Utils\ActionPickerUtilities.cs" />
     <Compile Include="Utils\TypeResolver.cs" />
     <Compile Include="Main\Implementation.cs" />
