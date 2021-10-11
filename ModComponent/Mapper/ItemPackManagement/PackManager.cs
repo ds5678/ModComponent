@@ -1,4 +1,4 @@
-﻿namespace ModComponent.Mapper.InformationMenu
+﻿namespace ModComponent.Mapper
 {
 	internal static class PackManager
 	{

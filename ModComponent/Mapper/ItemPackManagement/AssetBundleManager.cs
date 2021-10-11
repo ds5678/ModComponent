@@ -1,5 +1,4 @@
-﻿using ModComponent.Mapper.InformationMenu;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ModComponent.Mapper
@@ -41,7 +40,7 @@ namespace ModComponent.Mapper
 					string errorMessage = string.Format("Could not map the assets in the bundle at '{0}'. {1}", relativePath, e);
 					if (pendingAssetBundlePaths.ContainsKey(relativePath))
 					{
-						InformationMenu.PackManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath], errorMessage);
+						PackManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath], errorMessage);
 					}
 					Logger.LogError(errorMessage);
 				}

@@ -7,8 +7,6 @@ namespace ModComponent.Mapper.Patches
 	{
 		private static void Postfix()
 		{
-			Logger.Log("The Long Dark version: '{0}'", GameManager.GetVersionString());
-
 			try { BlueprintMapper.MapBlueprints(); }
 			catch (System.Exception e)
 			{
@@ -21,15 +19,6 @@ namespace ModComponent.Mapper.Patches
 			//
 
 			AlternativeToolManager.ProcessList();
-		}
-	}
-
-	[HarmonyPatch(typeof(GameManager), "SetAudioModeForLoadedScene")]//Exists
-	internal static class GameManager_SetAudioModeForLoadedScene
-	{
-		private static void Prefix()
-		{
-			MapperCore.SceneReady();
 		}
 	}
 }

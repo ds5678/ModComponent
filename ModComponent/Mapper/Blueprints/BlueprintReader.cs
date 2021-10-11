@@ -1,5 +1,4 @@
 ﻿using ModComponent.API;
-using ModComponent.Mapper.InformationMenu;
 using System;
 
 namespace ModComponent.Mapper
@@ -20,7 +19,7 @@ namespace ModComponent.Mapper
 		{
 			if (string.IsNullOrWhiteSpace(text))
 			{
-				InformationMenu.PackManager.SetItemPackNotWorking(path, "Skipping because blueprint text contains no information");
+				PackManager.SetItemPackNotWorking(path, "Skipping because blueprint text contains no information");
 				return;
 			}
 
@@ -30,12 +29,12 @@ namespace ModComponent.Mapper
 				if (!(blueprint == null)) BlueprintMapper.RegisterBlueprint(blueprint, path);
 				else
 				{
-					InformationMenu.PackManager.SetItemPackNotWorking(path, "Skipping because blueprint == null");
+					PackManager.SetItemPackNotWorking(path, "Skipping because blueprint == null");
 				}
 			}
 			catch (Exception e)
 			{
-				InformationMenu.PackManager.SetItemPackNotWorking(path, $"Could not read blueprint from '{path}'. {e.Message}");
+				PackManager.SetItemPackNotWorking(path, $"Could not read blueprint from '{path}'. {e.Message}");
 			}
 		}
 	}

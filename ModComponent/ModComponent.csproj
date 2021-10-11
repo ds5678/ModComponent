@@ -39,6 +39,9 @@
     <Reference Include="Assembly-CSharp">
       <Private>False</Private>
     </Reference>
+    <Reference Include="GearSpawner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Il2Cppmscorlib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -87,10 +90,6 @@
     <Compile Include="Mapper\CraftingMenu\MethodReplacements.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeDisplayItem.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeMenuGUI.cs" />
-    <Compile Include="Mapper\GearSpawns\DifficultyLevel.cs" />
-    <Compile Include="Mapper\GearSpawns\FirearmAvailability.cs" />
-    <Compile Include="Mapper\GearSpawns\GearSpawnInfo.cs" />
-    <Compile Include="Mapper\GearSpawns\LootTableEntry.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\CarryingCapacityMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\TinderMapper.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\CharcoalMapper.cs" />
@@ -164,7 +163,6 @@
     <Compile Include="Mapper\Mapping\ComponentMapper\LiquidMapper.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\PowderMapper.cs" />
     <Compile Include="Mapper\Equippable\ItemDescriptionPagePatch_Equippable.cs" />
-    <Compile Include="Mapper\GearSpawns\SpawnTagManager.cs" />
     <Compile Include="Mapper\ItemPackManagement\PackManager.cs" />
     <Compile Include="Mapper\ItemPackManagement\ItemPackData.cs" />
     <Compile Include="Mapper\Mapping\AutoMapper.cs" />
@@ -181,15 +179,12 @@
     <Compile Include="Mapper\Mapping\BehaviorMapper\SharpenableMapper.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\ToolMapper.cs" />
     <Compile Include="Mapper\Clothing\BrightnessChanger.cs" />
-    <Compile Include="Mapper\GearSpawns\ProbabilityManager.cs" />
-    <Compile Include="Mapper\GearSpawns\GearSpawnReader.cs" />
     <Compile Include="Mapper\MainFiles\MapperCore.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\CookableMapper.cs" />
     <Compile Include="Mapper\Equippable\EquippablePatches.cs" />
     <Compile Include="Mapper\Patches\ModClothingPatches.cs" />
     <Compile Include="Mapper\Equippable\GearEquipper.cs" />
     <Compile Include="Mapper\AuxiliaryClasses\BuffCauseTracker.cs" />
-    <Compile Include="Mapper\GearSpawns\GearSpawner.cs" />
     <Compile Include="Mapper\Patches\LiquidRandomizationPatches.cs" />
     <Compile Include="Mapper\Clothing\DefaultDrawLayers.cs" />
     <Compile Include="Mapper\Patches\FirestartingPatches.cs" />

@@ -160,8 +160,7 @@ namespace ModComponent.Mapper
 			if (internalPath.StartsWith(@"gear-spawns/"))
 			{
 				Logger.Log("Reading txt from zip at '{0}'", internalPath);
-				string[] lines = Regex.Split(text, "\r\n|\r|\n");
-				GearSpawnReader.ProcessLines(lines, fullPath);
+				GearSpawner.GearSpawnManager.ParseSpawnInformation(text);
 			}
 		}
 		private static void HandleUnity3d(string internalPath, MemoryStream memoryStream, string fullPath)
@@ -178,7 +177,7 @@ namespace ModComponent.Mapper
 				}
 				catch (Exception e)
 				{
-					InformationMenu.PackManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
+					PackManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
 				}
 			}
 		}
