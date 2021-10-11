@@ -90,6 +90,7 @@
     <Compile Include="Mapper\CraftingMenu\MethodReplacements.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeDisplayItem.cs" />
     <Compile Include="Mapper\CraftingMenu\RecipeMenuGUI.cs" />
+    <Compile Include="Mapper\ItemPackManagement\FileType.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\CarryingCapacityMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\TinderMapper.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\CharcoalMapper.cs" />

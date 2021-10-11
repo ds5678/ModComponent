@@ -6,36 +6,18 @@ using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace ModComponent.Mapper
 {
-	internal enum FileType
-	{
-		json,
-		unity3d,
-		txt,
-		dll,
-		bnk,
-		other
-	}
-
 	internal static class ZipFileLoader
 	{
 		internal static readonly List<byte[]> hashes = new List<byte[]>();
 		internal static void Initialize()
 		{
-			string zipFolderDirectory = ModComponent.Utils.FileUtils.GetModComponentZipsFolderPath();
-			if (!Directory.Exists(zipFolderDirectory))
-			{
-				Logger.Log("Directory '{0}' does not exist. Creating ...", zipFolderDirectory);
-				Directory.CreateDirectory(zipFolderDirectory);
-				return;
-			}
-			LoadZipFilesInDirectory(zipFolderDirectory);
+			LoadZipFilesInDirectory(FileUtils.GetModsFolderPath());
 		}
-		internal static void LoadZipFilesInDirectory(string directory)
+		private static void LoadZipFilesInDirectory(string directory)
 		{
 			string[] directories = Directory.GetDirectories(directory);
 			foreach (string eachDirectory in directories)
@@ -46,18 +28,14 @@ namespace ModComponent.Mapper
 			string[] files = Directory.GetFiles(directory);
 			foreach (string eachFile in files)
 			{
-#if DEBUG
-				if (eachFile.ToLower().EndsWith(".modcomponent") || eachFile.ToLower().EndsWith(".zip"))
-#else
 				if (eachFile.ToLower().EndsWith(".modcomponent"))
-#endif
 				{
 					//PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
 					LoadZipFile(eachFile);
 				}
 			}
 		}
-		internal static void LoadZipFile(string zipFilePath)
+		private static void LoadZipFile(string zipFilePath)
 		{
 			Logger.LogGreen("Reading zip file at: '{0}'", zipFilePath);
 			var fileStream = File.OpenRead(zipFilePath);
@@ -112,7 +90,7 @@ namespace ModComponent.Mapper
 				}
 			}
 		}
-		internal static Encoding GetEncoding(MemoryStream memoryStream)
+		private static Encoding GetEncoding(MemoryStream memoryStream)
 		{
 			using (var reader = new StreamReader(memoryStream, true))
 			{
@@ -120,13 +98,13 @@ namespace ModComponent.Mapper
 				return reader.CurrentEncoding;
 			}
 		}
-		internal static string ReadToString(MemoryStream memoryStream)
+		private static string ReadToString(MemoryStream memoryStream)
 		{
 			Encoding encoding = GetEncoding(memoryStream);
 			//Logger.Log(encoding.EncodingName);
 			return encoding.GetString(memoryStream.ToArray());
 		}
-		internal static FileType GetFileType(string filename)
+		private static FileType GetFileType(string filename)
 		{
 			if (String.IsNullOrWhiteSpace(filename)) return FileType.other;
 			if (filename.EndsWith(".unity3d")) return FileType.unity3d;
