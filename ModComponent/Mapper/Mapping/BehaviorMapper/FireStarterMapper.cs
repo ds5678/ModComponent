@@ -16,7 +16,7 @@ namespace ModComponentMapper.ComponentMapper
 
 			fireStarterItem.m_FireStartSkillModifier = modFireStarterComponent.SuccessModifier;
 
-			fireStarterItem.m_ConditionDegradeOnUse = Mapper.GetDecayPerStep(modFireStarterComponent.NumberOfUses, modComponent.MaxHP);
+			fireStarterItem.m_ConditionDegradeOnUse = ItemMapper.GetDecayPerStep(modFireStarterComponent.NumberOfUses, modComponent.MaxHP);
 			fireStarterItem.m_ConsumeOnUse = modFireStarterComponent.DestroyedOnUse;
 			fireStarterItem.m_RequiresSunLight = modFireStarterComponent.RequiresSunLight;
 			fireStarterItem.m_OnUseSoundEvent = modFireStarterComponent.OnUseSoundEvent;

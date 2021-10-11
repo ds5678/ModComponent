@@ -1,5 +1,4 @@
 ﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
-using ModComponentMapper.InformationMenu;
 using ModComponent.Utils;
 using System;
 using System.Collections.Generic;

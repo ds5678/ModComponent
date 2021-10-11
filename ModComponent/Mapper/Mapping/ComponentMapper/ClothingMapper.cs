@@ -11,8 +11,8 @@ namespace ModComponentMapper.ComponentMapper
 
 			ClothingItem clothingItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
 
-			clothingItem.m_DailyHPDecayWhenWornInside = Mapper.GetDecayPerStep(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
-			clothingItem.m_DailyHPDecayWhenWornOutside = Mapper.GetDecayPerStep(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
+			clothingItem.m_DailyHPDecayWhenWornInside = ItemMapper.GetDecayPerStep(modClothingItem.DaysToDecayWornInside, modClothingItem.MaxHP);
+			clothingItem.m_DailyHPDecayWhenWornOutside = ItemMapper.GetDecayPerStep(modClothingItem.DaysToDecayWornOutside, modClothingItem.MaxHP);
 			clothingItem.m_DryBonusWhenNotWorn = 1.5f;
 			clothingItem.m_DryPercentPerHour = 100f / modClothingItem.HoursToDryNearFire;
 			clothingItem.m_DryPercentPerHourNoFire = 100f / modClothingItem.HoursToDryWithoutFire;

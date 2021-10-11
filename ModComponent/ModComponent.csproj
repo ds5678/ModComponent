@@ -194,7 +194,7 @@
     <Compile Include="Mapper\Clothing\DefaultDrawLayers.cs" />
     <Compile Include="Mapper\Patches\FirestartingPatches.cs" />
     <Compile Include="Mapper\Patches\OverrideCraftingResultConditionPatches.cs" />
-    <Compile Include="Mapper\Mapping\Mapper.cs" />
+    <Compile Include="Mapper\Mapping\ItemMapper.cs" />
     <Compile Include="Mapper\Patches\GameManagerPatch.cs" />
     <Compile Include="Utils\ComponentUtils.cs" />
     <Compile Include="Utils\DiagnosticUtils.cs" />

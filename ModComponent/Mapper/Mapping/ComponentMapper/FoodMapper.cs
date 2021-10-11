@@ -19,8 +19,8 @@ namespace ModComponentMapper.ComponentMapper
 			foodItem.m_ChanceFoodPoisoning = Mathf.Clamp01(modFoodComponent.FoodPoisoning / 100f);
 			foodItem.m_ChanceFoodPoisoningLowCondition = Mathf.Clamp01(modFoodComponent.FoodPoisoningLowCondition / 100f);
 			foodItem.m_ChanceFoodPoisoningRuined = Mathf.Clamp01(modFoodComponent.FoodPoisoningLowCondition / 100f);
-			foodItem.m_DailyHPDecayInside = Mapper.GetDecayPerStep(modFoodComponent.DaysToDecayIndoors, modFoodComponent.MaxHP);
-			foodItem.m_DailyHPDecayOutside = Mapper.GetDecayPerStep(modFoodComponent.DaysToDecayOutdoors, modFoodComponent.MaxHP);
+			foodItem.m_DailyHPDecayInside = ItemMapper.GetDecayPerStep(modFoodComponent.DaysToDecayIndoors, modFoodComponent.MaxHP);
+			foodItem.m_DailyHPDecayOutside = ItemMapper.GetDecayPerStep(modFoodComponent.DaysToDecayOutdoors, modFoodComponent.MaxHP);
 
 			foodItem.m_TimeToEatSeconds = Mathf.Clamp(1, modFoodComponent.EatingTime, 10);
 			foodItem.m_TimeToOpenAndEatSeconds = Mathf.Clamp(1, modFoodComponent.EatingTime, 10) + 5;

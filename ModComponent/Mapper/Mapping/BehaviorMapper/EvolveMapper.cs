@@ -26,7 +26,7 @@ namespace ModComponentMapper.ComponentMapper
 			if (ComponentUtils.GetModComponent(targetItem) != null)
 			{
 				// if this a modded item, map it now (no harm if it was already mapped earlier)
-				Mapper.Map(targetItem);
+				ItemMapper.Map(targetItem);
 			}
 
 			return ModUtils.GetItem<GearItem>(targetItemName, reference);

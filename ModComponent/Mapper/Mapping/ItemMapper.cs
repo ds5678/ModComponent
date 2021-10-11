@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ModComponentMapper
 {
-	public static class Mapper
+	public static class ItemMapper
 	{
 		private static List<ModBaseComponent> mappedItems = new List<ModBaseComponent>();
 
