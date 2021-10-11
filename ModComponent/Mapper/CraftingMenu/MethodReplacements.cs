@@ -106,11 +106,11 @@ namespace ModComponentMapper.CraftingMenu
 			else
 			{
 				float axisScrollWheel = InputManager.GetAxisScrollWheel(__instance);
-				int numBlueprintDisplays = __instance.m_BlueprintDisplays.Count;
-				int numFilteredItems = __instance.m_FilteredBlueprintItems.Count;
+				int numBlueprintDisplays = __instance.m_BlueprintDisplays.Count; // 7
+				int numFilteredItems = __instance.m_FilteredBlueprintItems.Count; // total number of blueprints in that filtered list
 				if (!Utils.IsZero(axisScrollWheel, 0.0001f) && numFilteredItems > numBlueprintDisplays)
 				{
-					int maxChange = Mathf.Clamp(ModComponent.Main.Settings.instance.numCraftingSteps, 0, numBlueprintDisplays);
+					int maxChange = Mathf.Clamp(ModComponent.Main.Settings.instance.numCraftingSteps, 1, numBlueprintDisplays);
 					int num = __instance.m_CurrentBlueprintDisplayOffset;
 					num += ((axisScrollWheel < 0f) ? maxChange : (-maxChange));
 					num = Mathf.Clamp(num, 0, numFilteredItems - numBlueprintDisplays);

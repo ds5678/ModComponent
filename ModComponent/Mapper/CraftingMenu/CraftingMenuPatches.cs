@@ -31,8 +31,10 @@ namespace ModComponentMapper.CraftingMenu
 		[HarmonyPatch(typeof(Panel_Crafting), "ItemPassesFilter")]
 		internal static class Panel_Crafting_ItemPassesFilter
 		{
-			private static bool Prefix(Panel_Crafting __instance, BlueprintItem bpi, ref bool __result)
+			private static bool Prefix(Panel_Crafting __instance, BlueprintItem bpi, ref bool __result, ref bool __runOriginal)
 			{
+				if (!__runOriginal)
+					Logger.LogError("Another mod tried to disable Panel_Crafting.ItemPassesFilter");
 				__result = MethodReplacements.ItemPassesFilter(__instance, bpi);
 				return false;
 			}
@@ -41,8 +43,10 @@ namespace ModComponentMapper.CraftingMenu
 		[HarmonyPatch(typeof(Panel_Crafting), "HandleInput")]
 		internal static class Panel_Crafting_HandleInput
 		{
-			private static bool Prefix(Panel_Crafting __instance)
+			private static bool Prefix(Panel_Crafting __instance, ref bool __runOriginal)
 			{
+				if (!__runOriginal)
+					Logger.LogError("Another mod tried to disable Panel_Crafting.HandleInput");
 				MethodReplacements.HandleInput(__instance);
 				return false;
 			}
