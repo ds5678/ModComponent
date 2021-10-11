@@ -5,7 +5,7 @@ namespace ModComponent.Mapper
 {
 	internal static class GearEquipper
 	{
-		public static void Equip(EquippableModComponent equippable)
+		public static void Equip(ModBaseEquippableComponent equippable)
 		{
 			if (equippable == null) return;
 
@@ -23,13 +23,13 @@ namespace ModComponent.Mapper
 			ModComponent.Utils.ModUtils.PlayAudio(equippable.EquippingAudio);
 		}
 
-		public static void Unequip(EquippableModComponent modComponent)
+		public static void Unequip(ModBaseEquippableComponent modComponent)
 		{
 			if (modComponent == null) return;
 			else GameManager.GetPlayerManagerComponent().UnequipItemInHandsSkipAnimation();
 		}
 
-		internal static void OnUnequipped(EquippableModComponent modComponent)
+		internal static void OnUnequipped(ModBaseEquippableComponent modComponent)
 		{
 			if (modComponent == null) return;
 

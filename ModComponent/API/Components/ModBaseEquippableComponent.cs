@@ -7,9 +7,9 @@ using UnityEngine;
 namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public abstract class EquippableModComponent : ModBaseComponent
+	public abstract class ModBaseEquippableComponent : ModBaseComponent
 	{
-		public EquippableModComponent(IntPtr intPtr) : base(intPtr) { }
+		public ModBaseEquippableComponent(IntPtr intPtr) : base(intPtr) { }
 
 		/// <summary>
 		/// The GameObject to be used for representing the item while it is equipped.<br/>
@@ -154,7 +154,7 @@ namespace ModComponent.API.Components
 
 
 			FieldInfo fieldInfo = implementationTypeMono.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-			if (fieldInfo != null && fieldInfo.FieldType == typeof(EquippableModComponent))
+			if (fieldInfo != null && fieldInfo.FieldType == typeof(ModBaseEquippableComponent))
 			{
 				fieldInfo.SetValue(Implementation, this);
 			}

@@ -3,7 +3,7 @@
 namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModGenericEquippableComponent : EquippableModComponent
+	public class ModGenericEquippableComponent : ModBaseEquippableComponent
 	{
 		public ModGenericEquippableComponent(System.IntPtr intPtr) : base(intPtr) { }
 

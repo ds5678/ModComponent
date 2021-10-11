@@ -3,7 +3,7 @@
 namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class ModToolComponent : EquippableModComponent
+	public class ModToolComponent : ModBaseEquippableComponent
 	{
 		/// <summary>
 		/// The type of the tool item. This determines for which actions it can be used.

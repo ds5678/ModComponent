@@ -223,7 +223,7 @@ namespace ModComponent.Mapper
 			modComponent.InspectModel = ModUtils.GetChild(modComponent.gameObject, dict[inheritanceName]["InspectModel"]);
 		}
 
-		private static void InitializeEquippableComponent(EquippableModComponent equippable, ProxyObject dict, string inheritanceName)
+		private static void InitializeEquippableComponent(ModBaseEquippableComponent equippable, ProxyObject dict, string inheritanceName)
 		{
 			InitializeBaseComponent(equippable, dict, inheritanceName);
 			equippable.EquippedModelPrefabName = dict[inheritanceName]["EquippedModelPrefab"];

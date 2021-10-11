@@ -28,7 +28,7 @@ namespace ModComponent.Mapper.Patches
 	{
 		internal static void Prefix(PlayerManager __instance, GearItem gi)
 		{
-			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
+			ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
 			if (equippable != null) __instance.UnequipItemInHands();
 		}
 		internal static void Postfix(PlayerManager __instance)
@@ -48,7 +48,7 @@ namespace ModComponent.Mapper.Patches
 
 			lastMode = mode;
 
-			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
+			ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
 			equippable?.OnControlModeChangedWhileEquipped?.Invoke();
 
 		}
@@ -84,7 +84,7 @@ namespace ModComponent.Mapper.Patches
 				return true;
 			}
 
-			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
+			ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
 			if (equippable?.Implementation == null) return true;
 
 			equippable.OnPrimaryAction?.Invoke();
@@ -104,7 +104,7 @@ namespace ModComponent.Mapper.Patches
 				return true;
 			}
 
-			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
+			ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
 			if (equippable == null) return true;
 
 			equippable.OnSecondaryAction?.Invoke();
@@ -142,7 +142,7 @@ namespace ModComponent.Mapper.Patches
 		private static void Postfix(GearItem gi, ref bool __result)
 		{
 			if (__result || gi == null) return;
-			EquippableModComponent equippable = ComponentUtils.GetEquippableModComponent(gi);
+			ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(gi);
 			if (equippable != null) __result = true;
 		}
 	}

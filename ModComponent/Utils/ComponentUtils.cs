@@ -34,14 +34,14 @@ namespace ModComponent.Utils
 			return result;
 		}
 
-		internal static EquippableModComponent GetEquippableModComponent(Component component)
+		internal static ModBaseEquippableComponent GetEquippableModComponent(Component component)
 		{
-			return GetComponent<EquippableModComponent>(component);
+			return GetComponent<ModBaseEquippableComponent>(component);
 		}
 
-		internal static EquippableModComponent GetEquippableModComponent(GameObject gameObject)
+		internal static ModBaseEquippableComponent GetEquippableModComponent(GameObject gameObject)
 		{
-			return GetComponent<EquippableModComponent>(gameObject);
+			return GetComponent<ModBaseEquippableComponent>(gameObject);
 		}
 
 		internal static ModBaseComponent GetModComponent(Component component)
