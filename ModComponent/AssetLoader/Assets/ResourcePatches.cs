@@ -27,12 +27,9 @@ namespace ModComponent.AssetLoader
 			}
 			internal static bool Prefix(ref string path, ref UnityEngine.Object __result)
 			{
-				//Logger.LogBlue(path);
-				if (AlternateNameManager.ContainsKey(path)) path = AlternateNameManager.GetAlternateName(path);
+				if (!ModAssetBundleManager.IsKnownAsset(path)) return true;
 
-				if (!AssetManager.IsKnownAsset(path)) return true;
-
-				__result = AssetManager.GetAsset(path);
+				__result = ModAssetBundleManager.LoadAsset(path);
 				if (__result == null) Logger.LogWarning("Resources.Load failed to load the external asset");
 				return false;
 			}
@@ -46,12 +43,9 @@ namespace ModComponent.AssetLoader
 		{
 			private static bool Prefix(ref string name, ref UnityEngine.Object __result)
 			{
-				//Logger.LogBlue(name);
-				if (AlternateNameManager.ContainsKey(name)) name = AlternateNameManager.GetAlternateName(name);
+				if (!ModAssetBundleManager.IsKnownAsset(name)) return true;
 
-				if (!AssetManager.IsKnownAsset(name)) return true;
-
-				__result = AssetManager.GetAsset(name);
+				__result = ModAssetBundleManager.LoadAsset(name);
 				if (__result == null) Logger.LogWarning("AssetBundle.LoadAsset failed to load the external asset '{0}'", name);
 				return false;
 			}

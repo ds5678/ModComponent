@@ -19,7 +19,6 @@ namespace ModComponentMapper
 		txt,
 		dll,
 		bnk,
-		image,
 		other
 	}
 
@@ -110,9 +109,6 @@ namespace ModComponentMapper
 							Logger.Log("Loading bnk from zip at '{0}'", internalPath);
 							ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
 							break;
-						case FileType.image:
-							HandleImage(internalPath, unzippedFileStream.ToArray(), fullPath);
-							break;
 					}
 				}
 			}
@@ -139,7 +135,6 @@ namespace ModComponentMapper
 			if (filename.EndsWith(".txt")) return FileType.txt;
 			if (filename.EndsWith(".dll")) return FileType.dll;
 			if (filename.EndsWith(".bnk")) return FileType.bnk;
-			if (filename.EndsWith(".png") || filename.EndsWith(".jpg")) return FileType.image;
 			return FileType.other;
 		}
 		private static void HandleJson(string internalPath, string text, string fullPath)
@@ -186,21 +181,6 @@ namespace ModComponentMapper
 				{
 					InformationMenu.PackManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
 				}
-			}
-		}
-
-		private static void HandleImage(string internalPath, byte[] data, string fullPath)
-		{
-			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
-			if (internalPath.StartsWith(@"skins/"))
-			{
-				Logger.Log("Loading skin image from zip at '{0}'", internalPath);
-				ModComponent.AssetLoader.SkinManager.AddToTextureList(filenameNoExtension, data);
-			}
-			else if (internalPath.StartsWith(@"icons/"))
-			{
-				Logger.Log("Loading icon image from zip at '{0}'", internalPath);
-				ModComponent.AssetLoader.AlternateIconManager.AddToTextureList(filenameNoExtension, data);
 			}
 		}
 	}

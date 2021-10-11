@@ -69,24 +69,8 @@
     <Reference Include="UnityEngine.CoreModule">
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetLoader\Assets\AlternateAssetManager.cs" />
-    <Compile Include="AssetLoader\Assets\AlternateIconManager.cs" />
-    <Compile Include="AssetLoader\Assets\AlternateNameManager.cs" />
-    <Compile Include="AssetLoader\Assets\AssetManager.cs" />
     <Compile Include="API\Behaviours\ModCarryingCapacityBehaviour.cs" />
     <Compile Include="API\Behaviours\ModTinderBehaviour.cs" />
     <Compile Include="API\Components\ModCharcoalComponent.cs" />
@@ -96,7 +80,6 @@
     <Compile Include="API\Recipes\ModPowderIngredient.cs" />
     <Compile Include="API\SpecialClasses\AlcoholComponent.cs" />
     <Compile Include="API\SpecialClasses\ModLootTable.cs" />
-    <Compile Include="AssetLoader\Assets\SkinManager.cs" />
     <Compile Include="API\Recipes\ModRecipe.cs" />
     <Compile Include="Main\BuildInfo.cs" />
     <Compile Include="Mapper\CraftingMenu\CraftingExtensions.cs" />
