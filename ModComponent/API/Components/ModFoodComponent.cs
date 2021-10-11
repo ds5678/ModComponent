@@ -1,7 +1,7 @@
 ﻿using ModComponent.Utils;
 using System;
 
-namespace ModComponentAPI
+namespace ModComponent.API
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModFoodComponent : ModCookableComponent

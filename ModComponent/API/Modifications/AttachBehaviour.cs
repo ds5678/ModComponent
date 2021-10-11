@@ -1,7 +1,7 @@
 ﻿using ModComponent.Utils;
 using UnityEngine;
 
-namespace ModComponentAPI
+namespace ModComponent.API
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class AttachBehaviour : MonoBehaviour

@@ -1,4 +1,4 @@
-﻿using ModComponentAPI;
+﻿using ModComponent.API;
 
 namespace ModComponent.Mapper.ComponentMapper
 {

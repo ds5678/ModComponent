@@ -1,5 +1,5 @@
 ﻿using ModComponent.AssetLoader;
-using ModComponentAPI;
+using ModComponent.API;
 using System;
 using System.Reflection;
 using UnityEngine;

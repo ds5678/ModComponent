@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using ModComponentAPI;
+using ModComponent.API;
 using ModComponent.Utils;
 using UnityEngine;
 

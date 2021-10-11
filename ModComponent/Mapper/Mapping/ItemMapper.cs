@@ -1,4 +1,4 @@
-﻿using ModComponentAPI;
+﻿using ModComponent.API;
 using ModComponent.Mapper.ComponentMapper;
 using ModComponent.Utils;
 using System;

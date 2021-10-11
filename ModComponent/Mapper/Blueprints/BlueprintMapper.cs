@@ -1,4 +1,4 @@
-﻿using ModComponentAPI;
+﻿using ModComponent.API;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace ModComponent.Mapper
 			bpItem.m_DurationMinutes = modBlueprint.DurationMinutes;
 			bpItem.m_CraftingAudio = modBlueprint.CraftingAudio;
 
-			bpItem.m_RequiredCraftingLocation = ModComponent.Utils.EnumUtils.TranslateEnumValue<CraftingLocation, ModComponentAPI.CraftingLocation>(modBlueprint.RequiredCraftingLocation);
+			bpItem.m_RequiredCraftingLocation = ModComponent.Utils.EnumUtils.TranslateEnumValue<CraftingLocation, ModComponent.API.CraftingLocation>(modBlueprint.RequiredCraftingLocation);
 			bpItem.m_RequiresLitFire = modBlueprint.RequiresLitFire;
 			bpItem.m_RequiresLight = modBlueprint.RequiresLight;
 
@@ -40,8 +40,8 @@ namespace ModComponent.Mapper
 			bpItem.m_KeroseneLitersRequired = modBlueprint.KeroseneLitersRequired;
 			bpItem.m_GunpowderKGRequired = modBlueprint.GunpowderKGRequired;
 
-			bpItem.m_AppliedSkill = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.AppliedSkill);
-			bpItem.m_ImprovedSkill = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponentAPI.SkillType>(modBlueprint.ImprovedSkill);
+			bpItem.m_AppliedSkill = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponent.API.SkillType>(modBlueprint.AppliedSkill);
+			bpItem.m_ImprovedSkill = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponent.API.SkillType>(modBlueprint.ImprovedSkill);
 		}
 
 		internal static void MapBlueprints()

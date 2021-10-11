@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using ModComponentAPI;
+using ModComponent.API;
 
 namespace ModComponent.Mapper.Patches
 {

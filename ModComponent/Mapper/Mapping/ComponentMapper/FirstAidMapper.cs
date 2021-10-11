@@ -1,4 +1,4 @@
-﻿using ModComponentAPI;
+﻿using ModComponent.API;
 
 //Might want to remove sutures and sprains from the API if they're there
 

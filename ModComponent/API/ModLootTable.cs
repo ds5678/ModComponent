@@ -1,7 +1,7 @@
 ﻿using Il2CppSystem.Collections.Generic;
 using UnityEngine;
 
-namespace ModComponentAPI
+namespace ModComponent.API
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	internal class ModLootTable : LootTable

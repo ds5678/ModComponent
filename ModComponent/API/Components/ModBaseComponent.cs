@@ -2,7 +2,7 @@
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
-namespace ModComponentAPI
+namespace ModComponent.API
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public abstract class ModBaseComponent : MonoBehaviour

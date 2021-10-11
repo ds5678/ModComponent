@@ -1,4 +1,4 @@
-﻿namespace ModComponentAPI
+﻿namespace ModComponent.API
 {
 	internal static class Logger
 	{
