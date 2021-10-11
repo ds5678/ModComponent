@@ -191,7 +191,7 @@ namespace ModComponent.AssetLoader
 				if (assetName == ASSET_NAME_LOCALIZATION)
 				{
 					Object asset = assetBundle.LoadAsset(eachAssetName);
-					LocalizationManager.AddToWaitlist(asset, eachAssetName, relativePath);
+					LocalizationUtilities.LocalizationManager.LoadLocalization(asset.Cast<TextAsset>(), eachAssetName);
 					continue;
 				}
 

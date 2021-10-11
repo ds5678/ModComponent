@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="LocalizationUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="MelonLoader, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -114,8 +117,6 @@
     <Compile Include="Utils\AssetBundleUtils.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasManager.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasUtils.cs" />
-    <Compile Include="AssetLoader\Localizations\LocalizationManager.cs" />
-    <Compile Include="AssetLoader\Localizations\LocalizationPatches.cs" />
     <Compile Include="AssetLoader\Logger.cs" />
     <Compile Include="AssetLoader\Atlases\AtlasPatches.cs" />
     <Compile Include="AssetLoader\Assets\ModAssetBundleManager.cs" />

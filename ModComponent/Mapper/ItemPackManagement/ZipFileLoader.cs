@@ -163,7 +163,7 @@ namespace ModComponentMapper
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
 				Logger.Log("Reading json localization from zip at '{0}'", internalPath);
-				ModComponent.AssetLoader.LocalizationManager.AddToWaitlist(text);
+				LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
 			}
 		}
 		private static void HandleTxt(string internalPath, string text, string fullPath)
