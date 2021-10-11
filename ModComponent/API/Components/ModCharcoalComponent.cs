@@ -1,4 +1,4 @@
-﻿namespace ModComponent.API
+﻿namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCharcoalComponent : ModBaseComponent

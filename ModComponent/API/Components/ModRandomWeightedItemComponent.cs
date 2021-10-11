@@ -2,7 +2,7 @@
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
-namespace ModComponent.API
+namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModRandomWeightedItemComponent : ModBaseComponent

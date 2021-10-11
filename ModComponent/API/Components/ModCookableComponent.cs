@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace ModComponent.API
+namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCookableComponent : ModBaseComponent

@@ -1,4 +1,6 @@
 ﻿using ModComponent.API;
+using ModComponent.API.Behaviours;
+using ModComponent.API.Components;
 using ModComponent.Utils;
 using System;
 using UnityEngine;

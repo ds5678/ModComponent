@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModComponent.API
+namespace ModComponent.API.Behaviours
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModMillableBehaviour : MonoBehaviour

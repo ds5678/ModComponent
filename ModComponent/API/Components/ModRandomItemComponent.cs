@@ -1,7 +1,7 @@
 ﻿using ModComponent.Utils;
 using UnityEngine;
 
-namespace ModComponent.API
+namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModRandomItemComponent : ModBaseComponent

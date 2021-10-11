@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using UnhollowerBaseLib.Attributes;
 
-namespace ModComponent.API
+namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModClothingComponent : ModBaseComponent

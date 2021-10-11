@@ -3,6 +3,7 @@ using ModComponent.API;
 using System;
 using System.Reflection;
 using UnityEngine;
+using ModComponent.API.Components;
 
 namespace ModComponent.Mapper
 {

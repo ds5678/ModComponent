@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModComponent.API
+namespace ModComponent.API.Behaviours
 {
 	/// <summary>
 	/// The base class for all modded components involved in making fires

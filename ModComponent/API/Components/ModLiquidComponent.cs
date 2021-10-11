@@ -1,6 +1,6 @@
 ﻿using ModComponent.Utils;
 
-namespace ModComponent.API
+namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModLiquidComponent : ModBaseComponent

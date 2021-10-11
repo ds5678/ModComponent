@@ -1,4 +1,4 @@
-﻿namespace ModComponent.API
+﻿namespace ModComponent.API.Recipes
 {
 	internal class ModRecipe
 	{
