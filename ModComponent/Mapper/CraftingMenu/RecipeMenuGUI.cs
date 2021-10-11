@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ModComponentMapper.CraftingMenu
+namespace ModComponent.Mapper.CraftingMenu
 {
 	internal static class RecipeMenuGUI
 	{

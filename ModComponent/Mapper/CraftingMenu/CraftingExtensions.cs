@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModComponentMapper.CraftingMenu
+namespace ModComponent.Mapper.CraftingMenu
 {
 	internal static class CraftingExtensions
 	{

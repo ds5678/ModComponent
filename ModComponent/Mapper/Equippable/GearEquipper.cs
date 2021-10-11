@@ -1,7 +1,7 @@
 ﻿using ModComponentAPI;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	internal static class GearEquipper
 	{

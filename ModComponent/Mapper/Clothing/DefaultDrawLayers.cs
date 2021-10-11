@@ -1,4 +1,4 @@
-﻿namespace ModComponentMapper
+﻿namespace ModComponent.Mapper
 {
 	public static class DefaultDrawLayers
 	{

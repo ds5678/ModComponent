@@ -1,6 +1,6 @@
-﻿using ModComponentMapper.InformationMenu;
+﻿using ModComponent.Mapper.InformationMenu;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public delegate void SceneReady();
 

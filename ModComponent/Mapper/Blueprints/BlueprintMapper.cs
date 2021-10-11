@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	internal static class BlueprintMapper
 	{

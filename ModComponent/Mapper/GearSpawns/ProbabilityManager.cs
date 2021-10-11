@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 
 	internal static class ProbabilityManager

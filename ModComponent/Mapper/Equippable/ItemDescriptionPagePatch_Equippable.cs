@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ModComponentAPI;
 
-namespace ModComponentMapper.Patches
+namespace ModComponent.Mapper.Patches
 {
 	[HarmonyPatch(typeof(ItemDescriptionPage), "GetEquipButtonLocalizationId")]//positive caller count
 	internal static class ItemDescriptionPageGetEquipButtonLocalizationIdPatch

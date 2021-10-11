@@ -3,7 +3,7 @@ using ModComponent.Utils;
 using System.Linq;
 using UnityEngine;
 
-namespace ModComponentMapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMapper
 {
 	internal static class SharpenableMapper
 	{

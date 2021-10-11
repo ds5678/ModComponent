@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public struct GearSpawnInfo
 	{

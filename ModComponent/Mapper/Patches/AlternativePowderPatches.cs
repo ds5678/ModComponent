@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ModComponentAPI;
 
-namespace ModComponentMapper.Patches
+namespace ModComponent.Mapper.Patches
 {
 	internal static class AlternativePowderPatches
 	{
@@ -30,7 +30,7 @@ namespace ModComponentMapper.Patches
 				if (modPowderType == ModPowderComponent.ModPowderType.Salt) prefabName = saltPrefabName;
 				else if (modPowderType == ModPowderComponent.ModPowderType.Yeast) prefabName = yeastPrefabName;
 
-				if (!Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
+				if (!global::Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
 				{
 					while (num > 0f)
 					{

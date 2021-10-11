@@ -2,7 +2,7 @@
 
 //Might want to remove sutures and sprains from the API if they're there
 
-namespace ModComponentMapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMapper
 {
 	internal static class FirstAidMapper
 	{

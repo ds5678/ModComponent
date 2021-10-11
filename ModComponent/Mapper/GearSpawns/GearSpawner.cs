@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public static class GearSpawner
 	{

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ModComponentMapper.CraftingMenu
+namespace ModComponent.Mapper.CraftingMenu
 {
 	internal static class MethodReplacements
 	{
@@ -35,7 +35,7 @@ namespace ModComponentMapper.CraftingMenu
 				return;
 			}
 			float menuMovementVertical;
-			if (Utils.IsGamepadActive())
+			if (global::Utils.IsGamepadActive())
 			{
 				if (InputManager.GetOpenActionsPanelPressed(__instance))
 				{
@@ -100,7 +100,7 @@ namespace ModComponentMapper.CraftingMenu
 							return;
 						}
 					}
-					menuMovementVertical = Utils.GetMenuMovementVertical(__instance, true, true);
+					menuMovementVertical = global::Utils.GetMenuMovementVertical(__instance, true, true);
 				}
 			}
 			else
@@ -108,7 +108,7 @@ namespace ModComponentMapper.CraftingMenu
 				float axisScrollWheel = InputManager.GetAxisScrollWheel(__instance);
 				int numBlueprintDisplays = __instance.m_BlueprintDisplays.Count; // 7
 				int numFilteredItems = __instance.m_FilteredBlueprintItems.Count; // total number of blueprints in that filtered list
-				if (!Utils.IsZero(axisScrollWheel, 0.0001f) && numFilteredItems > numBlueprintDisplays)
+				if (!global::Utils.IsZero(axisScrollWheel, 0.0001f) && numFilteredItems > numBlueprintDisplays)
 				{
 					int maxChange = Mathf.Clamp(ModComponent.Main.Settings.instance.numCraftingSteps, 1, numBlueprintDisplays);
 					int num = __instance.m_CurrentBlueprintDisplayOffset;
@@ -123,13 +123,13 @@ namespace ModComponentMapper.CraftingMenu
 					}
 					return;
 				}
-				menuMovementVertical = Utils.GetMenuMovementVertical(__instance, true, true);
+				menuMovementVertical = global::Utils.GetMenuMovementVertical(__instance, true, true);
 				if (__instance.m_CurrentNavArea != Panel_Crafting.NavArea.Blueprint)
 				{
 					__instance.SetNavigationArea(Panel_Crafting.NavArea.Blueprint);
 				}
 			}
-			if (!Utils.IsZero(menuMovementVertical, 0.0001f))
+			if (!global::Utils.IsZero(menuMovementVertical, 0.0001f))
 			{
 				__instance.HandleVerticalNavigation(menuMovementVertical);
 			}

@@ -3,7 +3,7 @@ using ModComponentAPI;
 using ModComponent.Utils;
 using UnityEngine;
 
-namespace ModComponentMapper.Patches
+namespace ModComponent.Mapper.Patches
 {
 	[HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]//Not inlined
 	internal static class PlayerManager_UnequipItemInHandsInternalPatch

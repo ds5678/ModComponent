@@ -1,11 +1,11 @@
 ﻿using ModComponentAPI;
-using ModComponentMapper.ComponentMapper;
+using ModComponent.Mapper.ComponentMapper;
 using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public static class ItemMapper
 	{

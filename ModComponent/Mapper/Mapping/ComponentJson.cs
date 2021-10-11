@@ -4,7 +4,7 @@ using ModComponent.Utils;
 using System;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public static class ComponentJson
 	{

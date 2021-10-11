@@ -1,8 +1,8 @@
 ﻿using ModComponentAPI;
-using ModComponentMapper.InformationMenu;
+using ModComponent.Mapper.InformationMenu;
 using System;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public static class BlueprintReader
 	{

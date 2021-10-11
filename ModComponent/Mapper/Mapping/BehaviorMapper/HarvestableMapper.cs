@@ -3,7 +3,7 @@ using ModComponent.Utils;
 using System;
 using UnityEngine;
 
-namespace ModComponentMapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMapper
 {
 	internal static class HarvestableMapper
 	{

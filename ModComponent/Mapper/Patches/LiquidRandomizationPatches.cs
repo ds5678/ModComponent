@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace ModComponentMapper.Patches
+namespace ModComponent.Mapper.Patches
 {
 	internal class LiquidItemPatch
 	{

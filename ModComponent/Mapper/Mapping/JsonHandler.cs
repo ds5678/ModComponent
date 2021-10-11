@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	internal enum JsonType
 	{

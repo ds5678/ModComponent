@@ -1,9 +1,9 @@
-﻿using ModComponentMapper.InformationMenu;
+﻿using ModComponent.Mapper.InformationMenu;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	internal static class GearSpawnReader
 	{

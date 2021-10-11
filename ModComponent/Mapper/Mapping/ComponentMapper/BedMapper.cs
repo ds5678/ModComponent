@@ -1,7 +1,7 @@
 ﻿using ModComponentAPI;
 using UnityEngine;
 
-namespace ModComponentMapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMapper
 {
 	internal static class BedMapper
 	{

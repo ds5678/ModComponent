@@ -10,7 +10,7 @@ namespace ModComponent.Main
 			InitialLogStatements();
 			Settings.instance.AddToModSettings("ModComponent");
 
-			ModComponentMapper.MapperCore.InitializeAndMapAssets();
+			ModComponent.Mapper.MapperCore.InitializeAndMapAssets();
 		}
 
 		private void InitialLogStatements()
@@ -20,6 +20,6 @@ namespace ModComponent.Main
 			Logger.LogNotDebug("Release Compilation");
 		}
 
-		public static byte[][] GetItemPackHashes() => ModComponentMapper.ZipFileLoader.hashes.ToArray();
+		public static byte[][] GetItemPackHashes() => ModComponent.Mapper.ZipFileLoader.hashes.ToArray();
 	}
 }

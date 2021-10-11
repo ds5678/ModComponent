@@ -1,8 +1,8 @@
-﻿using ModComponentMapper.InformationMenu;
+﻿using ModComponent.Mapper.InformationMenu;
 using System;
 using System.Collections.Generic;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	internal static class AssetBundleManager
 	{

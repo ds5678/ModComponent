@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace ModComponentMapper.CraftingMenu
+namespace ModComponent.Mapper.CraftingMenu
 {
 	internal enum ModCraftingCategory
 	{

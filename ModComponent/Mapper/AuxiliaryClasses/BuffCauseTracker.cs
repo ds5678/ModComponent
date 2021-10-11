@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	internal static class BuffCauseTracker
 	{

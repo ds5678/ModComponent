@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-namespace ModComponentMapper
+namespace ModComponent.Mapper
 {
 	public static class AutoMapper
 	{
@@ -61,10 +61,10 @@ namespace ModComponentMapper
 		{
 			AssemblyName requestedAssemblyName = new AssemblyName(args.Name);
 
-			Assembly modComponentMapper = Assembly.GetExecutingAssembly();
-			if (IsCompatible(requestedAssemblyName, modComponentMapper.GetName()))
+			Assembly executingAssembly = Assembly.GetExecutingAssembly();
+			if (IsCompatible(requestedAssemblyName, executingAssembly.GetName()))
 			{
-				Logger.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + modComponentMapper.GetName());
+				Logger.Log("Redirecting load attempt for " + requestedAssemblyName + " to " + executingAssembly.GetName());
 				return Assembly.GetExecutingAssembly();
 			}
 
