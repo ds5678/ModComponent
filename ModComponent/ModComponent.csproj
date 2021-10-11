@@ -186,7 +186,7 @@
     <Compile Include="Mapper\MainFiles\MapperCore.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\CookableMapper.cs" />
     <Compile Include="Mapper\Equippable\EquippablePatches.cs" />
-    <Compile Include="Mapper\Clothing\ModClothingPatches.cs" />
+    <Compile Include="Mapper\Patches\ModClothingPatches.cs" />
     <Compile Include="Mapper\Equippable\GearEquipper.cs" />
     <Compile Include="Mapper\AuxiliaryClasses\BuffCauseTracker.cs" />
     <Compile Include="Mapper\GearSpawns\GearSpawner.cs" />
