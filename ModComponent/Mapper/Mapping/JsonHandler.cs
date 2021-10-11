@@ -6,14 +6,12 @@ namespace ModComponentMapper
 	internal enum JsonType
 	{
 		Automapped,
-		Blueprint,
-		Existing
+		Blueprint
 	}
 	internal static class JsonHandler
 	{
 		private static Dictionary<string, string> itemJsons = new Dictionary<string, string>();
 		internal static Dictionary<string, string> blueprintJsons = new Dictionary<string, string>();
-		internal static Dictionary<string, string> existingJsons = new Dictionary<string, string>();
 
 		public static void RegisterItemJson(string itemName, string path)
 		{
@@ -46,9 +44,6 @@ namespace ModComponentMapper
 					break;
 				case JsonType.Blueprint:
 					if (!blueprintJsons.ContainsKey(fullPath)) blueprintJsons.Add(fullPath, text);
-					break;
-				case JsonType.Existing:
-					if (!existingJsons.ContainsKey(fullPath)) existingJsons.Add(fullPath, text);
 					break;
 			}
 		}
@@ -89,7 +84,7 @@ namespace ModComponentMapper
 
 			}
 		}
-		public static void LogDirectoryContents()
+		internal static void LogDirectoryContents()
 		{
 			foreach (string key in itemJsons.Keys)
 			{

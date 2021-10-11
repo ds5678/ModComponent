@@ -227,7 +227,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mapper\AuxiliaryClasses\AlternativeToolManager.cs" />
     <Compile Include="Mapper\MainFiles\Logger.cs" />
-    <Compile Include="Mapper\ActiveDevelopment\ModExisting.cs" />
     <Compile Include="Mapper\Mapping\JsonHandler.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\ExplosiveMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\MillableMapper.cs" />

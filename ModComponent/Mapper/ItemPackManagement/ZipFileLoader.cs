@@ -155,11 +155,6 @@ namespace ModComponentMapper
 				Logger.Log("Reading blueprint json from zip at '{0}'", internalPath);
 				JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Blueprint);
 			}
-			else if (internalPath.StartsWith(@"existing-json/"))
-			{
-				Logger.Log("Reading existing json from zip at '{0}'", internalPath);
-				JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Existing);
-			}
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
 				Logger.Log("Reading json localization from zip at '{0}'", internalPath);

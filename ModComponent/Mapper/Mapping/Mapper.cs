@@ -23,8 +23,7 @@ namespace ModComponentMapper
 				throw new ArgumentException("Prefab " + prefab.name + " does not contain a ModComponent.");
 			}
 
-			bool hasModPlaceHolder = !(ComponentUtils.GetComponent<ModPlaceHolderComponent>(prefab) == null);
-			if (prefab.GetComponent<GearItem>() == null || hasModPlaceHolder)
+			if (prefab.GetComponent<GearItem>() == null)
 			{
 				ConfigureBehaviours(modComponent);
 
@@ -44,8 +43,6 @@ namespace ModComponentMapper
 				GenericEquippableMapper.Configure(modComponent);
 				BedMapper.Configure(modComponent);
 				BodyHarvestMapper.Configure(modComponent);
-
-				if (hasModPlaceHolder) return;
 
 				InspectMapper.Configure(modComponent);
 				ConfigureGearItem(modComponent);
