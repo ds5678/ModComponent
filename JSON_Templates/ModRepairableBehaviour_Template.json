@@ -1,5 +1,5 @@
 {
-    "ModRepairableComponent" : {
+    "ModRepairableBehaviour" : {
                                 "Audio" : "",
                                 "Minutes" : 10,
                                 "Condition" : 20,

@@ -1,6 +1,7 @@
 {
-    "ModFireStarterComponent" : {
+    "ModFireStarterBehaviour" : {
                                 "DestroyedOnUse" : false,
+                                "DurationOffset" : 0,
                                 "NumberOfUses" : 100,
                                 "OnUseSoundEvent" : "",
                                 "RequiresSunLight" : true,

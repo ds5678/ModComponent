@@ -1,5 +1,5 @@
 {
-    "ModBurnableComponent": {
+    "ModBurnableBehaviour": {
                                 "BurningMinutes" : 5,
                                 "BurningMinutesBeforeAllowedToAdd" : 0,
                                 "SuccessModifier" : 60,

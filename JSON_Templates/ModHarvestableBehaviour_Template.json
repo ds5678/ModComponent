@@ -1,5 +1,5 @@
 {
-    "ModHarvestableComponent": {
+    "ModHarvestableBehaviour": {
                                 "Audio" : "",
                                 "Minutes" : 10,
                                 "YieldCounts" : [1],

@@ -1,5 +1,5 @@
 {
-    "ModMillableComponent" : {
+    "ModMillableBehaviour" : {
                                 "RepairDurationMinutes" : 15,
                                 "RepairRequiredGear" : ["GEAR_ScrapMetal","Gear_Cloth"],
                                 "RepairRequiredGearUnits" : [2,1],

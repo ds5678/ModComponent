@@ -1,5 +1,5 @@
 {
-    "ModSharpenableComponent" : {
+    "ModSharpenableBehaviour" : {
                                 "Audio" : "",
                                 "MinutesMin" : 5,
                                 "MinutesMax" : 20,

@@ -1,5 +1,5 @@
 {
-    "ModAccelerantComponent": {
+    "ModAccelerantBehaviour": {
                                 "DestroyedOnUse" : true,
                                 "DurationOffset" : 0,
                                 "SuccessModifier" : 40

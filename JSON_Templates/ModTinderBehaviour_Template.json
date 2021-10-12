@@ -1,5 +1,5 @@
 {
-    "ModTinderComponent": {
+    "ModTinderBehaviour": {
                                 "SuccessModifier" : 60,
                                 "DurationOffset" : 0
                             }
