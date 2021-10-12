@@ -54,7 +54,7 @@ namespace ModComponent.API.Behaviours
 		public ModStackableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModStackableComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModStackableBehaviour")
 		{
 			this.MultipleUnitTextID = dict[className]["MultipleUnitTextId"];
 			this.StackSprite = dict[className]["StackSprite"];

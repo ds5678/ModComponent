@@ -36,7 +36,7 @@ namespace ModComponent.API.Behaviours
 		public ModHarvestableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModHarvestableComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModHarvestableBehaviour")
 		{
 			this.Audio = dict[className]["Audio"];
 			this.Minutes = dict[className]["Minutes"];

@@ -51,7 +51,7 @@ namespace ModComponent.API.Behaviours
 		public ModMillableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableBehaviour")
 		{
 			this.RepairDurationMinutes = dict[className]["RepairDurationMinutes"];
 			this.RepairRequiredGear = JsonUtils.MakeStringArray(dict[className]["RepairRequiredGear"] as ProxyArray);

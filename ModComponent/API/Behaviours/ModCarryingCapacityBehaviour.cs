@@ -15,7 +15,7 @@ namespace ModComponent.API.Behaviours
 		public ModCarryingCapacityBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModCarryingCapacityComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModCarryingCapacityBehaviour")
 		{
 			this.MaxCarryCapacityKGBuff = dict[className]["MaxCarryCapacityKGBuff"];
 		}

@@ -42,7 +42,7 @@ namespace ModComponent.API.Behaviours
 		public ModRepairableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableBehaviour")
 		{
 			this.Audio = dict[className]["Audio"];
 			this.Minutes = dict[className]["Minutes"];

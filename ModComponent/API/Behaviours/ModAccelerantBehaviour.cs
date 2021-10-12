@@ -14,7 +14,7 @@ namespace ModComponent.API.Behaviours
 		public ModAccelerantBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModAccelerantComponent")
+		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModAccelerantBehaviour")
 		{
 			base.InitializeBehaviour(dict, className);
 			this.DestroyedOnUse = dict[className]["DestroyedOnUse"];

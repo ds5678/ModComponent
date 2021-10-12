@@ -42,7 +42,7 @@ namespace ModComponent.API.Behaviours
 		public ModSharpenableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModSharpenableComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModSharpenableBehaviour")
 		{
 			this.Audio = dict[className]["Audio"];
 			this.MinutesMin = dict[className]["MinutesMin"];

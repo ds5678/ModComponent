@@ -123,62 +123,62 @@ namespace ModComponent.Mapper
 			#endregion
 
 			#region Behaviour Components
-			if (JsonUtils.ContainsKey(dict, "ModAccelerantComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModAccelerantBehaviour"))
 			{
 				ModAccelerantBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModAccelerantBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			else if (JsonUtils.ContainsKey(dict, "ModBurnableComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModBurnableBehaviour"))
 			{
 				ModBurnableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModBurnableBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			else if (JsonUtils.ContainsKey(dict, "ModFireStarterComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModFireStarterBehaviour"))
 			{
 				ModFireStarterBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModFireStarterBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			else if (JsonUtils.ContainsKey(dict, "ModTinderComponent"))
+			else if (JsonUtils.ContainsKey(dict, "ModTinderBehaviour"))
 			{
 				ModTinderBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModTinderBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict, "ModTinderComponent");
 			}
-			if (JsonUtils.ContainsKey(dict, "ModCarryingCapacityComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModCarryingCapacityBehaviour"))
 			{
 				ModCarryingCapacityBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModCarryingCapacityBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModEvolveComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModEvolveBehaviour"))
 			{
 				ModEvolveBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModEvolveBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModHarvestableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModHarvestableBehaviour"))
 			{
 				ModHarvestableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModHarvestableBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModMillableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModMillableBehaviour"))
 			{
 				ModMillableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModMillableBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModRepairableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModRepairableBehaviour"))
 			{
 				ModRepairableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModRepairableBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModScentComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModScentBehaviour"))
 			{
 				ModScentBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModScentBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModSharpenableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModSharpenableBehaviour"))
 			{
 				ModSharpenableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModSharpenableBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);
 			}
-			if (JsonUtils.ContainsKey(dict, "ModStackableComponent"))
+			if (JsonUtils.ContainsKey(dict, "ModStackableBehaviour"))
 			{
 				ModStackableBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModStackableBehaviour>(prefab);
 				newComponent.InitializeBehaviour(dict);

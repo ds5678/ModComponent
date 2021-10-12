@@ -26,7 +26,7 @@ namespace ModComponent.API.Behaviours
 		}
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModScentComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModScentBehaviour")
 		{
 			this.scentCategory = EnumUtils.ParseEnum<ModScentBehaviour.ScentCategory>(dict[className]["ScentCategory"]);
 		}

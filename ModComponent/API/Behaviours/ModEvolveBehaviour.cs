@@ -25,7 +25,7 @@ namespace ModComponent.API.Behaviours
 		public ModEvolveBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal void InitializeBehaviour(ProxyObject dict, string className = "ModEvolveComponent")
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModEvolveBehaviour")
 		{
 			this.TargetItemName = dict[className]["TargetItemName"];
 			this.EvolveHours = dict[className]["EvolveHours"];

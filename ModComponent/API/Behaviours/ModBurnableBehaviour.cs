@@ -24,7 +24,7 @@ namespace ModComponent.API.Behaviours
 		public ModBurnableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModBurnableComponent")
+		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModBurnableBehaviour")
 		{
 			base.InitializeBehaviour(dict, className);
 			this.BurningMinutes = dict[className]["BurningMinutes"];

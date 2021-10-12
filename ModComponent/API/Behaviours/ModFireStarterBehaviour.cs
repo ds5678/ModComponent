@@ -44,7 +44,7 @@ namespace ModComponent.API.Behaviours
 		public ModFireStarterBehaviour(System.IntPtr intPtr) : base(intPtr) { }
 
 		[HideFromIl2Cpp]
-		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModFireStarterComponent")
+		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModFireStarterBehaviour")
 		{
 			base.InitializeBehaviour(dict, className);
 			this.DestroyedOnUse = dict[className]["DestroyedOnUse"];
