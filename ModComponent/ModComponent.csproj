@@ -168,7 +168,6 @@
     <Compile Include="Mapper\Mapping\BehaviorMapper\ScentMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\SharpenableMapper.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\ToolMapper.cs" />
-    <Compile Include="Mapper\MainFiles\MapperCore.cs" />
     <Compile Include="Mapper\Mapping\ComponentMapper\CookableMapper.cs" />
     <Compile Include="Patches\EquippablePatches.cs" />
     <Compile Include="Patches\ModClothingPatches.cs" />

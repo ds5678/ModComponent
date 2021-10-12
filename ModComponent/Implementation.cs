@@ -1,4 +1,5 @@
 ﻿using MelonLoader;
+using ModComponent.Mapper;
 using UnityEngine;
 
 namespace ModComponent
@@ -7,17 +8,15 @@ namespace ModComponent
 	{
 		public override void OnApplicationStart()
 		{
-			InitialLogStatements();
-			Settings.instance.AddToModSettings("ModComponent");
-
-			Mapper.MapperCore.InitializeAndMapAssets();
-		}
-
-		private void InitialLogStatements()
-		{
-			Debug.Log($"[{Info.Name}] Version {Info.Version} loaded!");
 			Logger.LogDebug("Debug Compilation");
 			Logger.LogNotDebug("Release Compilation");
+			
+			Settings.instance.AddToModSettings("ModComponent");
+
+			ZipFileLoader.Initialize();
+
+			AutoMapper.Initialize();
+			Mapper.AssetBundleManager.LoadPendingAssetBundles();
 		}
 
 		public static byte[][] GetItemPackHashes() => Mapper.ZipFileLoader.hashes.ToArray();
