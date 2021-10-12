@@ -1,0 +1,11 @@
+* `None`
+* `Firestarting`
+* `CarcassHarvesting`
+* `IceFishing`
+* `Cooking`
+* `Rifle`
+* `Archery`
+* `ClothingRepair`
+* `ToolRepair`
+* `Revolver`
+* `Gunsmithing`
