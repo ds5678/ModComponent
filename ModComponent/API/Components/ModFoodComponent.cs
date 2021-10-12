@@ -231,7 +231,7 @@ namespace ModComponent.API.Components
 		[HideFromIl2Cpp]
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModFoodComponent")
 		{
-			InitializeComponent(dict, className);
+			base.InitializeComponent(dict, className);
 			this.DaysToDecayOutdoors = dict[className]["DaysToDecayOutdoors"];
 			this.DaysToDecayIndoors = dict[className]["DaysToDecayIndoors"];
 

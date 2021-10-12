@@ -1,6 +1,7 @@
 ﻿using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using System;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace ModComponent.API.Modifications
@@ -25,6 +26,7 @@ namespace ModComponent.API.Modifications
 
 		public ChangeLayer(IntPtr intPtr) : base(intPtr) { }
 
+		[HideFromIl2Cpp]
 		internal void InitializeModification(ProxyObject dict, string className = "ChangeLayer")
 		{
 			JsonUtils.TrySetBool(ref this.Recursively, dict, className, "Recursively");
