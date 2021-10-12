@@ -1,6 +1,6 @@
 ﻿namespace ModComponent.API
 {
-	public enum SkillType
+	public enum ModSkillType
 	{
 		None = -1,
 		Firestarting,

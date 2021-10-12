@@ -8,13 +8,6 @@ namespace ModComponent.Patches
 	{
 		private static void Postfix()
 		{
-			try { BlueprintMapper.MapBlueprints(); }
-			catch (System.Exception e)
-			{
-				Logger.LogError("Blueprint Mapping failed: " + e);
-			}
-
-
 			//
 			//Need to be called after GameManager is initialized
 			//

@@ -120,12 +120,12 @@ namespace ModComponent.Mapper
 			if (internalPath.StartsWith(@"auto-mapped/"))
 			{
 				Logger.Log("Reading automapped json from zip at '{0}'", internalPath);
-				JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Automapped);
+				JsonHandler.RegisterJsonText(filenameNoExtension, text);
 			}
 			else if (internalPath.StartsWith(@"blueprints/"))
 			{
 				Logger.Log("Reading blueprint json from zip at '{0}'", internalPath);
-				JsonHandler.RegisterJsonText(filenameNoExtension, fullPath, text, JsonType.Blueprint);
+				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
 			}
 			else if (internalPath.StartsWith(@"localizations/"))
 			{

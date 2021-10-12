@@ -13,7 +13,7 @@ namespace ModComponent.Mapper.ComponentMapper
 			researchItem.m_ReadAudio = modResearch.ReadAudio;
 			researchItem.m_SkillPoints = modResearch.SkillPoints;
 			researchItem.m_NoBenefitAtSkillLevel = modResearch.NoBenefitAtSkillLevel;
-			researchItem.m_SkillType = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponent.API.SkillType>(modResearch.SkillType);
+			researchItem.m_SkillType = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, ModComponent.API.ModSkillType>(modResearch.SkillType);
 			researchItem.m_TimeRequirementHours = modResearch.TimeRequirementHours;
 		}
 	}

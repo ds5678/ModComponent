@@ -471,7 +471,7 @@ namespace ModComponent.Mapper
 		private static void InitializeResearchComponent(ModResearchComponent modResearch, ProxyObject dict, string className = "ModResearchComponent")
 		{
 			InitializeBaseComponent(modResearch, dict, className);
-			JsonUtils.TrySetEnum<ModComponent.API.SkillType>(ref modResearch.SkillType, dict, className, "SkillType");
+			JsonUtils.TrySetEnum<ModComponent.API.ModSkillType>(ref modResearch.SkillType, dict, className, "SkillType");
 			JsonUtils.TrySetInt(ref modResearch.TimeRequirementHours, dict, className, "TimeRequirementHours");
 			JsonUtils.TrySetInt(ref modResearch.SkillPoints, dict, className, "SkillPoints");
 			JsonUtils.TrySetInt(ref modResearch.NoBenefitAtSkillLevel, dict, className, "NoBenefitAtSkillLevel");
@@ -578,7 +578,7 @@ namespace ModComponent.Mapper
 			modMillable.RecoveryDurationMinutes = dict[className]["RecoveryDurationMinutes"];
 			modMillable.RestoreRequiredGear = JsonUtils.MakeStringArray(dict[className]["RestoreRequiredGear"] as ProxyArray);
 			modMillable.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RestoreRequiredGearUnits"] as ProxyArray);
-			modMillable.Skill = EnumUtils.ParseEnum<ModComponent.API.SkillType>(dict[className]["Skill"]);
+			modMillable.Skill = EnumUtils.ParseEnum<ModComponent.API.ModSkillType>(dict[className]["Skill"]);
 		}
 
 		private static void InitializeRepairableComponent(ModRepairableBehaviour modRepairable, ProxyObject dict, string className = "ModRepairableComponent")

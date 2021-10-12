@@ -12,7 +12,6 @@
 
 			AutoMapper.Initialize();
 			AssetBundleManager.LoadPendingAssetBundles();
-			BlueprintReader.ReadDefinitions();
 		}
 	}
 }
