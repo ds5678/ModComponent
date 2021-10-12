@@ -1,7 +1,7 @@
 ﻿using ModComponent.API.Components;
 using UnityEngine;
 
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMappers
 {
 	internal static class CookingPotMapper
 	{

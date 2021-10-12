@@ -4,7 +4,7 @@ using ModComponent.Utils;
 using System.Linq;
 using UnityEngine;
 
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.BehaviourMappers
 {
 	internal static class SharpenableMapper
 	{

@@ -3,7 +3,7 @@ using ModComponent.API.Components;
 using ModComponent.Utils;
 using UnityEngine;
 
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.BehaviourMappers
 {
 	internal static class ScentMapper
 	{

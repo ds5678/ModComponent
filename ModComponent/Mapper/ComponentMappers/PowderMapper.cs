@@ -1,7 +1,7 @@
 ﻿using ModComponent.API.Components;
 using ModComponent.Utils;
 
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMappers
 {
 	internal static class PowderMapper
 	{

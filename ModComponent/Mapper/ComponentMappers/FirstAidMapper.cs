@@ -1,8 +1,6 @@
 ﻿using ModComponent.API.Components;
 
-//Might want to remove sutures and sprains from the API if they're there
-
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMappers
 {
 	internal static class FirstAidMapper
 	{

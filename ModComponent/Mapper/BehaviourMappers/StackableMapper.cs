@@ -1,7 +1,7 @@
 ﻿using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.BehaviourMappers
 {
 	internal static class StackableMapper
 	{

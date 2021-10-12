@@ -1,6 +1,7 @@
 ﻿using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
-using ModComponent.Mapper.ComponentMapper;
+using ModComponent.Mapper.BehaviourMappers;
+using ModComponent.Mapper.ComponentMappers;
 using ModComponent.Utils;
 using System;
 using System.Collections.Generic;

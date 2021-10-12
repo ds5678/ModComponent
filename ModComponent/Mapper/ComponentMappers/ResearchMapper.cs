@@ -1,6 +1,6 @@
 ﻿using ModComponent.API.Components;
 
-namespace ModComponent.Mapper.ComponentMapper
+namespace ModComponent.Mapper.ComponentMappers
 {
 	internal static class ResearchMapper
 	{
