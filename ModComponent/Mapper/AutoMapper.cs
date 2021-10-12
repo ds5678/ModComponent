@@ -1,8 +1,8 @@
-﻿using ModComponent.AssetLoader;
+﻿using ModComponent.API.Components;
+using ModComponent.AssetLoader;
 using System;
 using System.Reflection;
 using UnityEngine;
-using ModComponent.API.Components;
 
 namespace ModComponent.Mapper
 {
