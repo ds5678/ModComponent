@@ -205,11 +205,6 @@
     <Compile Include="SceneLoader\Shaders\SubstituteShadersRecursive.cs" />
     <Compile Include="SceneLoader\Shaders\SubstituteShadersSingle.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.gitignore" />
-    <None Include="..\LICENSE" />
-    <None Include="..\README.md" />
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
