@@ -85,7 +85,7 @@
     <Compile Include="API\AlcoholComponent.cs" />
     <Compile Include="API\ModLootTable.cs" />
     <Compile Include="AssetLoader\Atlases\SaveAtlas.cs" />
-    <Compile Include="Main\BuildInfo.cs" />
+    <Compile Include="BuildInfo.cs" />
     <Compile Include="Mapper\ItemPackManagement\FileType.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\CarryingCapacityMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\TinderMapper.cs" />
@@ -138,9 +138,9 @@
     <Compile Include="API\ModSkillType.cs" />
     <Compile Include="Utils\ActionPickerUtilities.cs" />
     <Compile Include="Utils\TypeResolver.cs" />
-    <Compile Include="Main\Implementation.cs" />
+    <Compile Include="Implementation.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Main\Settings.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\AccelerantMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\BurnableMapper.cs" />
     <Compile Include="Mapper\Mapping\BehaviorMapper\StackableMapper.cs" />

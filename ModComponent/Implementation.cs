@@ -1,7 +1,7 @@
 ﻿using MelonLoader;
 using UnityEngine;
 
-namespace ModComponent.Main
+namespace ModComponent
 {
 	internal class Implementation : MelonMod
 	{
@@ -10,7 +10,7 @@ namespace ModComponent.Main
 			InitialLogStatements();
 			Settings.instance.AddToModSettings("ModComponent");
 
-			ModComponent.Mapper.MapperCore.InitializeAndMapAssets();
+			Mapper.MapperCore.InitializeAndMapAssets();
 		}
 
 		private void InitialLogStatements()
@@ -20,6 +20,6 @@ namespace ModComponent.Main
 			Logger.LogNotDebug("Release Compilation");
 		}
 
-		public static byte[][] GetItemPackHashes() => ModComponent.Mapper.ZipFileLoader.hashes.ToArray();
+		public static byte[][] GetItemPackHashes() => Mapper.ZipFileLoader.hashes.ToArray();
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using ModSettings;
 
-namespace ModComponent.Main
+namespace ModComponent
 {
 	internal class Settings : JsonModSettings
 	{

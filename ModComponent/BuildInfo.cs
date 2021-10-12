@@ -1,4 +1,4 @@
-﻿namespace ModComponent.Main
+﻿namespace ModComponent
 {
 	public static class BuildInfo
 	{
