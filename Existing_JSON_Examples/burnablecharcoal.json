@@ -1,9 +1,0 @@
-{
-    "GearName" : "GEAR_Charcoal",
-    "ModBurnableComponent": {
-                                "BurningMinutes" : 5,
-                                "BurningMinutesBeforeAllowedToAdd" : 0,
-                                "SuccessModifier" : 10,
-                                "TempIncrease" : 0.5
-                            }
-}

@@ -1,9 +1,0 @@
-{
-    "GearName" : "GEAR_LeatherHideDried",
-    "ModHarvestableComponent": {
-                                "Audio" : "",
-                                "Minutes" : 30,
-                                "YieldCounts" : [2],
-                                "YieldNames" : ["GEAR_LeatherDried"]
-                            }
-}

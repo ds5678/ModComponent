@@ -1,8 +1,0 @@
-{
-    "GearName" : "GEAR_SprayPaintCan",
-    "ModAccelerantComponent": {
-                            "DestroyedOnUse" : true,
-                            "DurationOffset" : 0,
-                            "SuccessModifier" : 100
-    }
-}
