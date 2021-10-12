@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 
-namespace ModComponent.Main
+namespace ModComponent
 {
 	internal static class Logger
 	{

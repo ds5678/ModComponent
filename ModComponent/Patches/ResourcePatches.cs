@@ -2,7 +2,6 @@
 using ModComponent.AssetLoader;
 using System.Reflection;
 using UnityEngine;
-using Logger = ModComponent.Main.Logger;
 
 namespace ModComponent.Patches
 {
