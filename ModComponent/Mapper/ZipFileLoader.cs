@@ -138,7 +138,7 @@ namespace ModComponent.Mapper
 			if (internalPath.StartsWith(@"gear-spawns/"))
 			{
 				Logger.Log("Reading txt from zip at '{0}'", internalPath);
-				GearSpawner.GearSpawnManager.ParseSpawnInformation(text);
+				GearSpawner.SpawnManager.ParseSpawnInformation(text);
 			}
 		}
 		private static void HandleUnity3d(string internalPath, MemoryStream memoryStream, string fullPath)

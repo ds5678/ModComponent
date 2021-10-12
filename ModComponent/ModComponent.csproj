@@ -40,9 +40,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="CraftingRevisions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GearSpawner, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="GearSpawner, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Il2Cppmscorlib, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -54,6 +56,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="LocalizationUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="MelonLoader, Version=0.4.1.0, Culture=neutral, processorArchitecture=MSIL">

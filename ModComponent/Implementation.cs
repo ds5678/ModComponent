@@ -17,7 +17,5 @@ namespace ModComponent
 			AutoMapper.Initialize();
 			Mapper.AssetBundleManager.LoadPendingAssetBundles();
 		}
-
-		public static byte[][] GetItemPackHashes() => Mapper.ZipFileLoader.hashes.ToArray();
 	}
 }
