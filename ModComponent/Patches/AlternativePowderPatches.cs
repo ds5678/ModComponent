@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ModComponent.API.Components;
 
-namespace ModComponent.Mapper.Patches
+namespace ModComponent.Patches
 {
 	internal static class AlternativePowderPatches
 	{

@@ -1,17 +1,8 @@
 ﻿using HarmonyLib;
-using System;
-using UnityEngine;
+using ModComponent.AssetLoader;
 
-namespace ModComponent.AssetLoader
+namespace ModComponent.Patches
 {
-	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class SaveAtlas : MonoBehaviour
-	{
-		public UIAtlas original;
-
-		public SaveAtlas(IntPtr intPtr) : base(intPtr) { }
-	}
-
 	[HarmonyPatch(typeof(UISprite), "SetAtlasSprite")]
 	internal static class UISprite_set_spriteName
 	{

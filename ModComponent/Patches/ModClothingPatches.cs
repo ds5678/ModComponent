@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
 using ModComponent.API.Components;
+using ModComponent.Mapper;
 
-namespace ModComponent.Mapper.Patches
+namespace ModComponent.Patches
 {
 	[HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]//not inlined
 	internal static class PlayerManager_PutOnClothingItem

@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
+using ModComponent.Mapper;
 
-namespace ModComponent.Mapper.Patches
+namespace ModComponent.Patches
 {
 	[HarmonyPatch(typeof(GameManager), "Awake")]
 	internal static class GameManager_Awake

@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ModComponent.API.Behaviours;
 
-namespace ModComponent.Mapper.Patches
+namespace ModComponent.Patches
 {
 	[HarmonyPatch(typeof(FireManager), "PlayerStartFire")]//Exists
 	internal static class FireManager_PlayerStartFire

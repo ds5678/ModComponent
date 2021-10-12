@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
+using ModComponent.AssetLoader;
 
-namespace ModComponent.AssetLoader
+namespace ModComponent.Patches
 {
 	[HarmonyPatch(typeof(GameAudioManager), "Start")]
 	internal static class GameAudioManager_LoadSoundBanksPath

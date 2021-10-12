@@ -1,8 +1,10 @@
 ﻿using HarmonyLib;
+using ModComponent.AssetLoader;
 using System.Reflection;
 using UnityEngine;
+using Logger = ModComponent.Main.Logger;
 
-namespace ModComponent.AssetLoader
+namespace ModComponent.Patches
 {
 	static class ResourcePatches
 	{
@@ -17,7 +19,7 @@ namespace ModComponent.AssetLoader
 				MethodInfo[] methods = typeof(Resources).GetMethods();
 				foreach (MethodInfo m in methods)
 				{
-					if (m.Name == "Load" && m.ReturnType == typeof(UnityEngine.Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
+					if (m.Name == "Load" && m.ReturnType == typeof(Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
 					{
 						return m;
 					}
@@ -25,7 +27,7 @@ namespace ModComponent.AssetLoader
 				Logger.LogError("Resources.Load not found for patch.");
 				return null;
 			}
-			internal static bool Prefix(ref string path, ref UnityEngine.Object __result)
+			internal static bool Prefix(ref string path, ref Object __result)
 			{
 				if (!ModAssetBundleManager.IsKnownAsset(path)) return true;
 
@@ -38,10 +40,10 @@ namespace ModComponent.AssetLoader
 		//Hinterland stores many of its assets in asset bundles
 		//This allows us to enable external asset loading in key locations
 		//For example, paperdoll textures are loaded from asset bundles
-		[HarmonyPatch(typeof(UnityEngine.AssetBundle), "LoadAsset", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
+		[HarmonyPatch(typeof(AssetBundle), "LoadAsset", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
 		internal static class AssetBundle_LoadAsset
 		{
-			private static bool Prefix(ref string name, ref UnityEngine.Object __result)
+			private static bool Prefix(ref string name, ref Object __result)
 			{
 				if (!ModAssetBundleManager.IsKnownAsset(name)) return true;
 
