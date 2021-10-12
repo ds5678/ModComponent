@@ -60,7 +60,7 @@ namespace ModComponent.Patches
 	{
 		internal static bool Prefix(PlayerManager __instance, GearItem gi)
 		{
-			if (ComponentUtils.GetComponent<FirstPersonItem>(gi) != null) return true;
+			if (ComponentUtils.GetComponentSafe<FirstPersonItem>(gi) != null) return true;
 
 			if (ComponentUtils.GetEquippableModComponent(gi) == null) return true;
 

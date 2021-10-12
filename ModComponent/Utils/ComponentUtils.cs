@@ -5,57 +5,71 @@ namespace ModComponent.Utils
 {
 	public static class ComponentUtils
 	{
-		public static T GetComponent<T>(Component component) where T : Component
+		public static T GetComponentSafe<T>(this Component component) where T : Component
 		{
-			return component?.GetGameObject()?.GetComponent<T>();
+			if (component == null)
+				return default;
+			else
+				return GetComponentSafe<T>(component.GetGameObject());
 		}
 
-		public static T GetComponent<T>(GameObject gameObject) where T : Component
+		public static T GetComponentSafe<T>(this GameObject gameObject) where T : Component
 		{
-			return gameObject?.GetComponent<T>();
+			if (gameObject == null)
+				return default;
+			else
+				return gameObject.GetComponent<T>();
 		}
 
 		public static T GetOrCreateComponent<T>(this Component component) where T : Component
 		{
-			return component?.GetGameObject()?.GetOrCreateComponent<T>();
+			if (component == null)
+				return default;
+			else
+				return GetOrCreateComponent<T>(component.GetGameObject());
 		}
 
 		public static T GetOrCreateComponent<T>(this GameObject gameObject) where T : Component
 		{
-			if (gameObject == null) return default;
+			if (gameObject == null)
+				return default;
 
-			T result = GetComponent<T>(gameObject);
+			T result = GetComponentSafe<T>(gameObject);
 
-			if (result == null) result = gameObject.AddComponent<T>();
+			if (result == null)
+				result = gameObject.AddComponent<T>();
 
 			return result;
 		}
 
 		internal static ModBaseEquippableComponent GetEquippableModComponent(this Component component)
 		{
-			return GetComponent<ModBaseEquippableComponent>(component);
+			return GetComponentSafe<ModBaseEquippableComponent>(component);
 		}
 
 		internal static ModBaseEquippableComponent GetEquippableModComponent(this GameObject gameObject)
 		{
-			return GetComponent<ModBaseEquippableComponent>(gameObject);
+			return GetComponentSafe<ModBaseEquippableComponent>(gameObject);
 		}
 
 		internal static ModBaseComponent GetModComponent(this Component component)
 		{
-			return GetComponent<ModBaseComponent>(component);
+			return GetComponentSafe<ModBaseComponent>(component);
 		}
 
 		internal static ModBaseComponent GetModComponent(this GameObject gameObject)
 		{
-			return GetComponent<ModBaseComponent>(gameObject);
+			return GetComponentSafe<ModBaseComponent>(gameObject);
 		}
 
 		internal static GameObject GetGameObject(this Component component)
 		{
 			try
 			{
-				return component?.gameObject;
+				if (component == null)
+					return default;
+				else
+					return component.gameObject;
 			}
 #if !DEBUG
 			catch { }

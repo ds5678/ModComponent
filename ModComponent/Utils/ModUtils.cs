@@ -103,7 +103,7 @@ namespace ModComponent.Utils
 				throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
 			}
 
-			T targetType = ComponentUtils.GetComponent<T>(gameObject);
+			T targetType = ComponentUtils.GetComponentSafe<T>(gameObject);
 			if (targetType == null)
 			{
 				throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + " is not a '" + typeof(T).Name + "'.");

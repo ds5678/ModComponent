@@ -11,7 +11,7 @@ namespace ModComponent.Mapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		internal static void Configure(GameObject prefab)
 		{
-			ModRepairableBehaviour modRepairableComponent = ComponentUtils.GetComponent<ModRepairableBehaviour>(prefab);
+			ModRepairableBehaviour modRepairableComponent = ComponentUtils.GetComponentSafe<ModRepairableBehaviour>(prefab);
 			if (modRepairableComponent == null) return;
 
 			Repairable repairable = ComponentUtils.GetOrCreateComponent<Repairable>(modRepairableComponent);

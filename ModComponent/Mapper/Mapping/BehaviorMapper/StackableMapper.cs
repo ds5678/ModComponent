@@ -7,7 +7,7 @@ namespace ModComponent.Mapper.ComponentMapper
 	{
 		public static void Configure(ModBaseComponent modComponent)
 		{
-			ModStackableBehaviour modStackableComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModStackableBehaviour>(modComponent);
+			ModStackableBehaviour modStackableComponent = ModComponent.Utils.ComponentUtils.GetComponentSafe<ModStackableBehaviour>(modComponent);
 			if (modStackableComponent == null) return;
 
 			StackableItem stackableItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<StackableItem>(modStackableComponent);

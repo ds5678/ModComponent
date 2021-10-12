@@ -10,7 +10,7 @@ namespace ModComponent.Patches
 		{
 			if (!__result) return;
 
-			ModFireStarterBehaviour modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponent<ModFireStarterBehaviour>(starter);
+			ModFireStarterBehaviour modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponentSafe<ModFireStarterBehaviour>(starter);
 			if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse) return;
 
 			GearItem gearItem = starter.GetComponent<GearItem>();

@@ -10,13 +10,13 @@ namespace ModComponent.Mapper.ComponentMapper
 		internal static void Configure(ModBaseComponent modComponent) => Configure(ComponentUtils.GetGameObject(modComponent));
 		public static void Configure(GameObject prefab)
 		{
-			ModCarryingCapacityBehaviour capacityComponent = ComponentUtils.GetComponent<ModCarryingCapacityBehaviour>(prefab);
+			ModCarryingCapacityBehaviour capacityComponent = ComponentUtils.GetComponentSafe<ModCarryingCapacityBehaviour>(prefab);
 			if (capacityComponent == null) return;
 
 			CarryingCapacityBuff capacityBuff = ComponentUtils.GetOrCreateComponent<CarryingCapacityBuff>(capacityComponent);
 
-			capacityBuff.m_IsWorn = ComponentUtils.GetComponent<ModClothingComponent>(capacityComponent) != null
-				|| ComponentUtils.GetComponent<ClothingItem>(capacityComponent) != null;
+			capacityBuff.m_IsWorn = ComponentUtils.GetComponentSafe<ModClothingComponent>(capacityComponent) != null
+				|| ComponentUtils.GetComponentSafe<ClothingItem>(capacityComponent) != null;
 
 			capacityBuff.m_CarryingCapacityBuffValues = new CarryingCapacityBuff.BuffValues()
 			{

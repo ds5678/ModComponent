@@ -26,7 +26,7 @@ namespace ModComponent.Mapper.ComponentMapper
 			cookable.m_CookAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modCookableComponent.CookingAudio, GetDefaultCookAudio(modCookableComponent));
 			cookable.m_PutInPotAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modCookableComponent.StartCookingAudio, GetDefaultStartCookingAudio(modCookableComponent));
 
-			Cookable template = ModComponent.Utils.ComponentUtils.GetComponent<Cookable>(Resources.Load<GameObject>("GEAR_PinnacleCanPeaches"));
+			Cookable template = ModComponent.Utils.ComponentUtils.GetComponentSafe<Cookable>(Resources.Load<GameObject>("GEAR_PinnacleCanPeaches"));
 			cookable.m_MeshPotStyle = template?.m_MeshPotStyle;
 			cookable.m_MeshCanStyle = template?.m_MeshCanStyle;
 			cookable.m_LiquidMeshRenderer = template?.m_LiquidMeshRenderer;
@@ -35,7 +35,7 @@ namespace ModComponent.Mapper.ComponentMapper
 			if (modCookableComponent.CookingResult == null)
 			{
 				// no conversion, just heating
-				FoodItem foodItem = ModComponent.Utils.ComponentUtils.GetComponent<FoodItem>(modCookableComponent);
+				FoodItem foodItem = ModComponent.Utils.ComponentUtils.GetComponentSafe<FoodItem>(modCookableComponent);
 				if (foodItem != null)
 				{
 					foodItem.m_HeatedWhenCooked = true;
