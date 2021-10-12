@@ -1,4 +1,6 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace ModComponent.API.Components
@@ -41,6 +43,13 @@ namespace ModComponent.API.Components
 			DisableObjectForXPMode xpmode = gear?.GetComponent<DisableObjectForXPMode>();
 			if (xpmode != null) Destroy(xpmode);
 			Destroy(this.gameObject);
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModRandomItemComponent")
+		{
+			base.InitializeComponent(dict, className);
+			JsonUtils.TrySetStringArray(ref this.ItemNames, dict, className, "ItemNames");
 		}
 	}
 }

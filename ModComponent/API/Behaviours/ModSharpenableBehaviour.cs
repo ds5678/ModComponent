@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -37,5 +40,16 @@ namespace ModComponent.API.Behaviours
 		public string Audio;
 
 		public ModSharpenableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModSharpenableComponent")
+		{
+			this.Audio = dict[className]["Audio"];
+			this.MinutesMin = dict[className]["MinutesMin"];
+			this.MinutesMax = dict[className]["MinutesMax"];
+			this.ConditionMin = dict[className]["ConditionMin"];
+			this.ConditionMax = dict[className]["ConditionMax"];
+			this.Tools = JsonUtils.MakeStringArray(dict[className]["Tools"] as ProxyArray);
+		}
 	}
 }

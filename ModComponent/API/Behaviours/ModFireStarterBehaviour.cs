@@ -1,4 +1,7 @@
-﻿namespace ModComponent.API.Behaviours
+﻿using MelonLoader.TinyJSON;
+using UnhollowerBaseLib.Attributes;
+
+namespace ModComponent.API.Behaviours
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModFireStarterBehaviour : ModFireMakingBaseBehaviour
@@ -39,5 +42,18 @@
 		public bool DestroyedOnUse;
 
 		public ModFireStarterBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModFireStarterComponent")
+		{
+			base.InitializeBehaviour(dict, className);
+			this.DestroyedOnUse = dict[className]["DestroyedOnUse"];
+			this.NumberOfUses = dict[className]["NumberOfUses"];
+			this.OnUseSoundEvent = dict[className]["OnUseSoundEvent"];
+			this.RequiresSunLight = dict[className]["RequiresSunLight"];
+			this.RuinedAfterUse = dict[className]["RuinedAfterUse"];
+			this.SecondsToIgniteTinder = dict[className]["SecondsToIgniteTinder"];
+			this.SecondsToIgniteTorch = dict[className]["SecondsToIgniteTorch"];
+		}
 	}
 }

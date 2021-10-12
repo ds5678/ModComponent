@@ -1,5 +1,7 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
 using System;
+using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
 {
@@ -57,6 +59,19 @@ namespace ModComponent.API.Components
 			Bandage,
 			Disinfectant,
 			PainKiller,
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModFirstAidComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.ProgressBarMessage = dict[className]["ProgressBarMessage"];
+			this.RemedyText = dict[className]["RemedyText"];
+			this.InstantHealing = dict[className]["InstantHealing"];
+			this.FirstAidType = EnumUtils.ParseEnum<ModFirstAidComponent.FirstAidKind>(dict[className]["FirstAidType"]);
+			this.TimeToUseSeconds = dict[className]["TimeToUseSeconds"];
+			this.UnitsPerUse = dict[className]["UnitsPerUse"];
+			this.UseAudio = dict[className]["UseAudio"];
 		}
 	}
 }

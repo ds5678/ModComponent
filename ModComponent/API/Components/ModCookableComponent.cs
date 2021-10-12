@@ -1,5 +1,7 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
 using System;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace ModComponent.API.Components
@@ -69,6 +71,28 @@ namespace ModComponent.API.Components
 			Meat,
 			Grub,
 			Liquid,
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModCookableComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.BurntMinutes = dict[className]["BurntMinutes"];
+			this.Cooking = dict[className]["Cooking"];
+			this.CookingAudio = dict[className]["CookingAudio"];
+			this.StartCookingAudio = dict[className]["StartCookingAudio"];
+			this.CookingMinutes = dict[className]["CookingMinutes"];
+			if (string.IsNullOrEmpty(dict[className]["CookingResult"]))
+			{
+				this.CookingResult = null;
+			}
+			else
+			{
+				this.CookingResult = Resources.Load(dict[className]["CookingResult"]).Cast<GameObject>();
+			}
+			this.CookingUnitsRequired = dict[className]["CookingUnitsRequired"];
+			this.CookingWaterRequired = dict[className]["CookingWaterRequired"];
+			this.Type = EnumUtils.ParseEnum<ModCookableComponent.CookableType>(dict[className]["Type"]);
 		}
 	}
 }

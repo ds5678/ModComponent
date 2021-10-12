@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -31,5 +34,15 @@ namespace ModComponent.API.Behaviours
 		public string[] RequiredToolNames;
 
 		public ModHarvestableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModHarvestableComponent")
+		{
+			this.Audio = dict[className]["Audio"];
+			this.Minutes = dict[className]["Minutes"];
+			this.YieldCounts = JsonUtils.MakeIntArray(dict[className]["YieldCounts"] as ProxyArray);
+			this.YieldNames = JsonUtils.MakeStringArray(dict[className]["YieldNames"] as ProxyArray);
+			this.RequiredToolNames = JsonUtils.MakeStringArray(dict[className]["RequiredToolNames"] as ProxyArray);
+		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -150,6 +152,31 @@ namespace ModComponent.API.Components
 			Food,
 			Material,
 			Tool
+		}
+
+		[HideFromIl2Cpp]
+		internal virtual void InitializeComponent(ProxyObject dict, string inheritanceName)
+		{
+			this.ConsoleName = NameUtils.RemoveGearPrefix(this.gameObject.name);
+			JsonUtils.TrySetString(ref this.DisplayNameLocalizationId, dict, inheritanceName, "DisplayNameLocalizationId");
+			this.DescriptionLocalizatonId = dict[inheritanceName]["DescriptionLocalizatonId"];
+			this.InventoryActionLocalizationId = dict[inheritanceName]["InventoryActionLocalizationId"];
+			this.WeightKG = dict[inheritanceName]["WeightKG"];
+			this.DaysToDecay = dict[inheritanceName]["DaysToDecay"];
+			this.MaxHP = dict[inheritanceName]["MaxHP"];
+			this.InitialCondition = EnumUtils.ParseEnum<ModBaseComponent.StartingCondition>(dict[inheritanceName]["InitialCondition"]);
+			this.InventoryCategory = EnumUtils.ParseEnum<ModBaseComponent.ItemCategory>(dict[inheritanceName]["InventoryCategory"]);
+			this.PickUpAudio = dict[inheritanceName]["PickUpAudio"];
+			this.PutBackAudio = dict[inheritanceName]["PutBackAudio"];
+			this.StowAudio = dict[inheritanceName]["StowAudio"];
+			this.WornOutAudio = dict[inheritanceName]["WornOutAudio"];
+			this.InspectOnPickup = dict[inheritanceName]["InspectOnPickup"];
+			this.InspectDistance = dict[inheritanceName]["InspectDistance"];
+			this.InspectAngles = JsonUtils.MakeVector(dict[inheritanceName]["InspectAngles"]);
+			this.InspectOffset = JsonUtils.MakeVector(dict[inheritanceName]["InspectOffset"]);
+			this.InspectScale = JsonUtils.MakeVector(dict[inheritanceName]["InspectScale"]);
+			this.NormalModel = ModUtils.GetChild(this.gameObject, dict[inheritanceName]["NormalModel"]);
+			this.InspectModel = ModUtils.GetChild(this.gameObject, dict[inheritanceName]["InspectModel"]);
 		}
 	}
 }

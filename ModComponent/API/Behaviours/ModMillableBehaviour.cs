@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -46,5 +49,18 @@ namespace ModComponent.API.Behaviours
 		public ModSkillType Skill = ModSkillType.None;
 
 		public ModMillableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableComponent")
+		{
+			this.RepairDurationMinutes = dict[className]["RepairDurationMinutes"];
+			this.RepairRequiredGear = JsonUtils.MakeStringArray(dict[className]["RepairRequiredGear"] as ProxyArray);
+			this.RepairRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RepairRequiredGearUnits"] as ProxyArray);
+			this.CanRestoreFromWornOut = dict[className]["CanRestoreFromWornOut"];
+			this.RecoveryDurationMinutes = dict[className]["RecoveryDurationMinutes"];
+			this.RestoreRequiredGear = JsonUtils.MakeStringArray(dict[className]["RestoreRequiredGear"] as ProxyArray);
+			this.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RestoreRequiredGearUnits"] as ProxyArray);
+			this.Skill = EnumUtils.ParseEnum<ModComponent.API.ModSkillType>(dict[className]["Skill"]);
+		}
 	}
 }

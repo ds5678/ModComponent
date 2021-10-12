@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -20,6 +23,12 @@ namespace ModComponent.API.Behaviours
 			COOKED_FISH,
 			GUTS,
 			QUARTER,
+		}
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModScentComponent")
+		{
+			this.scentCategory = EnumUtils.ParseEnum<ModScentBehaviour.ScentCategory>(dict[className]["ScentCategory"]);
 		}
 	}
 }

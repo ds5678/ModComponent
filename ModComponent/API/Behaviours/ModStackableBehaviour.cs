@@ -1,4 +1,6 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
 namespace ModComponent.API.Behaviours
@@ -50,5 +52,15 @@ namespace ModComponent.API.Behaviours
 		}
 
 		public ModStackableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModStackableComponent")
+		{
+			this.MultipleUnitTextID = dict[className]["MultipleUnitTextId"];
+			this.StackSprite = dict[className]["StackSprite"];
+			this.SingleUnitTextID = dict[className]["SingleUnitTextId"];
+			this.UnitsPerItem = dict[className]["UnitsPerItem"];
+			this.ChanceFull = dict[className]["ChanceFull"];
+		}
 	}
 }

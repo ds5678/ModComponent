@@ -1,4 +1,5 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -89,6 +90,14 @@ namespace ModComponent.API.Components
 				result += weight;
 			}
 			return result;
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModRandomWeightedItemComponent")
+		{
+			base.InitializeComponent(dict, className);
+			JsonUtils.TrySetStringArray(ref this.ItemNames, dict, className, "ItemNames");
+			JsonUtils.TrySetIntArray(ref this.ItemWeights, dict, className, "ItemWeights");
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -21,5 +23,12 @@ namespace ModComponent.API.Behaviours
 		public float DurationOffset;
 
 		public ModFireMakingBaseBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal virtual void InitializeBehaviour(ProxyObject dict, string className)
+		{
+			this.SuccessModifier = dict[className]["SuccessModifier"];
+			this.DurationOffset = dict[className]["DurationOffset"];
+		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
 {
@@ -68,6 +70,15 @@ namespace ModComponent.API.Components
 			Gunpowder,
 			Salt,
 			Yeast
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModPowderComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.PowderType = EnumUtils.ParseEnum<ModPowderComponent.ModPowderType>(dict[className]["PowderType"]);
+			this.CapacityKG = dict[className]["CapacityKG"];
+			this.ChanceFull = dict[className]["ChanceFull"];
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -21,5 +23,13 @@ namespace ModComponent.API.Behaviours
 		public int EvolveHours = 1;
 
 		public ModEvolveBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModEvolveComponent")
+		{
+			this.TargetItemName = dict[className]["TargetItemName"];
+			this.EvolveHours = dict[className]["EvolveHours"];
+			this.IndoorsOnly = dict[className]["IndoorsOnly"];
+		}
 	}
 }

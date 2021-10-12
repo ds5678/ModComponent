@@ -1,4 +1,5 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
 using System;
 using System.Reflection;
 using UnhollowerBaseLib.Attributes;
@@ -185,6 +186,15 @@ namespace ModComponent.API.Components
 		protected virtual void OnDisable()
 		{
 			if (OnDisabled != null) OnDisabled.Invoke();
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string inheritanceName)
+		{
+			base.InitializeComponent(dict, inheritanceName);
+			this.EquippedModelPrefabName = dict[inheritanceName]["EquippedModelPrefab"];
+			this.ImplementationType = dict[inheritanceName]["ImplementationType"];
+			this.EquippingAudio = dict[inheritanceName]["EquippingAudio"];
 		}
 	}
 }

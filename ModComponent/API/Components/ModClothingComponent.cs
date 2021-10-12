@@ -1,4 +1,5 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
 using System;
 using System.Reflection;
 using UnhollowerBaseLib.Attributes;
@@ -218,6 +219,34 @@ namespace ModComponent.API.Components
 			LightNylon,
 			SoftCloth,
 			Wool,
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModClothingComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.Region = EnumUtils.ParseEnum<ModClothingComponent.BodyRegion>(dict[className]["Region"]);
+			this.MinLayer = EnumUtils.ParseEnum<ModClothingComponent.Layer>(dict[className]["MinLayer"]);
+			this.MaxLayer = EnumUtils.ParseEnum<ModClothingComponent.Layer>(dict[className]["MaxLayer"]);
+			this.MovementSound = EnumUtils.ParseEnum<ModClothingComponent.MovementSounds>(dict[className]["MovementSound"]);
+			this.Footwear = EnumUtils.ParseEnum<ModClothingComponent.FootwearType>(dict[className]["Footwear"]);
+			this.DaysToDecayWornOutside = dict[className]["DaysToDecayWornOutside"];
+			this.DaysToDecayWornInside = dict[className]["DaysToDecayWornInside"];
+			this.Warmth = dict[className]["Warmth"];
+			this.WarmthWhenWet = dict[className]["WarmthWhenWet"];
+			this.Windproof = dict[className]["Windproof"];
+			this.Waterproofness = dict[className]["Waterproofness"];
+			this.Toughness = dict[className]["Toughness"];
+			this.SprintBarReduction = dict[className]["SprintBarReduction"];
+			this.DecreaseAttackChance = dict[className]["DecreaseAttackChance"];
+			this.IncreaseFleeChance = dict[className]["IncreaseFleeChance"];
+			this.HoursToDryNearFire = dict[className]["HoursToDryNearFire"];
+			this.HoursToDryWithoutFire = dict[className]["HoursToDryWithoutFire"];
+			this.HoursToFreeze = dict[className]["HoursToFreeze"];
+			this.MainTexture = dict[className]["MainTexture"];
+			this.BlendTexture = dict[className]["BlendTexture"];
+			this.DrawLayer = dict[className]["DrawLayer"];
+			this.ImplementationType = dict[className]["ImplementationType"];
 		}
 	}
 }

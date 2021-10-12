@@ -1,5 +1,7 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
 using System;
+using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
 {
@@ -225,5 +227,56 @@ namespace ModComponent.API.Components
 		}
 
 		public ModFoodComponent(IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModFoodComponent")
+		{
+			InitializeComponent(dict, className);
+			this.DaysToDecayOutdoors = dict[className]["DaysToDecayOutdoors"];
+			this.DaysToDecayIndoors = dict[className]["DaysToDecayIndoors"];
+
+			this.Calories = dict[className]["Calories"];
+			this.EatingTime = dict[className]["EatingTime"];
+
+			this.EatingAudio = dict[className]["EatingAudio"];
+			this.EatingPackagedAudio = dict[className]["EatingPackagedAudio"];
+
+			this.ThirstEffect = dict[className]["ThirstEffect"];
+
+			this.FoodPoisoning = dict[className]["FoodPoisoning"];
+			this.FoodPoisoningLowCondition = dict[className]["FoodPoisoningLowCondition"];
+			this.ParasiteRiskIncrements = JsonUtils.MakeFloatArray(dict[className]["ParasiteRiskIncrements"] as ProxyArray);
+
+			this.Natural = dict[className]["Natural"];
+			this.Raw = dict[className]["Raw"];
+			this.Drink = dict[className]["Drink"];
+			this.Meat = dict[className]["Meat"];
+			this.Fish = dict[className]["Fish"];
+
+			this.Canned = dict[className]["Canned"];
+			this.Opening = dict[className]["Opening"];
+			this.OpeningWithCanOpener = dict[className]["OpeningWithCanOpener"];
+			this.OpeningWithKnife = dict[className]["OpeningWithKnife"];
+			this.OpeningWithHatchet = dict[className]["OpeningWithHatchet"];
+			this.OpeningWithSmashing = dict[className]["OpeningWithSmashing"];
+
+			this.AffectCondition = dict[className]["AffectCondition"];
+			this.ConditionRestBonus = dict[className]["ConditionRestBonus"];
+			this.ConditionRestMinutes = dict[className]["ConditionRestMinutes"];
+
+			this.AffectRest = dict[className]["AffectRest"];
+			this.InstantRestChange = dict[className]["InstantRestChange"];
+			this.RestFactor = dict[className]["RestFactor"];
+			this.RestFactorMinutes = dict[className]["RestFactorMinutes"];
+
+			this.AffectCold = dict[className]["AffectCold"];
+			this.InstantColdChange = dict[className]["InstantColdChange"];
+			this.ColdFactor = dict[className]["ColdFactor"];
+			this.ColdFactorMinutes = dict[className]["ColdFactorMinutes"];
+
+			this.ContainsAlcohol = dict[className]["ContainsAlcohol"];
+			this.AlcoholPercentage = dict[className]["AlcoholPercentage"];
+			this.AlcoholUptakeMinutes = dict[className]["AlcoholUptakeMinutes"];
+		}
 	}
 }

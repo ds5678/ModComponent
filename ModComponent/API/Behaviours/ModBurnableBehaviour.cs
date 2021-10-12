@@ -1,4 +1,7 @@
-﻿namespace ModComponent.API.Behaviours
+﻿using MelonLoader.TinyJSON;
+using UnhollowerBaseLib.Attributes;
+
+namespace ModComponent.API.Behaviours
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModBurnableBehaviour : ModFireMakingBaseBehaviour
@@ -19,5 +22,14 @@
 		public float TempIncrease;
 
 		public ModBurnableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModBurnableComponent")
+		{
+			base.InitializeBehaviour(dict, className);
+			this.BurningMinutes = dict[className]["BurningMinutes"];
+			this.BurningMinutesBeforeAllowedToAdd = dict[className]["BurningMinutesBeforeAllowedToAdd"];
+			this.TempIncrease = dict[className]["TempIncrease"];
+		}
 	}
 }

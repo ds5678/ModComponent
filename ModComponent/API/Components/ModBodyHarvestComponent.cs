@@ -1,4 +1,6 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
 {
@@ -108,5 +110,35 @@ namespace ModComponent.API.Components
 
 
 		public ModBodyHarvestComponent(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModBodyHarvestComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.CanCarry = dict[className]["CanCarry"];
+			this.HarvestAudio = dict[className]["HarvestAudio"];
+
+			this.GutPrefab = dict[className]["GutPrefab"];
+			this.GutQuantity = dict[className]["GutQuantity"];
+			this.GutWeightKgPerUnit = dict[className]["GutWeightKgPerUnit"];
+
+			this.HidePrefab = dict[className]["HidePrefab"];
+			this.HideQuantity = dict[className]["HideQuantity"];
+			this.HideWeightKgPerUnit = dict[className]["HideWeightKgPerUnit"];
+
+			this.MeatPrefab = dict[className]["MeatPrefab"];
+			this.MeatAvailableMinKG = dict[className]["MeatAvailableMinKG"];
+			this.MeatAvailableMaxKG = dict[className]["MeatAvailableMaxKG"];
+
+			this.CanQuarter = false;
+			this.QuarterAudio = "";
+			this.QuarterBagMeatCapacityKG = 0f;
+			this.QuarterBagWasteMultiplier = 0f;
+			this.QuarterDurationMinutes = 1f;
+			this.QuarterObjectPrefab = "";
+			this.QuarterPrefabSpawnAngle = 0f;
+			this.QuarterPrefabSpawnRadius = 1f;
+
+		}
 	}
 }

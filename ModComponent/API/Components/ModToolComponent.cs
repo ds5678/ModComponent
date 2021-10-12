@@ -1,4 +1,6 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
 {
@@ -166,6 +168,44 @@ namespace ModComponent.API.Components
 			All,
 			CraftOnly,
 			RepairOnly,
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModToolComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.ToolType = EnumUtils.ParseEnum<ModToolComponent.ToolKind>(dict[className]["ToolType"]);
+			this.DegradeOnUse = dict[className]["DegradeOnUse"];
+			this.Usage = EnumUtils.ParseEnum<ModToolComponent.ToolUsage>(dict[className]["Usage"]);
+			this.SkillBonus = dict[className]["SkillBonus"];
+
+			this.CraftingTimeMultiplier = dict[className]["CraftingTimeMultiplier"];
+			this.DegradePerHourCrafting = dict[className]["DegradePerHourCrafting"];
+
+			this.BreakDown = dict[className]["BreakDown"];
+			this.BreakDownTimeMultiplier = dict[className]["BreakDownTimeMultiplier"];
+
+			this.ForceLocks = dict[className]["ForceLocks"];
+			this.ForceLockAudio = dict[className]["ForceLockAudio"];
+
+			this.IceFishingHole = dict[className]["IceFishingHole"];
+			this.IceFishingHoleDegradeOnUse = dict[className]["IceFishingHoleDegradeOnUse"];
+			this.IceFishingHoleMinutes = dict[className]["IceFishingHoleMinutes"];
+			this.IceFishingHoleAudio = dict[className]["IceFishingHoleAudio"];
+
+			this.CarcassHarvesting = dict[className]["CarcassHarvesting"];
+			this.MinutesPerKgMeat = dict[className]["MinutesPerKgMeat"];
+			this.MinutesPerKgFrozenMeat = dict[className]["MinutesPerKgFrozenMeat"];
+			this.MinutesPerHide = dict[className]["MinutesPerHide"];
+			this.MinutesPerGut = dict[className]["MinutesPerGut"];
+			this.DegradePerHourHarvesting = dict[className]["DegradePerHourHarvesting"];
+
+			this.StruggleBonus = dict[className]["StruggleBonus"];
+			this.DamageMultiplier = dict[className]["DamageMultiplier"];
+			this.FleeChanceMultiplier = dict[className]["FleeChanceMultiplier"];
+			this.TapMultiplier = dict[className]["TapMultiplier"];
+			this.CanPuncture = dict[className]["CanPuncture"];
+			this.BleedoutMultiplier = dict[className]["BleedoutMultiplier"];
 		}
 	}
 }

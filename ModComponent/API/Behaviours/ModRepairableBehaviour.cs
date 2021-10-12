@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -37,5 +40,16 @@ namespace ModComponent.API.Behaviours
 		public int[] MaterialCounts;
 
 		public ModRepairableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableComponent")
+		{
+			this.Audio = dict[className]["Audio"];
+			this.Minutes = dict[className]["Minutes"];
+			this.Condition = dict[className]["Condition"];
+			this.RequiredTools = JsonUtils.MakeStringArray(dict[className]["RequiredTools"] as ProxyArray);
+			this.MaterialNames = JsonUtils.MakeStringArray(dict[className]["MaterialNames"] as ProxyArray);
+			this.MaterialCounts = JsonUtils.MakeIntArray(dict[className]["MaterialCounts"] as ProxyArray);
+		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using MelonLoader.TinyJSON;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Behaviours
 {
@@ -11,5 +13,11 @@ namespace ModComponent.API.Behaviours
 		public float MaxCarryCapacityKGBuff;
 
 		public ModCarryingCapacityBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal void InitializeBehaviour(ProxyObject dict, string className = "ModCarryingCapacityComponent")
+		{
+			this.MaxCarryCapacityKGBuff = dict[className]["MaxCarryCapacityKGBuff"];
+		}
 	}
 }

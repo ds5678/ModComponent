@@ -1,4 +1,8 @@
-﻿namespace ModComponent.API.Components
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+
+namespace ModComponent.API.Components
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
 	public class ModCollectibleComponent : ModBaseComponent
@@ -28,5 +32,14 @@
 		public Alignment TextAlignment = Alignment.Automatic;
 
 		public ModCollectibleComponent(System.IntPtr intPtr) : base(intPtr) { }
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModCollectibleComponent")
+		{
+			base.InitializeComponent(dict, className);
+			JsonUtils.TrySetString(ref this.HudMessageLocalizationId, dict, className, "HudMessageLocalizationId");
+			JsonUtils.TrySetString(ref this.NarrativeTextLocalizationId, dict, className, "NarrativeTextLocalizationId");
+			JsonUtils.TrySetEnum<ModCollectibleComponent.Alignment>(ref this.TextAlignment, dict, className, "TextAlignment");
+		}
 	}
 }

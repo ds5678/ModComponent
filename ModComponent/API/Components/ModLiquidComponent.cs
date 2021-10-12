@@ -1,4 +1,7 @@
-﻿using ModComponent.Utils;
+﻿using MelonLoader.TinyJSON;
+using ModComponent.Utils;
+using UnhollowerBaseLib.Attributes;
+using UnityEngine;
 
 namespace ModComponent.API.Components
 {
@@ -36,6 +39,16 @@ namespace ModComponent.API.Components
 		{
 			Water,
 			Kerosene
+		}
+
+		[HideFromIl2Cpp]
+		internal override void InitializeComponent(ProxyObject dict, string className = "ModLiquidComponent")
+		{
+			base.InitializeComponent(dict, className);
+			this.LiquidType = EnumUtils.ParseEnum<ModLiquidComponent.LiquidKind>(dict[className]["LiquidType"]);
+			this.LiquidCapacityLiters = dict[className]["LiquidCapacityLiters"];
+			this.RandomizeQuantity = dict[className]["RandomizedQuantity"];
+			this.LiquidLiters = Mathf.Clamp(dict[className]["LiquidLiters"], 0f, this.LiquidCapacityLiters); //overridden if Randomized
 		}
 	}
 }
