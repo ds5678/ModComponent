@@ -84,7 +84,7 @@
     <Compile Include="API\Components\ModResearchComponent.cs" />
     <Compile Include="API\AlcoholComponent.cs" />
     <Compile Include="API\ModLootTable.cs" />
-    <Compile Include="AssetLoader\Atlases\SaveAtlas.cs" />
+    <Compile Include="AssetLoader\SaveAtlas.cs" />
     <Compile Include="BuildInfo.cs" />
     <Compile Include="Mapper\FileType.cs" />
     <Compile Include="Mapper\BehaviourMappers\CarryingCapacityMapper.cs" />
@@ -94,11 +94,11 @@
     <Compile Include="Mapper\ComponentMappers\ResearchMapper.cs" />
     <Compile Include="Patches\AlternativePowderPatches.cs" />
     <Compile Include="Utils\AssetBundleUtils.cs" />
-    <Compile Include="AssetLoader\Atlases\AtlasManager.cs" />
-    <Compile Include="AssetLoader\Atlases\AtlasUtils.cs" />
+    <Compile Include="AssetLoader\AtlasManager.cs" />
+    <Compile Include="AssetLoader\AtlasUtils.cs" />
     <Compile Include="Patches\AtlasPatches.cs" />
-    <Compile Include="AssetLoader\Assets\ModAssetBundleManager.cs" />
-    <Compile Include="AssetLoader\SoundBanks\ModSoundBankManager.cs" />
+    <Compile Include="AssetLoader\ModAssetBundleManager.cs" />
+    <Compile Include="AssetLoader\ModSoundBankManager.cs" />
     <Compile Include="Patches\SoundBankPatches.cs" />
     <Compile Include="Patches\ResourcePatches.cs" />
     <Compile Include="API\Components\ModRandomItemComponent.cs" />
