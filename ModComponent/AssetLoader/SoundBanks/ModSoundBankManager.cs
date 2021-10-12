@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace ModComponent.AssetLoader
 {
-	public static class ModSoundBankManager
+	internal static class ModSoundBankManager
 	{
 		private const int MEMORY_ALIGNMENT = 16;
 

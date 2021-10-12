@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ModComponent.AssetLoader
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	public class SaveAtlas : MonoBehaviour
+	internal class SaveAtlas : MonoBehaviour
 	{
 		public UIAtlas original;
 

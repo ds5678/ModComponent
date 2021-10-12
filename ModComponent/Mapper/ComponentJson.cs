@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ModComponent.Mapper
 {
-	public static class ComponentJson
+	internal static class ComponentJson
 	{
 		public static void InitializeComponents(ref GameObject prefab)
 		{

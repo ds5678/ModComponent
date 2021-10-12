@@ -6,7 +6,7 @@ using ModComponent.API.Components;
 
 namespace ModComponent.Mapper
 {
-	public static class AutoMapper
+	internal static class AutoMapper
 	{
 		internal static void Initialize()
 		{

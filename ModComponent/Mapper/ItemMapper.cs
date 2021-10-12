@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace ModComponent.Mapper
 {
-	public static class ItemMapper
+	internal static class ItemMapper
 	{
 		private static List<ModBaseComponent> mappedItems = new List<ModBaseComponent>();
 

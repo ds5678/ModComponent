@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ModComponent.AssetLoader
 {
-	public static class ModAssetBundleManager
+	internal static class ModAssetBundleManager
 	{
 		private const string ASSET_NAME_LOCALIZATION = "localization";
 		private const string ASSET_NAME_PREFIX_GEAR = "gear_";

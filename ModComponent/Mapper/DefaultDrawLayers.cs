@@ -1,6 +1,6 @@
 ﻿namespace ModComponent.Mapper
 {
-	public static class DefaultDrawLayers
+	internal static class DefaultDrawLayers
 	{
 		public static int GetDefaultDrawLayer(ClothingRegion clothingRegion, ClothingLayer clothingLayer)
 		{

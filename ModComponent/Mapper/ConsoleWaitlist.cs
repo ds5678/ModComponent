@@ -3,17 +3,6 @@ using System.Collections.Generic;
 
 namespace ModComponent.Mapper
 {
-	public readonly struct ModConsoleName
-	{
-		public readonly string displayName;
-		public readonly string prefabName;
-		public ModConsoleName(string displayName, string prefabName)
-		{
-			this.displayName = displayName;
-			this.prefabName = prefabName;
-		}
-	}
-
 	internal static class ConsoleWaitlist
 	{
 		private static List<ModConsoleName> commandWaitlist = new List<ModConsoleName>(0);
@@ -58,6 +47,17 @@ namespace ModComponent.Mapper
 			private static void Postfix()
 			{
 				TryUpdateWaitlist();
+			}
+		}
+
+		internal class ModConsoleName
+		{
+			public readonly string displayName;
+			public readonly string prefabName;
+			public ModConsoleName(string displayName, string prefabName)
+			{
+				this.displayName = displayName;
+				this.prefabName = prefabName;
 			}
 		}
 	}
