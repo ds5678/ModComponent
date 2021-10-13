@@ -16,14 +16,17 @@ namespace ModComponent.Mapper
 		internal static readonly List<byte[]> hashes = new List<byte[]>();
 		internal static void Initialize()
 		{
-			LoadZipFilesInDirectory(FileUtils.GetModsFolderPath());
+			LoadZipFilesInDirectory(FileUtils.GetModsFolderPath(), false);
 		}
-		private static void LoadZipFilesInDirectory(string directory)
+		private static void LoadZipFilesInDirectory(string directory, bool recursive)
 		{
-			string[] directories = Directory.GetDirectories(directory);
-			foreach (string eachDirectory in directories)
+			if (recursive)
 			{
-				LoadZipFilesInDirectory(eachDirectory);
+				string[] directories = Directory.GetDirectories(directory);
+				foreach (string eachDirectory in directories)
+				{
+					LoadZipFilesInDirectory(eachDirectory, true);
+				}
 			}
 
 			string[] files = Directory.GetFiles(directory);
