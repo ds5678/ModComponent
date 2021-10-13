@@ -1,4 +1,5 @@
 ﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
+using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
@@ -132,7 +133,20 @@ namespace ModComponent.Mapper
 				Logger.Log("Reading json localization from zip at '{0}'", internalPath);
 				LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
 			}
+			else if (internalPath == "BuildInfo.json")
+			{
+				LogItemPackInformation(text);
+			}
 		}
+
+		private static void LogItemPackInformation(string jsonText)
+		{
+			var dict = JSON.Load(jsonText) as ProxyObject;
+			string modName = dict["Name"];
+			string version = dict["Version"];
+			Logger.Log($"Found: {modName} {version}");
+		}
+
 		private static void HandleTxt(string internalPath, string text, string fullPath)
 		{
 			if (internalPath.StartsWith(@"gear-spawns/"))
