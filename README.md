@@ -1,5 +1,6 @@
 ## 5.0 changes
-The structure of the mod was changed. `.modcomponent` files now go directly into `.../Mods/` folder.  
+`.modcomponent` files now go directly into `.../Mods/` folder.  
+
 Be sure to check new [installation instructions](#installation).
 
 # ModComponent
