@@ -1,3 +1,7 @@
+## 5.0 changes
+The structure of the mod was changed. `.modcomponent` files now go directly into `.../Mods/` folder.  
+Be sure to check new [installation instructions](#installation).
+
 # ModComponent
 
 This is a library for modding **The Long Dark** by Hinterland Games Studio, Inc.
@@ -28,9 +32,17 @@ I know many people might skip over this, but I hope you don't. You are so specia
 ## Installation
 
 1. If you haven't done so already, install MelonLoader by downloading and running [MelonLoader.Installer.exe](https://github.com/HerpDerpinstine/MelonLoader/releases/latest/download/MelonLoader.Installer.exe)
-2. Download the latest version of `ModComponent.dll` from the [releases page](https://github.com/ds5678/ModComponent/releases)
-3. Download the latest version of `ModSettings.dll` from the [releases page](https://github.com/zeobviouslyfakeacc/ModSettings/releases).
-4. Move `ModComponent.dll` and `ModSettings.dll` into the Mods folder in your TLD install directory
+2. Install the latest version of [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings/releases/latest).
+3. Install the latest version of [ModComponent](https://github.com/ds5678/ModComponent/releases/latest) by placing it in `.../Mods/` folder.
+4. Some features of ModComponent were split off into separate DLLs:
+- Mandatory for most item-packs:
+  - [GearSpawner](https://github.com/ds5678/GearSpawner/releases/latest) - enables item spawning feature.
+  - [LocalizationUtilities](https://github.com/ds5678/LocalizationUtilities/releases/latest) - enables localization feature.
+  - [CraftingRevisions](https://github.com/ds5678/CraftingRevisions/releases/latest) - enables crafting/blueprint feature.
+- Optional:
+  - [AlcoholMod](https://github.com/ds5678/AlcoholMod/releases/latest) - enables alcohol effects.
+
+ Every dependency mod is installed the same way - by placing it in `.../Mods/` folder.
 
 ## Downloads
 
