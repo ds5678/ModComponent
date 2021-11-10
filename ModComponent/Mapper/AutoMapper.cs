@@ -8,8 +8,14 @@ namespace ModComponent.Mapper
 {
 	internal static class AutoMapper
 	{
-		private static List<string> pendingAssetBundles = new List<string>();
-		private static Dictionary<string, string> pendingAssetBundlePaths = new Dictionary<string, string>();
+		/// <summary>
+		/// Relative Paths
+		/// </summary>
+		private static readonly List<string> pendingAssetBundles = new List<string>();
+		/// <summary>
+		/// Relative Paths : Zip Paths
+		/// </summary>
+		private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new Dictionary<string, string>();
 
 		private static void AutoMapPrefab(string prefabName)
 		{
@@ -55,6 +61,10 @@ namespace ModComponent.Mapper
 			ItemMapper.Map(prefab);
 		}
 
+		/// <summary>
+		/// Add an asset bundle to the list of pending bundles
+		/// </summary>
+		/// <param name="relativePath">The relative path to the asset bundle from within the mods folder</param>
 		internal static void AddAssetBundle(string relativePath)
 		{
 			if (pendingAssetBundles.Contains(relativePath))
@@ -63,16 +73,25 @@ namespace ModComponent.Mapper
 			}
 			else pendingAssetBundles.Add(relativePath);
 		}
-		internal static void AddAssetBundle(string relativePath, string fullPath)
+
+		/// <summary>
+		/// Add an asset bundle to the list of pending bundles
+		/// </summary>
+		/// <param name="relativePath">The relative path to the asset bundle from within the mods folder</param>
+		/// <param name="zipFilePath">The full path to the zip file containing the asset bundle</param>
+		internal static void AddAssetBundle(string relativePath, string zipFilePath)
 		{
 			AddAssetBundle(relativePath);
-			if (pendingAssetBundlePaths.ContainsKey(relativePath))
+			if (pendingAssetBundleZipFileMap.ContainsKey(relativePath))
 			{
 				Logger.LogWarning($"AutoMapper already has '{relativePath}' in the dictionary of pending asset bundle paths.");
 			}
-			else pendingAssetBundlePaths.Add(relativePath, fullPath);
+			else pendingAssetBundleZipFileMap.Add(relativePath, zipFilePath);
 		}
 
+		/// <summary>
+		/// Load all the asset bundles and map their assets
+		/// </summary>
 		internal static void LoadPendingAssetBundles()
 		{
 			Logger.Log("Loading the pending asset bundles");
@@ -85,18 +104,18 @@ namespace ModComponent.Mapper
 				catch (Exception e)
 				{
 					string errorMessage = $"Could not map the assets in the bundle at '{relativePath}'. {e.ToString()}";
-					if (pendingAssetBundlePaths.ContainsKey(relativePath))
+					if (pendingAssetBundleZipFileMap.ContainsKey(relativePath))
 					{
-						PackManager.SetItemPackNotWorking(pendingAssetBundlePaths[relativePath], errorMessage);
+						PackManager.SetItemPackNotWorking(pendingAssetBundleZipFileMap[relativePath], errorMessage);
 					}
-                    else
-                    {
+					else
+					{
 						Logger.LogError(errorMessage);
 					}
 				}
 			}
 			pendingAssetBundles.Clear();
-			pendingAssetBundlePaths.Clear();
+			pendingAssetBundleZipFileMap.Clear();
 		}
 	}
 }

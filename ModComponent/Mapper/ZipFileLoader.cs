@@ -240,7 +240,7 @@ namespace ModComponent.Mapper
 					AssetBundle assetBundle = AssetBundle.LoadFromMemory(data);
 					string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
 					ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
-					AutoMapper.AddAssetBundle(relativePath, fullPath);
+					AutoMapper.AddAssetBundle(relativePath, zipFilePath);
 					return true;
 				}
 				catch (Exception e)

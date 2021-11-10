@@ -23,10 +23,27 @@ namespace ModComponent.AssetLoader
 			"craftingicons/"
 		};
 
-		private static Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
-		private static Dictionary<string, string> knownAssetMappedNames = new Dictionary<string, string>();
-		private static Dictionary<string, AssetBundle> knownAssetNames = new Dictionary<string, AssetBundle>();
+		/// <summary>
+		/// Key: The relative path within the Mods folder to the asset bundle file<br/>
+		/// Value: The cooresponding loaded asset bundle
+		/// </summary>
+		private static readonly Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
+		/// <summary>
+		/// Key: A short asset name such as "gear_gascan.prefab"<br/>
+		/// Value: The cooresponding full asset name such as "assets/prefabs/gear_gascan.prefab"
+		/// </summary>
+		private static readonly Dictionary<string, string> knownAssetMappedNames = new Dictionary<string, string>();
+		/// <summary>
+		/// Key: A full asset name such as "assets/prefabs/gear_gascan.prefab"<br/>
+		/// Value: The asset bundle containing the asset
+		/// </summary>
+		private static readonly Dictionary<string, AssetBundle> knownAssetNames = new Dictionary<string, AssetBundle>();
 
+		/// <summary>
+		/// Gets the asset bundle from the bank of loaded asset bundles
+		/// </summary>
+		/// <param name="relativePath">The relative path within the Mods folder to the asset bundle file</param>
+		/// <returns></returns>
 		public static AssetBundle GetAssetBundle(string relativePath)
 		{
 			knownAssetBundles.TryGetValue(relativePath, out AssetBundle result);
@@ -36,12 +53,12 @@ namespace ModComponent.AssetLoader
 		public static bool IsKnownAsset(string name)
 		{
 			if (name == null) return false;
-			else return getFullAssetName(name) != null;
+			else return GetFullAssetName(name) != null;
 		}
 
 		public static Object LoadAsset(string name)
 		{
-			string fullAssetName = getFullAssetName(name);
+			string fullAssetName = GetFullAssetName(name);
 
 			if (knownAssetNames.TryGetValue(fullAssetName, out AssetBundle assetBundle))
 			{
@@ -88,7 +105,7 @@ namespace ModComponent.AssetLoader
 			else LoadAssetBundle(relativePath, assetBundle);
 		}
 
-		public static string getAssetMappedName(string assetPath, string assetName)
+		public static string GetAssetMappedName(string assetPath, string assetName)
 		{
 			if (assetName.StartsWith(ASSET_NAME_PREFIX_GEAR) && assetPath.EndsWith(ASSET_PATH_SUFFIX_PREFAB))
 			{
@@ -139,8 +156,8 @@ namespace ModComponent.AssetLoader
 		/// Retrieves the asset's full name from the dictionary
 		/// </summary>
 		/// <param name="name"></param>
-		/// <returns></returns>
-		public static string getFullAssetName(string name)
+		/// <returns>a full asset</returns>
+		public static string GetFullAssetName(string name)
 		{
 			string lowerCaseName = name.ToLowerInvariant();
 			if (knownAssetNames.ContainsKey(lowerCaseName)) return lowerCaseName;
@@ -157,7 +174,7 @@ namespace ModComponent.AssetLoader
 		{
 			AssetBundle assetBundle = AssetBundle.LoadFromFile(fullPath);
 			if (assetBundle) return assetBundle;
-			else throw new System.Exception("Could not load AssetBundle from '" + fullPath + "'. The asset bundle might have been made with an incorrect version of Unity (should be 2019.4.3).");
+			else throw new System.Exception("Could not load AssetBundle from '" + fullPath + "'. The asset bundle might have been made with an incorrect version of Unity (should be 2019.4.19).");
 		}
 
 		/// <summary>
@@ -210,7 +227,7 @@ namespace ModComponent.AssetLoader
 
 				knownAssetNames.Add(eachAssetName, assetBundle);
 
-				string mappedName = getAssetMappedName(eachAssetName, assetName);
+				string mappedName = GetAssetMappedName(eachAssetName, assetName);
 				knownAssetMappedNames.Add(mappedName, eachAssetName);
 
 				stringBuilder.Append("  ");
