@@ -178,7 +178,7 @@ namespace ModComponent.Mapper
 					Logger.Log($"Reading json localization from zip at '{internalPath}'");
 					LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
 				}
-				else if (internalPath == "BuildInfo.json")
+				else if (internalPath.ToLowerInvariant() == "buildinfo.json")
 				{
 					LogItemPackInformation(text);
 				}
