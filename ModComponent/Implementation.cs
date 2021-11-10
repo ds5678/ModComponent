@@ -14,7 +14,7 @@ namespace ModComponent
 
 			ZipFileLoader.Initialize();
 
-			Mapper.AssetBundleManager.LoadPendingAssetBundles();
+			AutoMapper.LoadPendingAssetBundles();
 		}
 	}
 }

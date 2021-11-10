@@ -199,7 +199,6 @@
     <Compile Include="Mapper\ComponentJson.cs" />
     <Compile Include="Mapper\ConsoleWaitlist.cs" />
     <Compile Include="Utils\ModUtils.cs" />
-    <Compile Include="Mapper\AssetBundleManager.cs" />
     <Compile Include="Mapper\ZipFileLoader.cs" />
     <Compile Include="SceneLoader\Preloader.cs" />
     <Compile Include="SceneLoader\Shaders\ShaderList.cs" />

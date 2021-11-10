@@ -2,9 +2,9 @@
 {
 	internal static class PackManager
 	{
-		internal static void SetItemPackNotWorking(string pathToAsset, string errorMessage)
+		internal static void SetItemPackNotWorking(string pathToZipFile, string errorMessage)
 		{
-			Logger.LogItemPackError(System.IO.Path.GetFileNameWithoutExtension(pathToAsset), errorMessage);
+			Logger.LogItemPackError(System.IO.Path.GetFileNameWithoutExtension(pathToZipFile), errorMessage);
 		}
 	}
 }

@@ -14,10 +14,12 @@ namespace ModComponent.Mapper
 	internal static class ZipFileLoader
 	{
 		internal static readonly List<byte[]> hashes = new List<byte[]>();
+
 		internal static void Initialize()
 		{
 			LoadZipFilesInDirectory(FileUtils.GetModsFolderPath(), false);
 		}
+
 		private static void LoadZipFilesInDirectory(string directory, bool recursive)
 		{
 			if (recursive)
@@ -39,6 +41,7 @@ namespace ModComponent.Mapper
 				}
 			}
 		}
+
 		private static void LoadZipFile(string zipFilePath)
 		{
 			Logger.LogGreen($"Reading zip file at: '{zipFilePath}'");
@@ -237,7 +240,7 @@ namespace ModComponent.Mapper
 					AssetBundle assetBundle = AssetBundle.LoadFromMemory(data);
 					string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
 					ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
-					AssetBundleManager.Add(relativePath, fullPath);
+					AutoMapper.AddAssetBundle(relativePath, fullPath);
 					return true;
 				}
 				catch (Exception e)
