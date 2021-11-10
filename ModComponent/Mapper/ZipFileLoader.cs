@@ -41,7 +41,7 @@ namespace ModComponent.Mapper
 		}
 		private static void LoadZipFile(string zipFilePath)
 		{
-			Logger.LogGreen("Reading zip file at: '{0}'", zipFilePath);
+			Logger.LogGreen($"Reading zip file at: '{zipFilePath}'");
 			var fileStream = File.OpenRead(zipFilePath);
 
 			hashes.Add(SHA256.Create().ComputeHash(fileStream));
@@ -83,11 +83,11 @@ namespace ModComponent.Mapper
 							HandleTxt(internalPath, ReadToString(unzippedFileStream), fullPath);
 							break;
 						case FileType.dll:
-							Logger.Log("Loading dll from zip at '{0}'", internalPath);
+							Logger.Log($"Loading dll from zip at '{internalPath}'");
 							Assembly.Load(unzippedFileStream.ToArray());
 							break;
 						case FileType.bnk:
-							Logger.Log("Loading bnk from zip at '{0}'", internalPath);
+							Logger.Log($"Loading bnk from zip at '{internalPath}'");
 							ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
 							break;
 					}
@@ -123,17 +123,17 @@ namespace ModComponent.Mapper
 			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
 			if (internalPath.StartsWith(@"auto-mapped/"))
 			{
-				Logger.Log("Reading automapped json from zip at '{0}'", internalPath);
+				Logger.Log($"Reading automapped json from zip at '{internalPath}'");
 				JsonHandler.RegisterJsonText(filenameNoExtension, text);
 			}
 			else if (internalPath.StartsWith(@"blueprints/"))
 			{
-				Logger.Log("Reading blueprint json from zip at '{0}'", internalPath);
+				Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
 				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
 			}
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
-				Logger.Log("Reading json localization from zip at '{0}'", internalPath);
+				Logger.Log($"Reading json localization from zip at '{internalPath}'");
 				LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
 			}
 			else if (internalPath == "BuildInfo.json")
@@ -154,7 +154,7 @@ namespace ModComponent.Mapper
 		{
 			if (internalPath.StartsWith(@"gear-spawns/"))
 			{
-				Logger.Log("Reading txt from zip at '{0}'", internalPath);
+				Logger.Log($"Reading txt from zip at '{internalPath}'");
 				GearSpawner.SpawnManager.ParseSpawnInformation(text);
 			}
 		}
@@ -162,7 +162,7 @@ namespace ModComponent.Mapper
 		{
 			if (internalPath.StartsWith(@"auto-mapped/"))
 			{
-				Logger.Log("Loading asset bundle from zip at '{0}'", internalPath);
+				Logger.Log($"Loading asset bundle from zip at '{internalPath}'");
 				try
 				{
 					AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());

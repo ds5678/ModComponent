@@ -53,7 +53,7 @@ namespace ModComponent.Mapper
 
 			if (modComponent == null) throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
 
-			Logger.Log("Mapping {0}", prefab.name);
+			Logger.Log($"Mapping {prefab.name}");
 			ItemMapper.Map(prefab);
 		}
 

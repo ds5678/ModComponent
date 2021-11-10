@@ -12,7 +12,7 @@ namespace ModComponent.Mapper
 		{
 			if (pendingAssetBundles.Contains(relativePath))
 			{
-				Logger.LogWarning("Asset Bundle Manager already has '{0}' on the list of pending asset bundles.", relativePath);
+				Logger.LogWarning($"Asset Bundle Manager already has '{relativePath}' on the list of pending asset bundles.");
 			}
 			else pendingAssetBundles.Add(relativePath);
 		}
@@ -21,7 +21,7 @@ namespace ModComponent.Mapper
 			Add(relativePath);
 			if (pendingAssetBundlePaths.ContainsKey(relativePath))
 			{
-				Logger.LogWarning("Asset Bundle Manager already has '{0}' in the dictionary of pending asset bundle paths.", relativePath);
+				Logger.LogWarning($"Asset Bundle Manager already has '{relativePath}' in the dictionary of pending asset bundle paths.");
 			}
 			else pendingAssetBundlePaths.Add(relativePath, fullPath);
 		}

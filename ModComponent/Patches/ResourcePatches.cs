@@ -47,7 +47,7 @@ namespace ModComponent.Patches
 				if (!ModAssetBundleManager.IsKnownAsset(name)) return true;
 
 				__result = ModAssetBundleManager.LoadAsset(name);
-				if (__result == null) Logger.LogWarning("AssetBundle.LoadAsset failed to load the external asset '{0}'", name);
+				if (__result == null) Logger.LogWarning($"AssetBundle.LoadAsset failed to load the external asset '{name}'");
 				return false;
 			}
 		}

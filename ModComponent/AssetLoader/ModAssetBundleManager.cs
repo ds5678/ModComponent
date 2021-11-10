@@ -61,7 +61,7 @@ namespace ModComponent.AssetLoader
 			if (string.IsNullOrEmpty(relativePath)) throw new System.ArgumentException("The relative path while registering an asset bundle was null or empty");
 			if (knownAssetBundles.ContainsKey(relativePath))
 			{
-				Logger.Log("AssetBundle '{0}' has already been registered.", relativePath);
+				Logger.Log($"AssetBundle '{relativePath}' has already been registered.");
 				return;
 			}
 
@@ -82,7 +82,7 @@ namespace ModComponent.AssetLoader
 			if (string.IsNullOrEmpty(relativePath)) throw new System.ArgumentException("The relative path while registering an asset bundle was null or empty");
 			else if (knownAssetBundles.ContainsKey(relativePath))
 			{
-				Logger.Log("AssetBundle '{0}' has already been registered.", relativePath);
+				Logger.Log($"AssetBundle '{relativePath}' has already been registered.");
 			}
 			else if (assetBundle == null) throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
 			else LoadAssetBundle(relativePath, assetBundle);
@@ -204,7 +204,7 @@ namespace ModComponent.AssetLoader
 
 				if (knownAssetNames.ContainsKey(eachAssetName))
 				{
-					Logger.Log("Duplicate asset name '{0}'.", eachAssetName);
+					Logger.Log($"Duplicate asset name '{eachAssetName}'.");
 					continue;
 				}
 

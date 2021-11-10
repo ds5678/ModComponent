@@ -24,7 +24,7 @@ namespace ModComponent.AssetLoader
 
 			if (DelayLoadingSoundBanks)
 			{
-				Logger.Log("Adding sound bank '{0}' to the list of pending sound banks.", relativePath);
+				Logger.Log($"Adding sound bank '{relativePath}' to the list of pending sound banks.");
 				pendingPaths.Add(soundBankPath);
 			}
 			else LoadSoundBank(soundBankPath);
@@ -77,8 +77,8 @@ namespace ModComponent.AssetLoader
 			if (result != AKRESULT.AK_Success)
 			{
 				if (string.IsNullOrEmpty(soundBankPath)) Logger.Log("Failed to load sound bank.");
-				else Logger.Log("Failed to load sound bank from: '{0}'", soundBankPath);
-				Logger.Log("Result was {0}.", result);
+				else Logger.Log($"Failed to load sound bank from: '{soundBankPath}'");
+				Logger.Log($"Result was {result}.");
 				Marshal.FreeHGlobal(allocated);
 			}
 		}

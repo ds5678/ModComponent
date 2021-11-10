@@ -12,7 +12,7 @@ namespace ModComponent.Mapper
 
 			if (itemJsons.ContainsKey(itemName))
 			{
-				Logger.Log("Overwriting data for {0}", itemName);
+				Logger.Log($"Overwriting data for {itemName}");
 				itemJsons[itemName] = text;
 			}
 			else itemJsons.Add(itemName, text);
@@ -26,7 +26,7 @@ namespace ModComponent.Mapper
 			}
 			else
 			{
-				Logger.Log("Could not find {0} in json dictionary", itemName);
+				Logger.Log($"Could not find {itemName} in json dictionary");
 				return null;
 			}
 		}

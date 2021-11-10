@@ -15,7 +15,7 @@ namespace ModComponent.Mapper
 				equippable.EquippedModel = Object.Instantiate(equippedModelPrefab, GameManager.GetWeaponCamera().transform);
 				equippable.EquippedModel.layer = vp_Layer.Weapon;
 			}
-			else Logger.Log("The equippedModelPrefab for '{0}' was null.", equippable.EquippedModelPrefabName);
+			else Logger.Log($"The equippedModelPrefab for '{equippable.EquippedModelPrefabName}' was null.");
 
 			equippable.OnEquipped?.Invoke();
 

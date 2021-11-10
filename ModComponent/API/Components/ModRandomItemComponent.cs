@@ -24,7 +24,7 @@ namespace ModComponent.API.Components
 			if (Settings.instance.disableRandomItemSpawns) return;
 			if (this.ItemNames == null || this.ItemNames.Length == 0)
 			{
-				Logger.LogWarning("'{0}' had an invalid list of potential spawn items.", this.name);
+				Logger.LogWarning($"'{this.name}' had an invalid list of potential spawn items.");
 				Destroy(this.gameObject);
 				return;
 			}
@@ -33,7 +33,7 @@ namespace ModComponent.API.Components
 			GameObject prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
 			if (prefab == null)
 			{
-				Logger.LogWarning("Could not use '{0}' to spawn random item '{1}'", this.name, this.ItemNames[index]);
+				Logger.LogWarning($"Could not use '{this.name}' to spawn random item '{this.ItemNames[index]}'");
 				Destroy(this.gameObject);
 				return;
 			}

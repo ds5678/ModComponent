@@ -29,19 +29,19 @@ namespace ModComponent.API.Components
 			if (Settings.instance.disableRandomItemSpawns) return;
 			if (this.ItemNames == null || this.ItemNames.Length == 0)
 			{
-				Logger.LogWarning("'{0}' had an invalid list of potential spawn items.", this.name);
+				Logger.LogWarning($"'{this.name}' had an invalid list of potential spawn items.");
 				Destroy(this.gameObject);
 				return;
 			}
 			if (this.ItemWeights == null || this.ItemWeights.Length == 0)
 			{
-				Logger.LogWarning("'{0}' had an invalid list of item spawn weights.", this.name);
+				Logger.LogWarning($"'{this.name}' had an invalid list of item spawn weights.");
 				Destroy(this.gameObject);
 				return;
 			}
 			if (this.ItemWeights.Length != this.ItemNames.Length)
 			{
-				Logger.LogWarning("The lists of item names and spawn weights for '{0}' had unequal length.", this.name);
+				Logger.LogWarning($"The lists of item names and spawn weights for '{this.name}' had unequal length.");
 				Destroy(this.gameObject);
 				return;
 			}
@@ -50,7 +50,7 @@ namespace ModComponent.API.Components
 			GameObject prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
 			if (prefab == null)
 			{
-				Logger.LogWarning("Could not use '{0}' to spawn random item '{1}'", this.name, this.ItemNames[index]);
+				Logger.LogWarning($"Could not use '{this.name}' to spawn random item '{this.ItemNames[index]}'");
 				Destroy(this.gameObject);
 				return;
 			}
@@ -76,7 +76,7 @@ namespace ModComponent.API.Components
 				if (runningTotal > randomValue) return count;
 				else count++;
 			}
-			Logger.LogError("Bug found while running 'GetIndex' for '{0}'. For loop did not return a value.", this.name);
+			Logger.LogError($"Bug found while running 'GetIndex' for '{this.name}'. For loop did not return a value.");
 			return ItemNames.Length - 1; //should never happen
 		}
 
