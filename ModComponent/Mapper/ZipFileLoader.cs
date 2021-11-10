@@ -70,30 +70,12 @@ namespace ModComponent.Mapper
 						else
 							break;
 					}
-					string fullPath = Path.Combine(zipFilePath, internalPath);
-					switch (fileType)
-					{
-						case FileType.json:
-							HandleJson(internalPath, ReadToString(unzippedFileStream), fullPath);
-							break;
-						case FileType.unity3d:
-							HandleUnity3d(internalPath, unzippedFileStream, fullPath);
-							break;
-						case FileType.txt:
-							HandleTxt(internalPath, ReadToString(unzippedFileStream), fullPath);
-							break;
-						case FileType.dll:
-							Logger.Log($"Loading dll from zip at '{internalPath}'");
-							Assembly.Load(unzippedFileStream.ToArray());
-							break;
-						case FileType.bnk:
-							Logger.Log($"Loading bnk from zip at '{internalPath}'");
-							ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(unzippedFileStream.ToArray());
-							break;
-					}
+					if (!TryHandleFile(zipFilePath, internalPath, fileType, unzippedFileStream))
+						return;
 				}
 			}
 		}
+
 		private static Encoding GetEncoding(MemoryStream memoryStream)
 		{
 			using (var reader = new StreamReader(memoryStream, true))
@@ -102,12 +84,13 @@ namespace ModComponent.Mapper
 				return reader.CurrentEncoding;
 			}
 		}
+
 		private static string ReadToString(MemoryStream memoryStream)
 		{
 			Encoding encoding = GetEncoding(memoryStream);
-			//Logger.Log(encoding.EncodingName);
 			return encoding.GetString(memoryStream.ToArray());
 		}
+
 		private static FileType GetFileType(string filename)
 		{
 			if (String.IsNullOrWhiteSpace(filename)) return FileType.other;
@@ -118,27 +101,95 @@ namespace ModComponent.Mapper
 			if (filename.EndsWith(".bnk")) return FileType.bnk;
 			return FileType.other;
 		}
-		private static void HandleJson(string internalPath, string text, string fullPath)
+
+		private static bool TryHandleFile(string zipFilePath, string internalPath, FileType fileType, MemoryStream unzippedFileStream)
 		{
-			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
-			if (internalPath.StartsWith(@"auto-mapped/"))
+			switch (fileType)
 			{
-				Logger.Log($"Reading automapped json from zip at '{internalPath}'");
-				JsonHandler.RegisterJsonText(filenameNoExtension, text);
+				case FileType.json:
+					return TryHandleJson(zipFilePath, internalPath, ReadToString(unzippedFileStream));
+				case FileType.unity3d:
+					return TryHandleUnity3d(zipFilePath, internalPath, unzippedFileStream.ToArray());
+				case FileType.txt:
+					return TryHandleTxt(zipFilePath, internalPath, ReadToString(unzippedFileStream));
+ 				case FileType.dll:
+					return TryLoadAssembly(zipFilePath, internalPath, unzippedFileStream.ToArray());
+				case FileType.bnk:
+					return TryRegisterSoundBank(zipFilePath, internalPath, unzippedFileStream.ToArray());
+				default:
+					string fullPath = Path.Combine(zipFilePath, internalPath);
+					PackManager.SetItemPackNotWorking(zipFilePath, $"Could not handle asset '{fullPath}'");
+					return false;
 			}
-			else if (internalPath.StartsWith(@"blueprints/"))
-			{
-				Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
-				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
+		}
+
+		private static bool TryLoadAssembly(string zipFilePath, string internalPath, byte[] data)
+        {
+            try
+            {
+				Logger.Log($"Loading dll from zip at '{internalPath}'");
+				Assembly.Load(data);
+				return true;
 			}
-			else if (internalPath.StartsWith(@"localizations/"))
+			catch (Exception e)
 			{
-				Logger.Log($"Reading json localization from zip at '{internalPath}'");
-				LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
+				string fullPath = Path.Combine(zipFilePath, internalPath);
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load assembly '{fullPath}'. {e.Message}");
+				return false;
 			}
-			else if (internalPath == "BuildInfo.json")
+		}
+
+		private static bool TryRegisterSoundBank(string zipFilePath, string internalPath, byte[] data)
+		{
+			try
 			{
-				LogItemPackInformation(text);
+				Logger.Log($"Loading bnk from zip at '{internalPath}'");
+				ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(data);
+				return true;
+			}
+			catch (Exception e)
+			{
+				string fullPath = Path.Combine(zipFilePath, internalPath);
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not register sound bank '{fullPath}'. {e.Message}");
+				return false;
+			}
+		}
+
+		private static bool TryHandleJson(string zipFilePath, string internalPath, string text)
+		{
+            try
+            {
+				string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
+				if (internalPath.StartsWith(@"auto-mapped/"))
+				{
+					Logger.Log($"Reading automapped json from zip at '{internalPath}'");
+					JsonHandler.RegisterJsonText(filenameNoExtension, text);
+				}
+				else if (internalPath.StartsWith(@"blueprints/"))
+				{
+					Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
+					CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
+				}
+				else if (internalPath.StartsWith(@"localizations/"))
+				{
+					Logger.Log($"Reading json localization from zip at '{internalPath}'");
+					LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
+				}
+				else if (internalPath == "BuildInfo.json")
+				{
+					LogItemPackInformation(text);
+				}
+                else
+                {
+					throw new NotSupportedException($"Json file does not have a valid internal path: {internalPath}");
+                }
+				return true;
+			}
+			catch (Exception e)
+			{
+				string fullPath = Path.Combine(zipFilePath, internalPath);
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load json '{fullPath}'. {e.Message}");
+				return false;
 			}
 		}
 
@@ -150,30 +201,55 @@ namespace ModComponent.Mapper
 			Logger.Log($"Found: {modName} {version}");
 		}
 
-		private static void HandleTxt(string internalPath, string text, string fullPath)
+		private static bool TryHandleTxt(string zipFilePath, string internalPath, string text)
 		{
 			if (internalPath.StartsWith(@"gear-spawns/"))
 			{
-				Logger.Log($"Reading txt from zip at '{internalPath}'");
-				GearSpawner.SpawnManager.ParseSpawnInformation(text);
+                try
+                {
+					Logger.Log($"Reading txt from zip at '{internalPath}'");
+					GearSpawner.SpawnManager.ParseSpawnInformation(text);
+					return true;
+				}
+				catch (Exception e)
+				{
+					string fullPath = Path.Combine(zipFilePath, internalPath);
+					PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load gear spawn '{fullPath}'. {e.Message}");
+					return false;
+				}
+			}
+			else
+			{
+				string fullPath = Path.Combine(zipFilePath, internalPath);
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Txt file not in the gear-spawns folder: '{fullPath}'");
+				return false;
 			}
 		}
-		private static void HandleUnity3d(string internalPath, MemoryStream memoryStream, string fullPath)
+
+		private static bool TryHandleUnity3d(string zipFilePath, string internalPath, byte[] data)
 		{
+			string fullPath = Path.Combine(zipFilePath, internalPath);
 			if (internalPath.StartsWith(@"auto-mapped/"))
 			{
 				Logger.Log($"Loading asset bundle from zip at '{internalPath}'");
 				try
 				{
-					AssetBundle assetBundle = AssetBundle.LoadFromMemory(memoryStream.ToArray());
+					AssetBundle assetBundle = AssetBundle.LoadFromMemory(data);
 					string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
 					ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
 					AssetBundleManager.Add(relativePath, fullPath);
+					return true;
 				}
 				catch (Exception e)
 				{
-					PackManager.SetItemPackNotWorking(fullPath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
+					PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
+					return false;
 				}
+			}
+            else
+            {
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Asset bundle not in the auto-mapped folder: '{fullPath}'");
+				return false;
 			}
 		}
 	}
