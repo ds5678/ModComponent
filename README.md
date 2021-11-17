@@ -1,5 +1,7 @@
 # ModComponent
 
+![](https://img.shields.io/github/downloads/ds5678/ModComponent/total.svg) ![](https://img.shields.io/github/downloads/ds5678/ModComponent/latest/total.svg)
+
 This is a library for modding **The Long Dark** by Hinterland Games Studio, Inc.
 
 It allows:
@@ -39,8 +41,13 @@ I know many people might skip over this, but I hope you don't. You are so specia
 
 The alcohol mechanics can be enabled with [AlcoholMod](https://github.com/ds5678/AlcoholMod).
 
-## Downloads
+## ModComponent Files
 
-![](https://img.shields.io/github/downloads/ds5678/ModComponent/total.svg)
+ModComponent uses a custom file extension `.modcomponent` for item packs. These files can be edited like so:
 
-![](https://img.shields.io/github/downloads/ds5678/ModComponent/latest/total.svg)
+ * Change the file extension from `.modcomponent` to `.zip`
+ * Extract the files. They'll be placed into a root folder with the same name as the item pack.
+ * Edit the files as you please.
+ * Rezip the files.
+   * Make sure you're zipping the contents of the root folder. Zipping the root folder itself won't work with ModComponent.
+ * Change the file extension of your new zip file from `.zip` to `.modcomponent`
