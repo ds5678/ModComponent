@@ -12,11 +12,11 @@ Each file containes one blueprint definition in JSON.
 Example:  
 ```
 {
-    "@type": "ModComponentAPI.ModBlueprint",
+    "Name": "A name to show in error messages",
     "RequiredGear": ["GEAR_Cloth"],
     "RequiredGearUnits": [4],
-    "KeroseneLitersRequired": 0,
-    "GunpowderRequired": 0,
+    "KeroseneLitersRequired": 0.0,
+    "GunpowderRequired": 0.0,
     "RequiredTool": "GEAR_SewingKit",
     "OptionalTools": ["GEAR_HookAndLine"],
     "RequiredCraftingLocation": "Anywhere",

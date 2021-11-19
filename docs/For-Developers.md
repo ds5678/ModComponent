@@ -27,13 +27,13 @@ Audiokinetic also provides some great (although lengthy) tutorials on youtube, e
 A rough description of the architecture and the motivation / reasoning behind it.<br/>
 It isn't necessary to understand it, but it might help to get the big picture.
 
-[[Architecture]]
+[Architecture](Architecture.md)
 
 # Auto Mapper
 
 Eliminates the need to write glue code for mapping items.
 
-[[Auto Mapper]]
+[Auto Mapper](Auto-Mapper.md)
 
 # Item Mod Tutorial
 
@@ -41,4 +41,4 @@ A tutorial for creating your own item mod with ModComponent
 
 > Outdated
 
-[[Item Mod Tutorial]]
+[Item Mod Tutorial](Item-Mod-Tutorial.md)
