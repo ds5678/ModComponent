@@ -43,6 +43,7 @@ The following is a list of all loot tables, that can be used for configuring [[G
 * FishingDrawer
 * FishingSaltWater
 * FishingFreshWater
+* ForestryCrate
 * Freezer
 * Fridge
 * GenericCabinet
@@ -58,6 +59,7 @@ The following is a list of all loot tables, that can be used for configuring [[G
 * RifleSupplies
 * Safe
 * Stones
+* Suitcase
 * TideLine
 * ToolChest_sml
 * ToolChest
