@@ -18,15 +18,15 @@ namespace ModComponent
 
 		#region Log Functions
 		//Regular Messages show in white
-		internal static void Log(string message) => MelonLogger.Msg(message);
+		internal static void Log(string message) => Implementation.instance.LoggerInstance.Msg(message);
 
 
 		//Warning Messages show in yellow
-		internal static void LogWarning(string message) => MelonLogger.Warning(message);
+		internal static void LogWarning(string message) => Implementation.instance.LoggerInstance.Warning(message);
 
 
 		//Error Messages show in red
-		internal static void LogError(string message) => MelonLogger.Error(message);
+		internal static void LogError(string message) => Implementation.instance.LoggerInstance.Error(message);
 
 
 		//This is for when item packs error while loading.
@@ -45,11 +45,11 @@ namespace ModComponent
 
 
 		//Blue Messages
-		internal static void LogBlue(string message) => MelonLogger.Msg(ConsoleColor.Blue, message);
+		internal static void LogBlue(string message) => Implementation.instance.LoggerInstance.Msg(ConsoleColor.Blue, message);
 
 
 		//Green Messages
-		internal static void LogGreen(string message) => MelonLogger.Msg(ConsoleColor.Green, message);
+		internal static void LogGreen(string message) => Implementation.instance.LoggerInstance.Msg(ConsoleColor.Green, message);
 
 
 		//Debug Messages show only when in debug mode

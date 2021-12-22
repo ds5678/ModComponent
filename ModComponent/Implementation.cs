@@ -5,8 +5,12 @@ namespace ModComponent
 {
 	internal class Implementation : MelonMod
 	{
+		internal static Implementation instance;
+
 		public override void OnApplicationStart()
 		{
+			instance = this;
+
 			Logger.LogDebug("Debug Compilation");
 			Logger.LogNotDebug("Release Compilation");
 			
