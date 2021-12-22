@@ -40,9 +40,9 @@ namespace ModComponent.API.Behaviours
 		{
 			this.Audio = dict.GetVariant(className,"Audio");
 			this.Minutes = dict.GetVariant(className,"Minutes");
-			this.YieldCounts = JsonUtils.MakeIntArray(dict.GetVariant(className,"YieldCounts") as ProxyArray);
-			this.YieldNames = JsonUtils.MakeStringArray(dict.GetVariant(className,"YieldNames") as ProxyArray);
-			this.RequiredToolNames = JsonUtils.MakeStringArray(dict.GetVariant(className,"RequiredToolNames") as ProxyArray);
+			this.YieldCounts = dict.GetIntArray(className,"YieldCounts");
+			this.YieldNames = dict.GetStringArray(className,"YieldNames");
+			this.RequiredToolNames =dict.GetStringArray(className,"RequiredToolNames");
 		}
 	}
 }

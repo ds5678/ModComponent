@@ -45,7 +45,7 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModLiquidComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.LiquidType = EnumUtils.ParseEnum<ModLiquidComponent.LiquidKind>(dict.GetVariant(className,"LiquidType"));
+			this.LiquidType = dict.GetEnum<ModLiquidComponent.LiquidKind>(className,"LiquidType");
 			this.LiquidCapacityLiters = dict.GetVariant(className,"LiquidCapacityLiters");
 			this.RandomizeQuantity = dict.GetVariant(className,"RandomizedQuantity");
 			this.LiquidLiters = Mathf.Clamp(dict.GetVariant(className,"LiquidLiters"), 0f, this.LiquidCapacityLiters); //overridden if Randomized

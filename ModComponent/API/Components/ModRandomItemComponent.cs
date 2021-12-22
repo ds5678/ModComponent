@@ -49,7 +49,7 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModRandomItemComponent")
 		{
 			base.InitializeComponent(dict, className);
-			JsonUtils.TrySetStringArray(ref this.ItemNames, dict, className, "ItemNames");
+			this.ItemNames = dict.GetStringArray(className,"ItemNames");
 		}
 	}
 }

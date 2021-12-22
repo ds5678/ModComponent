@@ -54,13 +54,13 @@ namespace ModComponent.API.Behaviours
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableBehaviour")
 		{
 			this.RepairDurationMinutes = dict.GetVariant(className,"RepairDurationMinutes");
-			this.RepairRequiredGear = JsonUtils.MakeStringArray(dict.GetVariant(className,"RepairRequiredGear") as ProxyArray);
-			this.RepairRequiredGearUnits = JsonUtils.MakeIntArray(dict.GetVariant(className,"RepairRequiredGearUnits") as ProxyArray);
+			this.RepairRequiredGear = dict.GetStringArray(className,"RepairRequiredGear");
+			this.RepairRequiredGearUnits = dict.GetIntArray(className,"RepairRequiredGearUnits");
 			this.CanRestoreFromWornOut = dict.GetVariant(className,"CanRestoreFromWornOut");
 			this.RecoveryDurationMinutes = dict.GetVariant(className,"RecoveryDurationMinutes");
-			this.RestoreRequiredGear = JsonUtils.MakeStringArray(dict.GetVariant(className,"RestoreRequiredGear") as ProxyArray);
-			this.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict.GetVariant(className,"RestoreRequiredGearUnits") as ProxyArray);
-			this.Skill = EnumUtils.ParseEnum<ModComponent.API.ModSkillType>(dict.GetVariant(className,"Skill"));
+			this.RestoreRequiredGear = dict.GetStringArray(className,"RestoreRequiredGear");
+			this.RestoreRequiredGearUnits = dict.GetIntArray(className,"RestoreRequiredGearUnits");
+			this.Skill = dict.GetEnum<ModComponent.API.ModSkillType>(className,"Skill");
 		}
 	}
 }

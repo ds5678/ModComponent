@@ -92,7 +92,7 @@ namespace ModComponent.API.Components
 			}
 			this.CookingUnitsRequired = dict.GetVariant(className,"CookingUnitsRequired");
 			this.CookingWaterRequired = dict.GetVariant(className,"CookingWaterRequired");
-			this.Type = EnumUtils.ParseEnum<ModCookableComponent.CookableType>(dict.GetVariant(className,"Type"));
+			this.Type = dict.GetEnum<ModCookableComponent.CookableType>(className,"Type");
 		}
 	}
 }

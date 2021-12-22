@@ -96,8 +96,8 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModRandomWeightedItemComponent")
 		{
 			base.InitializeComponent(dict, className);
-			JsonUtils.TrySetStringArray(ref this.ItemNames, dict, className, "ItemNames");
-			JsonUtils.TrySetIntArray(ref this.ItemWeights, dict, className, "ItemWeights");
+			this.ItemNames = dict.GetStringArray(className,"ItemNames");
+			this.ItemWeights = dict.GetIntArray(className,"ItemWeights");
 		}
 	}
 }

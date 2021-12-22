@@ -225,11 +225,11 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModClothingComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.Region = EnumUtils.ParseEnum<ModClothingComponent.BodyRegion>(dict.GetVariant(className,"Region"));
-			this.MinLayer = EnumUtils.ParseEnum<ModClothingComponent.Layer>(dict.GetVariant(className,"MinLayer"));
-			this.MaxLayer = EnumUtils.ParseEnum<ModClothingComponent.Layer>(dict.GetVariant(className,"MaxLayer"));
-			this.MovementSound = EnumUtils.ParseEnum<ModClothingComponent.MovementSounds>(dict.GetVariant(className,"MovementSound"));
-			this.Footwear = EnumUtils.ParseEnum<ModClothingComponent.FootwearType>(dict.GetVariant(className,"Footwear"));
+			this.Region = dict.GetEnum<ModClothingComponent.BodyRegion>(className,"Region");
+			this.MinLayer = dict.GetEnum<ModClothingComponent.Layer>(className,"MinLayer");
+			this.MaxLayer = dict.GetEnum<ModClothingComponent.Layer>(className,"MaxLayer");
+			this.MovementSound = dict.GetEnum<ModClothingComponent.MovementSounds>(className,"MovementSound");
+			this.Footwear = dict.GetEnum<ModClothingComponent.FootwearType>(className,"Footwear");
 			this.DaysToDecayWornOutside = dict.GetVariant(className,"DaysToDecayWornOutside");
 			this.DaysToDecayWornInside = dict.GetVariant(className,"DaysToDecayWornInside");
 			this.Warmth = dict.GetVariant(className,"Warmth");

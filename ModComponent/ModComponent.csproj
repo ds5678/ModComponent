@@ -87,7 +87,7 @@
     <Compile Include="API\Components\ModResearchComponent.cs" />
     <Compile Include="API\AlcoholComponent.cs" />
     <Compile Include="API\ModLootTable.cs" />
-    <Compile Include="API\ProxyObjectExtensions.cs" />
+    <Compile Include="API\TinyJsonExtensions.cs" />
     <Compile Include="AssetLoader\SaveAtlas.cs" />
     <Compile Include="BuildInfo.cs" />
     <Compile Include="Mapper\FileType.cs" />
@@ -187,7 +187,6 @@
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\EquipItemPopupUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
-    <Compile Include="Utils\JsonUtils.cs" />
     <Compile Include="Utils\NameUtils.cs" />
     <Compile Include="Utils\PlayerUtils.cs" />
     <Compile Include="Utils\RandomUtils.cs" />

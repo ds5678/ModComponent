@@ -245,7 +245,7 @@ namespace ModComponent.API.Components
 
 			this.FoodPoisoning = dict.GetVariant(className,"FoodPoisoning");
 			this.FoodPoisoningLowCondition = dict.GetVariant(className,"FoodPoisoningLowCondition");
-			this.ParasiteRiskIncrements = JsonUtils.MakeFloatArray(dict.GetVariant(className,"ParasiteRiskIncrements") as ProxyArray);
+			this.ParasiteRiskIncrements = dict.GetFloatArray(className,"ParasiteRiskIncrements");
 
 			this.Natural = dict.GetVariant(className,"Natural");
 			this.Raw = dict.GetVariant(className,"Raw");

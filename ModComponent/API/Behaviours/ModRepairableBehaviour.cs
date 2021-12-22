@@ -47,9 +47,9 @@ namespace ModComponent.API.Behaviours
 			this.Audio = dict.GetVariant(className,"Audio");
 			this.Minutes = dict.GetVariant(className,"Minutes");
 			this.Condition = dict.GetVariant(className,"Condition");
-			this.RequiredTools = JsonUtils.MakeStringArray(dict.GetVariant(className,"RequiredTools") as ProxyArray);
-			this.MaterialNames = JsonUtils.MakeStringArray(dict.GetVariant(className,"MaterialNames") as ProxyArray);
-			this.MaterialCounts = JsonUtils.MakeIntArray(dict.GetVariant(className,"MaterialCounts") as ProxyArray);
+			this.RequiredTools = dict.GetStringArray(className,"RequiredTools");
+			this.MaterialNames = dict.GetStringArray(className,"MaterialNames");
+			this.MaterialCounts = dict.GetIntArray(className,"MaterialCounts");
 		}
 	}
 }

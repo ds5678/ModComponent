@@ -17,10 +17,10 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModCharcoalComponent")
 		{
 			base.InitializeComponent(dict, className);
-			JsonUtils.TrySetFloat(ref this.SurveyGameMinutes, dict, className, "SurveyGameMinutes");
-			JsonUtils.TrySetFloat(ref this.SurveyRealSeconds, dict, className, "SurveyRealSeconds");
-			JsonUtils.TrySetFloat(ref this.SurveySkillExtendedHours, dict, className, "SurveySkillExtendedHours");
-			JsonUtils.TrySetString(ref this.SurveyLoopAudio, dict, className, "SurveyLoopAudio");
+			this.SurveyGameMinutes = dict.GetVariant(className,"SurveyGameMinutes");
+			this.SurveyRealSeconds = dict.GetVariant(className,"SurveyRealSeconds");
+			this.SurveySkillExtendedHours = dict.GetVariant(className,"SurveySkillExtendedHours");
+			this.SurveyLoopAudio = dict.GetVariant(className,"SurveyLoopAudio");
 		}
 	}
 }

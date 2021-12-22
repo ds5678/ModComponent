@@ -68,7 +68,7 @@ namespace ModComponent.API.Components
 			this.ProgressBarMessage = dict.GetVariant(className,"ProgressBarMessage");
 			this.RemedyText = dict.GetVariant(className,"RemedyText");
 			this.InstantHealing = dict.GetVariant(className,"InstantHealing");
-			this.FirstAidType = EnumUtils.ParseEnum<ModFirstAidComponent.FirstAidKind>(dict.GetVariant(className,"FirstAidType"));
+			this.FirstAidType = dict.GetEnum<ModFirstAidComponent.FirstAidKind>(className,"FirstAidType");
 			this.TimeToUseSeconds = dict.GetVariant(className,"TimeToUseSeconds");
 			this.UnitsPerUse = dict.GetVariant(className,"UnitsPerUse");
 			this.UseAudio = dict.GetVariant(className,"UseAudio");

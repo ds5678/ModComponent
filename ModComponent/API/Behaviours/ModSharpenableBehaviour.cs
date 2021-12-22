@@ -49,7 +49,7 @@ namespace ModComponent.API.Behaviours
 			this.MinutesMax = dict.GetVariant(className,"MinutesMax");
 			this.ConditionMin = dict.GetVariant(className,"ConditionMin");
 			this.ConditionMax = dict.GetVariant(className,"ConditionMax");
-			this.Tools = JsonUtils.MakeStringArray(dict.GetVariant(className,"Tools") as ProxyArray);
+			this.Tools = dict.GetStringArray(className,"Tools");
 		}
 	}
 }

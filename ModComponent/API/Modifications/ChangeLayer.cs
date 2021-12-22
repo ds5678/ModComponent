@@ -29,8 +29,8 @@ namespace ModComponent.API.Modifications
 		[HideFromIl2Cpp]
 		internal void InitializeModification(ProxyObject dict, string className = "ChangeLayer")
 		{
-			JsonUtils.TrySetBool(ref this.Recursively, dict, className, "Recursively");
-			JsonUtils.TrySetInt(ref this.Layer, dict, className, "Layer");
+			this.Recursively = dict.GetVariant(className,"Recursively");
+			this.Layer = dict.GetVariant(className,"Layer");
 		}
 	}
 }

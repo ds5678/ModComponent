@@ -18,10 +18,10 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModPurificationComponent")
 		{
 			base.InitializeComponent(dict, className);
-			JsonUtils.TrySetFloat(ref this.LitersPurify, dict, className, "LitersPurify");
-			JsonUtils.TrySetFloat(ref this.ProgressBarDurationSeconds, dict, className, "ProgressBarDurationSeconds");
-			JsonUtils.TrySetString(ref this.ProgressBarLocalizationID, dict, className, "ProgressBarLocalizationID");
-			JsonUtils.TrySetString(ref this.PurifyAudio, dict, className, "PurifyAudio");
+			this.LitersPurify = dict.GetVariant(className,"LitersPurify");
+			this.ProgressBarDurationSeconds = dict.GetVariant(className,"ProgressBarDurationSeconds");
+			this.ProgressBarLocalizationID = dict.GetVariant(className,"ProgressBarLocalizationID");
+			this.PurifyAudio = dict.GetVariant(className,"PurifyAudio");
 		}
 	}
 }

@@ -37,9 +37,9 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModCollectibleComponent")
 		{
 			base.InitializeComponent(dict, className);
-			JsonUtils.TrySetString(ref this.HudMessageLocalizationId, dict, className, "HudMessageLocalizationId");
-			JsonUtils.TrySetString(ref this.NarrativeTextLocalizationId, dict, className, "NarrativeTextLocalizationId");
-			JsonUtils.TrySetEnum<ModCollectibleComponent.Alignment>(ref this.TextAlignment, dict, className, "TextAlignment");
+			this.HudMessageLocalizationId = dict.GetVariant(className,"HudMessageLocalizationId");
+			this.NarrativeTextLocalizationId = dict.GetVariant(className,"NarrativeTextLocalizationId");
+			this.TextAlignment = dict.GetEnum<Alignment>(className,"TextAlignment");
 		}
 	}
 }
