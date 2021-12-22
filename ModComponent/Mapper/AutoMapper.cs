@@ -19,11 +19,14 @@ namespace ModComponent.Mapper
 
 		private static void AutoMapPrefab(string prefabName)
 		{
-			GameObject prefab = Resources.Load(prefabName)?.TryCast<GameObject>();
+			UnityEngine.Object loadedObject = Resources.Load(prefabName);
+			if (loadedObject == null)
+				throw new Exception($"{prefabName} could not be loaded with Resources.Load");
+
+			GameObject prefab = loadedObject.TryCast<GameObject>();
 			if (prefab == null)
-			{
-				throw new System.NullReferenceException("In AutoMapper.AutoMapPrefab, Resources.Load did not return a GameObject.");
-			}
+				throw new System.NullReferenceException("In AutoMapper.AutoMapPrefab, loaded object was not a GameObject.");
+
 			if (prefab.name.StartsWith("GEAR_")) 
 				MapModComponent(prefab);
 		}

@@ -3,6 +3,7 @@ using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.API.Modifications;
 using ModComponent.Utils;
+using System;
 using UnityEngine;
 
 namespace ModComponent.Mapper
@@ -11,18 +12,28 @@ namespace ModComponent.Mapper
 	{
 		public static void InitializeComponents(ref GameObject prefab)
 		{
-			if (ComponentUtils.GetModComponent(prefab) != null) return;
+			if (prefab == null)
+				throw new ArgumentNullException(nameof(prefab));
+			if (ComponentUtils.GetModComponent(prefab) != null) 
+				return;
 
 			string name = NameUtils.RemoveGearPrefix(prefab.name);
 			string data = JsonHandler.GetJsonText(name);
 			ProxyObject dict = JSON.Load(data) as ProxyObject;
+			if (dict == null)
+				throw new Exception($"Could not load json for {name}");
 			InitializeComponents(ref prefab, dict);
 		}
 
 		#region InitializeComponents
 		public static void InitializeComponents(ref GameObject prefab, ProxyObject dict)
 		{
-			if (ComponentUtils.GetModComponent(prefab) != null || dict == null) return;
+			if (prefab == null)
+				throw new ArgumentNullException(nameof(prefab));
+			if (dict == null)
+				throw new ArgumentNullException(nameof(dict));
+			if (ComponentUtils.GetModComponent(prefab) != null) 
+				return;
 
 			#region Mod Components
 			if (JsonUtils.ContainsKey(dict, "ModBedComponent"))
