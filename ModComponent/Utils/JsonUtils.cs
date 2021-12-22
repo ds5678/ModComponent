@@ -1,4 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
+using ModComponent.API;
 using System.IO;
 using UnityEngine;
 
@@ -84,49 +85,49 @@ namespace ModComponent.Utils
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = dict[className][keyName];
+			destination = dict.GetVariant(className,keyName);
 		}
 
 		internal static void TrySetEnum<T>(ref T destination, ProxyObject dict, string className, string keyName) where T : System.Enum
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = EnumUtils.ParseEnum<T>(dict[className][keyName]);
+			destination = EnumUtils.ParseEnum<T>(dict.GetVariant(className,keyName));
 		}
 
 		internal static void TrySetInt(ref int destination, ProxyObject dict, string className, string keyName)
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = dict[className][keyName];
+			destination = dict.GetVariant(className,keyName);
 		}
 
 		internal static void TrySetFloat(ref float destination, ProxyObject dict, string className, string keyName)
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = dict[className][keyName];
+			destination = dict.GetVariant(className,keyName);
 		}
 
 		internal static void TrySetString(ref string destination, ProxyObject dict, string className, string keyName)
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = dict[className][keyName];
+			destination = dict.GetVariant(className,keyName);
 		}
 
 		internal static void TrySetIntArray(ref int[] destination, ProxyObject dict, string className, string keyName)
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = MakeIntArray(dict[className][keyName] as ProxyArray);
+			destination = MakeIntArray(dict.GetVariant(className,keyName) as ProxyArray);
 		}
 
 		internal static void TrySetStringArray(ref string[] destination, ProxyObject dict, string className, string keyName)
 		{
 			if (!ContainsKey(dict, className)) return;
 			if (!ContainsKey(dict[className] as ProxyObject, keyName)) return;
-			destination = MakeStringArray(dict[className][keyName] as ProxyArray);
+			destination = MakeStringArray(dict.GetVariant(className,keyName) as ProxyArray);
 		}
 	}
 }

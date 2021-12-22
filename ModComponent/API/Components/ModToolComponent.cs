@@ -174,38 +174,38 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModToolComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.ToolType = EnumUtils.ParseEnum<ModToolComponent.ToolKind>(dict[className]["ToolType"]);
-			this.DegradeOnUse = dict[className]["DegradeOnUse"];
-			this.Usage = EnumUtils.ParseEnum<ModToolComponent.ToolUsage>(dict[className]["Usage"]);
-			this.SkillBonus = dict[className]["SkillBonus"];
+			this.ToolType = dict.GetEnum<ModToolComponent.ToolKind>(className,"ToolType");
+			this.DegradeOnUse = dict.GetVariant(className,"DegradeOnUse");
+			this.Usage = dict.GetEnum<ModToolComponent.ToolUsage>(className,"Usage");
+			this.SkillBonus = dict.GetVariant(className,"SkillBonus");
 
-			this.CraftingTimeMultiplier = dict[className]["CraftingTimeMultiplier"];
-			this.DegradePerHourCrafting = dict[className]["DegradePerHourCrafting"];
+			this.CraftingTimeMultiplier = dict.GetVariant(className,"CraftingTimeMultiplier");
+			this.DegradePerHourCrafting = dict.GetVariant(className,"DegradePerHourCrafting");
 
-			this.BreakDown = dict[className]["BreakDown"];
-			this.BreakDownTimeMultiplier = dict[className]["BreakDownTimeMultiplier"];
+			this.BreakDown = dict.GetVariant(className,"BreakDown");
+			this.BreakDownTimeMultiplier = dict.GetVariant(className,"BreakDownTimeMultiplier");
 
-			this.ForceLocks = dict[className]["ForceLocks"];
-			this.ForceLockAudio = dict[className]["ForceLockAudio"];
+			this.ForceLocks = dict.GetVariant(className,"ForceLocks");
+			this.ForceLockAudio = dict.GetVariant(className,"ForceLockAudio");
 
-			this.IceFishingHole = dict[className]["IceFishingHole"];
-			this.IceFishingHoleDegradeOnUse = dict[className]["IceFishingHoleDegradeOnUse"];
-			this.IceFishingHoleMinutes = dict[className]["IceFishingHoleMinutes"];
-			this.IceFishingHoleAudio = dict[className]["IceFishingHoleAudio"];
+			this.IceFishingHole = dict.GetVariant(className,"IceFishingHole");
+			this.IceFishingHoleDegradeOnUse = dict.GetVariant(className,"IceFishingHoleDegradeOnUse");
+			this.IceFishingHoleMinutes = dict.GetVariant(className,"IceFishingHoleMinutes");
+			this.IceFishingHoleAudio = dict.GetVariant(className,"IceFishingHoleAudio");
 
-			this.CarcassHarvesting = dict[className]["CarcassHarvesting"];
-			this.MinutesPerKgMeat = dict[className]["MinutesPerKgMeat"];
-			this.MinutesPerKgFrozenMeat = dict[className]["MinutesPerKgFrozenMeat"];
-			this.MinutesPerHide = dict[className]["MinutesPerHide"];
-			this.MinutesPerGut = dict[className]["MinutesPerGut"];
-			this.DegradePerHourHarvesting = dict[className]["DegradePerHourHarvesting"];
+			this.CarcassHarvesting = dict.GetVariant(className,"CarcassHarvesting");
+			this.MinutesPerKgMeat = dict.GetVariant(className,"MinutesPerKgMeat");
+			this.MinutesPerKgFrozenMeat = dict.GetVariant(className,"MinutesPerKgFrozenMeat");
+			this.MinutesPerHide = dict.GetVariant(className,"MinutesPerHide");
+			this.MinutesPerGut = dict.GetVariant(className,"MinutesPerGut");
+			this.DegradePerHourHarvesting = dict.GetVariant(className,"DegradePerHourHarvesting");
 
-			this.StruggleBonus = dict[className]["StruggleBonus"];
-			this.DamageMultiplier = dict[className]["DamageMultiplier"];
-			this.FleeChanceMultiplier = dict[className]["FleeChanceMultiplier"];
-			this.TapMultiplier = dict[className]["TapMultiplier"];
-			this.CanPuncture = dict[className]["CanPuncture"];
-			this.BleedoutMultiplier = dict[className]["BleedoutMultiplier"];
+			this.StruggleBonus = dict.GetVariant(className,"StruggleBonus");
+			this.DamageMultiplier = dict.GetVariant(className,"DamageMultiplier");
+			this.FleeChanceMultiplier = dict.GetVariant(className,"FleeChanceMultiplier");
+			this.TapMultiplier = dict.GetVariant(className,"TapMultiplier");
+			this.CanPuncture = dict.GetVariant(className,"CanPuncture");
+			this.BleedoutMultiplier = dict.GetVariant(className,"BleedoutMultiplier");
 		}
 	}
 }

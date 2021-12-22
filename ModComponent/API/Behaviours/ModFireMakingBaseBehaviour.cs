@@ -27,8 +27,8 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal virtual void InitializeBehaviour(ProxyObject dict, string className)
 		{
-			this.SuccessModifier = dict[className]["SuccessModifier"];
-			this.DurationOffset = dict[className]["DurationOffset"];
+			this.SuccessModifier = dict.GetVariant(className,"SuccessModifier");
+			this.DurationOffset = dict.GetVariant(className,"DurationOffset");
 		}
 	}
 }

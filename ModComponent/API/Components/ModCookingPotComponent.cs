@@ -49,13 +49,13 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModCookingPotComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.CanCookLiquid = dict[className]["CanCookLiquid"];
-			this.CanCookGrub = dict[className]["CanCookGrub"];
-			this.CanCookMeat = dict[className]["CanCookMeat"];
-			this.Capacity = dict[className]["Capacity"];
-			this.Template = dict[className]["Template"];
-			this.SnowMesh = null;// GetChild(this.gameObject, dict[className]["SnowMesh"]).GetComponent<MeshFilter>().mesh;
-			this.WaterMesh = null; // GetChild(this.gameObject, dict[className]["WaterMesh"]).GetComponent<MeshFilter>().mesh;
+			this.CanCookLiquid = dict.GetVariant(className,"CanCookLiquid");
+			this.CanCookGrub = dict.GetVariant(className,"CanCookGrub");
+			this.CanCookMeat = dict.GetVariant(className,"CanCookMeat");
+			this.Capacity = dict.GetVariant(className,"Capacity");
+			this.Template = dict.GetVariant(className,"Template");
+			this.SnowMesh = null;// GetChild(this.gameObject, dict.GetVariant(className,"SnowMesh")).GetComponent<MeshFilter>().mesh;
+			this.WaterMesh = null; // GetChild(this.gameObject, dict.GetVariant(className,"WaterMesh")).GetComponent<MeshFilter>().mesh;
 		}
 	}
 }

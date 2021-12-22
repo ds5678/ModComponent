@@ -38,11 +38,11 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModHarvestableBehaviour")
 		{
-			this.Audio = dict[className]["Audio"];
-			this.Minutes = dict[className]["Minutes"];
-			this.YieldCounts = JsonUtils.MakeIntArray(dict[className]["YieldCounts"] as ProxyArray);
-			this.YieldNames = JsonUtils.MakeStringArray(dict[className]["YieldNames"] as ProxyArray);
-			this.RequiredToolNames = JsonUtils.MakeStringArray(dict[className]["RequiredToolNames"] as ProxyArray);
+			this.Audio = dict.GetVariant(className,"Audio");
+			this.Minutes = dict.GetVariant(className,"Minutes");
+			this.YieldCounts = JsonUtils.MakeIntArray(dict.GetVariant(className,"YieldCounts") as ProxyArray);
+			this.YieldNames = JsonUtils.MakeStringArray(dict.GetVariant(className,"YieldNames") as ProxyArray);
+			this.RequiredToolNames = JsonUtils.MakeStringArray(dict.GetVariant(className,"RequiredToolNames") as ProxyArray);
 		}
 	}
 }

@@ -65,13 +65,13 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModFirstAidComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.ProgressBarMessage = dict[className]["ProgressBarMessage"];
-			this.RemedyText = dict[className]["RemedyText"];
-			this.InstantHealing = dict[className]["InstantHealing"];
-			this.FirstAidType = EnumUtils.ParseEnum<ModFirstAidComponent.FirstAidKind>(dict[className]["FirstAidType"]);
-			this.TimeToUseSeconds = dict[className]["TimeToUseSeconds"];
-			this.UnitsPerUse = dict[className]["UnitsPerUse"];
-			this.UseAudio = dict[className]["UseAudio"];
+			this.ProgressBarMessage = dict.GetVariant(className,"ProgressBarMessage");
+			this.RemedyText = dict.GetVariant(className,"RemedyText");
+			this.InstantHealing = dict.GetVariant(className,"InstantHealing");
+			this.FirstAidType = EnumUtils.ParseEnum<ModFirstAidComponent.FirstAidKind>(dict.GetVariant(className,"FirstAidType"));
+			this.TimeToUseSeconds = dict.GetVariant(className,"TimeToUseSeconds");
+			this.UnitsPerUse = dict.GetVariant(className,"UnitsPerUse");
+			this.UseAudio = dict.GetVariant(className,"UseAudio");
 		}
 	}
 }

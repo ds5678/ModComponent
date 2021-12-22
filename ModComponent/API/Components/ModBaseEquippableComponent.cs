@@ -192,9 +192,9 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string inheritanceName)
 		{
 			base.InitializeComponent(dict, inheritanceName);
-			this.EquippedModelPrefabName = dict[inheritanceName]["EquippedModelPrefab"];
-			this.ImplementationType = dict[inheritanceName]["ImplementationType"];
-			this.EquippingAudio = dict[inheritanceName]["EquippingAudio"];
+			this.EquippedModelPrefabName = dict.GetVariant(inheritanceName,"EquippedModelPrefab");
+			this.ImplementationType = dict.GetVariant(inheritanceName,"ImplementationType");
+			this.EquippingAudio = dict.GetVariant(inheritanceName,"EquippingAudio");
 		}
 	}
 }

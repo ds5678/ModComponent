@@ -44,12 +44,12 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModSharpenableBehaviour")
 		{
-			this.Audio = dict[className]["Audio"];
-			this.MinutesMin = dict[className]["MinutesMin"];
-			this.MinutesMax = dict[className]["MinutesMax"];
-			this.ConditionMin = dict[className]["ConditionMin"];
-			this.ConditionMax = dict[className]["ConditionMax"];
-			this.Tools = JsonUtils.MakeStringArray(dict[className]["Tools"] as ProxyArray);
+			this.Audio = dict.GetVariant(className,"Audio");
+			this.MinutesMin = dict.GetVariant(className,"MinutesMin");
+			this.MinutesMax = dict.GetVariant(className,"MinutesMax");
+			this.ConditionMin = dict.GetVariant(className,"ConditionMin");
+			this.ConditionMax = dict.GetVariant(className,"ConditionMax");
+			this.Tools = JsonUtils.MakeStringArray(dict.GetVariant(className,"Tools") as ProxyArray);
 		}
 	}
 }

@@ -44,12 +44,12 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableBehaviour")
 		{
-			this.Audio = dict[className]["Audio"];
-			this.Minutes = dict[className]["Minutes"];
-			this.Condition = dict[className]["Condition"];
-			this.RequiredTools = JsonUtils.MakeStringArray(dict[className]["RequiredTools"] as ProxyArray);
-			this.MaterialNames = JsonUtils.MakeStringArray(dict[className]["MaterialNames"] as ProxyArray);
-			this.MaterialCounts = JsonUtils.MakeIntArray(dict[className]["MaterialCounts"] as ProxyArray);
+			this.Audio = dict.GetVariant(className,"Audio");
+			this.Minutes = dict.GetVariant(className,"Minutes");
+			this.Condition = dict.GetVariant(className,"Condition");
+			this.RequiredTools = JsonUtils.MakeStringArray(dict.GetVariant(className,"RequiredTools") as ProxyArray);
+			this.MaterialNames = JsonUtils.MakeStringArray(dict.GetVariant(className,"MaterialNames") as ProxyArray);
+			this.MaterialCounts = JsonUtils.MakeIntArray(dict.GetVariant(className,"MaterialCounts") as ProxyArray);
 		}
 	}
 }

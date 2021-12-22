@@ -26,7 +26,7 @@ namespace ModComponent.Mapper
 		}
 
 		#region InitializeComponents
-		public static void InitializeComponents(ref GameObject prefab, ProxyObject dict)
+		private static void InitializeComponents(ref GameObject prefab, ProxyObject dict)
 		{
 			if (prefab == null)
 				throw new ArgumentNullException(nameof(prefab));

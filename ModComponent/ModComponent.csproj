@@ -87,6 +87,7 @@
     <Compile Include="API\Components\ModResearchComponent.cs" />
     <Compile Include="API\AlcoholComponent.cs" />
     <Compile Include="API\ModLootTable.cs" />
+    <Compile Include="API\ProxyObjectExtensions.cs" />
     <Compile Include="AssetLoader\SaveAtlas.cs" />
     <Compile Include="BuildInfo.cs" />
     <Compile Include="Mapper\FileType.cs" />

@@ -56,11 +56,11 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModStackableBehaviour")
 		{
-			this.MultipleUnitTextID = dict[className]["MultipleUnitTextId"];
-			this.StackSprite = dict[className]["StackSprite"];
-			this.SingleUnitTextID = dict[className]["SingleUnitTextId"];
-			this.UnitsPerItem = dict[className]["UnitsPerItem"];
-			this.ChanceFull = dict[className]["ChanceFull"];
+			this.MultipleUnitTextID = dict.GetVariant(className,"MultipleUnitTextId");
+			this.StackSprite = dict.GetVariant(className,"StackSprite");
+			this.SingleUnitTextID = dict.GetVariant(className,"SingleUnitTextId");
+			this.UnitsPerItem = dict.GetVariant(className,"UnitsPerItem");
+			this.ChanceFull = dict.GetVariant(className,"ChanceFull");
 		}
 	}
 }

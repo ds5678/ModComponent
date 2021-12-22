@@ -53,14 +53,14 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableBehaviour")
 		{
-			this.RepairDurationMinutes = dict[className]["RepairDurationMinutes"];
-			this.RepairRequiredGear = JsonUtils.MakeStringArray(dict[className]["RepairRequiredGear"] as ProxyArray);
-			this.RepairRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RepairRequiredGearUnits"] as ProxyArray);
-			this.CanRestoreFromWornOut = dict[className]["CanRestoreFromWornOut"];
-			this.RecoveryDurationMinutes = dict[className]["RecoveryDurationMinutes"];
-			this.RestoreRequiredGear = JsonUtils.MakeStringArray(dict[className]["RestoreRequiredGear"] as ProxyArray);
-			this.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict[className]["RestoreRequiredGearUnits"] as ProxyArray);
-			this.Skill = EnumUtils.ParseEnum<ModComponent.API.ModSkillType>(dict[className]["Skill"]);
+			this.RepairDurationMinutes = dict.GetVariant(className,"RepairDurationMinutes");
+			this.RepairRequiredGear = JsonUtils.MakeStringArray(dict.GetVariant(className,"RepairRequiredGear") as ProxyArray);
+			this.RepairRequiredGearUnits = JsonUtils.MakeIntArray(dict.GetVariant(className,"RepairRequiredGearUnits") as ProxyArray);
+			this.CanRestoreFromWornOut = dict.GetVariant(className,"CanRestoreFromWornOut");
+			this.RecoveryDurationMinutes = dict.GetVariant(className,"RecoveryDurationMinutes");
+			this.RestoreRequiredGear = JsonUtils.MakeStringArray(dict.GetVariant(className,"RestoreRequiredGear") as ProxyArray);
+			this.RestoreRequiredGearUnits = JsonUtils.MakeIntArray(dict.GetVariant(className,"RestoreRequiredGearUnits") as ProxyArray);
+			this.Skill = EnumUtils.ParseEnum<ModComponent.API.ModSkillType>(dict.GetVariant(className,"Skill"));
 		}
 	}
 }

@@ -79,16 +79,16 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModBedComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.ConditionGainPerHour = dict[className]["ConditionGainPerHour"];
-			this.AdditionalConditionGainPerHour = dict[className]["AdditionalConditionGainPerHour"];
-			this.WarmthBonusCelsius = dict[className]["WarmthBonusCelsius"];
-			this.DegradePerHour = dict[className]["DegradePerHour"];
-			this.BearAttackModifier = dict[className]["BearAttackModifier"];
-			this.WolfAttackModifier = dict[className]["WolfAttackModifier"];
-			this.OpenAudio = dict[className]["OpenAudio"];
-			this.CloseAudio = dict[className]["CloseAudio"];
-			this.PackedMesh = ModUtils.GetChild(this.gameObject, dict[className]["PackedMesh"]);
-			this.UsableMesh = ModUtils.GetChild(this.gameObject, dict[className]["UsableMesh"]);
+			this.ConditionGainPerHour = dict.GetVariant(className,"ConditionGainPerHour");
+			this.AdditionalConditionGainPerHour = dict.GetVariant(className,"AdditionalConditionGainPerHour");
+			this.WarmthBonusCelsius = dict.GetVariant(className,"WarmthBonusCelsius");
+			this.DegradePerHour = dict.GetVariant(className,"DegradePerHour");
+			this.BearAttackModifier = dict.GetVariant(className,"BearAttackModifier");
+			this.WolfAttackModifier = dict.GetVariant(className,"WolfAttackModifier");
+			this.OpenAudio = dict.GetVariant(className,"OpenAudio");
+			this.CloseAudio = dict.GetVariant(className,"CloseAudio");
+			this.PackedMesh = ModUtils.GetChild(this.gameObject, dict.GetVariant(className,"PackedMesh"));
+			this.UsableMesh = ModUtils.GetChild(this.gameObject, dict.GetVariant(className,"UsableMesh"));
 		}
 	}
 }

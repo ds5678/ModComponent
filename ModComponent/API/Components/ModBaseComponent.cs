@@ -159,24 +159,24 @@ namespace ModComponent.API.Components
 		{
 			this.ConsoleName = NameUtils.RemoveGearPrefix(this.gameObject.name);
 			JsonUtils.TrySetString(ref this.DisplayNameLocalizationId, dict, inheritanceName, "DisplayNameLocalizationId");
-			this.DescriptionLocalizatonId = dict[inheritanceName]["DescriptionLocalizatonId"];
-			this.InventoryActionLocalizationId = dict[inheritanceName]["InventoryActionLocalizationId"];
-			this.WeightKG = dict[inheritanceName]["WeightKG"];
-			this.DaysToDecay = dict[inheritanceName]["DaysToDecay"];
-			this.MaxHP = dict[inheritanceName]["MaxHP"];
-			this.InitialCondition = EnumUtils.ParseEnum<ModBaseComponent.StartingCondition>(dict[inheritanceName]["InitialCondition"]);
-			this.InventoryCategory = EnumUtils.ParseEnum<ModBaseComponent.ItemCategory>(dict[inheritanceName]["InventoryCategory"]);
-			this.PickUpAudio = dict[inheritanceName]["PickUpAudio"];
-			this.PutBackAudio = dict[inheritanceName]["PutBackAudio"];
-			this.StowAudio = dict[inheritanceName]["StowAudio"];
-			this.WornOutAudio = dict[inheritanceName]["WornOutAudio"];
-			this.InspectOnPickup = dict[inheritanceName]["InspectOnPickup"];
-			this.InspectDistance = dict[inheritanceName]["InspectDistance"];
-			this.InspectAngles = JsonUtils.MakeVector(dict[inheritanceName]["InspectAngles"]);
-			this.InspectOffset = JsonUtils.MakeVector(dict[inheritanceName]["InspectOffset"]);
-			this.InspectScale = JsonUtils.MakeVector(dict[inheritanceName]["InspectScale"]);
-			this.NormalModel = ModUtils.GetChild(this.gameObject, dict[inheritanceName]["NormalModel"]);
-			this.InspectModel = ModUtils.GetChild(this.gameObject, dict[inheritanceName]["InspectModel"]);
+			this.DescriptionLocalizatonId = dict.GetVariant(inheritanceName,"DescriptionLocalizatonId");
+			this.InventoryActionLocalizationId = dict.GetVariant(inheritanceName,"InventoryActionLocalizationId");
+			this.WeightKG = dict.GetVariant(inheritanceName,"WeightKG");
+			this.DaysToDecay = dict.GetVariant(inheritanceName,"DaysToDecay");
+			this.MaxHP = dict.GetVariant(inheritanceName,"MaxHP");
+			this.InitialCondition = EnumUtils.ParseEnum<ModBaseComponent.StartingCondition>(dict.GetVariant(inheritanceName,"InitialCondition"));
+			this.InventoryCategory = EnumUtils.ParseEnum<ModBaseComponent.ItemCategory>(dict.GetVariant(inheritanceName,"InventoryCategory"));
+			this.PickUpAudio = dict.GetVariant(inheritanceName,"PickUpAudio");
+			this.PutBackAudio = dict.GetVariant(inheritanceName,"PutBackAudio");
+			this.StowAudio = dict.GetVariant(inheritanceName,"StowAudio");
+			this.WornOutAudio = dict.GetVariant(inheritanceName,"WornOutAudio");
+			this.InspectOnPickup = dict.GetVariant(inheritanceName,"InspectOnPickup");
+			this.InspectDistance = dict.GetVariant(inheritanceName,"InspectDistance");
+			this.InspectAngles = JsonUtils.MakeVector(dict.GetVariant(inheritanceName,"InspectAngles"));
+			this.InspectOffset = JsonUtils.MakeVector(dict.GetVariant(inheritanceName,"InspectOffset"));
+			this.InspectScale = JsonUtils.MakeVector(dict.GetVariant(inheritanceName,"InspectScale"));
+			this.NormalModel = ModUtils.GetChild(this.gameObject, dict.GetVariant(inheritanceName,"NormalModel"));
+			this.InspectModel = ModUtils.GetChild(this.gameObject, dict.GetVariant(inheritanceName,"InspectModel"));
 		}
 	}
 }
