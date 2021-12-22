@@ -27,9 +27,9 @@ namespace ModComponent.API.Behaviours
 		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModBurnableBehaviour")
 		{
 			base.InitializeBehaviour(dict, className);
-			this.BurningMinutes = dict.GetVariant(className,"BurningMinutes");
-			this.BurningMinutesBeforeAllowedToAdd = dict.GetVariant(className,"BurningMinutesBeforeAllowedToAdd");
-			this.TempIncrease = dict.GetVariant(className,"TempIncrease");
+			this.BurningMinutes = dict.GetVariant(className, "BurningMinutes");
+			this.BurningMinutesBeforeAllowedToAdd = dict.GetVariant(className, "BurningMinutesBeforeAllowedToAdd");
+			this.TempIncrease = dict.GetVariant(className, "TempIncrease");
 		}
 	}
 }

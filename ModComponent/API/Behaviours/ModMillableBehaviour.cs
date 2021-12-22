@@ -1,5 +1,4 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -53,14 +52,14 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableBehaviour")
 		{
-			this.RepairDurationMinutes = dict.GetVariant(className,"RepairDurationMinutes");
-			this.RepairRequiredGear = dict.GetStringArray(className,"RepairRequiredGear");
-			this.RepairRequiredGearUnits = dict.GetIntArray(className,"RepairRequiredGearUnits");
-			this.CanRestoreFromWornOut = dict.GetVariant(className,"CanRestoreFromWornOut");
-			this.RecoveryDurationMinutes = dict.GetVariant(className,"RecoveryDurationMinutes");
-			this.RestoreRequiredGear = dict.GetStringArray(className,"RestoreRequiredGear");
-			this.RestoreRequiredGearUnits = dict.GetIntArray(className,"RestoreRequiredGearUnits");
-			this.Skill = dict.GetEnum<ModComponent.API.ModSkillType>(className,"Skill");
+			this.RepairDurationMinutes = dict.GetVariant(className, "RepairDurationMinutes");
+			this.RepairRequiredGear = dict.GetStringArray(className, "RepairRequiredGear");
+			this.RepairRequiredGearUnits = dict.GetIntArray(className, "RepairRequiredGearUnits");
+			this.CanRestoreFromWornOut = dict.GetVariant(className, "CanRestoreFromWornOut");
+			this.RecoveryDurationMinutes = dict.GetVariant(className, "RecoveryDurationMinutes");
+			this.RestoreRequiredGear = dict.GetStringArray(className, "RestoreRequiredGear");
+			this.RestoreRequiredGearUnits = dict.GetIntArray(className, "RestoreRequiredGearUnits");
+			this.Skill = dict.GetEnum<ModComponent.API.ModSkillType>(className, "Skill");
 		}
 	}
 }

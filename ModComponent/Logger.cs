@@ -11,7 +11,7 @@ namespace ModComponent
 		private static MethodInfo method_RunErrorCallbacks;
 
 		static Logger()
-        {
+		{
 			GetHiddenLogMethods();
 			Log($"Reflection Successful: {reflectionSuccessful}");
 		}

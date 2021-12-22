@@ -115,7 +115,7 @@ namespace ModComponent.Mapper
 					return TryHandleUnity3d(zipFilePath, internalPath, unzippedFileStream.ToArray());
 				case FileType.txt:
 					return TryHandleTxt(zipFilePath, internalPath, ReadToString(unzippedFileStream));
- 				case FileType.dll:
+				case FileType.dll:
 					return TryLoadAssembly(zipFilePath, internalPath, unzippedFileStream.ToArray());
 				case FileType.bnk:
 					return TryRegisterSoundBank(zipFilePath, internalPath, unzippedFileStream.ToArray());
@@ -127,9 +127,9 @@ namespace ModComponent.Mapper
 		}
 
 		private static bool TryLoadAssembly(string zipFilePath, string internalPath, byte[] data)
-        {
-            try
-            {
+		{
+			try
+			{
 				Logger.Log($"Loading dll from zip at '{internalPath}'");
 				Assembly.Load(data);
 				return true;
@@ -160,8 +160,8 @@ namespace ModComponent.Mapper
 
 		private static bool TryHandleJson(string zipFilePath, string internalPath, string text)
 		{
-            try
-            {
+			try
+			{
 				string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
 				if (internalPath.StartsWith(@"auto-mapped/"))
 				{
@@ -182,10 +182,10 @@ namespace ModComponent.Mapper
 				{
 					LogItemPackInformation(text);
 				}
-                else
-                {
+				else
+				{
 					throw new NotSupportedException($"Json file does not have a valid internal path: {internalPath}");
-                }
+				}
 				return true;
 			}
 			catch (Exception e)
@@ -208,8 +208,8 @@ namespace ModComponent.Mapper
 		{
 			if (internalPath.StartsWith(@"gear-spawns/"))
 			{
-                try
-                {
+				try
+				{
 					Logger.Log($"Reading txt from zip at '{internalPath}'");
 					GearSpawner.SpawnManager.ParseSpawnInformation(text);
 					return true;
@@ -249,8 +249,8 @@ namespace ModComponent.Mapper
 					return false;
 				}
 			}
-            else
-            {
+			else
+			{
 				PackManager.SetItemPackNotWorking(zipFilePath, $"Asset bundle not in the auto-mapped folder: '{fullPath}'");
 				return false;
 			}

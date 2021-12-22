@@ -77,22 +77,22 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModCookableComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.BurntMinutes = dict.GetVariant(className,"BurntMinutes");
-			this.Cooking = dict.GetVariant(className,"Cooking");
-			this.CookingAudio = dict.GetVariant(className,"CookingAudio");
-			this.StartCookingAudio = dict.GetVariant(className,"StartCookingAudio");
-			this.CookingMinutes = dict.GetVariant(className,"CookingMinutes");
-			if (string.IsNullOrEmpty(dict.GetVariant(className,"CookingResult")))
+			this.BurntMinutes = dict.GetVariant(className, "BurntMinutes");
+			this.Cooking = dict.GetVariant(className, "Cooking");
+			this.CookingAudio = dict.GetVariant(className, "CookingAudio");
+			this.StartCookingAudio = dict.GetVariant(className, "StartCookingAudio");
+			this.CookingMinutes = dict.GetVariant(className, "CookingMinutes");
+			if (string.IsNullOrEmpty(dict.GetVariant(className, "CookingResult")))
 			{
 				this.CookingResult = null;
 			}
 			else
 			{
-				this.CookingResult = Resources.Load(dict.GetVariant(className,"CookingResult")).Cast<GameObject>();
+				this.CookingResult = Resources.Load(dict.GetVariant(className, "CookingResult")).Cast<GameObject>();
 			}
-			this.CookingUnitsRequired = dict.GetVariant(className,"CookingUnitsRequired");
-			this.CookingWaterRequired = dict.GetVariant(className,"CookingWaterRequired");
-			this.Type = dict.GetEnum<ModCookableComponent.CookableType>(className,"Type");
+			this.CookingUnitsRequired = dict.GetVariant(className, "CookingUnitsRequired");
+			this.CookingWaterRequired = dict.GetVariant(className, "CookingWaterRequired");
+			this.Type = dict.GetEnum<ModCookableComponent.CookableType>(className, "Type");
 		}
 	}
 }

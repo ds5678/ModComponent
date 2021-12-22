@@ -1,5 +1,4 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -28,7 +27,7 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModScentBehaviour")
 		{
-			this.scentCategory = dict.GetEnum<ModScentBehaviour.ScentCategory>(className,"ScentCategory");
+			this.scentCategory = dict.GetEnum<ModScentBehaviour.ScentCategory>(className, "ScentCategory");
 		}
 	}
 }

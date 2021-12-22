@@ -76,9 +76,9 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModPowderComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.PowderType = dict.GetEnum<ModPowderComponent.ModPowderType>(className,"PowderType");
-			this.CapacityKG = dict.GetVariant(className,"CapacityKG");
-			this.ChanceFull = dict.GetVariant(className,"ChanceFull");
+			this.PowderType = dict.GetEnum<ModPowderComponent.ModPowderType>(className, "PowderType");
+			this.CapacityKG = dict.GetVariant(className, "CapacityKG");
+			this.ChanceFull = dict.GetVariant(className, "ChanceFull");
 		}
 	}
 }

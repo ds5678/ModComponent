@@ -27,9 +27,9 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModEvolveBehaviour")
 		{
-			this.TargetItemName = dict.GetVariant(className,"TargetItemName");
-			this.EvolveHours = dict.GetVariant(className,"EvolveHours");
-			this.IndoorsOnly = dict.GetVariant(className,"IndoorsOnly");
+			this.TargetItemName = dict.GetVariant(className, "TargetItemName");
+			this.EvolveHours = dict.GetVariant(className, "EvolveHours");
+			this.IndoorsOnly = dict.GetVariant(className, "IndoorsOnly");
 		}
 	}
 }

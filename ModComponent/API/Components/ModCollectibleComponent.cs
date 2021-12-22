@@ -1,5 +1,4 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
@@ -37,9 +36,9 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModCollectibleComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.HudMessageLocalizationId = dict.GetVariant(className,"HudMessageLocalizationId");
-			this.NarrativeTextLocalizationId = dict.GetVariant(className,"NarrativeTextLocalizationId");
-			this.TextAlignment = dict.GetEnum<Alignment>(className,"TextAlignment");
+			this.HudMessageLocalizationId = dict.GetVariant(className, "HudMessageLocalizationId");
+			this.NarrativeTextLocalizationId = dict.GetVariant(className, "NarrativeTextLocalizationId");
+			this.TextAlignment = dict.GetEnum<Alignment>(className, "TextAlignment");
 		}
 	}
 }

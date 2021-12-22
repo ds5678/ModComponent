@@ -225,28 +225,28 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModClothingComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.Region = dict.GetEnum<ModClothingComponent.BodyRegion>(className,"Region");
-			this.MinLayer = dict.GetEnum<ModClothingComponent.Layer>(className,"MinLayer");
-			this.MaxLayer = dict.GetEnum<ModClothingComponent.Layer>(className,"MaxLayer");
-			this.MovementSound = dict.GetEnum<ModClothingComponent.MovementSounds>(className,"MovementSound");
-			this.Footwear = dict.GetEnum<ModClothingComponent.FootwearType>(className,"Footwear");
-			this.DaysToDecayWornOutside = dict.GetVariant(className,"DaysToDecayWornOutside");
-			this.DaysToDecayWornInside = dict.GetVariant(className,"DaysToDecayWornInside");
-			this.Warmth = dict.GetVariant(className,"Warmth");
-			this.WarmthWhenWet = dict.GetVariant(className,"WarmthWhenWet");
-			this.Windproof = dict.GetVariant(className,"Windproof");
-			this.Waterproofness = dict.GetVariant(className,"Waterproofness");
-			this.Toughness = dict.GetVariant(className,"Toughness");
-			this.SprintBarReduction = dict.GetVariant(className,"SprintBarReduction");
-			this.DecreaseAttackChance = dict.GetVariant(className,"DecreaseAttackChance");
-			this.IncreaseFleeChance = dict.GetVariant(className,"IncreaseFleeChance");
-			this.HoursToDryNearFire = dict.GetVariant(className,"HoursToDryNearFire");
-			this.HoursToDryWithoutFire = dict.GetVariant(className,"HoursToDryWithoutFire");
-			this.HoursToFreeze = dict.GetVariant(className,"HoursToFreeze");
-			this.MainTexture = dict.GetVariant(className,"MainTexture");
-			this.BlendTexture = dict.GetVariant(className,"BlendTexture");
-			this.DrawLayer = dict.GetVariant(className,"DrawLayer");
-			this.ImplementationType = dict.GetVariant(className,"ImplementationType");
+			this.Region = dict.GetEnum<ModClothingComponent.BodyRegion>(className, "Region");
+			this.MinLayer = dict.GetEnum<ModClothingComponent.Layer>(className, "MinLayer");
+			this.MaxLayer = dict.GetEnum<ModClothingComponent.Layer>(className, "MaxLayer");
+			this.MovementSound = dict.GetEnum<ModClothingComponent.MovementSounds>(className, "MovementSound");
+			this.Footwear = dict.GetEnum<ModClothingComponent.FootwearType>(className, "Footwear");
+			this.DaysToDecayWornOutside = dict.GetVariant(className, "DaysToDecayWornOutside");
+			this.DaysToDecayWornInside = dict.GetVariant(className, "DaysToDecayWornInside");
+			this.Warmth = dict.GetVariant(className, "Warmth");
+			this.WarmthWhenWet = dict.GetVariant(className, "WarmthWhenWet");
+			this.Windproof = dict.GetVariant(className, "Windproof");
+			this.Waterproofness = dict.GetVariant(className, "Waterproofness");
+			this.Toughness = dict.GetVariant(className, "Toughness");
+			this.SprintBarReduction = dict.GetVariant(className, "SprintBarReduction");
+			this.DecreaseAttackChance = dict.GetVariant(className, "DecreaseAttackChance");
+			this.IncreaseFleeChance = dict.GetVariant(className, "IncreaseFleeChance");
+			this.HoursToDryNearFire = dict.GetVariant(className, "HoursToDryNearFire");
+			this.HoursToDryWithoutFire = dict.GetVariant(className, "HoursToDryWithoutFire");
+			this.HoursToFreeze = dict.GetVariant(className, "HoursToFreeze");
+			this.MainTexture = dict.GetVariant(className, "MainTexture");
+			this.BlendTexture = dict.GetVariant(className, "BlendTexture");
+			this.DrawLayer = dict.GetVariant(className, "DrawLayer");
+			this.ImplementationType = dict.GetVariant(className, "ImplementationType");
 		}
 	}
 }

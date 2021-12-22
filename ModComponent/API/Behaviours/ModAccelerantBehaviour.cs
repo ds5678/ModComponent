@@ -17,7 +17,7 @@ namespace ModComponent.API.Behaviours
 		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModAccelerantBehaviour")
 		{
 			base.InitializeBehaviour(dict, className);
-			this.DestroyedOnUse = dict.GetVariant(className,"DestroyedOnUse");
+			this.DestroyedOnUse = dict.GetVariant(className, "DestroyedOnUse");
 		}
 	}
 }

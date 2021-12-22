@@ -1,10 +1,10 @@
 ﻿using MelonLoader.TinyJSON;
+using ModComponent.API;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.API.Modifications;
 using ModComponent.Utils;
 using System;
-using ModComponent.API;
 using UnityEngine;
 
 namespace ModComponent.Mapper
@@ -15,7 +15,7 @@ namespace ModComponent.Mapper
 		{
 			if (prefab == null)
 				throw new ArgumentNullException(nameof(prefab));
-			if (ComponentUtils.GetModComponent(prefab) != null) 
+			if (ComponentUtils.GetModComponent(prefab) != null)
 				return;
 
 			string name = NameUtils.RemoveGearPrefix(prefab.name);
@@ -33,7 +33,7 @@ namespace ModComponent.Mapper
 				throw new ArgumentNullException(nameof(prefab));
 			if (dict == null)
 				throw new ArgumentNullException(nameof(dict));
-			if (ComponentUtils.GetModComponent(prefab) != null) 
+			if (ComponentUtils.GetModComponent(prefab) != null)
 				return;
 
 			#region Mod Components

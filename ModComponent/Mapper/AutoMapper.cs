@@ -27,7 +27,7 @@ namespace ModComponent.Mapper
 			if (prefab == null)
 				throw new System.NullReferenceException("In AutoMapper.AutoMapPrefab, loaded object was not a GameObject.");
 
-			if (prefab.name.StartsWith("GEAR_")) 
+			if (prefab.name.StartsWith("GEAR_"))
 				MapModComponent(prefab);
 		}
 
@@ -51,13 +51,13 @@ namespace ModComponent.Mapper
 
 		internal static void MapModComponent(GameObject prefab)
 		{
-			if (prefab == null) 
+			if (prefab == null)
 				throw new System.ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
 
 			ComponentJson.InitializeComponents(ref prefab);
 			ModBaseComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(prefab);
 
-			if (modComponent == null) 
+			if (modComponent == null)
 				throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
 
 			Logger.Log($"Mapping {prefab.name}");

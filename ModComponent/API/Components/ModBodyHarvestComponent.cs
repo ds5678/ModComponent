@@ -115,20 +115,20 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModBodyHarvestComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.CanCarry = dict.GetVariant(className,"CanCarry");
-			this.HarvestAudio = dict.GetVariant(className,"HarvestAudio");
+			this.CanCarry = dict.GetVariant(className, "CanCarry");
+			this.HarvestAudio = dict.GetVariant(className, "HarvestAudio");
 
-			this.GutPrefab = dict.GetVariant(className,"GutPrefab");
-			this.GutQuantity = dict.GetVariant(className,"GutQuantity");
-			this.GutWeightKgPerUnit = dict.GetVariant(className,"GutWeightKgPerUnit");
+			this.GutPrefab = dict.GetVariant(className, "GutPrefab");
+			this.GutQuantity = dict.GetVariant(className, "GutQuantity");
+			this.GutWeightKgPerUnit = dict.GetVariant(className, "GutWeightKgPerUnit");
 
-			this.HidePrefab = dict.GetVariant(className,"HidePrefab");
-			this.HideQuantity = dict.GetVariant(className,"HideQuantity");
-			this.HideWeightKgPerUnit = dict.GetVariant(className,"HideWeightKgPerUnit");
+			this.HidePrefab = dict.GetVariant(className, "HidePrefab");
+			this.HideQuantity = dict.GetVariant(className, "HideQuantity");
+			this.HideWeightKgPerUnit = dict.GetVariant(className, "HideWeightKgPerUnit");
 
-			this.MeatPrefab = dict.GetVariant(className,"MeatPrefab");
-			this.MeatAvailableMinKG = dict.GetVariant(className,"MeatAvailableMinKG");
-			this.MeatAvailableMaxKG = dict.GetVariant(className,"MeatAvailableMaxKG");
+			this.MeatPrefab = dict.GetVariant(className, "MeatPrefab");
+			this.MeatAvailableMinKG = dict.GetVariant(className, "MeatAvailableMinKG");
+			this.MeatAvailableMaxKG = dict.GetVariant(className, "MeatAvailableMaxKG");
 
 			this.CanQuarter = false;
 			this.QuarterAudio = "";

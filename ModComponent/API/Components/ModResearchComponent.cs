@@ -1,5 +1,4 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 
 namespace ModComponent.API.Components
@@ -19,11 +18,11 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModResearchComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.SkillType = dict.GetEnum<ModSkillType>(className,"SkillType");
-			this.TimeRequirementHours = dict.GetVariant(className,"TimeRequirementHours");
-			this.SkillPoints = dict.GetVariant(className,"SkillPoints");
-			this.NoBenefitAtSkillLevel = dict.GetVariant(className,"NoBenefitAtSkillLevel");
-			this.ReadAudio = dict.GetVariant(className,"ReadAudio");
+			this.SkillType = dict.GetEnum<ModSkillType>(className, "SkillType");
+			this.TimeRequirementHours = dict.GetVariant(className, "TimeRequirementHours");
+			this.SkillPoints = dict.GetVariant(className, "SkillPoints");
+			this.NoBenefitAtSkillLevel = dict.GetVariant(className, "NoBenefitAtSkillLevel");
+			this.ReadAudio = dict.GetVariant(className, "ReadAudio");
 		}
 	}
 }

@@ -47,13 +47,13 @@ namespace ModComponent.API.Behaviours
 		internal override void InitializeBehaviour(ProxyObject dict, string className = "ModFireStarterBehaviour")
 		{
 			base.InitializeBehaviour(dict, className);
-			this.DestroyedOnUse = dict.GetVariant(className,"DestroyedOnUse");
-			this.NumberOfUses = dict.GetVariant(className,"NumberOfUses");
-			this.OnUseSoundEvent = dict.GetVariant(className,"OnUseSoundEvent");
-			this.RequiresSunLight = dict.GetVariant(className,"RequiresSunLight");
-			this.RuinedAfterUse = dict.GetVariant(className,"RuinedAfterUse");
-			this.SecondsToIgniteTinder = dict.GetVariant(className,"SecondsToIgniteTinder");
-			this.SecondsToIgniteTorch = dict.GetVariant(className,"SecondsToIgniteTorch");
+			this.DestroyedOnUse = dict.GetVariant(className, "DestroyedOnUse");
+			this.NumberOfUses = dict.GetVariant(className, "NumberOfUses");
+			this.OnUseSoundEvent = dict.GetVariant(className, "OnUseSoundEvent");
+			this.RequiresSunLight = dict.GetVariant(className, "RequiresSunLight");
+			this.RuinedAfterUse = dict.GetVariant(className, "RuinedAfterUse");
+			this.SecondsToIgniteTinder = dict.GetVariant(className, "SecondsToIgniteTinder");
+			this.SecondsToIgniteTorch = dict.GetVariant(className, "SecondsToIgniteTorch");
 		}
 	}
 }

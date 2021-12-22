@@ -1,5 +1,4 @@
 ﻿using MelonLoader.TinyJSON;
-using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -44,12 +43,12 @@ namespace ModComponent.API.Behaviours
 		[HideFromIl2Cpp]
 		internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableBehaviour")
 		{
-			this.Audio = dict.GetVariant(className,"Audio");
-			this.Minutes = dict.GetVariant(className,"Minutes");
-			this.Condition = dict.GetVariant(className,"Condition");
-			this.RequiredTools = dict.GetStringArray(className,"RequiredTools");
-			this.MaterialNames = dict.GetStringArray(className,"MaterialNames");
-			this.MaterialCounts = dict.GetIntArray(className,"MaterialCounts");
+			this.Audio = dict.GetVariant(className, "Audio");
+			this.Minutes = dict.GetVariant(className, "Minutes");
+			this.Condition = dict.GetVariant(className, "Condition");
+			this.RequiredTools = dict.GetStringArray(className, "RequiredTools");
+			this.MaterialNames = dict.GetStringArray(className, "MaterialNames");
+			this.MaterialCounts = dict.GetIntArray(className, "MaterialCounts");
 		}
 	}
 }

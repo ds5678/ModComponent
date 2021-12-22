@@ -232,51 +232,51 @@ namespace ModComponent.API.Components
 		internal override void InitializeComponent(ProxyObject dict, string className = "ModFoodComponent")
 		{
 			base.InitializeComponent(dict, className);
-			this.DaysToDecayOutdoors = dict.GetVariant(className,"DaysToDecayOutdoors");
-			this.DaysToDecayIndoors = dict.GetVariant(className,"DaysToDecayIndoors");
+			this.DaysToDecayOutdoors = dict.GetVariant(className, "DaysToDecayOutdoors");
+			this.DaysToDecayIndoors = dict.GetVariant(className, "DaysToDecayIndoors");
 
-			this.Calories = dict.GetVariant(className,"Calories");
-			this.EatingTime = dict.GetVariant(className,"EatingTime");
+			this.Calories = dict.GetVariant(className, "Calories");
+			this.EatingTime = dict.GetVariant(className, "EatingTime");
 
-			this.EatingAudio = dict.GetVariant(className,"EatingAudio");
-			this.EatingPackagedAudio = dict.GetVariant(className,"EatingPackagedAudio");
+			this.EatingAudio = dict.GetVariant(className, "EatingAudio");
+			this.EatingPackagedAudio = dict.GetVariant(className, "EatingPackagedAudio");
 
-			this.ThirstEffect = dict.GetVariant(className,"ThirstEffect");
+			this.ThirstEffect = dict.GetVariant(className, "ThirstEffect");
 
-			this.FoodPoisoning = dict.GetVariant(className,"FoodPoisoning");
-			this.FoodPoisoningLowCondition = dict.GetVariant(className,"FoodPoisoningLowCondition");
-			this.ParasiteRiskIncrements = dict.GetFloatArray(className,"ParasiteRiskIncrements");
+			this.FoodPoisoning = dict.GetVariant(className, "FoodPoisoning");
+			this.FoodPoisoningLowCondition = dict.GetVariant(className, "FoodPoisoningLowCondition");
+			this.ParasiteRiskIncrements = dict.GetFloatArray(className, "ParasiteRiskIncrements");
 
-			this.Natural = dict.GetVariant(className,"Natural");
-			this.Raw = dict.GetVariant(className,"Raw");
-			this.Drink = dict.GetVariant(className,"Drink");
-			this.Meat = dict.GetVariant(className,"Meat");
-			this.Fish = dict.GetVariant(className,"Fish");
+			this.Natural = dict.GetVariant(className, "Natural");
+			this.Raw = dict.GetVariant(className, "Raw");
+			this.Drink = dict.GetVariant(className, "Drink");
+			this.Meat = dict.GetVariant(className, "Meat");
+			this.Fish = dict.GetVariant(className, "Fish");
 
-			this.Canned = dict.GetVariant(className,"Canned");
-			this.Opening = dict.GetVariant(className,"Opening");
-			this.OpeningWithCanOpener = dict.GetVariant(className,"OpeningWithCanOpener");
-			this.OpeningWithKnife = dict.GetVariant(className,"OpeningWithKnife");
-			this.OpeningWithHatchet = dict.GetVariant(className,"OpeningWithHatchet");
-			this.OpeningWithSmashing = dict.GetVariant(className,"OpeningWithSmashing");
+			this.Canned = dict.GetVariant(className, "Canned");
+			this.Opening = dict.GetVariant(className, "Opening");
+			this.OpeningWithCanOpener = dict.GetVariant(className, "OpeningWithCanOpener");
+			this.OpeningWithKnife = dict.GetVariant(className, "OpeningWithKnife");
+			this.OpeningWithHatchet = dict.GetVariant(className, "OpeningWithHatchet");
+			this.OpeningWithSmashing = dict.GetVariant(className, "OpeningWithSmashing");
 
-			this.AffectCondition = dict.GetVariant(className,"AffectCondition");
-			this.ConditionRestBonus = dict.GetVariant(className,"ConditionRestBonus");
-			this.ConditionRestMinutes = dict.GetVariant(className,"ConditionRestMinutes");
+			this.AffectCondition = dict.GetVariant(className, "AffectCondition");
+			this.ConditionRestBonus = dict.GetVariant(className, "ConditionRestBonus");
+			this.ConditionRestMinutes = dict.GetVariant(className, "ConditionRestMinutes");
 
-			this.AffectRest = dict.GetVariant(className,"AffectRest");
-			this.InstantRestChange = dict.GetVariant(className,"InstantRestChange");
-			this.RestFactor = dict.GetVariant(className,"RestFactor");
-			this.RestFactorMinutes = dict.GetVariant(className,"RestFactorMinutes");
+			this.AffectRest = dict.GetVariant(className, "AffectRest");
+			this.InstantRestChange = dict.GetVariant(className, "InstantRestChange");
+			this.RestFactor = dict.GetVariant(className, "RestFactor");
+			this.RestFactorMinutes = dict.GetVariant(className, "RestFactorMinutes");
 
-			this.AffectCold = dict.GetVariant(className,"AffectCold");
-			this.InstantColdChange = dict.GetVariant(className,"InstantColdChange");
-			this.ColdFactor = dict.GetVariant(className,"ColdFactor");
-			this.ColdFactorMinutes = dict.GetVariant(className,"ColdFactorMinutes");
+			this.AffectCold = dict.GetVariant(className, "AffectCold");
+			this.InstantColdChange = dict.GetVariant(className, "InstantColdChange");
+			this.ColdFactor = dict.GetVariant(className, "ColdFactor");
+			this.ColdFactorMinutes = dict.GetVariant(className, "ColdFactorMinutes");
 
-			this.ContainsAlcohol = dict.GetVariant(className,"ContainsAlcohol");
-			this.AlcoholPercentage = dict.GetVariant(className,"AlcoholPercentage");
-			this.AlcoholUptakeMinutes = dict.GetVariant(className,"AlcoholUptakeMinutes");
+			this.ContainsAlcohol = dict.GetVariant(className, "ContainsAlcohol");
+			this.AlcoholPercentage = dict.GetVariant(className, "AlcoholPercentage");
+			this.AlcoholUptakeMinutes = dict.GetVariant(className, "AlcoholUptakeMinutes");
 		}
 	}
 }
