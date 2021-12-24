@@ -49,6 +49,8 @@ namespace ModComponent.Mapper
 				InspectMapper.Configure(modComponent);
 				ConfigureGearItem(modComponent);
 
+				AmmoMapper.Configure(modComponent);
+
 				mappedItems.Add(modComponent);
 
 				PostProcess(modComponent);
