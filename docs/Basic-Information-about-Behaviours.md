@@ -3,51 +3,51 @@
 Behaviours are additional functions that can be attached to items.  
 All behaviours can be attached to any item and most behaviours can be combined with others.
 
-## ModAccelerantComponent
+## ModAccelerantBehaviour
 
 The item becomes an accelerant that can be used to increase the chance to successfully start a fire.
-> This cannot be combined with ModFireStarterComponent
+> This cannot be combined with ModFireStarterBehaviour
 
-## ModBurnableComponent
+## ModBurnableBehaviour
 
 The item can be burned in a fire.
 
-## ModEvolveComponent
+## ModEvolveBehaviour
 
 The item will slowly evolve into another item. Curing is an example of this.
 
-## ModFireStarterComponent
+## ModFireStarterBehaviour
 
 The item can be used to start fires.  
 Fire starters can either be reusable or not.
 
-> This cannot be combined with ModAccelerantComponent
+> This cannot be combined with ModAccelerantBehaviour
 
 
-## ModHarvestableComponent
+## ModHarvestableBehaviour
 
 The item can be harvested to received some other items or materials.  
 The behaviour defines which and how many items will be provided.
 
 
-## ModRepairableComponent
+## ModRepairableBehaviour
 
 The item's condition can be restored by repairing it.  
 The required materials and tools can be configured.
 
-## ModMillableComponent
+## ModMillableBehaviour
 
 The item can be repaired at a milling machine. This is a new addition to ModComponent.
 
-## ModScentComponent
+## ModScentBehaviour
 
 The item gives off a scent that wildlife can smell.
 
-## ModSharpenableComponent
+## ModSharpenableBehaviour
 
 The item can be sharpened with a whetstone.
 
-## ModStackableComponent
+## ModStackableBehaviour
 
 The item can form stacks with itself. Also enables spawning item stacks similar to the Coffee Tin and Herbal Tea Box.
 
@@ -76,13 +76,13 @@ If someone was adding another book to the game, this could potentially be the js
                                 "InspectOffset" : [0, 0, 0],
                                 "InspectScale" :  [1, 1, 1]
                             },
-    "ModStackableComponent": {
+    "ModStackableBehaviour": {
                                 "SingleUnitTextId" : "GAMEPLAY_BookMSingle",
                                 "MultipleUnitTextId" : "GAMEPLAY_BookMMultiple",
                                 "StackSprite" : "",
                                 "UnitsPerItem" : 1
                             },
-    "ModBurnableComponent": {
+    "ModBurnableBehaviour": {
                                 "BurningMinutes" : 18,
                                 "BurningMinutesBeforeAllowedToAdd" : 0,
                                 "SuccessModifier" : 35,

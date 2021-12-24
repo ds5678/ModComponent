@@ -10,13 +10,13 @@ Creating your own item mod with ModComponent involves 5 steps:
 
 ## 3D Models
 
-See [[3D Models]].
+See [3D Models](3D-Models.md).
 
 ## Sounds
 
 Sounds files are imported into WWise where they are configured and assembled into a sound bank.
 
-Only one version of WWise will work. It is listed on [[For Developers]]
+Only one version of WWise will work. It is listed on [For Developers](For-Developers.md)
 
 ## Textures
 
@@ -55,7 +55,7 @@ Inventory Grid Icons are 512x512
 
 # Building an Asset Bundle
 
-> For this step you need the correct version of Unity installed. (listed on [[For-Developers]]).
+> For this step you need the correct version of Unity installed. (listed on [For Developers](For-Developers.md)).
 
 The easiest way to start your Unity project is to use the template project: https://github.com/ds5678/ModComponent/tree/master/Template (Download the [whole repository as zip](https://github.com/ds5678/ModComponent/archive/master.zip) and then copy the `Template` folder)
 
@@ -65,15 +65,15 @@ Ignore the contents of the folder "Editor" for now, but do not delete it - It is
 Save when you feel like you completed a step and are confident that the current state of the project is good.  
 Consider using a versioning system like [Git](https://git-scm.com/), even if you don't intend to share your mod (which you should really do!)
 
-> Outdated:<br>
-> You can take a look at the [example project](https://github.com/ds5678/ModComponent/tree/master/Example) to see how the finished result might look.
+You can take a look at existing item packs to see how the finished result might look.
 
 
-* Decide which name you want to use for your asset bundle and assign the folders `InventoryGridIcons` and `Prefabs` and the file `Localization.json` to the asset bundle with that name. Variants are not required.  
+Decide which name you want to use for your asset bundle and assign the folders `InventoryGridIcons` and `Prefabs` and the file `Localization.json` to the asset bundle with that name. Variants are not required.  
 See section "Working with AssetBundles" in https://unity3d.com/learn/tutorials/topics/scripting/assetbundles-and-assetbundle-manager for how to do this.  
+
 (If your mod requires additional assets, you will need to assign them to the asset bundle as well.)
 
-* For each item you want to make, repeat the following steps:
+For each item you want to make, repeat the following steps:
   * Import your 3D model into the "Models" folder.
   * Create a new GameObject in the scene using the imported model
   * Add a collider.This collider is used for detecting items under the reticle. A BoxCollider is usually good enough.
@@ -89,23 +89,23 @@ The asset bundle will be created as new file in the folder `AssetBundles` in you
 (The folder `AssetBundles` will be next to the `Assets` folder, so you won't see it in the Unity Editor. Use a file explorer instead.)
 
 * Create a json file for your item. Its naming is important. If your item is called `GEAR_CarKey`, then the json file should be named `carkey.json`.
-* Add the [[component|Basic Information about Components]] and [[behaviours|Basic Information about Behaviours]] from ModComponent that you need/want and configure them accordingly.
+* Add the [component](Basic-Information-about-Components.md) and [behaviours](Basic-Information-about-Behaviours.md) from ModComponent that you need/want and configure them accordingly.
 
 
 # Installing your Mod
 
-> Make sure you have the latest version of ModComponent and AssetLoader installed.
+> Make sure you have the latest version of ModComponent and its dependencies installed.
 
 * Copy your asset bundle and its corresponding jsons into `TheLongDark/mods/auto-mapped`.  
 * You can create additional subfolders inside `auto-mapped`, this will keep it nice and tidy.*
 
 Optional:
-* Create a [[gear spawn configuration|Gear-Spawns]] for your item(s).  
-* If you do not provide a spawn configuration, the only way to obtain your item(s) will be console commands and crafting.*
+* Create a [gear spawn configuration](Gear-Spawns.md) for your item(s).  
+* If you do not provide a spawn configuration, the only way to obtain your item(s) will be console commands and crafting.
 * Create a [[blueprint configuration|Blueprints]] for your item(s).  
-* If you do not provide a blueprint configuration, the only way to obtain your item(s) will be console commands and finding it somewhere in the game.*
+* If you do not provide a blueprint configuration, the only way to obtain your item(s) will be console commands and finding it somewhere in the game.
 * Copy additional resources into the "auto-mapped" folder, e.g. sound banks, DLLs.  
-* This is only required if your mod needs those additional resources.*
+* This is only required if your mod needs those additional resources.
 
 
 # Testing and Fine-Tuning
@@ -141,6 +141,8 @@ If you find anything that you want to change:
 or the inventory icon in `InventoryGridIcons`  
 or the texts in `Localization.json`
 * export the asset bundle
-* copy the new asset bundle to `TheLongDark/mods/auto-mapped`
+* copy the new asset bundle to your development `auto-mapped` folder
+* make your `.modcomponent` file
+* copy your `.modcomponent` file to the mods folder
 * start testing again
 * repeat until you're satisfied with the result.

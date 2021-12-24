@@ -44,11 +44,13 @@ Most items from [Food-Pack](https://github.com/ds5678/Food-Pack) use this compon
 ## ModGenericComponent
 
 This component defines a simple item without a primary function.  
+
 Since these items can still be picked up and assigned additional behaviours, they can be useful to design crafting ingredients (like scrap metal), fire starting equipment (like books), and items that can be harvested to yield useful resources (like newspaper).
 
 ## ModGenericEquippableComponent
 
-This component defines a simple equippable item.<br/>
+This component defines a simple equippable item.
+
 The [Binoculars](https://github.com/ds5678/Binoculars) use this component.
 > The Binoculars use additional custom code because their behaviour is not part of the vanilla game.
 

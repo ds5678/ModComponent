@@ -3,7 +3,7 @@
 # Template
 ```
 {
-    "ModSharpenableComponent" : {
+    "ModSharpenableBehaviour" : {
                                 "Audio" : "",
                                 "MinutesMin" : 5,
                                 "MinutesMax" : 20,
@@ -16,7 +16,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## Audio
 *string*<br/>

@@ -1,7 +1,7 @@
 # Template
 ```
 {
-    "ModBurnableComponent": {
+    "ModBurnableBehaviour": {
                                 "BurningMinutes" : 18,
                                 "BurningMinutesBeforeAllowedToAdd" : 0,
                                 "SuccessModifier" : 35,
@@ -12,7 +12,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## BurningMinutes
 *int*<br/>

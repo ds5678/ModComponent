@@ -1,6 +1,8 @@
 # About
 This feature allows mod developers to add mouse click actions to any interactable object.
 
+It is available through the [AlternativeActionUtililities](https://github.com/ds5678/AlternativeActionUtilities) mod.
+
 # Primary Action
 The primary action key is typically the left mouse button. Hinterland uses this for almost everything. All alternative primary actions will run before the Hinterland default action.
 

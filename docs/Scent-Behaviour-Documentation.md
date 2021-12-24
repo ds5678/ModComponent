@@ -3,7 +3,7 @@
 # Template
 ```
 {
-    "ModScentComponent" : {
+    "ModScentBehaviour" : {
                             "ScentCategory" : "RAW_MEAT"
                           }
 }
@@ -11,7 +11,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## ScentCategory
 `RAW_MEAT`, `RAW_FISH`, `COOKED_MEAT`, `COOKED_FISH`, `GUTS`, or `QUARTER`<br/>

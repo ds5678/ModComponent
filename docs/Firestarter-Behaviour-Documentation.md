@@ -3,7 +3,7 @@
 # Template
 ```
 {
-    "ModFireStarterComponent" : {
+    "ModFireStarterBehaviour" : {
                                 "DestroyedOnUse" : false,
                                 "NumberOfUses" : 100,
                                 "OnUseSoundEvent" : "",
@@ -18,7 +18,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## DestroyedOnUse
 *bool*<br/>

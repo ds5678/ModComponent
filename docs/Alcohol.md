@@ -1,4 +1,4 @@
-ModComponent introduces Alcohol as a game mechanic.
+ModComponent introduces Alcohol as a game mechanic via [AlcoholMod](https://github.com/ds5678/AlcoholMod).
 
 Food/drink items can contain alcohol (expressed as a percentage of their weight) and when consumed, that alcohol is consumed as well.
 
@@ -8,8 +8,7 @@ ModComponent tracks how much alhocol has been consumed and how fast it should be
 
 ModComponent tries to simulate some of the real-life effects of alcohol:
 
-* Alcohol allows more of your warm blood to reach your skin.<br/>
-This **helps preventing frostbite** but also results in an **increased risk for hypothermia**.
+* Alcohol allows more of your warm blood to reach your skin. This **helps preventing frostbite** but also results in an **increased risk for hypothermia**.
 
 * Alcohol causes your body to lose more water, causing **faster dehydration**.
 

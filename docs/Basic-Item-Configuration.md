@@ -7,7 +7,7 @@ In the configuration of an item only the localization keys are supplied and thos
 
 Localized texts are provided as a JSON file, a template for which can be found in the Template Project
 They can all be provided as a CSV file, with languages as columns and keys/texts as rows.  
-The order of the languages is not important and the `AssetLoader` will automatically assign the texts to the languages available in-game.
+The order of the languages is not important and ModComponent will automatically assign the texts to the languages available in-game.
 
 If the user uses a language not provided in the localization of the mod, those texts will be displayed in English (which is considered to be the default language).  
 Localization keys without any assigned text will rendered as the key itself.

@@ -1,7 +1,7 @@
 # Template
 ```
 {
-    "ModHarvestableComponent": {
+    "ModHarvestableBehaviour": {
                                 "Audio" : "",
                                 "Minutes" : 10,
                                 "YieldCounts" : [1],
@@ -13,7 +13,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## Audio
 *string*<br/>

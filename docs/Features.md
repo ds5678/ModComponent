@@ -19,13 +19,15 @@ These items may contain [[alcohol]] that can affect the player character.
 Items that don't have a primary function, but can still be carried around in the players inventory.  
 These items can be configured to be harvestable, required for crafting or suitable for making fires.
 
+### Generic Equippable Items
+
+These items are equippable and bring their own implementation, allowing for completely new game mechanics, e.g. the [Binoculars](https://github.com/ds5678/Binoculars) actually allow you to see far away things.
+
 ### Liquid Items
 Items that can hold liquids.
 
 ### Tools
 Either items that can be equipped to perform a specific function (like the rifle) or items that simply sit in the inventory and are required for a certain task (like the sewing kit).
-
-Tool items can bring their own implementation, allowing for completely new game mechanics, e.g. the [Binoculars](https://github.com/ds5678/Binoculars) actually allow you to see far away things.
 
 
 # Supported Item Behaviours
@@ -63,7 +65,7 @@ Configure which items can be sharpened to restore their condition.
 Configure which items can be stacked in the inventory.
 
 
-# [[Blueprints]]
+# [Blueprints](Blueprints.md)
 
 New [[blueprints|Blueprints]] can be defined for crafting existing or modded items.
 
@@ -76,6 +78,6 @@ New items can be made to spawn in locations with a configurable probability ("fi
 
 Everything is configured by creating [[gear-spawn configurations|Gear-Spawns]]
 
-# [[Alternative Item Actions|Alternative-Actions]]
+# [Alternative Item Actions](Alternative-Actions.md)
 
 Additional click actions can be bound to all interactive things, providing additional interactions.

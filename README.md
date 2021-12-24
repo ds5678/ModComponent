@@ -9,19 +9,14 @@ It allows:
 * Creating Unity assets that can be used as fully compatible in-game items.
 * Adding custom crafting blueprints.
 * Adding spawn points for modded and vanilla game items.
-* Modifying already existing items.
 
 > This library is only infrastructure for mods and does not provide any assets or asset bundles.
 
-Requires [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings)
+[Documentation](https://ds5678.github.io/ModComponent/index.html)
 
 ## Special Thanks
 
 [WulfMarius](https://github.com/WulfMarius) was the original creator of [ModComponent](https://github.com/WulfMarius/ModComponent) and [AssetLoader](https://github.com/WulfMarius/AssetLoader). I am very grateful for all the contributions he made to the modding community, and I'm honored to have adopted so many of his mods. Rebuilding and improving ModComponent has been incredibly fun despite all the time it's taken. Although much more than half of the code is my own now, this project was initially built on the framework he left behind.
-
-ModComponent's Menu system was adapted from [zeobviouslyfakeacc](https://github.com/zeobviouslyfakeacc)'s [ModSettings](https://github.com/zeobviouslyfakeacc/ModSettings) and borrows heavily from its code base.
-
-In addition, [zeobviouslyfakeacc](https://github.com/zeobviouslyfakeacc), [DigitalZombie](https://github.com/DigitalzombieTLD), and [Xpazeman](https://github.com/Xpazeman) all offered and continue to offer invaluable insights during the development of ModComponent.
 
 ## [Patreon](https://www.patreon.com/ds5678)
 
@@ -43,11 +38,4 @@ The alcohol mechanics can be enabled with [AlcoholMod](https://github.com/ds5678
 
 ## ModComponent Files
 
-ModComponent uses a custom file extension `.modcomponent` for item packs. These files can be edited like so:
-
- * Change the file extension from `.modcomponent` to `.zip`
- * Extract the files. They'll be placed into a root folder with the same name as the item pack.
- * Edit the files as you please.
- * Rezip the files.
-   * Make sure you're zipping the contents of the root folder. Zipping the root folder itself won't work with ModComponent.
- * Change the file extension of your new zip file from `.zip` to `.modcomponent`
+ModComponent uses a custom file extension `.modcomponent` for item packs. These files can be edited with the [ModComponentExtractor](https://github.com/ds5678/ModComponentExtractor)

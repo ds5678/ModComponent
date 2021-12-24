@@ -2,7 +2,7 @@ If a mod uses only pre-existing game mechanics (like [Food-Pack](https://github.
 
 # Boot Strapping
 
-The `AutoMapper` will scan the directory "mods/auto-mapped" (recursively) and try to handle all files encountered.
+The `AutoMapper` will scan the file `someItemPackName.modcomponent/auto-mapped` (recursively) and try to handle all internal files encountered.
 
 The following file extensions are supported:
 

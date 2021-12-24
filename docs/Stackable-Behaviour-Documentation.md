@@ -1,7 +1,7 @@
 # Template
 ```
 {
-    "ModStackableComponent": {
+    "ModStackableBehaviour": {
                                 "SingleUnitTextId" : "GAMEPLAY_HotCocoaBoxStackSingle",
                                 "MultipleUnitTextId" : "GAMEPLAY_HotCocoaBoxStackMultiple",
                                 "StackSprite" : "",
@@ -13,7 +13,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## SingleUnitTextId
 *string*<br/>

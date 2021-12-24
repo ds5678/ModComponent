@@ -3,7 +3,7 @@
 # Template
 ```
 {
-    "ModEvolveComponent" : {
+    "ModEvolveBehaviour" : {
                             "TargetItemName" : "GEAR_GutDried",
                             "EvolveHours" : 120,
                             "IndoorsOnly" : true
@@ -13,7 +13,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## TargetItemName
 *string*<br/>

@@ -1,4 +1,4 @@
-The following is a list of all scenes, that can be used to configure [[Gear Spawns]].
+The following is a list of all scenes (as of 1.94), that can be used to configure [Gear Spawns](Gear-Spawns.md).
 
 | ID | In-Game Location | Region |
 | ------ | :--------------:| :-----: |

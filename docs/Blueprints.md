@@ -1,6 +1,6 @@
 Blueprints (crafting recipes) can be configured to appear additionally to the ones already present in the vanilla game.
 
-The `BlueprintReader` will look for configuration files in the `blueprints` directory within the item pack zip file.
+ModComponent will look for configuration files in the `blueprints` directory within the item pack zip file.
 
 Any files in that directory (or any subdirectories) ending with `.json` will be treated as a blueprint definition file and processed accordingly. The names of the files does not matter.
 

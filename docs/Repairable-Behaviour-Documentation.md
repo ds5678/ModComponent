@@ -1,7 +1,7 @@
 # Template
 ```
 {
-    "ModRepairableComponent" : {
+    "ModRepairableBehaviour" : {
                                 "Audio" : "",
                                 "Minutes" : 10,
                                 "Condition" : 20,
@@ -14,7 +14,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## Audio
 *string*<br/>

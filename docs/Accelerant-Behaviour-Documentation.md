@@ -3,7 +3,7 @@
 # Template
 ```
 {
-    "ModAccelerantComponent": {
+    "ModAccelerantBehaviour": {
                                 "DestroyedOnUse" : true,
                                 "DurationOffset" : 0,
                                 "SuccessModifier" : 40
@@ -13,7 +13,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## DestroyedOnUse
 *bool*<br/>

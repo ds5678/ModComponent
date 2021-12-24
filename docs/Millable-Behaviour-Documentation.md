@@ -1,7 +1,7 @@
 # Template
 ```
 {
-    "ModMillableComponent" : {
+    "ModMillableBehaviour" : {
                                 "RepairDurationMinutes" : 15,
                                 "RepairRequiredGear" : ["GEAR_ScrapMetal"],
                                 "RepairRequiredGearUnits" : [2],
@@ -16,7 +16,7 @@
 
 # Parameters
 
-> Note: cannot be used without a [[Component|Basic Information about Components]].
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
 
 ## RepairDurationMinutes
 *int*<br/>

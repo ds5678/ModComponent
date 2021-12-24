@@ -1,4 +1,4 @@
-The following is a list of all loot tables, that can be used for configuring [[Gear-Spawns]]
+The following is a list of all loot tables, that can be used for configuring [Gear Spawns](Gear-Spawns.md) (as of 1.94)
 
 * BackPack
 * BathroomCabinet
