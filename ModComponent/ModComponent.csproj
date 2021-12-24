@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="API\Behaviours\ModCarryingCapacityBehaviour.cs" />
     <Compile Include="API\Behaviours\ModTinderBehaviour.cs" />
+    <Compile Include="API\Components\ModAmmoComponent.cs" />
     <Compile Include="API\Components\ModCharcoalComponent.cs" />
     <Compile Include="API\Components\ModPurificationComponent.cs" />
     <Compile Include="API\Components\ModResearchComponent.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="API\TinyJsonExtensions.cs" />
     <Compile Include="AssetLoader\SaveAtlas.cs" />
     <Compile Include="BuildInfo.cs" />
+    <Compile Include="Mapper\ComponentMappers\AmmoMapper.cs" />
     <Compile Include="Mapper\FileType.cs" />
     <Compile Include="Mapper\BehaviourMappers\CarryingCapacityMapper.cs" />
     <Compile Include="Mapper\BehaviourMappers\TinderMapper.cs" />
