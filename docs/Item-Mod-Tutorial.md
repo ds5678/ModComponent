@@ -57,7 +57,7 @@ Inventory Grid Icons are 512x512
 
 > For this step you need the correct version of Unity installed. (listed on [For Developers](For-Developers.md)).
 
-The easiest way to start your Unity project is to use the template project: https://github.com/ds5678/ModComponent/tree/master/Template (Download the [whole repository as zip](https://github.com/ds5678/ModComponent/archive/master.zip) and then copy the `Template` folder)
+The easiest way to start your Unity project is to use the template project: https://github.com/ds5678/ModComponent_TemplateProject
 
 Ignore the contents of the folder "Editor" for now, but do not delete it - It is required!
 
