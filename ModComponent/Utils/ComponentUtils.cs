@@ -76,7 +76,7 @@ namespace ModComponent.Utils
 #else
 			catch (System.Exception exception)
 			{
-				Logger.LogError("Returning null since this could not obtain a Game Object from the component. Stack trace:\n{0}", exception.Message);
+				Logger.LogError($"Returning null since this could not obtain a Game Object from the component. Stack trace:\n{exception.Message}");
 			}
 #endif
 			return null;
