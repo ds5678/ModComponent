@@ -114,6 +114,6 @@ The following is a list of all scenes (as of 1.94), that can be used to configur
 | WhalingShipA | The Riken | Desolation Point |
 | WhalingStationRegion | region | Desolation Point |
 | WhalingWarehouseA | Hibernia Processing | Desolation Point |
-| WoodCabinA | Cannery Worker Residences | Ash Canyon |
+| WoodCabinA | Cannery Worker Residences | Bleak Inlet |
 | WoodCabinB | Foreman's Retreat | Ash Canyon |
 | WoodCabinC | House with rim grill in Bleak Inlet | Bleak Inlet |
