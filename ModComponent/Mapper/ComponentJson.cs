@@ -132,11 +132,6 @@ namespace ModComponent.Mapper
 				ModToolComponent newComponent = ComponentUtils.GetOrCreateComponent<ModToolComponent>(prefab);
 				newComponent.InitializeComponent(dict);
 			}
-			else if (dict.ContainsKey("ModAmmoComponent"))
-			{
-				ModAmmoComponent newComponent = ComponentUtils.GetOrCreateComponent<ModAmmoComponent>(prefab);
-				newComponent.InitializeComponent(dict);
-			}
 			#endregion
 
 			#region Behaviour Components
