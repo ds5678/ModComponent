@@ -1,4 +1,4 @@
-> Not compatible with Accelerant Behaviour
+> Not compatible with Accelerant, Burnable, or Tinder Behaviour
 
 # Template
 ```

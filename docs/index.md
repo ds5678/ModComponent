@@ -120,3 +120,5 @@ Ideally this will also decouple mods that use ModComponent from the internal wor
 [Sharpenable Behaviour Documentation](Sharpenable-Behaviour-Documentation.md)
 
 [Stackable Behaviour Documentation](Stackable-Behaviour-Documentation.md)
+
+[Tinder Behaviour Documentation](Tinder-Behaviour-Documentation.md)

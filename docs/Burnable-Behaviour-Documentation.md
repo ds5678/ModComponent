@@ -1,3 +1,5 @@
+> Not compatible with Accelerant, FireStarter, or Tinder Behaviour
+
 # Template
 ```
 {

@@ -1,10 +1,9 @@
-> Not compatible with Burnable, FireStarter, or Tinder Behaviour
+> Not compatible with Accelerant, Burnable, or FireStarter Behaviour
 
 # Template
 ```
 {
-    "ModAccelerantBehaviour": {
-                                "DestroyedOnUse" : true,
+    "ModTinderBehaviour": {
                                 "DurationOffset" : 0,
                                 "SuccessModifier" : 40
                             }
@@ -14,10 +13,6 @@
 # Parameters
 
 > Note: cannot be used without a [Component](Basic-Information-about-Components.md).
-
-## DestroyedOnUse
-*bool*<br/>
-Is the item destroyed immediately after use?
 
 ## DurationOffset
 *float*<br/>
