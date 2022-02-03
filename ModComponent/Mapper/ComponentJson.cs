@@ -153,7 +153,7 @@ namespace ModComponent.Mapper
 			else if (dict.ContainsKey("ModTinderBehaviour"))
 			{
 				ModTinderBehaviour newComponent = ComponentUtils.GetOrCreateComponent<ModTinderBehaviour>(prefab);
-				newComponent.InitializeBehaviour(dict, "ModTinderComponent");
+				newComponent.InitializeBehaviour(dict);
 			}
 			if (dict.ContainsKey("ModCarryingCapacityBehaviour"))
 			{
