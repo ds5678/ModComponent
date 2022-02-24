@@ -8,3 +8,7 @@
 ```
 
 # Parameters
+> Note: cannot be used without a [Component](Basic-Information-about-Components.md).
+
+## MaxCarryCapacityKGBuff
+*int*<br/>
