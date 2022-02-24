@@ -11,7 +11,7 @@ This component defines a carcass item.
 
 ## ModCharcoalComponent
 
-This component...
+This component defines a charcoal item.
 
 ## ModClothingComponent
 
@@ -68,7 +68,7 @@ This component defines a container of gunpowder.
 
 ## ModPurificationComponent
 
-This component...
+This component defines a water purification item.
 
 ## ModRandomItemComponent
 
@@ -80,7 +80,7 @@ This component defines a spawn point for inequally probable items.
 
 ## ModResearchComponent
 
-This component...
+This component defines a research book.
 
 ## ModRifleComponent
 
