@@ -12,6 +12,10 @@ The item becomes an accelerant that can be used to increase the chance to succes
 
 The item can be burned in a fire.
 
+## ModCarryingCapacityBehaviour
+
+This item can change carrying capacity.
+
 ## ModEvolveBehaviour
 
 The item will slowly evolve into another item. Curing is an example of this.
