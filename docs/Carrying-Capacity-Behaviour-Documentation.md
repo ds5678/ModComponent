@@ -1,6 +1,9 @@
 # Template
 ```
 {
+    "ModCarryingCapacityBehaviour": {
+                                "MaxCarryCapacityKGBuff" : 5
+                            }
 }
 ```
 
