@@ -32,3 +32,14 @@
 ```
 
 # Parameters
+
+## SkillType
+[Skill Type List](Skill-Type-List.md)
+
+## TimeRequirementHours
+
+## SkillPoints
+
+## NoBenefitAtSkillLevel
+
+## ReadAudio
