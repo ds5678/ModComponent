@@ -71,7 +71,7 @@ Ideally this will also decouple mods that use ModComponent from the internal wor
 
 [Body Harvest Component Documentation](Body-Harvest-Component-Documentation.md)
 
-[Charcoal Component Documentation](Charcoal-Component-Documentation.md).
+[Charcoal Component Documentation](Charcoal-Component-Documentation.md)
 
 [Clothing Component Documentation](Clothing-Component-Documentation.md)
 
@@ -93,15 +93,15 @@ Ideally this will also decouple mods that use ModComponent from the internal wor
 
 [Powder Component Documentation](Powder-Component-Documentation.md)
 
-[Purification Component Documentation](Purification-Component-Documentation.md).
+[Purification Component Documentation](Purification-Component-Documentation.md)
 
 [Random Item Component Documentation](Random-Item-Component-Documentation.md)
 
 [Random Weighted Item Component Documentation](Random-Weighted-Item-Component-Documentation.md)
 
-[Research Component Documentation](Research-Component-Documentation.md).
+[Research Component Documentation](Research-Component-Documentation.md)
 
-[Rifle Component Documentation](Rifle-Component-Documentation.md).
+[Rifle Component Documentation](Rifle-Component-Documentation.md)
 
 [Tool Component Documentation](Tool-Component-Documentation.md)
 
@@ -113,7 +113,7 @@ Ideally this will also decouple mods that use ModComponent from the internal wor
 
 [Burnable Behaviour Documentation](Burnable-Behaviour-Documentation.md)
 
-[Carrying Capacity Behaviour Documentation](Carrying-Capacity-Behaviour-Documentation.md).
+[Carrying Capacity Behaviour Documentation](Carrying-Capacity-Behaviour-Documentation.md)
 
 [Evolve Behaviour Documentation](Evolve-Behaviour-Documentation.md)
 
