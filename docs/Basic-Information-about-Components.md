@@ -9,6 +9,10 @@ This component defines a bedroll-like item. Currently disabled.
 
 This component defines a carcass item.
 
+## ModCharcoalComponent
+
+This component...
+
 ## ModClothingComponent
 
 This component defines a wearable clothing item.  
@@ -62,6 +66,10 @@ This component defines a container of water or kerosene.
 
 This component defines a container of gunpowder.
 
+## ModPurificationComponent
+
+This component...
+
 ## ModRandomItemComponent
 
 This component defines a spawn point for equally probable items.
@@ -69,6 +77,10 @@ This component defines a spawn point for equally probable items.
 ## ModRandomWeightedItemComponent
 
 This component defines a spawn point for inequally probable items.
+
+## ModResearchComponent
+
+This component...
 
 ## ModRifleComponent
 
