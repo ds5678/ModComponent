@@ -72,7 +72,8 @@ None,HackSaw,Hatchet,Hammer,Knife
 ## DegradeOnUse
 *float* <br/>
 How many condition points per use does this tool item lose?<br/>
-Certains actions have their own time driven degrade value, e.g. DegradePerHourCrafting, which applies only for those actions.<br/>
+Certains actions have their own time driven degrade value, <br>
+e.g. DegradePerHourCrafting, which applies only for those actions.<br/>
 
 
 ## Usage
@@ -85,12 +86,14 @@ All,CraftOnly,RepairOnly
 
 ## SkillBonus
 *int* <br/>
-Bonus to the relevant skill when using this item. E.g. the sewing kit gives a bonus of +20.<br/>
+Bonus to the relevant skill when using this item. <br>
+E.g. the sewing kit gives a bonus of +20.<br/>
 
 
 ## CraftingTimeMultiplier 
 *float* <br/>
-Multiplier for crafting and repair times. Represents percent. 0% means 'finishes instantly'; 100% means 'same time as without tool'.<br/>
+Multiplier for crafting and repair times. Represents percent. <br>
+0% means 'finishes instantly'; 100% means 'same time as without tool'.<br/>
 
 
 ## DegradePerHourCrafting
