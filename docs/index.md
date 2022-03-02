@@ -101,8 +101,6 @@ Ideally this will also decouple mods that use ModComponent from the internal wor
 
 [Research Component Documentation](Research-Component-Documentation.md)
 
-[Rifle Component Documentation](Rifle-Component-Documentation.md)
-
 [Tool Component Documentation](Tool-Component-Documentation.md)
 
 ## Behaviour JSON Documentation
