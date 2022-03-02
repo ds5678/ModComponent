@@ -4,24 +4,24 @@ Behaviours are additional functions that can be attached to items.
 All behaviours can be attached to any item and most behaviours can be combined with others.
 
 ## ModAccelerantBehaviour
-
+[JSON Document](Accelerant-Behaviour-Documentation.md)<br>
 The item becomes an accelerant that can be used to increase the chance to successfully start a fire.
 > This cannot be combined with ModFireStarterBehaviour
 
 ## ModBurnableBehaviour
-
+[JSON Document](Burnable-Behaviour-Documentation.md)<br>
 The item can be burned in a fire.
 
 ## ModCarryingCapacityBehaviour
-
+[JSON Document](Carrying-Capacity-Behaviour-Documentation.md)<br>
 This item can change carrying capacity.
 
 ## ModEvolveBehaviour
-
+[JSON Document](Evolve-Behaviour-Documentation.md)<br>
 The item will slowly evolve into another item. Curing is an example of this.
 
 ## ModFireStarterBehaviour
-
+[JSON Document](Firestarter-Behaviour-Documentation.md)<br>
 The item can be used to start fires.  
 Fire starters can either be reusable or not.
 
@@ -29,31 +29,35 @@ Fire starters can either be reusable or not.
 
 
 ## ModHarvestableBehaviour
-
+[JSON Document](Harvestable-Behaviour-Domentation.md)<br>
 The item can be harvested to received some other items or materials.  
 The behaviour defines which and how many items will be provided.
 
 
-## ModRepairableBehaviour
+## ModMillableBehaviour
+[JSON Document](Millable-Behaviour-Documentation.md)<br>
+The item can be repaired at a milling machine. This is a new addition to ModComponent.
 
+## ModRepairableBehaviour
+[JSON Document](Repairable-Behaviour-Documentation.md)<br>
 The item's condition can be restored by repairing it.  
 The required materials and tools can be configured.
 
-## ModMillableBehaviour
-
-The item can be repaired at a milling machine. This is a new addition to ModComponent.
-
 ## ModScentBehaviour
-
+[JSON Document](Scent-Behaviour-Documentation.md)<br>
 The item gives off a scent that wildlife can smell.
 
 ## ModSharpenableBehaviour
-
+[JSON Document](Sharpenable-Behaviour-Documentation.md)<br>
 The item can be sharpened with a whetstone.
 
 ## ModStackableBehaviour
-
+[JSON Document](Stackable-Behaviour-Documentation.md)<br>
 The item can form stacks with itself. Also enables spawning item stacks similar to the Coffee Tin and Herbal Tea Box.
+
+## ModTinderBehaviour
+[JSON Document](Tinder-Behaviour-Documentation.md)<br>
+
 
 # JSON files
 
