@@ -66,7 +66,7 @@ The type of the tool item. This determines for which actions it can be used.<br/
 E.g. 'Knife' for cutting, 'Hammer' for pounding, etc.<br/>
 
 ### TookKind
-None,HackSaw,Hatchet,Hammer,Knife
+`None`, `HackSaw`, `Hatchet`, `Hammer`, `Knife`
 
 
 ## DegradeOnUse
@@ -81,7 +81,7 @@ e.g. DegradePerHourCrafting, which applies only for those actions.<br/>
 Can this item be used for crafting, repairing or both?<br/>
 
 ### ToolUsage
-All,CraftOnly,RepairOnly
+`All`, `CraftOnly`, `RepairOnly`
 
 
 ## SkillBonus
