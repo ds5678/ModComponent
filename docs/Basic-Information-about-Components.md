@@ -101,3 +101,42 @@ This component serves as the base for all the others. As a result, its parameter
 ## Template JSON files
 
 Each page of documentation will include template json text.
+
+
+## Example
+
+If someone was adding another book to the game, this could potentially be the json file for that book. Notice that the component and the added behaviours are all in one file.
+```
+{
+    "ModGenericComponent": {
+                                "DisplayNameLocalizationId" : "GAMEPLAY_BookM",
+                                "DescriptionLocalizatonId" : "GAMEPLAY_BookMDescription",
+                                "WeightKG": 0.5,
+                                "DaysToDecay" : 0,
+                                "MaxHP" : 100,
+                                "InitialCondition" : "Perfect",
+                                "InventoryCategory" : "Firestarting",
+                                "PickUpAudio" : "",
+                                "PutBackAudio" : "",
+                                "StowAudio" : "Play_InventoryStow",
+                                "WornOutAudio" : "",
+                                "InspectOnPickup" : true,
+                                "InspectDistance" : 0.4,
+                                "InspectAngles" : [0, 0, 0],
+                                "InspectOffset" : [0, 0, 0],
+                                "InspectScale" :  [1, 1, 1]
+                            },
+    "ModStackableBehaviour": {
+                                "SingleUnitTextId" : "GAMEPLAY_BookMSingle",
+                                "MultipleUnitTextId" : "GAMEPLAY_BookMMultiple",
+                                "StackSprite" : "",
+                                "UnitsPerItem" : 1
+                            },
+    "ModBurnableBehaviour": {
+                                "BurningMinutes" : 18,
+                                "BurningMinutesBeforeAllowedToAdd" : 0,
+                                "SuccessModifier" : 35,
+                                "TempIncrease" : 2.0
+                            }
+}
+```
