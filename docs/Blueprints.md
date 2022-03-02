@@ -16,7 +16,7 @@ Example:
     "RequiredGear": ["GEAR_Cloth"],
     "RequiredGearUnits": [4],
     "KeroseneLitersRequired": 0.0,
-    "GunpowderRequired": 0.0,
+    "GunpowderKGRequired": 0.0,
     "RequiredTool": "GEAR_SewingKit",
     "OptionalTools": ["GEAR_HookAndLine"],
     "RequiredCraftingLocation": "Anywhere",
