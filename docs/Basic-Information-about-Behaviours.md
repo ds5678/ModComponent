@@ -63,12 +63,16 @@ The item can form stacks with itself. Also enables spawning item stacks similar 
 
 ## Example
 
-If someone was adding another book to the game, this could potentially be the json file for that book. Notice that the component and the added behaviours are all in one file.
+If someone was adding another book to the game, this could potentially be the json file for that book. 
+Notice that the component and the added behaviours are all in one file.
+
+### bookm.json
 ```
 {
     "ModGenericComponent": {
                                 "DisplayNameLocalizationId" : "GAMEPLAY_BookM",
                                 "DescriptionLocalizatonId" : "GAMEPLAY_BookMDescription",
+                                "InventoryActionLocalizationId" : "",
                                 "WeightKG": 0.5,
                                 "DaysToDecay" : 0,
                                 "MaxHP" : 100,
@@ -82,19 +86,23 @@ If someone was adding another book to the game, this could potentially be the js
                                 "InspectDistance" : 0.4,
                                 "InspectAngles" : [0, 0, 0],
                                 "InspectOffset" : [0, 0, 0],
-                                "InspectScale" :  [1, 1, 1]
+                                "InspectScale" :  [1, 1, 1],
+                                "NormalModel" : "",
+                                "InspectModel" : ""
                             },
     "ModStackableBehaviour": {
                                 "SingleUnitTextId" : "GAMEPLAY_BookMSingle",
                                 "MultipleUnitTextId" : "GAMEPLAY_BookMMultiple",
                                 "StackSprite" : "",
-                                "UnitsPerItem" : 1
+                                "UnitsPerItem" : 1,
+                                "ChanceFull" : 80
                             },
     "ModBurnableBehaviour": {
                                 "BurningMinutes" : 18,
                                 "BurningMinutesBeforeAllowedToAdd" : 0,
                                 "SuccessModifier" : 35,
-                                "TempIncrease" : 2.0
+                                "TempIncrease" : 2.0,
+                                "DurationOffset" : 0
                             }
 }
 ```
