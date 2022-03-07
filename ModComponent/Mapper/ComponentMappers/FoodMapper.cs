@@ -66,7 +66,7 @@ namespace ModComponent.Mapper.ComponentMappers
 			{
 				FatigueBuff fatigueBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FatigueBuff>(modFoodComponent);
 				fatigueBuff.m_InitialPercentDecrease = modFoodComponent.InstantRestChange;
-				fatigueBuff.m_RateOfIncreaseScale = modFoodComponent.RestFactor;
+				fatigueBuff.m_RateOfIncreaseScale = 0.5f;
 				fatigueBuff.m_DurationHours = modFoodComponent.RestFactorMinutes / 60f;
 			}
 
@@ -74,7 +74,7 @@ namespace ModComponent.Mapper.ComponentMappers
 			{
 				FreezingBuff freezingBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FreezingBuff>(modFoodComponent);
 				freezingBuff.m_InitialPercentDecrease = modFoodComponent.InstantColdChange;
-				freezingBuff.m_RateOfIncreaseScale = modFoodComponent.ColdFactor;
+				freezingBuff.m_RateOfIncreaseScale = 0.5f;
 				freezingBuff.m_DurationHours = modFoodComponent.ColdFactorMinutes / 60f;
 			}
 

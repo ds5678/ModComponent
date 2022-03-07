@@ -163,14 +163,6 @@ namespace ModComponent.API.Components
 		public float InstantRestChange;
 
 		/// <summary>
-		/// Factor for scaling how fast 'Rest' is drained after the item was consumed.<br/>
-		/// Values below 1 drain less 'Rest' than normal.<br/>
-		/// Values above 1 drain more 'Rest' than normal.<br/>
-		/// Applies to standing, sprinting, ...
-		/// </summary>
-		public float RestFactor = 1;
-
-		/// <summary>
 		/// Amount of in-game minutes the 'RestFactor' will be applied.
 		/// </summary>
 		public int RestFactorMinutes = 60;
@@ -188,13 +180,6 @@ namespace ModComponent.API.Components
 		/// Negative values make it feel colder; positive values make it feel warmer.
 		/// </summary>
 		public float InstantColdChange = 20;
-
-		/// <summary>
-		/// Factor for scaling how fast 'Cold' is drained after the item was consumed.<br/>
-		/// Values below 1 drain less 'Cold' than normal.<br/>
-		/// Values above 1 drain more 'Cold' than normal.
-		/// </summary>
-		public float ColdFactor = 0.5f;
 
 		/// <summary>
 		/// Amount of in-game minutes the 'ColdFactor' will be applied.
@@ -266,12 +251,10 @@ namespace ModComponent.API.Components
 
 			this.AffectRest = dict.GetVariant(className, "AffectRest");
 			this.InstantRestChange = dict.GetVariant(className, "InstantRestChange");
-			this.RestFactor = dict.GetVariant(className, "RestFactor");
 			this.RestFactorMinutes = dict.GetVariant(className, "RestFactorMinutes");
 
 			this.AffectCold = dict.GetVariant(className, "AffectCold");
 			this.InstantColdChange = dict.GetVariant(className, "InstantColdChange");
-			this.ColdFactor = dict.GetVariant(className, "ColdFactor");
 			this.ColdFactorMinutes = dict.GetVariant(className, "ColdFactorMinutes");
 
 			this.ContainsAlcohol = dict.GetVariant(className, "ContainsAlcohol");
