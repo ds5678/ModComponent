@@ -25,7 +25,7 @@ Example:
     "CraftedResult": "GEAR_Balaclava",
     "CraftedResultCount": 1,
     "DurationMinutes": 30,
-    "CraftingAudio": "PLAY_ClothingRepair",
+    "CraftingAudio": "Play_CraftingCloth",
     "AppliedSkill" : "None",
     "ImprovedSkill" : "None"
 }
@@ -33,3 +33,80 @@ Example:
 
 > Important: RequiredGear and RequiredGearUnits must be of the same length  
 > Item names can be obtained in-game by using the [Coordinates-Grabber](https://github.com/ds5678/Coordinates-Grabber/releases/latest)
+
+## Parameters
+
+### Name
+An optional name for the blueprint. Only used in error messages.
+
+
+### RequiredGear
+The name of each gear needed to craft this item (e.g. GEAR_Line)
+
+
+### RequiredGearUnits
+### How many of each item are required? <br/>
+This list has to match the RequiredGear list.
+
+
+### KeroseneLitersRequired<br/>
+How many liters of kerosene are required?
+
+
+### GunpowderKGRequired
+How much gunpowder is required? (in kilograms)
+
+
+### RequiredTool
+Tool required to craft (e.g. GEAR_Knife)
+
+
+### OptionalTools
+List of optional tools to speed the process of crafting or to use in place of the required tool.
+
+
+### RequiredCraftingLocation
+Where to craft? (Anywhere,Workbench,Forge,AmmoWorkbench)
+
+### RequiresLitFire
+Requires a lit fire in the ammo workbench to craft?
+
+
+### RequiresLight
+Requires light to craft?
+
+
+### CraftedResult
+The name of the item produced.
+
+
+### CraftedResultCount
+Number of the item produced.
+
+
+
+### DurationMinutes
+Number of in-game minutes required.
+
+
+### CraftingAudio
+Audio to be played.
+
+
+### AppliedSkill
+The skill associated with crafting this item. (e.g. Gunsmithing)<br>
+Firestarting,
+CarcassHarvesting,
+IceFishing,
+Cooking,
+Rifle,
+Archery,
+ClothingRepair,
+ToolRepair,
+Revolver,
+Gunsmithing
+
+### ImprovedSkill
+The skill improved on crafting success.
+
+
