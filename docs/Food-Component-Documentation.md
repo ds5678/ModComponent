@@ -66,12 +66,10 @@
 
                             "AffectRest" : false,
                             "InstantRestChange" : 0,
-                            "RestFactor" : 0.5,
                             "RestFactorMinutes" : 0,
 
                             "AffectCold" : false,
                             "InstantColdChange" : 0,
-                            "ColdFactor" : 0.5,
                             "ColdFactorMinutes" : 60,
 
                             "ContainsAlcohol" : false,
@@ -193,11 +191,6 @@ Does this item affect 'Rest'? If not enabled, the other settings in this section
 *float*<br/>
 How much 'Rest' is restored/drained immediately after consuming the item. Represents change in percentage points. Negative values drain rest, positive values restore rest.
 
-## RestFactor
-*float*<br/>
-**This parameter is not used in the current version of ModComponent. Now this value is fixed at 0.5.**<br>
-Factor for scaling how fast 'Rest' is drained after the item was consumed. Values below 1 drain less 'Rest' than normal, values above 1 drain more 'Rest' than normal. Applies to standing, sprinting, ...
-
 ## RestFactorMinutes
 *int*<br/>
 Amount of in-game minutes the 'RestFactor' will be applied.
@@ -209,11 +202,6 @@ Does this item affect 'Cold'? If not enabled, the other settings in this section
 ## InstantColdChange
 *float*<br/>
 How much 'Cold' is restored/drained immediately after consuming the item. Represents change in percentage points. Negative values make it feel colder, positive values make it feel warmer.
-
-## ColdFactor
-*float*<br/>
-**This parameter is not used in the current version of ModComponent. Now this value is fixed at 0.5.**<br>
-Factor for scaling how fast 'Cold' is drained after the item was consumed. Values below 1 drain less 'Cold' than normal, values above 1 drain more 'Cold' than normal.
 
 ## ColdFactorMinutes
 *int*<br/>

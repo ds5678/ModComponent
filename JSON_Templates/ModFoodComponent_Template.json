@@ -62,12 +62,10 @@
 
                             "AffectRest" : false,
                             "InstantRestChange" : 0,
-                            "RestFactor" : 1,
                             "RestFactorMinutes" : 0,
 
                             "AffectCold" : false,
                             "InstantColdChange" : 0,
-                            "ColdFactor" : 1,
                             "ColdFactorMinutes" : 60,
 
                             "ContainsAlcohol" : false,

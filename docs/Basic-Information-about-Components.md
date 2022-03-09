@@ -82,10 +82,6 @@ This component defines a spawn point for inequally probable items.
 [JSON Document](Research-Component-Documentation.md) <br>
 This component defines a research book.
 
-## ModRifleComponent
-
-This component defines a custom rifle. Currently disabled.
-
 ## ModToolComponent
 [JSON Document](Tool-Component-Documentation.md) <br>
 This component defines a usable tool. These tools can also have custom implementations.
