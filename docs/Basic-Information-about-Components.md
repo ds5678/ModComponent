@@ -83,7 +83,7 @@ This component defines a spawn point for inequally probable items.
 This component defines a research book.
 
 ## ModRifleComponent
-[JSON Document](Rifle-Component-Documentation.md) <br>
+
 This component defines a custom rifle. Currently disabled.
 
 ## ModToolComponent
@@ -111,6 +111,7 @@ If someone was adding another book to the game, this could potentially be the js
     "ModGenericComponent": {
                                 "DisplayNameLocalizationId" : "GAMEPLAY_BookM",
                                 "DescriptionLocalizatonId" : "GAMEPLAY_BookMDescription",
+                                "InventoryActionLocalizationId" : "",
                                 "WeightKG": 0.5,
                                 "DaysToDecay" : 0,
                                 "MaxHP" : 100,
@@ -124,19 +125,23 @@ If someone was adding another book to the game, this could potentially be the js
                                 "InspectDistance" : 0.4,
                                 "InspectAngles" : [0, 0, 0],
                                 "InspectOffset" : [0, 0, 0],
-                                "InspectScale" :  [1, 1, 1]
+                                "InspectScale" :  [1, 1, 1],
+                                "NormalModel" : "",
+                                "InspectModel" : ""
                             },
     "ModStackableBehaviour": {
                                 "SingleUnitTextId" : "GAMEPLAY_BookMSingle",
                                 "MultipleUnitTextId" : "GAMEPLAY_BookMMultiple",
                                 "StackSprite" : "",
-                                "UnitsPerItem" : 1
+                                "UnitsPerItem" : 1,
+                                "ChanceFull" : 80
                             },
     "ModBurnableBehaviour": {
                                 "BurningMinutes" : 18,
                                 "BurningMinutesBeforeAllowedToAdd" : 0,
                                 "SuccessModifier" : 35,
-                                "TempIncrease" : 2.0
+                                "TempIncrease" : 2.0,
+                                "DurationOffset" : 0
                             }
 }
 ```
