@@ -1,5 +1,5 @@
 # Component Types
-There are 17 component types. Each item must have exactly one component in the JSON file. An item may have any number of behaviours in the JSON file.
+There are 19 component types. Each item must have exactly one component in the JSON file. An item may have any number of behaviours in the JSON file.
 
 ## ModBedComponent
 [JSON Document](Bed-Component-Documentation.md) <br>
