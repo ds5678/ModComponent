@@ -66,12 +66,12 @@
 
                             "AffectRest" : false,
                             "InstantRestChange" : 0,
-                            "RestFactor" : 1,
+                            "RestFactor" : 0.5,
                             "RestFactorMinutes" : 0,
 
                             "AffectCold" : false,
                             "InstantColdChange" : 0,
-                            "ColdFactor" : 1,
+                            "ColdFactor" : 0.5,
                             "ColdFactorMinutes" : 60,
 
                             "ContainsAlcohol" : false,
@@ -195,6 +195,7 @@ How much 'Rest' is restored/drained immediately after consuming the item. Repres
 
 ## RestFactor
 *float*<br/>
+**This parameter is not used in the current version of ModComponent. Now this value is fixed at 0.5.**<br>
 Factor for scaling how fast 'Rest' is drained after the item was consumed. Values below 1 drain less 'Rest' than normal, values above 1 drain more 'Rest' than normal. Applies to standing, sprinting, ...
 
 ## RestFactorMinutes
@@ -211,6 +212,7 @@ How much 'Cold' is restored/drained immediately after consuming the item. Repres
 
 ## ColdFactor
 *float*<br/>
+**This parameter is not used in the current version of ModComponent. Now this value is fixed at 0.5.**<br>
 Factor for scaling how fast 'Cold' is drained after the item was consumed. Values below 1 drain less 'Cold' than normal, values above 1 drain more 'Cold' than normal.
 
 ## ColdFactorMinutes
