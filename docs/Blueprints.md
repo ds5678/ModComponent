@@ -31,7 +31,15 @@ Example:
 }
 ```
 
-> Important: RequiredGear and RequiredGearUnits must be of the same length  
+> Important: 
+> RequiredGear and RequiredGearUnits must be of the same length of the array. <br>
+> (Example) <br>
+> "RequiredGear": ["GEAR_ArrowHead", "GEAR_ArrowShaft", "GEAR_CrowFeather"], <br>
+> "RequiredGearUnits": [1,1,3], <br>
+>  <br>
+> If you want an empty array of strings, write it like this : [], <br>
+> This will result in an error : [""], <br>
+>  <br>
 > Item names can be obtained in-game by using the [Coordinates-Grabber](https://github.com/ds5678/Coordinates-Grabber/releases/latest)
 
 ## Parameters
