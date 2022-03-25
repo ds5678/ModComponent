@@ -113,6 +113,8 @@ ClothingRepair,
 ToolRepair,
 Revolver,
 Gunsmithing
+<br>
+**If you do not need to apply the skill, use "None" instead of "" . ("" causes an error)**
 
 ### ImprovedSkill
 The skill improved on crafting success.
