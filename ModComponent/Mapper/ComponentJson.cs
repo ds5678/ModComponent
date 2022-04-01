@@ -22,12 +22,12 @@ namespace ModComponent.Mapper
 			string data = JsonHandler.GetJsonText(name);
 			ProxyObject dict = JSON.Load(data) as ProxyObject;
 			if (dict == null)
-				throw new Exception($"Could not load json for {name}");
-			InitializeComponents(ref prefab, dict);
+				throw new Exception($"Json data for {name} was invalid");
+			InitializeComponents(prefab, dict);
 		}
 
 		#region InitializeComponents
-		private static void InitializeComponents(ref GameObject prefab, ProxyObject dict)
+		private static void InitializeComponents(GameObject prefab, ProxyObject dict)
 		{
 			if (prefab == null)
 				throw new ArgumentNullException(nameof(prefab));

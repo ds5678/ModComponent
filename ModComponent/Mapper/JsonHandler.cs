@@ -8,27 +8,25 @@ namespace ModComponent.Mapper
 
 		public static void RegisterJsonText(string itemName, string text)
 		{
-			if (string.IsNullOrEmpty(text)) return;
+			if (string.IsNullOrEmpty(text)) 
+				return;
 
 			if (itemJsons.ContainsKey(itemName))
 			{
 				Logger.Log($"Overwriting data for {itemName}");
 				itemJsons[itemName] = text;
 			}
-			else itemJsons.Add(itemName, text);
+			else
+			{
+				itemJsons.Add(itemName, text);
+			}
 		}
 
 		public static string GetJsonText(string itemName)
 		{
-			if (itemJsons.ContainsKey(itemName.ToLower()))
-			{
-				return itemJsons[itemName.ToLower()];
-			}
-			else
-			{
-				Logger.Log($"Could not find {itemName} in json dictionary");
-				return null;
-			}
+			return itemJsons.TryGetValue(itemName.ToLower(), out string jsonData)
+				? jsonData
+                : throw new System.Exception($"Could not find json file for {itemName}");
 		}
 	}
 }
