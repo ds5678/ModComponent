@@ -83,6 +83,10 @@
     <Reference Include="UnityEngine.CoreModule">
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.TerrainModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Behaviours\ModCarryingCapacityBehaviour.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="Mapper\ComponentMappers\PurificationMapper.cs" />
     <Compile Include="Mapper\ComponentMappers\ResearchMapper.cs" />
     <Compile Include="Patches\AlternativePowderPatches.cs" />
+    <Compile Include="SceneLoader\Shaders\SubstituteShadersTerrain.cs" />
     <Compile Include="Utils\AssetBundleUtils.cs" />
     <Compile Include="AssetLoader\AtlasManager.cs" />
     <Compile Include="AssetLoader\AtlasUtils.cs" />

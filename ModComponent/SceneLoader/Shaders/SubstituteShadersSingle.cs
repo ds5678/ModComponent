@@ -3,7 +3,7 @@
 namespace ModComponent.SceneLoader.Shaders
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	internal class SubstituteShadersSingle : MonoBehaviour
+	internal sealed class SubstituteShadersSingle : MonoBehaviour
 	{
 		public SubstituteShadersSingle(System.IntPtr intPtr) : base(intPtr) { }
 

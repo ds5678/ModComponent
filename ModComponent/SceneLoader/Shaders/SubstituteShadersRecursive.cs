@@ -3,7 +3,7 @@
 namespace ModComponent.SceneLoader.Shaders
 {
 	[MelonLoader.RegisterTypeInIl2Cpp]
-	internal class SubstituteShadersRecursive : MonoBehaviour
+	internal sealed class SubstituteShadersRecursive : MonoBehaviour
 	{
 		public SubstituteShadersRecursive(System.IntPtr intPtr) : base(intPtr) { }
 

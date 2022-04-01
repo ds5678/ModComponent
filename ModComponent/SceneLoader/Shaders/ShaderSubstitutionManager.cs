@@ -12,7 +12,8 @@ namespace ModComponent.SceneLoader.Shaders
 		/// </summary>
 		public static void ReplaceDummyShaders(GameObject obj, bool recursive)
 		{
-			if (obj == null) return;
+			if (obj == null) 
+				return;
 
 			if (recursive)
 			{
@@ -32,29 +33,73 @@ namespace ModComponent.SceneLoader.Shaders
 
 		public static void ReplaceDummyShaders(Renderer renderer)
 		{
-			if (renderer == null) return;
+			if (renderer == null) 
+				return;
 
 			try
 			{
 				foreach (Material material in renderer.sharedMaterials)
 				{
-					if (!fixedMaterials.Contains(material))
-					{
-						fixedMaterials.Add(material);
-						if (material.shader.name.StartsWith("Dummy"))
-						{
-							material.shader = Shader.Find(material.shader.name.Replace("Dummy", "")) ?? material.shader;
-						}
-						else if (ShaderList.DummyShaderReplacements.ContainsKey(material.shader.name))
-						{
-							material.shader = Shader.Find(ShaderList.DummyShaderReplacements[material.shader.name]);
-						}
-					}
+					FixMaterial(material);
 				}
 			}
 			catch (System.Exception e)
 			{
-				Logger.LogError(e.Message);
+				Logger.LogError(e.ToString());
+			}
+		}
+
+		public static void ReplaceDummyShaders(Terrain terrain)
+		{
+			if (terrain == null) 
+				return;
+
+			try
+			{
+				//Disabled for now because of weird transparency issue
+				//FixMaterial(terrain.materialTemplate);
+
+				TerrainData terrainData = terrain.terrainData;
+
+				if (terrainData == null)
+					return;
+
+				foreach(TreePrototype treePrototype in terrainData.treePrototypes)
+				{
+					if(treePrototype != null)
+						ReplaceDummyShaders(treePrototype.m_Prefab, true);
+				}
+
+				foreach(DetailPrototype detailPrototype in terrainData.detailPrototypes)
+				{
+					if (detailPrototype != null)
+						ReplaceDummyShaders(detailPrototype.m_Prototype, true);
+				}
+
+				terrainData.RefreshPrototypes();
+			}
+			catch (System.Exception e)
+			{
+				Logger.LogError(e.ToString());
+			}
+		}
+
+		private static void FixMaterial(Material material)
+		{
+			if (material == null)
+				return;
+
+			if (!fixedMaterials.Contains(material))
+			{
+				fixedMaterials.Add(material);
+				if (material.shader.name.StartsWith("Dummy"))
+				{
+					material.shader = Shader.Find(material.shader.name.Replace("Dummy", "")) ?? material.shader;
+				}
+				else if (ShaderList.DummyShaderReplacements.ContainsKey(material.shader.name))
+				{
+					material.shader = Shader.Find(ShaderList.DummyShaderReplacements[material.shader.name]);
+				}
 			}
 		}
 

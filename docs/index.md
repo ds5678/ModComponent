@@ -29,6 +29,8 @@ Ideally this will also decouple mods that use ModComponent from the internal wor
 
 [Gear Spawns](Gear-Spawns.md)
 
+[Shader Substitution](Shader-Substitution.md)
+
 ## Lists
 
 [Item Names](Item-Names.md)
