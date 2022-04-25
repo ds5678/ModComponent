@@ -19,10 +19,14 @@ namespace ModComponent.Mapper
 				return;
 
 			string name = NameUtils.RemoveGearPrefix(prefab.name);
+			Logger.Log($"Initializing components for {name}");
 			string data = JsonHandler.GetJsonText(name);
+			if(string.IsNullOrEmpty(data))
+				throw new Exception($"Json data for {name} was null or empty");
 			ProxyObject dict = JSON.Load(data) as ProxyObject;
 			if (dict == null)
 				throw new Exception($"Json data for {name} was invalid");
+
 			InitializeComponents(prefab, dict);
 		}
 
