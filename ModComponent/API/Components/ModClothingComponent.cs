@@ -166,7 +166,7 @@ public partial class ModClothingComponent : ModBaseComponent
 			return;
 		}
 
-		Type implementationType = TypeResolver.Resolve(ImplementationType, true);
+		Type? implementationType = TypeResolver.Resolve(ImplementationType, true);
 		object implementation = Activator.CreateInstance(implementationType);
 		if (implementation == null)
 		{

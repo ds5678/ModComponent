@@ -127,7 +127,7 @@ public abstract class ModBaseEquippableComponent : ModBaseComponent
 		}
 
 		//ignoring monobehaviour
-		Type implementationTypeMono = TypeResolver.Resolve(ImplementationType, true);
+		Type? implementationTypeMono = TypeResolver.Resolve(ImplementationType, true);
 		this.Implementation = Activator.CreateInstance(implementationTypeMono);
 
 		//including monobehaviour
@@ -163,7 +163,7 @@ public abstract class ModBaseEquippableComponent : ModBaseComponent
 		OnDisabled = CreateImplementationActionDelegate("OnDisabled");
 
 
-		FieldInfo fieldInfo = implementationTypeMono.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+		FieldInfo? fieldInfo = implementationTypeMono?.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		if (fieldInfo != null && fieldInfo.FieldType == typeof(ModBaseEquippableComponent))
 		{
 			fieldInfo.SetValue(Implementation, this);

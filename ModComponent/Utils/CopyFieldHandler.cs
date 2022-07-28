@@ -7,7 +7,7 @@ public static class CopyFieldHandler
 {
 	public static void UpdateFieldValues<T>(T componentToUpdate) where T : Component
 	{
-		string gearName = NormalizeName(componentToUpdate.name);
+		string? gearName = NormalizeName(componentToUpdate.name);
 		GameObject? prefab = Resources.Load(gearName)?.TryCast<GameObject>();
 		if (prefab == null)
 		{

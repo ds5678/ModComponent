@@ -23,7 +23,7 @@ public class AttachBehaviour : MonoBehaviour
 	{
 		try
 		{
-			Il2CppSystem.Type behaviourType = TypeResolver.ResolveIl2Cpp(BehaviourName, true);
+			Il2CppSystem.Type? behaviourType = TypeResolver.ResolveIl2Cpp(BehaviourName, true);
 			this.gameObject.AddComponent(behaviourType);
 		}
 		catch (System.Exception e)

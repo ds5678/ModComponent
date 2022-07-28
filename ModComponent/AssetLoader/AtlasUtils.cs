@@ -5,7 +5,7 @@ namespace ModComponent.AssetLoader;
 
 internal static class AtlasUtils
 {
-	internal static UIAtlas GetRequiredAtlas(UISprite sprite, string value)
+	internal static UIAtlas? GetRequiredAtlas(UISprite sprite, string value)
 	{
 		if (string.IsNullOrEmpty(value))
 		{
