@@ -1,32 +1,31 @@
 ﻿using System.Collections.Generic;
 
-namespace ModComponent.Mapper
+namespace ModComponent.Mapper;
+
+internal static class JsonHandler
 {
-	internal static class JsonHandler
+	private static Dictionary<string, string> itemJsons = new Dictionary<string, string>();
+
+	public static void RegisterJsonText(string itemName, string text)
 	{
-		private static Dictionary<string, string> itemJsons = new Dictionary<string, string>();
+		if (string.IsNullOrEmpty(text)) 
+			return;
 
-		public static void RegisterJsonText(string itemName, string text)
+		if (itemJsons.ContainsKey(itemName))
 		{
-			if (string.IsNullOrEmpty(text)) 
-				return;
-
-			if (itemJsons.ContainsKey(itemName))
-			{
-				Logger.Log($"Overwriting data for {itemName}");
-				itemJsons[itemName] = text;
-			}
-			else
-			{
-				itemJsons.Add(itemName, text);
-			}
+			Logger.Log($"Overwriting data for {itemName}");
+			itemJsons[itemName] = text;
 		}
-
-		public static string GetJsonText(string itemName)
+		else
 		{
-			return itemJsons.TryGetValue(itemName.ToLower(), out string jsonData)
-				? jsonData
+			itemJsons.Add(itemName, text);
+		}
+	}
+
+	public static string GetJsonText(string itemName)
+	{
+		return itemJsons.TryGetValue(itemName.ToLower(), out string jsonData)
+			? jsonData
                 : throw new System.Exception($"Could not find json file for {itemName}");
-		}
 	}
 }

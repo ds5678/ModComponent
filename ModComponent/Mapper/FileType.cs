@@ -1,12 +1,11 @@
-﻿namespace ModComponent.Mapper
+﻿namespace ModComponent.Mapper;
+
+internal enum FileType
 {
-	internal enum FileType
-	{
-		json,
-		unity3d,
-		txt,
-		dll,
-		bnk,
-		other
-	}
+	json,
+	unity3d,
+	txt,
+	dll,
+	bnk,
+	other
 }

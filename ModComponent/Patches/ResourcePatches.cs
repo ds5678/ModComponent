@@ -3,57 +3,57 @@ using ModComponent.AssetLoader;
 using System.Reflection;
 using UnityEngine;
 
-namespace ModComponent.Patches
+namespace ModComponent.Patches;
+
+static class ResourcePatches
 {
-	static class ResourcePatches
+	// Hinterland loads assets by calling Resources.Load which ignores external AssetBundles
+	// so we need to patch Resources.Load to redirect specific calls to load from the AssetBundle instead
+	// Most of the gear items are in the resources
+	[HarmonyPatch]
+	internal static class Resources_Load
 	{
-		// Hinterland loads assets by calling Resources.Load which ignores external AssetBundles
-		// so we need to patch Resources.Load to redirect specific calls to load from the AssetBundle instead
-		// Most of the gear items are in the resources
-		[HarmonyPatch]
-		internal static class Resources_Load
+		static MethodBase TargetMethod()
 		{
-			static MethodBase TargetMethod()
+			MethodInfo[] methods = typeof(Resources).GetMethods();
+			foreach (MethodInfo m in methods)
 			{
-				MethodInfo[] methods = typeof(Resources).GetMethods();
-				foreach (MethodInfo m in methods)
+				if (m.Name == "Load" && m.ReturnType == typeof(Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
 				{
-					if (m.Name == "Load" && m.ReturnType == typeof(Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
-					{
-						return m;
-					}
+					return m;
 				}
-				Logger.LogError("Resources.Load not found for patch.");
-				return null;
 			}
-			internal static bool Prefix(ref string path, ref Object __result)
-			{
-				if (!ModAssetBundleManager.IsKnownAsset(path)) return true;
-
-				__result = ModAssetBundleManager.LoadAsset(path);
-				if (__result == null) Logger.LogWarning("Resources.Load failed to load the external asset");
-				return false;
-			}
+			Logger.LogError("Resources.Load not found for patch.");
+			return null;
 		}
-
-		//Hinterland stores many of its assets in asset bundles
-		//This allows us to enable external asset loading in key locations
-		//For example, paperdoll textures are loaded from asset bundles
-		[HarmonyPatch(typeof(AssetBundle), "LoadAsset", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
-		internal static class AssetBundle_LoadAsset
+		internal static bool Prefix(ref string path, ref Object __result)
 		{
-			private static bool Prefix(ref string name, ref Object __result)
-			{
-				if (!ModAssetBundleManager.IsKnownAsset(name)) return true;
+			if (!ModAssetBundleManager.IsKnownAsset(path)) return true;
 
-				__result = ModAssetBundleManager.LoadAsset(name);
-				if (__result == null) Logger.LogWarning($"AssetBundle.LoadAsset failed to load the external asset '{name}'");
-				return false;
-			}
+			__result = ModAssetBundleManager.LoadAsset(path);
+			if (__result == null) Logger.LogWarning("Resources.Load failed to load the external asset");
+			return false;
 		}
+	}
 
-		//Just for testing
-		/*[HarmonyPatch(typeof(UnityEngine.AssetBundle), "LoadAssetAsync", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
+	//Hinterland stores many of its assets in asset bundles
+	//This allows us to enable external asset loading in key locations
+	//For example, paperdoll textures are loaded from asset bundles
+	[HarmonyPatch(typeof(AssetBundle), "LoadAsset", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
+	internal static class AssetBundle_LoadAsset
+	{
+		private static bool Prefix(ref string name, ref Object __result)
+		{
+			if (!ModAssetBundleManager.IsKnownAsset(name)) return true;
+
+			__result = ModAssetBundleManager.LoadAsset(name);
+			if (__result == null) Logger.LogWarning($"AssetBundle.LoadAsset failed to load the external asset '{name}'");
+			return false;
+		}
+	}
+
+	//Just for testing
+	/*[HarmonyPatch(typeof(UnityEngine.AssetBundle), "LoadAssetAsync", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
         internal static class AssetBundle_LoadAssetAsync
         {
             private static void Postfix(string name, Il2CppSystem.Type type,AssetBundle __instance)
@@ -74,5 +74,4 @@ namespace ModComponent.Patches
                 }
             }
         }*/
-	}
 }

@@ -1,12 +1,11 @@
 ﻿using ModComponent.API.Components;
 
-namespace ModComponent.Mapper.ComponentMappers
+namespace ModComponent.Mapper.ComponentMappers;
+
+internal static class GenericEquippableMapper
 {
-	internal static class GenericEquippableMapper
+	internal static void Configure(ModBaseComponent modComponent)
 	{
-		internal static void Configure(ModBaseComponent modComponent)
-		{
-			//Currently needs nothing configured
-		}
+		//Currently needs nothing configured
 	}
 }

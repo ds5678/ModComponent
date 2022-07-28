@@ -3,14 +3,13 @@ using HarmonyLib;
 using Hinterland;
 using ModComponent.AssetLoader;
 
-namespace ModComponent.Patches
+namespace ModComponent.Patches;
+
+[HarmonyPatch(typeof(GameAudioManager), "Start")]
+internal static class GameAudioManager_LoadSoundBanksPath
 {
-	[HarmonyPatch(typeof(GameAudioManager), "Start")]
-	internal static class GameAudioManager_LoadSoundBanksPath
+	internal static void Postfix()
 	{
-		internal static void Postfix()
-		{
-			ModSoundBankManager.RegisterPendingSoundBanks();
-		}
+		ModSoundBankManager.RegisterPendingSoundBanks();
 	}
 }

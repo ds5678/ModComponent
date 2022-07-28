@@ -1,34 +1,33 @@
 ﻿extern alias Hinterland;
 using Hinterland;
 
-namespace ModComponent.Utils
+namespace ModComponent.Utils;
+
+public enum PlayerGender
 {
-	public enum PlayerGender
+	Female,
+	Male,
+	Unknown
+}
+public static class PlayerUtils
+{
+	public static void FreezePlayer()
 	{
-		Female,
-		Male,
-		Unknown
+		GameManager.GetPlayerManagerComponent().m_FreezeMovement = true;
 	}
-	public static class PlayerUtils
+
+	public static void UnfreezePlayer()
 	{
-		public static void FreezePlayer()
-		{
-			GameManager.GetPlayerManagerComponent().m_FreezeMovement = true;
-		}
+		GameManager.GetPlayerManagerComponent().m_FreezeMovement = false;
+	}
 
-		public static void UnfreezePlayer()
-		{
-			GameManager.GetPlayerManagerComponent().m_FreezeMovement = false;
-		}
+	public static PlayerGender GetPlayerGender()
+	{
+		if (GameManager.GetPlayerManagerComponent() == null) return PlayerGender.Unknown;
+		if (InterfaceManager.m_Panel_OptionsMenu?.m_State == null) return PlayerGender.Unknown;
+		if (GameManager.GetPlayerManagerComponent().m_VoicePersona != InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona) return PlayerGender.Unknown;
 
-		public static PlayerGender GetPlayerGender()
-		{
-			if (GameManager.GetPlayerManagerComponent() == null) return PlayerGender.Unknown;
-			if (InterfaceManager.m_Panel_OptionsMenu?.m_State == null) return PlayerGender.Unknown;
-			if (GameManager.GetPlayerManagerComponent().m_VoicePersona != InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona) return PlayerGender.Unknown;
-
-			if (InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona == VoicePersona.Female) return PlayerGender.Female;
-			else return PlayerGender.Male;
-		}
+		if (InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona == VoicePersona.Female) return PlayerGender.Female;
+		else return PlayerGender.Male;
 	}
 }

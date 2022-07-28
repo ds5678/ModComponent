@@ -4,47 +4,46 @@ using ModComponent.API.Components;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ModComponent.Mapper
+namespace ModComponent.Mapper;
+
+internal static class AlternativeToolManager
 {
-	internal static class AlternativeToolManager
+	private static List<ModToolComponent> toolList = new List<ModToolComponent>();
+	private static List<string> templateNameList = new List<string>();
+
+	internal static void AddToList(ModToolComponent alternateTool, string templateName)
 	{
-		private static List<ModToolComponent> toolList = new List<ModToolComponent>();
-		private static List<string> templateNameList = new List<string>();
+		toolList.Add(alternateTool);
+		templateNameList.Add(templateName);
+	}
 
-		internal static void AddToList(ModToolComponent alternateTool, string templateName)
+	private static void Clear()
+	{
+		toolList = new List<ModToolComponent>();
+		templateNameList = new List<string>();
+	}
+
+	internal static void ProcessList()
+	{
+		for (int i = 0; i < toolList.Count; i++)
 		{
-			toolList.Add(alternateTool);
-			templateNameList.Add(templateName);
+			AddAlternativeTool(toolList[i], templateNameList[i]);
 		}
+		Clear();
+	}
 
-		private static void Clear()
+	private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
+	{
+		GameObject original = Resources.Load(templateName).Cast<GameObject>();
+		if (original == null) return;
+
+		AlternateTools alternateTools = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
+		List<GameObject> list = new List<GameObject>();
+		if (alternateTools.m_AlternateToolsList != null)
 		{
-			toolList = new List<ModToolComponent>();
-			templateNameList = new List<string>();
+			list.AddRange(alternateTools.m_AlternateToolsList);
 		}
-
-		internal static void ProcessList()
-		{
-			for (int i = 0; i < toolList.Count; i++)
-			{
-				AddAlternativeTool(toolList[i], templateNameList[i]);
-			}
-			Clear();
-		}
-
-		private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
-		{
-			GameObject original = Resources.Load(templateName).Cast<GameObject>();
-			if (original == null) return;
-
-			AlternateTools alternateTools = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
-			List<GameObject> list = new List<GameObject>();
-			if (alternateTools.m_AlternateToolsList != null)
-			{
-				list.AddRange(alternateTools.m_AlternateToolsList);
-			}
-			list.Add(modToolComponent.gameObject);
-			alternateTools.m_AlternateToolsList = list.ToArray();
-		}
+		list.Add(modToolComponent.gameObject);
+		alternateTools.m_AlternateToolsList = list.ToArray();
 	}
 }

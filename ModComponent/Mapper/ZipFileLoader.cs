@@ -9,251 +9,250 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
-namespace ModComponent.Mapper
+namespace ModComponent.Mapper;
+
+internal static class ZipFileLoader
 {
-	internal static class ZipFileLoader
+	internal static readonly List<byte[]> hashes = new List<byte[]>();
+
+	internal static void Initialize()
 	{
-		internal static readonly List<byte[]> hashes = new List<byte[]>();
+		LoadZipFilesInDirectory(FileUtils.GetModsFolderPath(), false);
+	}
 
-		internal static void Initialize()
+	private static void LoadZipFilesInDirectory(string directory, bool recursive)
+	{
+		if (recursive)
 		{
-			LoadZipFilesInDirectory(FileUtils.GetModsFolderPath(), false);
+			string[] directories = Directory.GetDirectories(directory);
+			foreach (string eachDirectory in directories)
+			{
+				LoadZipFilesInDirectory(eachDirectory, true);
+			}
 		}
 
-		private static void LoadZipFilesInDirectory(string directory, bool recursive)
+		string[] files = Directory.GetFiles(directory);
+		foreach (string eachFile in files)
 		{
-			if (recursive)
+			if (eachFile.ToLower().EndsWith(".modcomponent"))
 			{
-				string[] directories = Directory.GetDirectories(directory);
-				foreach (string eachDirectory in directories)
+				//PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
+				LoadZipFile(eachFile);
+			}
+		}
+	}
+
+	private static void LoadZipFile(string zipFilePath)
+	{
+		Logger.LogGreen($"Reading zip file at: '{zipFilePath}'");
+		var fileStream = File.OpenRead(zipFilePath);
+
+		hashes.Add(SHA256.Create().ComputeHash(fileStream));
+		fileStream.Position = 0;
+
+		var zipInputStream = new ZipInputStream(fileStream);
+		ZipEntry entry;
+		while ((entry = zipInputStream.GetNextEntry()) != null)
+		{
+			string internalPath = entry.Name;
+			string filename = Path.GetFileName(internalPath);
+			FileType fileType = GetFileType(filename);
+			if (fileType == FileType.other)
+				continue;
+
+
+			using (var unzippedFileStream = new MemoryStream())
+			{
+				int size = 0;
+				byte[] buffer = new byte[4096];
+				while (true)
 				{
-					LoadZipFilesInDirectory(eachDirectory, true);
+					size = zipInputStream.Read(buffer, 0, buffer.Length);
+					if (size > 0)
+						unzippedFileStream.Write(buffer, 0, size);
+					else
+						break;
 				}
-			}
-
-			string[] files = Directory.GetFiles(directory);
-			foreach (string eachFile in files)
-			{
-				if (eachFile.ToLower().EndsWith(".modcomponent"))
-				{
-					//PageManager.AddToItemPacksPage(new ItemPackData(eachFile));
-					LoadZipFile(eachFile);
-				}
+				if (!TryHandleFile(zipFilePath, internalPath, fileType, unzippedFileStream))
+					return;
 			}
 		}
+	}
 
-		private static void LoadZipFile(string zipFilePath)
+	private static Encoding GetEncoding(MemoryStream memoryStream)
+	{
+		using (var reader = new StreamReader(memoryStream, true))
 		{
-			Logger.LogGreen($"Reading zip file at: '{zipFilePath}'");
-			var fileStream = File.OpenRead(zipFilePath);
-
-			hashes.Add(SHA256.Create().ComputeHash(fileStream));
-			fileStream.Position = 0;
-
-			var zipInputStream = new ZipInputStream(fileStream);
-			ZipEntry entry;
-			while ((entry = zipInputStream.GetNextEntry()) != null)
-			{
-				string internalPath = entry.Name;
-				string filename = Path.GetFileName(internalPath);
-				FileType fileType = GetFileType(filename);
-				if (fileType == FileType.other)
-					continue;
-
-
-				using (var unzippedFileStream = new MemoryStream())
-				{
-					int size = 0;
-					byte[] buffer = new byte[4096];
-					while (true)
-					{
-						size = zipInputStream.Read(buffer, 0, buffer.Length);
-						if (size > 0)
-							unzippedFileStream.Write(buffer, 0, size);
-						else
-							break;
-					}
-					if (!TryHandleFile(zipFilePath, internalPath, fileType, unzippedFileStream))
-						return;
-				}
-			}
+			reader.Peek();
+			return reader.CurrentEncoding;
 		}
+	}
 
-		private static Encoding GetEncoding(MemoryStream memoryStream)
-		{
-			using (var reader = new StreamReader(memoryStream, true))
-			{
-				reader.Peek();
-				return reader.CurrentEncoding;
-			}
-		}
+	private static string ReadToString(MemoryStream memoryStream)
+	{
+		Encoding encoding = GetEncoding(memoryStream);
+		return encoding.GetString(memoryStream.ToArray());
+	}
 
-		private static string ReadToString(MemoryStream memoryStream)
-		{
-			Encoding encoding = GetEncoding(memoryStream);
-			return encoding.GetString(memoryStream.ToArray());
-		}
+	private static FileType GetFileType(string filename)
+	{
+		if (String.IsNullOrWhiteSpace(filename)) return FileType.other;
+		if (filename.EndsWith(".unity3d")) return FileType.unity3d;
+		if (filename.EndsWith(".json")) return FileType.json;
+		if (filename.EndsWith(".txt")) return FileType.txt;
+		if (filename.EndsWith(".dll")) return FileType.dll;
+		if (filename.EndsWith(".bnk")) return FileType.bnk;
+		return FileType.other;
+	}
 
-		private static FileType GetFileType(string filename)
+	private static bool TryHandleFile(string zipFilePath, string internalPath, FileType fileType, MemoryStream unzippedFileStream)
+	{
+		switch (fileType)
 		{
-			if (String.IsNullOrWhiteSpace(filename)) return FileType.other;
-			if (filename.EndsWith(".unity3d")) return FileType.unity3d;
-			if (filename.EndsWith(".json")) return FileType.json;
-			if (filename.EndsWith(".txt")) return FileType.txt;
-			if (filename.EndsWith(".dll")) return FileType.dll;
-			if (filename.EndsWith(".bnk")) return FileType.bnk;
-			return FileType.other;
-		}
-
-		private static bool TryHandleFile(string zipFilePath, string internalPath, FileType fileType, MemoryStream unzippedFileStream)
-		{
-			switch (fileType)
-			{
-				case FileType.json:
-					return TryHandleJson(zipFilePath, internalPath, ReadToString(unzippedFileStream));
-				case FileType.unity3d:
-					return TryHandleUnity3d(zipFilePath, internalPath, unzippedFileStream.ToArray());
-				case FileType.txt:
-					return TryHandleTxt(zipFilePath, internalPath, ReadToString(unzippedFileStream));
-				case FileType.dll:
-					return TryLoadAssembly(zipFilePath, internalPath, unzippedFileStream.ToArray());
-				case FileType.bnk:
-					return TryRegisterSoundBank(zipFilePath, internalPath, unzippedFileStream.ToArray());
-				default:
-					string fullPath = Path.Combine(zipFilePath, internalPath);
-					PackManager.SetItemPackNotWorking(zipFilePath, $"Could not handle asset '{fullPath}'");
-					return false;
-			}
-		}
-
-		private static bool TryLoadAssembly(string zipFilePath, string internalPath, byte[] data)
-		{
-			try
-			{
-				Logger.Log($"Loading dll from zip at '{internalPath}'");
-				Assembly.Load(data);
-				return true;
-			}
-			catch (Exception e)
-			{
+			case FileType.json:
+				return TryHandleJson(zipFilePath, internalPath, ReadToString(unzippedFileStream));
+			case FileType.unity3d:
+				return TryHandleUnity3d(zipFilePath, internalPath, unzippedFileStream.ToArray());
+			case FileType.txt:
+				return TryHandleTxt(zipFilePath, internalPath, ReadToString(unzippedFileStream));
+			case FileType.dll:
+				return TryLoadAssembly(zipFilePath, internalPath, unzippedFileStream.ToArray());
+			case FileType.bnk:
+				return TryRegisterSoundBank(zipFilePath, internalPath, unzippedFileStream.ToArray());
+			default:
 				string fullPath = Path.Combine(zipFilePath, internalPath);
-				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load assembly '{fullPath}'. {e.Message}");
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not handle asset '{fullPath}'");
 				return false;
-			}
 		}
+	}
 
-		private static bool TryRegisterSoundBank(string zipFilePath, string internalPath, byte[] data)
+	private static bool TryLoadAssembly(string zipFilePath, string internalPath, byte[] data)
+	{
+		try
 		{
-			try
-			{
-				Logger.Log($"Loading bnk from zip at '{internalPath}'");
-				ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(data);
-				return true;
-			}
-			catch (Exception e)
-			{
-				string fullPath = Path.Combine(zipFilePath, internalPath);
-				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not register sound bank '{fullPath}'. {e.Message}");
-				return false;
-			}
+			Logger.Log($"Loading dll from zip at '{internalPath}'");
+			Assembly.Load(data);
+			return true;
 		}
-
-		private static bool TryHandleJson(string zipFilePath, string internalPath, string text)
-		{
-			try
-			{
-				string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
-				if (internalPath.StartsWith(@"auto-mapped/"))
-				{
-					Logger.Log($"Reading automapped json from zip at '{internalPath}'");
-					JsonHandler.RegisterJsonText(filenameNoExtension, text);
-				}
-				else if (internalPath.StartsWith(@"blueprints/"))
-				{
-					Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
-					CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
-				}
-				else if (internalPath.StartsWith(@"localizations/"))
-				{
-					Logger.Log($"Reading json localization from zip at '{internalPath}'");
-					LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
-				}
-				else if (internalPath.ToLowerInvariant() == "buildinfo.json")
-				{
-					LogItemPackInformation(text);
-				}
-				else
-				{
-					throw new NotSupportedException($"Json file does not have a valid internal path: {internalPath}");
-				}
-				return true;
-			}
-			catch (Exception e)
-			{
-				string fullPath = Path.Combine(zipFilePath, internalPath);
-				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load json '{fullPath}'. {e.Message}");
-				return false;
-			}
-		}
-
-		private static void LogItemPackInformation(string jsonText)
-		{
-			var dict = JSON.Load(jsonText) as ProxyObject;
-			string modName = dict["Name"];
-			string version = dict["Version"];
-			Logger.Log($"Found: {modName} {version}");
-		}
-
-		private static bool TryHandleTxt(string zipFilePath, string internalPath, string text)
-		{
-			if (internalPath.StartsWith(@"gear-spawns/"))
-			{
-				try
-				{
-					Logger.Log($"Reading txt from zip at '{internalPath}'");
-					GearSpawner.SpawnManager.ParseSpawnInformation(text);
-					return true;
-				}
-				catch (Exception e)
-				{
-					string fullPath = Path.Combine(zipFilePath, internalPath);
-					PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load gear spawn '{fullPath}'. {e.Message}");
-					return false;
-				}
-			}
-			else
-			{
-				string fullPath = Path.Combine(zipFilePath, internalPath);
-				PackManager.SetItemPackNotWorking(zipFilePath, $"Txt file not in the gear-spawns folder: '{fullPath}'");
-				return false;
-			}
-		}
-
-		private static bool TryHandleUnity3d(string zipFilePath, string internalPath, byte[] data)
+		catch (Exception e)
 		{
 			string fullPath = Path.Combine(zipFilePath, internalPath);
+			PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load assembly '{fullPath}'. {e.Message}");
+			return false;
+		}
+	}
+
+	private static bool TryRegisterSoundBank(string zipFilePath, string internalPath, byte[] data)
+	{
+		try
+		{
+			Logger.Log($"Loading bnk from zip at '{internalPath}'");
+			ModComponent.AssetLoader.ModSoundBankManager.RegisterSoundBank(data);
+			return true;
+		}
+		catch (Exception e)
+		{
+			string fullPath = Path.Combine(zipFilePath, internalPath);
+			PackManager.SetItemPackNotWorking(zipFilePath, $"Could not register sound bank '{fullPath}'. {e.Message}");
+			return false;
+		}
+	}
+
+	private static bool TryHandleJson(string zipFilePath, string internalPath, string text)
+	{
+		try
+		{
+			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
 			if (internalPath.StartsWith(@"auto-mapped/"))
 			{
-				Logger.Log($"Loading asset bundle from zip at '{internalPath}'");
-				try
-				{
-					AssetBundle assetBundle = AssetBundle.LoadFromMemory(data);
-					string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
-					ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
-					AutoMapper.AddAssetBundle(relativePath, zipFilePath);
-					return true;
-				}
-				catch (Exception e)
-				{
-					PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
-					return false;
-				}
+				Logger.Log($"Reading automapped json from zip at '{internalPath}'");
+				JsonHandler.RegisterJsonText(filenameNoExtension, text);
+			}
+			else if (internalPath.StartsWith(@"blueprints/"))
+			{
+				Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
+				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
+			}
+			else if (internalPath.StartsWith(@"localizations/"))
+			{
+				Logger.Log($"Reading json localization from zip at '{internalPath}'");
+				LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
+			}
+			else if (internalPath.ToLowerInvariant() == "buildinfo.json")
+			{
+				LogItemPackInformation(text);
 			}
 			else
 			{
-				PackManager.SetItemPackNotWorking(zipFilePath, $"Asset bundle not in the auto-mapped folder: '{fullPath}'");
+				throw new NotSupportedException($"Json file does not have a valid internal path: {internalPath}");
+			}
+			return true;
+		}
+		catch (Exception e)
+		{
+			string fullPath = Path.Combine(zipFilePath, internalPath);
+			PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load json '{fullPath}'. {e.Message}");
+			return false;
+		}
+	}
+
+	private static void LogItemPackInformation(string jsonText)
+	{
+		var dict = JSON.Load(jsonText) as ProxyObject;
+		string modName = dict["Name"];
+		string version = dict["Version"];
+		Logger.Log($"Found: {modName} {version}");
+	}
+
+	private static bool TryHandleTxt(string zipFilePath, string internalPath, string text)
+	{
+		if (internalPath.StartsWith(@"gear-spawns/"))
+		{
+			try
+			{
+				Logger.Log($"Reading txt from zip at '{internalPath}'");
+				GearSpawner.SpawnManager.ParseSpawnInformation(text);
+				return true;
+			}
+			catch (Exception e)
+			{
+				string fullPath = Path.Combine(zipFilePath, internalPath);
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load gear spawn '{fullPath}'. {e.Message}");
 				return false;
 			}
+		}
+		else
+		{
+			string fullPath = Path.Combine(zipFilePath, internalPath);
+			PackManager.SetItemPackNotWorking(zipFilePath, $"Txt file not in the gear-spawns folder: '{fullPath}'");
+			return false;
+		}
+	}
+
+	private static bool TryHandleUnity3d(string zipFilePath, string internalPath, byte[] data)
+	{
+		string fullPath = Path.Combine(zipFilePath, internalPath);
+		if (internalPath.StartsWith(@"auto-mapped/"))
+		{
+			Logger.Log($"Loading asset bundle from zip at '{internalPath}'");
+			try
+			{
+				AssetBundle assetBundle = AssetBundle.LoadFromMemory(data);
+				string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
+				ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
+				AutoMapper.AddAssetBundle(relativePath, zipFilePath);
+				return true;
+			}
+			catch (Exception e)
+			{
+				PackManager.SetItemPackNotWorking(zipFilePath, $"Could not load asset bundle '{fullPath}'. {e.Message}");
+				return false;
+			}
+		}
+		else
+		{
+			PackManager.SetItemPackNotWorking(zipFilePath, $"Asset bundle not in the auto-mapped folder: '{fullPath}'");
+			return false;
 		}
 	}
 }

@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 
-namespace ModComponent.SceneLoader.Shaders
-{
-	[MelonLoader.RegisterTypeInIl2Cpp]
-	internal sealed class SubstituteShadersTerrain : MonoBehaviour
-	{
-		public SubstituteShadersTerrain(System.IntPtr intPtr) : base(intPtr) { }
+namespace ModComponent.SceneLoader.Shaders;
 
-		void Awake()
+[MelonLoader.RegisterTypeInIl2Cpp]
+internal sealed class SubstituteShadersTerrain : MonoBehaviour
+{
+	public SubstituteShadersTerrain(System.IntPtr intPtr) : base(intPtr) { }
+
+	void Awake()
+	{
+		Terrain terrain = this.GetComponent<Terrain>();
+		if (terrain != null)
 		{
-			Terrain terrain = this.GetComponent<Terrain>();
-			if (terrain != null)
-			{
-				ShaderSubstitutionManager.ReplaceDummyShaders(terrain);
-			}
+			ShaderSubstitutionManager.ReplaceDummyShaders(terrain);
 		}
 	}
 }
