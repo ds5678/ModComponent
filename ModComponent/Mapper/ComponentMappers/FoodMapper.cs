@@ -1,4 +1,6 @@
-﻿using ModComponent.API;
+﻿extern alias Hinterland;
+using Hinterland;
+using ModComponent.API;
 using ModComponent.API.Components;
 using UnityEngine;
 

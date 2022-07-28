@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿extern alias Hinterland;
+using HarmonyLib;
+using Hinterland;
 using System.Collections.Generic;
 
 namespace ModComponent.Mapper

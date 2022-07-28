@@ -1,4 +1,7 @@
-﻿namespace ModComponent.Mapper
+﻿extern alias Hinterland;
+using Hinterland;
+
+namespace ModComponent.Mapper
 {
 	internal static class DefaultDrawLayers
 	{

@@ -1,4 +1,7 @@
-﻿namespace ModComponent.AssetLoader
+﻿extern alias Hinterland;
+using Hinterland;
+
+namespace ModComponent.AssetLoader
 {
 	internal static class AtlasUtils
 	{

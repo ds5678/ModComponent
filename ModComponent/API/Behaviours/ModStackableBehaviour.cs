@@ -1,4 +1,6 @@
-﻿using MelonLoader.TinyJSON;
+﻿extern alias Hinterland;
+using Hinterland;
+using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;

@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿extern alias Hinterland;
+using HarmonyLib;
+using Hinterland;
 using ModComponent.API.Components;
 using ModComponent.Mapper;
 using ModComponent.Utils;

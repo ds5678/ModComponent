@@ -1,4 +1,7 @@
-﻿namespace ModComponent.Utils
+﻿extern alias Hinterland;
+using Hinterland;
+
+namespace ModComponent.Utils
 {
 	public static class NameUtils
 	{

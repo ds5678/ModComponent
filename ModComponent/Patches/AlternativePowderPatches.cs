@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿extern alias Hinterland;
+using HarmonyLib;
+using Hinterland;
 using ModComponent.API.Components;
 
 namespace ModComponent.Patches
@@ -30,7 +32,7 @@ namespace ModComponent.Patches
 				if (modPowderType == ModPowderComponent.ModPowderType.Salt) prefabName = saltPrefabName;
 				else if (modPowderType == ModPowderComponent.ModPowderType.Yeast) prefabName = yeastPrefabName;
 
-				if (!global::Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
+				if (!Hinterland::Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
 				{
 					while (num > 0f)
 					{

@@ -1,4 +1,6 @@
-﻿using Il2CppSystem.Collections.Generic;
+﻿extern alias Hinterland;
+using Hinterland;
+using Il2CppSystem.Collections.Generic;
 using UnityEngine;
 
 namespace ModComponent.API

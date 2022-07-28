@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias Hinterland;
+using Hinterland;
+using System;
 using UnityEngine;
 
 namespace ModComponent.AssetLoader

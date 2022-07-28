@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias Hinterland;
+using Hinterland;
+using System;
 
 namespace ModComponent.Utils
 {
@@ -10,7 +12,7 @@ namespace ModComponent.Utils
 			ShowItemIcons(equipItemPopup, primaryAction, secondaryAction, showAmmo);
 			equipItemPopup.OnOverlappingDecalChange(true);
 
-			if (global::Utils.IsGamepadActive())
+			if (Hinterland::Utils.IsGamepadActive())
 			{
 				//Logger.Log("Gamepad active");
 				equipItemPopup.m_ButtonPromptFire.ShowPromptForKey(primaryAction, "Fire");

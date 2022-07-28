@@ -1,4 +1,6 @@
-﻿using ModComponent.API.Behaviours;
+﻿extern alias Hinterland;
+using Hinterland;
+using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Mapper.BehaviourMappers;
 using ModComponent.Mapper.ComponentMappers;

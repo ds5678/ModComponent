@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿extern alias Hinterland;
+using Hinterland;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModComponent.AssetLoader

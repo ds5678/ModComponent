@@ -1,4 +1,6 @@
-﻿using ModComponent.API.Components;
+﻿extern alias Hinterland;
+using Hinterland;
+using ModComponent.API.Components;
 using UnityEngine;
 
 namespace ModComponent.Mapper.ComponentMappers

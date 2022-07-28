@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿extern alias Hinterland;
+using Hinterland;
+using UnityEngine;
 
 namespace ModComponent.API.Modifications
 {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿extern alias Hinterland;
+using Hinterland;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
