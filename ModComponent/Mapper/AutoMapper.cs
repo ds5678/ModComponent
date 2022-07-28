@@ -11,24 +11,30 @@ internal static class AutoMapper
 	/// <summary>
 	/// Relative Paths
 	/// </summary>
-	private static readonly List<string> pendingAssetBundles = new List<string>();
+	private static readonly List<string> pendingAssetBundles = new();
 	/// <summary>
 	/// Relative Paths : Zip Paths
 	/// </summary>
-	private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new Dictionary<string, string>();
+	private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new();
 
 	private static void AutoMapPrefab(string prefabName)
 	{
-		UnityEngine.Object loadedObject = Resources.Load(prefabName);
+		UnityEngine.Object? loadedObject = Resources.Load(prefabName);
 		if (loadedObject == null)
+		{
 			throw new Exception($"{prefabName} could not be loaded with Resources.Load");
+		}
 
-		GameObject prefab = loadedObject.TryCast<GameObject>();
+		GameObject? prefab = loadedObject.TryCast<GameObject>();
 		if (prefab == null)
-			throw new System.NullReferenceException("In AutoMapper.AutoMapPrefab, loaded object was not a GameObject.");
+		{
+			throw new NullReferenceException("In AutoMapper.AutoMapPrefab, loaded object was not a GameObject.");
+		}
 
 		if (prefab.name.StartsWith("GEAR_"))
+		{
 			MapModComponent(prefab);
+		}
 	}
 
 	private static void LoadAssetBundle(string relativePath)
@@ -52,13 +58,17 @@ internal static class AutoMapper
 	internal static void MapModComponent(GameObject prefab)
 	{
 		if (prefab == null)
-			throw new System.ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
+		{
+			throw new ArgumentNullException("Prefab was null in AutoMapper.MapModComponent");
+		}
 
-		ComponentJson.InitializeComponents(ref prefab);
-		ModBaseComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(prefab);
+		ComponentJson.InitializeComponents(prefab);
+		ModBaseComponent modComponent = Utils.ComponentUtils.GetModComponent(prefab);
 
 		if (modComponent == null)
-			throw new System.NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
+		{
+			throw new NullReferenceException("In AutoMapper.MapModComponent, the mod component from the prefab was null.");
+		}
 
 		Logger.Log($"Mapping {prefab.name}");
 		ItemMapper.Map(prefab);
@@ -74,7 +84,10 @@ internal static class AutoMapper
 		{
 			Logger.LogWarning($"AutoMapper already has '{relativePath}' on the list of pending asset bundles.");
 		}
-		else pendingAssetBundles.Add(relativePath);
+		else
+		{
+			pendingAssetBundles.Add(relativePath);
+		}
 	}
 
 	/// <summary>
@@ -89,7 +102,10 @@ internal static class AutoMapper
 		{
 			Logger.LogWarning($"AutoMapper already has '{relativePath}' in the dictionary of pending asset bundle paths.");
 		}
-		else pendingAssetBundleZipFileMap.Add(relativePath, zipFilePath);
+		else
+		{
+			pendingAssetBundleZipFileMap.Add(relativePath, zipFilePath);
+		}
 	}
 
 	/// <summary>
@@ -102,11 +118,11 @@ internal static class AutoMapper
 		{
 			try
 			{
-				AutoMapper.LoadAssetBundle(relativePath);
+				LoadAssetBundle(relativePath);
 			}
 			catch (Exception e)
 			{
-				string errorMessage = $"Could not map the assets in the bundle at '{relativePath}'. {e.ToString()}";
+				string errorMessage = $"Could not map the assets in the bundle at '{relativePath}'. {e}";
 				if (pendingAssetBundleZipFileMap.ContainsKey(relativePath))
 				{
 					PackManager.SetItemPackNotWorking(pendingAssetBundleZipFileMap[relativePath], errorMessage);

@@ -29,17 +29,27 @@ internal static class ModSoundBankManager
 			Logger.Log($"Adding sound bank '{relativePath}' to the list of pending sound banks.");
 			pendingPaths.Add(soundBankPath);
 		}
-		else LoadSoundBank(soundBankPath);
+		else
+		{
+			LoadSoundBank(soundBankPath);
+		}
 	}
 	public static void RegisterSoundBank(byte[] data)
 	{
-		if (data == null) throw new System.ArgumentNullException("Data for sound bank was null");
+		if (data == null)
+		{
+			throw new ArgumentNullException("Data for sound bank was null");
+		}
+
 		if (DelayLoadingSoundBanks)
 		{
 			Logger.Log("Adding sound bank to the list of pending sound banks.");
 			pendingBytes.Add(data);
 		}
-		else LoadSoundBank(data);
+		else
+		{
+			LoadSoundBank(data);
+		}
 	}
 
 	internal static void RegisterPendingSoundBanks()
@@ -53,7 +63,7 @@ internal static class ModSoundBankManager
 		}
 		pendingPaths.Clear();
 
-		foreach (var eachPendingBytes in pendingBytes)
+		foreach (byte[] eachPendingBytes in pendingBytes)
 		{
 			LoadSoundBank(eachPendingBytes);
 		}
@@ -67,19 +77,25 @@ internal static class ModSoundBankManager
 		byte[] data = File.ReadAllBytes(soundBankPath);
 		LoadSoundBank(data, soundBankPath);
 	}
-	private static void LoadSoundBank(byte[] data, string soundBankPath = null)
+	private static void LoadSoundBank(byte[] data, string? soundBankPath = null)
 	{
 		// allocate memory and copy file contents to aligned address
 		IntPtr allocated = Marshal.AllocHGlobal(data.Length + MEMORY_ALIGNMENT - 1);
 		IntPtr aligned = new IntPtr((allocated.ToInt64() + MEMORY_ALIGNMENT - 1) / MEMORY_ALIGNMENT * MEMORY_ALIGNMENT);
 		Marshal.Copy(data, 0, aligned, data.Length);
 
-		uint bankID;
-		var result = AkSoundEngine.LoadBank(aligned, (uint)data.Length, out bankID);
+		AKRESULT result = AkSoundEngine.LoadBank(aligned, (uint)data.Length, out uint bankID);
 		if (result != AKRESULT.AK_Success)
 		{
-			if (string.IsNullOrEmpty(soundBankPath)) Logger.Log("Failed to load sound bank.");
-			else Logger.Log($"Failed to load sound bank from: '{soundBankPath}'");
+			if (string.IsNullOrEmpty(soundBankPath))
+			{
+				Logger.Log("Failed to load sound bank.");
+			}
+			else
+			{
+				Logger.Log($"Failed to load sound bank from: '{soundBankPath}'");
+			}
+
 			Logger.Log($"Result was {result}.");
 			Marshal.FreeHGlobal(allocated);
 		}

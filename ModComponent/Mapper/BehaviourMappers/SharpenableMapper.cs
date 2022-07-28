@@ -14,7 +14,10 @@ internal static class SharpenableMapper
 	public static void Configure(GameObject prefab)
 	{
 		ModSharpenableBehaviour modSharpenableComponent = ComponentUtils.GetComponentSafe<ModSharpenableBehaviour>(prefab);
-		if (modSharpenableComponent == null) return;
+		if (modSharpenableComponent == null)
+		{
+			return;
+		}
 
 		Sharpenable sharpenable = ComponentUtils.GetOrCreateComponent<Sharpenable>(modSharpenableComponent);
 

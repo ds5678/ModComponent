@@ -6,8 +6,11 @@ internal static class EquippableMapper
 {
 	internal static void Configure(ModBaseComponent modComponent)
 	{
-		ModBaseEquippableComponent equippableModComponent = modComponent.TryCast<ModBaseEquippableComponent>();
-		if (equippableModComponent == null) return;
+		ModBaseEquippableComponent? equippableModComponent = modComponent.TryCast<ModBaseEquippableComponent>();
+		if (equippableModComponent == null)
+		{
+			return;
+		}
 
 		if (string.IsNullOrEmpty(equippableModComponent.InventoryActionLocalizationId)
 			&& !string.IsNullOrEmpty(equippableModComponent.ImplementationType)

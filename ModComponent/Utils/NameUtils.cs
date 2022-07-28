@@ -51,9 +51,15 @@ public static class NameUtils
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns>Returns a new string without "(Clone)" or the whitespace</returns>
-	public static string NormalizeName(string name)
+	public static string? NormalizeName(string name)
 	{
-		if (name == null) return null;
-		else return name.Replace("(Clone)", "").Trim();
+		if (name == null)
+		{
+			return null;
+		}
+		else
+		{
+			return name.Replace("(Clone)", "").Trim();
+		}
 	}
 }

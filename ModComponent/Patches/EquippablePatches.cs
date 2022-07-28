@@ -32,7 +32,10 @@ internal static class PlayerManager_EquipItem
 	internal static void Prefix(PlayerManager __instance, GearItem gi)
 	{
 		ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(__instance.m_ItemInHands);
-		if (equippable != null) __instance.UnequipItemInHands();
+		if (equippable != null)
+		{
+			__instance.UnequipItemInHands();
+		}
 	}
 	internal static void Postfix(PlayerManager __instance)
 	{
@@ -47,7 +50,10 @@ internal static class PlayerManagerSetControlModePatch
 
 	internal static void Postfix(PlayerManager __instance, PlayerControlMode mode)
 	{
-		if (mode == lastMode) return;
+		if (mode == lastMode)
+		{
+			return;
+		}
 
 		lastMode = mode;
 
@@ -62,15 +68,27 @@ internal static class PlayerManagerUseInventoryItemPatch
 {
 	internal static bool Prefix(PlayerManager __instance, GearItem gi)
 	{
-		if (ComponentUtils.GetComponentSafe<FirstPersonItem>(gi) != null) return true;
+		if (ComponentUtils.GetComponentSafe<FirstPersonItem>(gi) != null)
+		{
+			return true;
+		}
 
-		if (ComponentUtils.GetEquippableModComponent(gi) == null) return true;
+		if (ComponentUtils.GetEquippableModComponent(gi) == null)
+		{
+			return true;
+		}
 
-		var currentGi = __instance.m_ItemInHands;
+		GearItem? currentGi = __instance.m_ItemInHands;
 
-		if (currentGi != null) __instance.UnequipItemInHands();
+		if (currentGi != null)
+		{
+			__instance.UnequipItemInHands();
+		}
 
-		if (gi != currentGi) __instance.EquipItem(gi, false);
+		if (gi != currentGi)
+		{
+			__instance.EquipItem(gi, false);
+		}
 
 		return false;
 	}
@@ -88,7 +106,10 @@ internal static class InputManagerProcessFireActionPatch
 		}
 
 		ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
-		if (equippable?.Implementation == null) return true;
+		if (equippable?.Implementation == null)
+		{
+			return true;
+		}
 
 		equippable.OnPrimaryAction?.Invoke();
 		return false;
@@ -108,7 +129,10 @@ internal static class InputManagerExecuteAltFirePatch
 		}
 
 		ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(playerManager.m_ItemInHands);
-		if (equippable == null) return true;
+		if (equippable == null)
+		{
+			return true;
+		}
 
 		equippable.OnSecondaryAction?.Invoke();
 		return false;
@@ -120,7 +144,10 @@ internal static class EquipItemPopup_AllowedToHideAmmoPopup
 {
 	internal static void Postfix(ref bool __result)
 	{
-		if (__result) return;
+		if (__result)
+		{
+			return;
+		}
 
 		__result = ComponentUtils.GetModComponent(GameManager.GetPlayerManagerComponent().m_ItemInHands) != null;
 	}
@@ -144,8 +171,15 @@ internal static class PlayerManager_ItemCanEquipInHands
 {
 	private static void Postfix(GearItem gi, ref bool __result)
 	{
-		if (__result || gi == null) return;
+		if (__result || gi == null)
+		{
+			return;
+		}
+
 		ModBaseEquippableComponent equippable = ComponentUtils.GetEquippableModComponent(gi);
-		if (equippable != null) __result = true;
+		if (equippable != null)
+		{
+			__result = true;
+		}
 	}
 }

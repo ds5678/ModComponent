@@ -12,13 +12,13 @@ internal static class AtlasUtils
 			return sprite.atlas;
 		}
 
-		UIAtlas atlas = AtlasManager.GetSpriteAtlas(value);
+		UIAtlas? atlas = AtlasManager.GetSpriteAtlas(value);
 		if (atlas != null)
 		{
 			return atlas;
 		}
 
-		SaveAtlas restoreAtlas = sprite.gameObject.GetComponent<SaveAtlas>();
+		SaveAtlas? restoreAtlas = sprite.gameObject.GetComponent<SaveAtlas>();
 		if (restoreAtlas != null)
 		{
 			return restoreAtlas.original;
@@ -29,7 +29,7 @@ internal static class AtlasUtils
 
 	internal static void SaveOriginalAtlas(UISprite sprite)
 	{
-		SaveAtlas restoreAtlas = sprite.gameObject.GetComponent<SaveAtlas>();
+		SaveAtlas? restoreAtlas = sprite.gameObject.GetComponent<SaveAtlas>();
 		if (restoreAtlas == null)
 		{
 			restoreAtlas = sprite.gameObject.AddComponent<SaveAtlas>();

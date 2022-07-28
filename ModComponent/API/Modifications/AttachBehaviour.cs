@@ -12,7 +12,7 @@ public class AttachBehaviour : MonoBehaviour
 	/// If this is an assembly-qualified name (Namespace.TypeName,Assembly) it will be loaded from the given assembly.<br/>
 	/// If the assembly is omitted (Namespace.TypeName), the type will be loaded from the first assembly that contains a type with the given name.
 	/// </summary>
-	public string BehaviourName;
+	public string BehaviourName = "";
 
 	/// <summary>
 	/// Should this throw an exception if the behaviour cannot be loaded or attached?
@@ -30,7 +30,10 @@ public class AttachBehaviour : MonoBehaviour
 		{
 			Logger.LogError("Could not load behaviour '" + BehaviourName + "': " + e.Message);
 
-			if (ThrowOnError) throw e;
+			if (ThrowOnError)
+			{
+				throw e;
+			}
 		}
 	}
 

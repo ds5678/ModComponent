@@ -36,13 +36,13 @@ public class ModFoodComponent : ModCookableComponent
 	/// <summary>
 	/// Sound to use when the item is either unpackaged or already open.
 	/// </summary>
-	public string EatingAudio;
+	public string EatingAudio = "";
 
 	/// <summary>
 	/// Sound to use when the item is still packaged and unopened.<br/>
 	/// Leave empty for unpackaged food.
 	/// </summary>
-	public string EatingPackagedAudio;
+	public string EatingPackagedAudio = "";
 
 	/// <summary>
 	/// How does this affect your thirst?<br/>
@@ -67,7 +67,7 @@ public class ModFoodComponent : ModCookableComponent
 	/// Parasite Risk increments in percent for each unit eaten.<br/>
 	/// Leave empty for no parasite risk.
 	/// </summary>
-	public float[] ParasiteRiskIncrements;
+	public float[] ParasiteRiskIncrements = Array.Empty<float>();
 
 
 	/// <summary>
@@ -208,7 +208,7 @@ public class ModFoodComponent : ModCookableComponent
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModFoodComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 	public ModFoodComponent(IntPtr intPtr) : base(intPtr) { }

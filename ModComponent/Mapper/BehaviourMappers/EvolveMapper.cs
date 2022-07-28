@@ -13,7 +13,10 @@ internal static class EvolveMapper
 	internal static void Configure(GameObject prefab)
 	{
 		ModEvolveBehaviour modEvolveComponent = ComponentUtils.GetComponentSafe<ModEvolveBehaviour>(prefab);
-		if (modEvolveComponent == null) return;
+		if (modEvolveComponent == null)
+		{
+			return;
+		}
 
 		EvolveItem evolveItem = ComponentUtils.GetOrCreateComponent<EvolveItem>(modEvolveComponent);
 		evolveItem.m_ForceNoAutoEvolve = false;
@@ -25,8 +28,8 @@ internal static class EvolveMapper
 
 	private static GearItem GetTargetItem(string targetItemName, string reference)
 	{
-		GameObject targetItem = Resources.Load(targetItemName)?.Cast<GameObject>();
-		if (ComponentUtils.GetModComponent(targetItem) != null)
+		GameObject? targetItem = Resources.Load(targetItemName)?.Cast<GameObject>();
+		if (targetItem != null && ComponentUtils.GetModComponent(targetItem) != null)
 		{
 			// if this a modded item, map it now (no harm if it was already mapped earlier)
 			ItemMapper.Map(targetItem);

@@ -9,8 +9,14 @@ public static class RandomUtils
 
 	public static int Range(int min, int max, bool maxInclusive)
 	{
-		if (maxInclusive) return Range(min, max + 1);
-		else return Range(min, max);
+		if (maxInclusive)
+		{
+			return Range(min, max + 1);
+		}
+		else
+		{
+			return Range(min, max);
+		}
 	}
 
 	/// <summary>
@@ -28,9 +34,17 @@ public static class RandomUtils
 			min = newMin;
 			max = newMax;
 		}
-		if (min == max || min == max - 1) return min;
+		if (min == max || min == max - 1)
+		{
+			return min;
+		}
+
 		int result = (int)Math.Floor(RandomFloat() * (max - min) + min);
-		if (result >= max) result = max - 1;
+		if (result >= max)
+		{
+			result = max - 1;
+		}
+
 		return result;
 	}
 
@@ -46,9 +60,18 @@ public static class RandomUtils
 	/// <returns>True if successful and false otherwise.</returns>
 	public static bool RollChance(float percent)
 	{
-		if (percent <= 0) return false;
-		else if (percent >= 100) return true;
-		else return RandomFloat() < UnityEngine.Mathf.Clamp01(percent / 100);
+		if (percent <= 0)
+		{
+			return false;
+		}
+		else if (percent >= 100)
+		{
+			return true;
+		}
+		else
+		{
+			return RandomFloat() < UnityEngine.Mathf.Clamp01(percent / 100);
+		}
 	}
 
 	public static int RandomInt()

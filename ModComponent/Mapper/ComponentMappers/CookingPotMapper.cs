@@ -10,7 +10,10 @@ internal static class CookingPotMapper
 	internal static void Configure(ModBaseComponent modComponent)
 	{
 		ModCookingPotComponent modCookingPotComponent = modComponent.TryCast<ModCookingPotComponent>();
-		if (modCookingPotComponent == null) return;
+		if (modCookingPotComponent == null)
+		{
+			return;
+		}
 
 		CookingPotItem cookingPotItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<CookingPotItem>(modComponent);
 

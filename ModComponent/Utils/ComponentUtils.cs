@@ -1,75 +1,77 @@
 ﻿using ModComponent.API.Components;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace ModComponent.Utils;
 
 public static class ComponentUtils
 {
-	public static T GetComponentSafe<T>(this Component component) where T : Component
+	[return: NotNullIfNotNull("component")]
+	public static T? GetComponentSafe<T>(this Component? component) where T : Component
 	{
-		if (component == null)
-			return default;
-		else
-			return GetComponentSafe<T>(component.GetGameObject());
+		return component == null ? default : GetComponentSafe<T>(component.GetGameObject());
 	}
 
-	public static T GetComponentSafe<T>(this GameObject gameObject) where T : Component
+	[return: NotNullIfNotNull("gameObject")]
+	public static T? GetComponentSafe<T>(this GameObject? gameObject) where T : Component
+	{
+		return gameObject == null ? default : gameObject.GetComponent<T>();
+	}
+
+	[return: NotNullIfNotNull("component")]
+	public static T? GetOrCreateComponent<T>(this Component? component) where T : Component
+	{
+		return component == null ? default : GetOrCreateComponent<T>(component.GetGameObject());
+	}
+
+	[return: NotNullIfNotNull("gameObject")]
+	public static T? GetOrCreateComponent<T>( this GameObject? gameObject) where T : Component
 	{
 		if (gameObject == null)
+		{
 			return default;
-		else
-			return gameObject.GetComponent<T>();
-	}
+		}
 
-	public static T GetOrCreateComponent<T>(this Component component) where T : Component
-	{
-		if (component == null)
-			return default;
-		else
-			return GetOrCreateComponent<T>(component.GetGameObject());
-	}
-
-	public static T GetOrCreateComponent<T>(this GameObject gameObject) where T : Component
-	{
-		if (gameObject == null)
-			return default;
-
-		T result = GetComponentSafe<T>(gameObject);
+		T? result = GetComponentSafe<T>(gameObject);
 
 		if (result == null)
+		{
 			result = gameObject.AddComponent<T>();
+		}
 
 		return result;
 	}
 
-	internal static ModBaseEquippableComponent GetEquippableModComponent(this Component component)
+	[return: NotNullIfNotNull("component")]
+	internal static ModBaseEquippableComponent? GetEquippableModComponent(this Component? component)
 	{
 		return GetComponentSafe<ModBaseEquippableComponent>(component);
 	}
 
-	internal static ModBaseEquippableComponent GetEquippableModComponent(this GameObject gameObject)
+	[return: NotNullIfNotNull("gameObject")]
+	internal static ModBaseEquippableComponent? GetEquippableModComponent(this GameObject? gameObject)
 	{
 		return GetComponentSafe<ModBaseEquippableComponent>(gameObject);
 	}
 
-	internal static ModBaseComponent GetModComponent(this Component component)
+	[return: NotNullIfNotNull("component")]
+	internal static ModBaseComponent? GetModComponent(this Component? component)
 	{
 		return GetComponentSafe<ModBaseComponent>(component);
 	}
 
-	internal static ModBaseComponent GetModComponent(this GameObject gameObject)
+	[return: NotNullIfNotNull("gameObject")]
+	internal static ModBaseComponent? GetModComponent(this GameObject? gameObject)
 	{
 		return GetComponentSafe<ModBaseComponent>(gameObject);
 	}
 
-	internal static GameObject GetGameObject(this Component component)
+	[return: NotNullIfNotNull("component")]
+	internal static GameObject? GetGameObject(this Component? component)
 	{
 		try
 		{
-			if (component == null)
-				return default;
-			else
-				return component.gameObject;
+			return component == null ? default : component.gameObject;
 		}
 #if !DEBUG
 		catch { }

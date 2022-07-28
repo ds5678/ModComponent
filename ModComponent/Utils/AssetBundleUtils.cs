@@ -18,7 +18,7 @@ public static class AssetBundleUtils
 	/// <summary>
 	/// Loads an asset without triggering the AssetLoader patches
 	/// </summary>
-	public static T LoadAsset<T>(AssetBundle assetBundle, string name) where T : UnityEngine.Object
+	public static T? LoadAsset<T>(AssetBundle assetBundle, string name) where T : UnityEngine.Object
 	{
 		return LoadAsset(assetBundle, name, UnhollowerRuntimeLib.Il2CppType.Of<T>())?.TryCast<T>();
 	}

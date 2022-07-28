@@ -13,13 +13,31 @@ namespace ModComponent.Mapper;
 
 internal static class ItemMapper
 {
-	private static List<ModBaseComponent> mappedItems = new List<ModBaseComponent>();
+	private static readonly List<ModBaseComponent> mappedItems = new();
 
-	public static void Map(string prefabName) => Map(Resources.Load(prefabName)?.TryCast<GameObject>());
+	public static void Map(string prefabName)
+	{
+		UnityEngine.Object @object = Resources.Load(prefabName);
+		if (@object == null)
+		{
+			throw new ArgumentException($"Prefab {prefabName} not found");
+		}
+
+		GameObject? prefab = @object.TryCast<GameObject>();
+		if (prefab == null)
+		{
+			throw new ArgumentException($"Prefab {prefabName} is not a GameObject");
+		}
+
+		Map(prefab);
+	}
 
 	public static void Map(GameObject prefab)
 	{
-		if (prefab == null) throw new ArgumentException("The prefab was NULL.");
+		if (prefab == null)
+		{
+			throw new ArgumentException("The prefab was NULL.");
+		}
 
 		ModBaseComponent modComponent = ComponentUtils.GetModComponent(prefab);
 		if (modComponent == null)
@@ -75,7 +93,10 @@ internal static class ItemMapper
 
 	internal static void ConfigureBehaviours(GameObject prefab)
 	{
-		if (prefab == null) throw new ArgumentException("The prefab was NULL.");
+		if (prefab == null)
+		{
+			throw new ArgumentException("The prefab was NULL.");
+		}
 
 		ModBaseComponent modComponent = ComponentUtils.GetModComponent(prefab);
 		if (modComponent == null)
@@ -88,8 +109,7 @@ internal static class ItemMapper
 
 	internal static float GetDecayPerStep(float steps, float maxHP)
 	{
-		if (steps > 0) return maxHP / steps;
-		else return 0;
+		return steps > 0 ? maxHP / steps : 0;
 	}
 
 	private static void ConfigureGearItem(ModBaseComponent modComponent)
@@ -119,14 +139,23 @@ internal static class ItemMapper
 
 	private static ConditionTableManager.ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
 	{
-		if (modComponent is ModFoodComponent)
+		ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
+		if (modFoodComponent != null)
 		{
-			ModFoodComponent modFoodComponent = (ModFoodComponent)modComponent;
-			if (modFoodComponent.Canned) return ConditionTableManager.ConditionTableType.CannedFood;
+			if (modFoodComponent.Canned)
+			{
+				return ConditionTableManager.ConditionTableType.CannedFood;
+			}
 
-			if (modFoodComponent.Meat) return ConditionTableManager.ConditionTableType.Meat;
+			if (modFoodComponent.Meat)
+			{
+				return ConditionTableManager.ConditionTableType.Meat;
+			}
 
-			if (!modFoodComponent.Natural && !modFoodComponent.Drink) return ConditionTableManager.ConditionTableType.DryFood;
+			if (!modFoodComponent.Natural && !modFoodComponent.Drink)
+			{
+				return ConditionTableManager.ConditionTableType.DryFood;
+			}
 
 			return ConditionTableManager.ConditionTableType.Unknown;
 		}
@@ -141,14 +170,20 @@ internal static class ItemMapper
 			return EnumUtils.TranslateEnumValue<GearTypeEnum, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
 		}
 
-		if (modComponent is ModToolComponent) return GearTypeEnum.Tool;
+		if (modComponent is ModToolComponent)
+		{
+			return GearTypeEnum.Tool;
+		}
 
 		if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == ModLiquidComponent.LiquidKind.Water)
 		{
 			return GearTypeEnum.Food;
 		}
 
-		if (modComponent is ModClothingComponent) return GearTypeEnum.Clothing;
+		if (modComponent is ModClothingComponent)
+		{
+			return GearTypeEnum.Clothing;
+		}
 
 		if (ComponentUtils.GetComponentSafe<ModFireMakingBaseBehaviour>(modComponent) != null || ComponentUtils.GetComponentSafe<ModBurnableBehaviour>(modComponent) != null)
 		{
@@ -168,9 +203,9 @@ internal static class ItemMapper
 		GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
 		MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
 
-		foreach (var eachMeshRenderer in gearItem.m_MeshRenderers)
+		foreach (MeshRenderer? eachMeshRenderer in gearItem.m_MeshRenderers)
 		{
-			foreach (var eachMaterial in eachMeshRenderer.materials)
+			foreach (Material? eachMaterial in eachMeshRenderer.materials)
 			{
 				if (eachMaterial.shader.name == "Standard")
 				{

@@ -9,7 +9,7 @@ internal static class BuffCauseTracker
 {
 	private static Dictionary<AfflictionType, string> causes = new Dictionary<AfflictionType, string>();
 
-	public static void setCause(AfflictionType buff, string cause)
+	public static void SetCause(AfflictionType buff, string cause)
 	{
 		if (causes.ContainsKey(buff))
 		{
@@ -21,10 +21,9 @@ internal static class BuffCauseTracker
 		}
 	}
 
-	public static string getCause(AfflictionType buff)
+	public static string GetCause(AfflictionType buff)
 	{
-		string result;
-		causes.TryGetValue(buff, out result);
+		causes.TryGetValue(buff, out string result);
 		return result;
 	}
 }
@@ -34,9 +33,15 @@ internal static class FagtigueBuffApplyPatch
 {
 	public static void Postfix(FatigueBuff __instance)
 	{
-		GearItem gearItem = ModComponent.Utils.ComponentUtils.GetComponentSafe<GearItem>(__instance);
-		if (gearItem == null) return;
-		else BuffCauseTracker.setCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());
+		GearItem gearItem = Utils.ComponentUtils.GetComponentSafe<GearItem>(__instance);
+		if (gearItem == null)
+		{
+			return;
+		}
+		else
+		{
+			BuffCauseTracker.SetCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());
+		}
 	}
 }
 
@@ -45,7 +50,7 @@ internal static class AfflictionButtonSetCauseAndEffectPatch
 {
 	public static void Prefix(ref string causeStr, AfflictionType affType)
 	{
-		string trackedCause = BuffCauseTracker.getCause(affType);
+		string trackedCause = BuffCauseTracker.GetCause(affType);
 		if (!string.IsNullOrEmpty(trackedCause))
 		{
 			causeStr = trackedCause;

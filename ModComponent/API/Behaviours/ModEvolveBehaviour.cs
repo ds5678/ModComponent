@@ -10,7 +10,7 @@ public class ModEvolveBehaviour : MonoBehaviour
 	/// <summary>
 	/// Name of the item into which this item will. E.g. 'GEAR_GutDried'
 	/// </summary>
-	public string TargetItemName;
+	public string TargetItemName = string.Empty;
 
 	/// <summary>
 	/// Does this item only evolve when it is stored indoors?

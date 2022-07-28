@@ -15,13 +15,13 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// <summary>
 	/// The id for the sound to be played while harvesting.
 	/// </summary>
-	public string HarvestAudio;
+	public string HarvestAudio = "";
 
 
 	/// <summary>
 	/// The name of the object prefab for the guts.
 	/// </summary>
-	public string GutPrefab;
+	public string GutPrefab = "";
 
 	/// <summary>
 	/// The number of guts in each harvest.
@@ -38,7 +38,7 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// <summary>
 	/// The name of the object prefab for the hide.
 	/// </summary>
-	public string HidePrefab;
+	public string HidePrefab = "";
 
 	/// <summary>
 	/// The number of hides in each harvest.
@@ -55,7 +55,7 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// <summary>
 	/// The name of the object prefab for the raw meat.
 	/// </summary>
-	public string MeatPrefab;
+	public string MeatPrefab = "";
 
 	/// <summary>
 	/// The minimum amount of meat in each harvest.
@@ -76,7 +76,7 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// <summary>
 	/// The id for the sound to be played while quartering.
 	/// </summary>
-	public string QuarterAudio;
+	public string QuarterAudio = "";
 
 	/// <summary>
 	/// The maximum meat capacity of a quarter bag.
@@ -96,7 +96,7 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// <summary>
 	/// The name of the object prefab for the quarter bag.
 	/// </summary>
-	public string QuarterObjectPrefab;
+	public string QuarterObjectPrefab = "";
 
 	public float QuarterPrefabSpawnAngle;
 
@@ -105,7 +105,7 @@ public class ModBodyHarvestComponent : ModBaseComponent
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModBodyHarvestComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 

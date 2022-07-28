@@ -6,7 +6,7 @@ using UnityEngine;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModLiquidComponent : ModBaseComponent
+public partial class ModLiquidComponent : ModBaseComponent
 {
 	/// <summary>
 	/// The type of liquid this item contains.
@@ -30,22 +30,16 @@ public class ModLiquidComponent : ModBaseComponent
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModLiquidComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 	public ModLiquidComponent(System.IntPtr intPtr) : base(intPtr) { }
-
-	public enum LiquidKind
-	{
-		Water,
-		Kerosene
-	}
 
 	[HideFromIl2Cpp]
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModLiquidComponent")
 	{
 		base.InitializeComponent(dict, className);
-		this.LiquidType = dict.GetEnum<ModLiquidComponent.LiquidKind>(className, "LiquidType");
+		this.LiquidType = dict.GetEnum<LiquidKind>(className, "LiquidType");
 		this.LiquidCapacityLiters = dict.GetVariant(className, "LiquidCapacityLiters");
 		this.RandomizeQuantity = dict.GetVariant(className, "RandomizedQuantity");
 		this.LiquidLiters = Mathf.Clamp(dict.GetVariant(className, "LiquidLiters"), 0f, this.LiquidCapacityLiters); //overridden if Randomized

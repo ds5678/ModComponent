@@ -28,7 +28,10 @@ internal class ItemPackData
 	public bool GetLoadedCorrectly() => loadedCorrectly;
 	public void SetLoadedIncorrectly()
 	{
-		if (loadedCorrectly) loadedCorrectly = false;
+		if (loadedCorrectly)
+		{
+			loadedCorrectly = false;
+		}
 	}
 
 	public static string ParseNameFromZipFilePath(string zipFilePath)
@@ -45,7 +48,11 @@ internal class ItemPackData
 	}
 	public static string[] SplitCamelCase(string line)
 	{
-		if (string.IsNullOrEmpty(line)) return new string[0];
+		if (string.IsNullOrEmpty(line))
+		{
+			return new string[0];
+		}
+
 		List<string> result = new List<string>();
 		string temp = "";
 		for (int i = 0; i < line.Length; i++)
@@ -65,7 +72,7 @@ internal class ItemPackData
 		string[] result = new string[0];
 		foreach (string line in lines)
 		{
-			result = Combine<string>(result, SplitCamelCase(line));
+			result = Combine(result, SplitCamelCase(line));
 		}
 		return result;
 	}
@@ -88,13 +95,20 @@ internal class ItemPackData
 		bool firstWord = true;
 		for (int i = 0; i < words.Length; i++)
 		{
-			if (string.IsNullOrEmpty(words[i])) continue;
+			if (string.IsNullOrEmpty(words[i]))
+			{
+				continue;
+			}
+
 			if (firstWord)
 			{
 				result = result + words[i];
 				firstWord = false;
 			}
-			else result = result + " " + words[i];
+			else
+			{
+				result = result + " " + words[i];
+			}
 		}
 		return result;
 	}

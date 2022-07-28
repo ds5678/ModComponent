@@ -10,7 +10,10 @@ internal static class BodyHarvestMapper
 	internal static void Configure(ModBaseComponent modComponent)
 	{
 		ModBodyHarvestComponent modBodyHarvestComponent = modComponent.TryCast<ModBodyHarvestComponent>();
-		if (modBodyHarvestComponent == null) return;
+		if (modBodyHarvestComponent == null)
+		{
+			return;
+		}
 
 		BodyHarvest bodyHarvest = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<BodyHarvest>(modBodyHarvestComponent);
 		bodyHarvest.m_AllowDecay = false;

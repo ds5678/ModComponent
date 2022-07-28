@@ -3,12 +3,6 @@ using Hinterland;
 
 namespace ModComponent.Utils;
 
-public enum PlayerGender
-{
-	Female,
-	Male,
-	Unknown
-}
 public static class PlayerUtils
 {
 	public static void FreezePlayer()
@@ -23,11 +17,28 @@ public static class PlayerUtils
 
 	public static PlayerGender GetPlayerGender()
 	{
-		if (GameManager.GetPlayerManagerComponent() == null) return PlayerGender.Unknown;
-		if (InterfaceManager.m_Panel_OptionsMenu?.m_State == null) return PlayerGender.Unknown;
-		if (GameManager.GetPlayerManagerComponent().m_VoicePersona != InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona) return PlayerGender.Unknown;
+		if (GameManager.GetPlayerManagerComponent() == null)
+		{
+			return PlayerGender.Unknown;
+		}
 
-		if (InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona == VoicePersona.Female) return PlayerGender.Female;
-		else return PlayerGender.Male;
+		if (InterfaceManager.m_Panel_OptionsMenu?.m_State == null)
+		{
+			return PlayerGender.Unknown;
+		}
+
+		if (GameManager.GetPlayerManagerComponent().m_VoicePersona != InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona)
+		{
+			return PlayerGender.Unknown;
+		}
+
+		if (InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona == VoicePersona.Female)
+		{
+			return PlayerGender.Female;
+		}
+		else
+		{
+			return PlayerGender.Male;
+		}
 	}
 }

@@ -9,11 +9,14 @@ namespace ModComponent.SceneLoader;
 public static class Preloader
 {
 	private static bool initialized = false;
-	internal static GameObject gameManagerObjectPrefab;
+	internal static GameObject? gameManagerObjectPrefab;
 
 	private static void Initialize(GameManager gameManager)
 	{
-		if (initialized || gameManager == null) return;
+		if (initialized || gameManager == null)
+		{
+			return;
+		}
 		else
 		{
 			gameManagerObjectPrefab = new GameObject();

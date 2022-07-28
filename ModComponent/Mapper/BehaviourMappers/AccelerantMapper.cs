@@ -13,7 +13,10 @@ internal static class AccelerantMapper
 	public static void Configure(GameObject prefab)
 	{
 		ModAccelerantBehaviour modAccelerantComponent = ComponentUtils.GetComponentSafe<ModAccelerantBehaviour>(prefab);
-		if (modAccelerantComponent == null) return;
+		if (modAccelerantComponent == null)
+		{
+			return;
+		}
 
 		FireStarterItem fireStarterItem = ComponentUtils.GetOrCreateComponent<FireStarterItem>(modAccelerantComponent);
 

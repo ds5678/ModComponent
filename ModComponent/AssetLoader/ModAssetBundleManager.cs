@@ -52,8 +52,14 @@ internal static class ModAssetBundleManager
 
 	public static bool IsKnownAsset(string name)
 	{
-		if (name == null) return false;
-		else return GetFullAssetName(name) != null;
+		if (name == null)
+		{
+			return false;
+		}
+		else
+		{
+			return GetFullAssetName(name) != null;
+		}
 	}
 
 	public static Object LoadAsset(string name)
@@ -62,7 +68,7 @@ internal static class ModAssetBundleManager
 
 		if (knownAssetNames.TryGetValue(fullAssetName, out AssetBundle assetBundle))
 		{
-			UnityEngine.Object result = ModComponent.Utils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
+			Object result = ModComponent.Utils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
 			return result;
 		}
 
@@ -75,7 +81,11 @@ internal static class ModAssetBundleManager
 	/// <param name="relativePath">The relative path within the Mods folder to the asset bundle file</param>
 	public static void RegisterAssetBundle(string relativePath)
 	{
-		if (string.IsNullOrEmpty(relativePath)) throw new System.ArgumentException("The relative path while registering an asset bundle was null or empty");
+		if (string.IsNullOrEmpty(relativePath))
+		{
+			throw new System.ArgumentException("The relative path while registering an asset bundle was null or empty");
+		}
+
 		if (knownAssetBundles.ContainsKey(relativePath))
 		{
 			Logger.Log($"AssetBundle '{relativePath}' has already been registered.");
@@ -85,8 +95,14 @@ internal static class ModAssetBundleManager
 		string modDirectory = ModComponent.Utils.FileUtils.GetModsFolderPath();
 		string fullPath = Path.Combine(modDirectory, relativePath);
 
-		if (File.Exists(fullPath)) LoadAssetBundle(relativePath, fullPath);
-		else throw new FileNotFoundException("AssetBundle '" + relativePath + "' could not be found at '" + fullPath + "'.");
+		if (File.Exists(fullPath))
+		{
+			LoadAssetBundle(relativePath, fullPath);
+		}
+		else
+		{
+			throw new FileNotFoundException("AssetBundle '" + relativePath + "' could not be found at '" + fullPath + "'.");
+		}
 	}
 
 	/// <summary>
@@ -96,13 +112,22 @@ internal static class ModAssetBundleManager
 	/// <param name="assetBundle">The AssetBundle instance to be registered</param>
 	public static void RegisterAssetBundle(string relativePath, AssetBundle assetBundle)
 	{
-		if (string.IsNullOrEmpty(relativePath)) throw new System.ArgumentException("The relative path while registering an asset bundle was null or empty");
+		if (string.IsNullOrEmpty(relativePath))
+		{
+			throw new System.ArgumentException("The relative path while registering an asset bundle was null or empty");
+		}
 		else if (knownAssetBundles.ContainsKey(relativePath))
 		{
 			Logger.Log($"AssetBundle '{relativePath}' has already been registered.");
 		}
-		else if (assetBundle == null) throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
-		else LoadAssetBundle(relativePath, assetBundle);
+		else if (assetBundle == null)
+		{
+			throw new System.ArgumentNullException("Asset bundle '" + relativePath + "' was null");
+		}
+		else
+		{
+			LoadAssetBundle(relativePath, assetBundle);
+		}
 	}
 
 	public static string GetAssetMappedName(string assetPath, string assetName)
@@ -117,7 +142,10 @@ internal static class ModAssetBundleManager
 		result = StripResourceFolder(result);
 
 		int index = result.LastIndexOf(assetName);
-		if (index != -1) result = result.Substring(0, index + assetName.Length);
+		if (index != -1)
+		{
+			result = result.Substring(0, index + assetName.Length);
+		}
 
 		return result;
 	}
@@ -140,13 +168,19 @@ internal static class ModAssetBundleManager
 		string result = assetPath;
 		int index = System.Math.Max(assetPath.LastIndexOf('/'), assetPath.LastIndexOf('\\'));
 
-		if (index != -1) result = result.Substring(index + 1);
+		if (index != -1)
+		{
+			result = result.Substring(index + 1);
+		}
 
 		if (removeFileExtension)
 		{
 			index = result.LastIndexOf('.');
 
-			if (index != -1) result = result.Substring(0, index);
+			if (index != -1)
+			{
+				result = result.Substring(0, index);
+			}
 		}
 
 		return result;
@@ -160,9 +194,18 @@ internal static class ModAssetBundleManager
 	public static string GetFullAssetName(string name)
 	{
 		string lowerCaseName = name.ToLowerInvariant();
-		if (knownAssetNames.ContainsKey(lowerCaseName)) return lowerCaseName;
-		else if (knownAssetMappedNames.ContainsKey(lowerCaseName)) return knownAssetMappedNames[lowerCaseName];
-		else return null;
+		if (knownAssetNames.ContainsKey(lowerCaseName))
+		{
+			return lowerCaseName;
+		}
+		else if (knownAssetMappedNames.ContainsKey(lowerCaseName))
+		{
+			return knownAssetMappedNames[lowerCaseName];
+		}
+		else
+		{
+			return "";
+		}
 	}
 
 	/// <summary>
@@ -173,8 +216,14 @@ internal static class ModAssetBundleManager
 	public static AssetBundle GetAssetBundleFromFile(string fullPath)
 	{
 		AssetBundle assetBundle = AssetBundle.LoadFromFile(fullPath);
-		if (assetBundle) return assetBundle;
-		else throw new System.Exception("Could not load AssetBundle from '" + fullPath + "'. The asset bundle might have been made with an incorrect version of Unity (should be 2019.4.19).");
+		if (assetBundle)
+		{
+			return assetBundle;
+		}
+		else
+		{
+			throw new System.Exception("Could not load AssetBundle from '" + fullPath + "'. The asset bundle might have been made with an incorrect version of Unity (should be 2019.4.19).");
+		}
 	}
 
 	/// <summary>

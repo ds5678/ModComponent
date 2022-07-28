@@ -7,23 +7,23 @@ using UnityEngine;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public abstract class ModBaseComponent : MonoBehaviour
+public abstract partial class ModBaseComponent : MonoBehaviour
 {
 	/// <summary>
 	/// How this item will be called in the DeveloperConsole. <br/>
 	/// Leave empty for a sensible default.
 	/// </summary>
-	public string ConsoleName;
+	public string ConsoleName = "";
 
 	/// <summary>
 	/// Localization key to be used for the in-game name of the item.
 	/// </summary>
-	public string DisplayNameLocalizationId;
+	public string DisplayNameLocalizationId = "";
 
 	/// <summary>
 	/// Localization key to be used for the in-game description of the item.
 	/// </summary>
-	public string DescriptionLocalizatonId;
+	public string DescriptionLocalizatonId = "";
 
 
 	/// <summary>
@@ -37,12 +37,12 @@ public abstract class ModBaseComponent : MonoBehaviour
 	/// The text is purely cosmetic and will not influcence the action the button triggers. <br/>
 	/// Leave empty for a sensible default.
 	/// </summary>
-	public string InventoryActionLocalizationId;
+	public string InventoryActionLocalizationId = "";
 
 	/// <summary>
 	/// Sound to play when the item is picked up.
 	/// </summary>
-	public string PickUpAudio;
+	public string PickUpAudio = "";
 
 	/// <summary>
 	/// Sound to play when the item is holstered.
@@ -52,12 +52,12 @@ public abstract class ModBaseComponent : MonoBehaviour
 	/// <summary>
 	/// Sound to play when the item is dropped.
 	/// </summary>
-	public string PutBackAudio;
+	public string PutBackAudio = "";
 
 	/// <summary>
 	/// Sound to play when the item wore out during an action.
 	/// </summary>
-	public string WornOutAudio;
+	public string WornOutAudio = "";
 
 
 	/// <summary>
@@ -113,13 +113,13 @@ public abstract class ModBaseComponent : MonoBehaviour
 	/// Model to show during inspect mode. <br/>
 	/// NOTE: You must either set BOTH models or NO models.
 	/// </summary>
-	public GameObject InspectModel;
+	public GameObject? InspectModel;
 
 	/// <summary>
 	/// Model to show when not inspecting the item. <br/>
 	/// NOTE: You must either set BOTH models or NO models.
 	/// </summary>
-	public GameObject NormalModel;
+	public GameObject? NormalModel;
 
 	[HideFromIl2Cpp]
 	public string GetEffectiveConsoleName()
@@ -134,26 +134,6 @@ public abstract class ModBaseComponent : MonoBehaviour
 
 	public ModBaseComponent(IntPtr intPtr) : base(intPtr) { }
 
-	public enum StartingCondition
-	{
-		Random,
-		Perfect,
-		High,
-		Medium,
-		Low
-	}
-
-	public enum ItemCategory
-	{
-		Auto,
-		Clothing,
-		FirstAid,
-		Firestarting,
-		Food,
-		Material,
-		Tool
-	}
-
 	[HideFromIl2Cpp]
 	internal virtual void InitializeComponent(ProxyObject dict, string inheritanceName)
 	{
@@ -164,8 +144,8 @@ public abstract class ModBaseComponent : MonoBehaviour
 		this.WeightKG = dict.GetVariant(inheritanceName, "WeightKG");
 		this.DaysToDecay = dict.GetVariant(inheritanceName, "DaysToDecay");
 		this.MaxHP = dict.GetVariant(inheritanceName, "MaxHP");
-		this.InitialCondition = dict.GetEnum<ModBaseComponent.StartingCondition>(inheritanceName, "InitialCondition");
-		this.InventoryCategory = dict.GetEnum<ModBaseComponent.ItemCategory>(inheritanceName, "InventoryCategory");
+		this.InitialCondition = dict.GetEnum<StartingCondition>(inheritanceName, "InitialCondition");
+		this.InventoryCategory = dict.GetEnum<ItemCategory>(inheritanceName, "InventoryCategory");
 		this.PickUpAudio = dict.GetVariant(inheritanceName, "PickUpAudio");
 		this.PutBackAudio = dict.GetVariant(inheritanceName, "PutBackAudio");
 		this.StowAudio = dict.GetVariant(inheritanceName, "StowAudio");

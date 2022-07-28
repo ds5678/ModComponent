@@ -5,10 +5,10 @@ namespace ModComponent.Utils;
 
 public static class CopyFieldHandler
 {
-	public static void UpdateFieldValues<T>(T componentToUpdate) where T : UnityEngine.Component
+	public static void UpdateFieldValues<T>(T componentToUpdate) where T : Component
 	{
 		string gearName = NormalizeName(componentToUpdate.name);
-		GameObject prefab = Resources.Load(gearName)?.TryCast<GameObject>();
+		GameObject? prefab = Resources.Load(gearName)?.TryCast<GameObject>();
 		if (prefab == null)
 		{
 			Logger.Log("While copying fields for '{0}', the prefab was null.");
@@ -18,7 +18,7 @@ public static class CopyFieldHandler
 			T prefabComponent = prefab.GetComponent<T>();
 			if (prefabComponent != null)
 			{
-				CopyFieldsMono<T>(componentToUpdate, prefabComponent);
+				CopyFieldsMono(componentToUpdate, prefabComponent);
 			}
 		}
 	}
@@ -29,7 +29,11 @@ public static class CopyFieldHandler
 		System.Reflection.FieldInfo[] fieldInfos = typeOfT.GetFields();
 		foreach (System.Reflection.FieldInfo fieldInfo in fieldInfos)
 		{
-			if (fieldInfo.IsInitOnly || fieldInfo.IsLiteral) continue;
+			if (fieldInfo.IsInitOnly || fieldInfo.IsLiteral)
+			{
+				continue;
+			}
+
 			fieldInfo.SetValue(copyTo, fieldInfo.GetValue(copyFrom));
 		}
 		if (fieldInfos.Length == 0)
@@ -44,7 +48,11 @@ public static class CopyFieldHandler
 		Il2CppSystem.Reflection.FieldInfo[] fieldInfos = typeOfT.GetFields();
 		foreach (Il2CppSystem.Reflection.FieldInfo fieldInfo in fieldInfos)
 		{
-			if (fieldInfo.IsInitOnly || fieldInfo.IsLiteral) continue;
+			if (fieldInfo.IsInitOnly || fieldInfo.IsLiteral)
+			{
+				continue;
+			}
+
 			fieldInfo.SetValue(copyTo, fieldInfo.GetValue(copyFrom));
 		}
 		if (fieldInfos.Length == 0)

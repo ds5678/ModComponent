@@ -13,7 +13,7 @@ static class ResourcePatches
 	[HarmonyPatch]
 	internal static class Resources_Load
 	{
-		static MethodBase TargetMethod()
+		static MethodBase? TargetMethod()
 		{
 			MethodInfo[] methods = typeof(Resources).GetMethods();
 			foreach (MethodInfo m in methods)
@@ -28,10 +28,17 @@ static class ResourcePatches
 		}
 		internal static bool Prefix(ref string path, ref Object __result)
 		{
-			if (!ModAssetBundleManager.IsKnownAsset(path)) return true;
+			if (!ModAssetBundleManager.IsKnownAsset(path))
+			{
+				return true;
+			}
 
 			__result = ModAssetBundleManager.LoadAsset(path);
-			if (__result == null) Logger.LogWarning("Resources.Load failed to load the external asset");
+			if (__result == null)
+			{
+				Logger.LogWarning("Resources.Load failed to load the external asset");
+			}
+
 			return false;
 		}
 	}
@@ -44,10 +51,17 @@ static class ResourcePatches
 	{
 		private static bool Prefix(ref string name, ref Object __result)
 		{
-			if (!ModAssetBundleManager.IsKnownAsset(name)) return true;
+			if (!ModAssetBundleManager.IsKnownAsset(name))
+			{
+				return true;
+			}
 
 			__result = ModAssetBundleManager.LoadAsset(name);
-			if (__result == null) Logger.LogWarning($"AssetBundle.LoadAsset failed to load the external asset '{name}'");
+			if (__result == null)
+			{
+				Logger.LogWarning($"AssetBundle.LoadAsset failed to load the external asset '{name}'");
+			}
+
 			return false;
 		}
 	}

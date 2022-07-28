@@ -7,7 +7,7 @@ using UnhollowerBaseLib.Attributes;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModPowderComponent : ModBaseComponent
+public partial class ModPowderComponent : ModBaseComponent
 {
 	/// <summary>
 	/// The type of powder this container holds. "Gunpowder", "Salt", or "Yeast"
@@ -26,7 +26,7 @@ public class ModPowderComponent : ModBaseComponent
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModPowderComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 
 		PowderItem powderItem = this.GetComponent<PowderItem>();
 		GearItem gearItem = this.GetComponent<GearItem>();
@@ -41,44 +41,32 @@ public class ModPowderComponent : ModBaseComponent
 
 	internal static GearPowderType GetPowderType(ModPowderType modPowderType)
 	{
-		switch (modPowderType)
+		return modPowderType switch
 		{
-			case ModPowderType.Gunpowder:
-				return GearPowderType.Gunpowder;
-			case ModPowderType.Salt:
-				return EnumUtils.GetMaxValue<GearPowderType>() + 1;
-			case ModPowderType.Yeast:
-				return EnumUtils.GetMaxValue<GearPowderType>() + 2;
-			default:
-				return GearPowderType.Gunpowder;
-		}
+			ModPowderType.Gunpowder => GearPowderType.Gunpowder,
+			ModPowderType.Salt => EnumUtils.GetMaxValue<GearPowderType>() + 1,
+			ModPowderType.Yeast => EnumUtils.GetMaxValue<GearPowderType>() + 2,
+			_ => GearPowderType.Gunpowder,
+		};
 	}
 
 	internal static ModPowderType GetPowderType(GearPowderType gearPowderType)
 	{
 		GearPowderType maxValue = EnumUtils.GetMaxValue<GearPowderType>();
-		if (gearPowderType == maxValue + 1)
-			return ModPowderType.Salt;
-		else if (gearPowderType == maxValue + 2)
-			return ModPowderType.Yeast;
-		else
-			return ModPowderType.Gunpowder;
+		return gearPowderType == maxValue + 1
+			? ModPowderType.Salt
+			: gearPowderType == maxValue + 2 
+				? ModPowderType.Yeast 
+				: ModPowderType.Gunpowder;
 	}
 
 	public ModPowderComponent(System.IntPtr intPtr) : base(intPtr) { }
-
-	public enum ModPowderType
-	{
-		Gunpowder,
-		Salt,
-		Yeast
-	}
 
 	[HideFromIl2Cpp]
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModPowderComponent")
 	{
 		base.InitializeComponent(dict, className);
-		this.PowderType = dict.GetEnum<ModPowderComponent.ModPowderType>(className, "PowderType");
+		this.PowderType = dict.GetEnum<ModPowderType>(className, "PowderType");
 		this.CapacityKG = dict.GetVariant(className, "CapacityKG");
 		this.ChanceFull = dict.GetVariant(className, "ChanceFull");
 	}

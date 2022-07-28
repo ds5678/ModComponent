@@ -17,7 +17,7 @@ internal class ModExplosiveComponent : ModBaseEquippableComponent
 
 	protected override void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModExplosiveComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 		base.Awake();
 	}
 
@@ -32,9 +32,17 @@ internal class ModExplosiveComponent : ModBaseEquippableComponent
 	[HideFromIl2Cpp]
 	private float GetDamageToPlayer()
 	{
-		if (killPlayerRange == 0f) return 0f;
+		if (killPlayerRange == 0f)
+		{
+			return 0f;
+		}
+
 		float distance = Vector3.Distance(GameManager.GetVpFPSPlayer().transform.position, this.transform.position);
-		if (distance <= 0) return 100f;
+		if (distance <= 0)
+		{
+			return 100f;
+		}
+
 		return 100f * killPlayerRange * killPlayerRange / (distance * distance);
 	}
 

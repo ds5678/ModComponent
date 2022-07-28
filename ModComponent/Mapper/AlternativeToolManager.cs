@@ -8,8 +8,8 @@ namespace ModComponent.Mapper;
 
 internal static class AlternativeToolManager
 {
-	private static List<ModToolComponent> toolList = new List<ModToolComponent>();
-	private static List<string> templateNameList = new List<string>();
+	private static List<ModToolComponent> toolList = new();
+	private static List<string> templateNameList = new();
 
 	internal static void AddToList(ModToolComponent alternateTool, string templateName)
 	{
@@ -19,8 +19,8 @@ internal static class AlternativeToolManager
 
 	private static void Clear()
 	{
-		toolList = new List<ModToolComponent>();
-		templateNameList = new List<string>();
+		toolList = new();
+		templateNameList = new();
 	}
 
 	internal static void ProcessList()
@@ -35,10 +35,13 @@ internal static class AlternativeToolManager
 	private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
 	{
 		GameObject original = Resources.Load(templateName).Cast<GameObject>();
-		if (original == null) return;
+		if (original == null)
+		{
+			return;
+		}
 
 		AlternateTools alternateTools = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<AlternateTools>(original);
-		List<GameObject> list = new List<GameObject>();
+		List<GameObject> list = new();
 		if (alternateTools.m_AlternateToolsList != null)
 		{
 			list.AddRange(alternateTools.m_AlternateToolsList);

@@ -10,7 +10,7 @@ internal static class TinyJsonExtensions
 {
 	internal static bool ContainsKey(this ProxyObject dict, string key)
 	{
-		foreach (var pair in dict)
+		foreach (KeyValuePair<string, Variant> pair in dict)
 		{
 			if (pair.Key == key)
 			{
@@ -55,7 +55,7 @@ internal static class TinyJsonExtensions
 	private static float[] ConvertToFloatArray(this ProxyArray proxy)
 	{
 		List<float> result = new List<float>();
-		foreach (var item in proxy)
+		foreach (Variant? item in proxy)
 		{
 			result.Add(item);
 		}
@@ -70,7 +70,7 @@ internal static class TinyJsonExtensions
 	private static int[] ConvertToIntArray(this ProxyArray proxy)
 	{
 		List<int> result = new List<int>();
-		foreach (var item in proxy)
+		foreach (Variant? item in proxy)
 		{
 			result.Add(item);
 		}
@@ -85,7 +85,7 @@ internal static class TinyJsonExtensions
 	private static string[] ConvertToStringArray(this ProxyArray proxy)
 	{
 		List<string> result = new List<string>();
-		foreach (var item in proxy)
+		foreach (Variant? item in proxy)
 		{
 			result.Add(item);
 		}

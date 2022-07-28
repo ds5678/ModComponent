@@ -49,28 +49,28 @@ public class ModBedComponent : ModBaseComponent
 	/// Sound to be played when beginning to sleep in this bed. <br/>
 	/// Leave empty for a sensible default.
 	/// </summary>
-	public string OpenAudio;
+	public string OpenAudio = "";
 
 	/// <summary>
 	/// Sound to be played when ending to sleep in this bed. <br/>
 	/// Leave empty for a sensible default.
 	/// </summary>
-	public string CloseAudio;
+	public string CloseAudio = "";
 
 
 	/// <summary>
 	/// Optional game object to be used for representing the bed in a 'packed' state.
 	/// </summary>
-	public GameObject PackedMesh;
+	public GameObject? PackedMesh;
 
 	/// <summary>
 	/// Optional game object to be used for representing the bed in a 'usable' state.
 	/// </summary>
-	public GameObject UsableMesh;
+	public GameObject? UsableMesh;
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModBedComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 	public ModBedComponent(IntPtr intPtr) : base(intPtr) { }

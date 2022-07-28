@@ -33,14 +33,14 @@ public class ModCookingPotComponent : ModBaseComponent
 	/// <summary>
 	/// Template item to be used in the mapping process.
 	/// </summary>
-	public string Template;
+	public string Template = "";
 
-	public Mesh SnowMesh;
-	public Mesh WaterMesh;
+	public Mesh? SnowMesh;
+	public Mesh? WaterMesh;
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModCookingPotComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 	public ModCookingPotComponent(IntPtr intPtr) : base(intPtr) { }

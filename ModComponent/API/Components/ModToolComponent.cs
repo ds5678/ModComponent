@@ -5,7 +5,7 @@ using UnhollowerBaseLib.Attributes;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModToolComponent : ModBaseEquippableComponent
+public partial class ModToolComponent : ModBaseEquippableComponent
 {
 	/// <summary>
 	/// The type of the tool item. This determines for which actions it can be used.
@@ -61,7 +61,7 @@ public class ModToolComponent : ModBaseEquippableComponent
 	/// <summary>
 	/// Sound to play while forcing a lock. Leave empty for a sensible default.
 	/// </summary>
-	public string ForceLockAudio;
+	public string ForceLockAudio = "";
 
 
 	/// <summary>
@@ -82,7 +82,7 @@ public class ModToolComponent : ModBaseEquippableComponent
 	/// <summary>
 	/// Sound to play while clearing an ice fishing hole. Leave empty for a sensible default.
 	/// </summary>
-	public string IceFishingHoleAudio;
+	public string IceFishingHoleAudio = "";
 
 
 	/// <summary>
@@ -148,35 +148,19 @@ public class ModToolComponent : ModBaseEquippableComponent
 
 	protected override void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModToolComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 		base.Awake();
 	}
 
 	public ModToolComponent(System.IntPtr intPtr) : base(intPtr) { }
 
-	public enum ToolKind
-	{
-		None,
-		HackSaw,
-		Hatchet,
-		Hammer,
-		Knife,
-	}
-
-	public enum ToolUsage
-	{
-		All,
-		CraftOnly,
-		RepairOnly,
-	}
-
 	[HideFromIl2Cpp]
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModToolComponent")
 	{
 		base.InitializeComponent(dict, className);
-		this.ToolType = dict.GetEnum<ModToolComponent.ToolKind>(className, "ToolType");
+		this.ToolType = dict.GetEnum<ToolKind>(className, "ToolType");
 		this.DegradeOnUse = dict.GetVariant(className, "DegradeOnUse");
-		this.Usage = dict.GetEnum<ModToolComponent.ToolUsage>(className, "Usage");
+		this.Usage = dict.GetEnum<ToolUsage>(className, "Usage");
 		this.SkillBonus = dict.GetVariant(className, "SkillBonus");
 
 		this.CraftingTimeMultiplier = dict.GetVariant(className, "CraftingTimeMultiplier");

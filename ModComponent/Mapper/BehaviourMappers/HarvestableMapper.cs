@@ -14,7 +14,10 @@ internal static class HarvestableMapper
 	internal static void Configure(GameObject prefab)
 	{
 		ModHarvestableBehaviour modHarvestableComponent = ComponentUtils.GetComponentSafe<ModHarvestableBehaviour>(prefab);
-		if (modHarvestableComponent == null) return;
+		if (modHarvestableComponent == null)
+		{
+			return;
+		}
 
 		Harvest harvest = ComponentUtils.GetOrCreateComponent<Harvest>(modHarvestableComponent);
 		harvest.m_Audio = modHarvestableComponent.Audio;

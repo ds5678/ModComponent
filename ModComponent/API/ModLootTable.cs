@@ -8,8 +8,8 @@ namespace ModComponent.API;
 [MelonLoader.RegisterTypeInIl2Cpp]
 internal class ModLootTable : LootTable
 {
-	string[] prefabNames = new string[0];
-	int[] weights = new int[0];
+	string[] prefabNames = System.Array.Empty<string>();
+	int[] weights = System.Array.Empty<int>();
 
 	public ModLootTable(System.IntPtr intPtr) : base(intPtr) { }
 
@@ -22,8 +22,11 @@ internal class ModLootTable : LootTable
 		m_Weights = new List<int>();
 		for (int i = 0; i < len; i++)
 		{
-			GameObject go = Resources.Load(prefabNames[i])?.TryCast<GameObject>();
-			if (go == null || weights[i] <= 0) continue;
+			GameObject? go = Resources.Load(prefabNames[i])?.TryCast<GameObject>();
+			if (go == null || weights[i] <= 0)
+			{
+				continue;
+			}
 			else
 			{
 				m_Prefabs.Add(go);

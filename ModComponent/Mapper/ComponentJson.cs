@@ -11,21 +11,31 @@ namespace ModComponent.Mapper;
 
 internal static class ComponentJson
 {
-	public static void InitializeComponents(ref GameObject prefab)
+	public static void InitializeComponents(GameObject prefab)
 	{
 		if (prefab == null)
+		{
 			throw new ArgumentNullException(nameof(prefab));
+		}
+
 		if (ComponentUtils.GetModComponent(prefab) != null)
+		{
 			return;
+		}
 
 		string name = NameUtils.RemoveGearPrefix(prefab.name);
 		Logger.Log($"Initializing components for {name}");
 		string data = JsonHandler.GetJsonText(name);
 		if(string.IsNullOrEmpty(data))
+		{
 			throw new Exception($"Json data for {name} was null or empty");
-		ProxyObject dict = JSON.Load(data) as ProxyObject;
+		}
+
+		ProxyObject? dict = JSON.Load(data) as ProxyObject;
 		if (dict == null)
+		{
 			throw new Exception($"Json data for {name} was invalid");
+		}
 
 		InitializeComponents(prefab, dict);
 	}
@@ -34,11 +44,19 @@ internal static class ComponentJson
 	private static void InitializeComponents(GameObject prefab, ProxyObject dict)
 	{
 		if (prefab == null)
+		{
 			throw new ArgumentNullException(nameof(prefab));
+		}
+
 		if (dict == null)
+		{
 			throw new ArgumentNullException(nameof(dict));
+		}
+
 		if (ComponentUtils.GetModComponent(prefab) != null)
+		{
 			return;
+		}
 
 		#region Mod Components
 		if (dict.ContainsKey("ModBedComponent"))

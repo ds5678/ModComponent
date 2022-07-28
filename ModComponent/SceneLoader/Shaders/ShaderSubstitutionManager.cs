@@ -12,8 +12,10 @@ internal static class ShaderSubstitutionManager
 	/// </summary>
 	public static void ReplaceDummyShaders(GameObject obj, bool recursive)
 	{
-		if (obj == null) 
+		if (obj == null)
+		{
 			return;
+		}
 
 		if (recursive)
 		{
@@ -33,8 +35,10 @@ internal static class ShaderSubstitutionManager
 
 	public static void ReplaceDummyShaders(Renderer renderer)
 	{
-		if (renderer == null) 
+		if (renderer == null)
+		{
 			return;
+		}
 
 		try
 		{
@@ -51,8 +55,10 @@ internal static class ShaderSubstitutionManager
 
 	public static void ReplaceDummyShaders(Terrain terrain)
 	{
-		if (terrain == null) 
+		if (terrain == null)
+		{
 			return;
+		}
 
 		try
 		{
@@ -62,18 +68,24 @@ internal static class ShaderSubstitutionManager
 			TerrainData terrainData = terrain.terrainData;
 
 			if (terrainData == null)
+			{
 				return;
+			}
 
-			foreach(TreePrototype treePrototype in terrainData.treePrototypes)
+			foreach (TreePrototype treePrototype in terrainData.treePrototypes)
 			{
 				if(treePrototype != null)
+				{
 					ReplaceDummyShaders(treePrototype.m_Prefab, true);
+				}
 			}
 
 			foreach(DetailPrototype detailPrototype in terrainData.detailPrototypes)
 			{
 				if (detailPrototype != null)
+				{
 					ReplaceDummyShaders(detailPrototype.m_Prototype, true);
+				}
 			}
 
 			terrainData.RefreshPrototypes();
@@ -87,7 +99,9 @@ internal static class ShaderSubstitutionManager
 	private static void FixMaterial(Material material)
 	{
 		if (material == null)
+		{
 			return;
+		}
 
 		if (!fixedMaterials.Contains(material))
 		{

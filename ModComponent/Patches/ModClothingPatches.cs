@@ -11,10 +11,17 @@ internal static class PlayerManager_PutOnClothingItem
 {
 	private static void Prefix(PlayerManager __instance, GearItem gi, ClothingLayer layerToPutOn)
 	{
-		if (gi?.m_ClothingItem == null || layerToPutOn == ClothingLayer.NumLayers) return;
+		if (gi?.m_ClothingItem == null || layerToPutOn == ClothingLayer.NumLayers)
+		{
+			return;
+		}
+
 		ClothingRegion region = gi.m_ClothingItem.m_Region;
 		GearItem itemInSlot = __instance.GetClothingInSlot(region, layerToPutOn);
-		if (itemInSlot) __instance.TakeOffClothingItem(itemInSlot);
+		if (itemInSlot)
+		{
+			__instance.TakeOffClothingItem(itemInSlot);
+		}
 	}
 	private static void Postfix(GearItem gi)
 	{

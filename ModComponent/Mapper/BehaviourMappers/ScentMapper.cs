@@ -13,7 +13,10 @@ internal static class ScentMapper
 	internal static void Configure(GameObject prefab)
 	{
 		ModScentBehaviour modScentComponent = ComponentUtils.GetComponentSafe<ModScentBehaviour>(prefab);
-		if (modScentComponent == null) return;
+		if (modScentComponent == null)
+		{
+			return;
+		}
 
 		Scent scent = ComponentUtils.GetOrCreateComponent<Scent>(modScentComponent);
 		scent.m_ScentCategory = EnumUtils.TranslateEnumValue<ScentRangeCategory, ModScentBehaviour.ScentCategory>(modScentComponent.scentCategory);
@@ -23,24 +26,20 @@ internal static class ScentMapper
 	internal static float GetScentIntensity(GameObject prefab)
 	{
 		Scent scent = ComponentUtils.GetComponentSafe<Scent>(prefab);
-		if (scent == null) return 0f;
-
-		switch (scent.m_ScentCategory)
+		if (scent == null)
 		{
-			case ScentRangeCategory.COOKED_MEAT:
-				return 5f;
-			case ScentRangeCategory.COOKED_FISH:
-				return 5f;
-			case ScentRangeCategory.GUTS:
-				return 20f;
-			case ScentRangeCategory.QUARTER:
-				return 50f;
-			case ScentRangeCategory.RAW_MEAT:
-				return 15f;
-			case ScentRangeCategory.RAW_FISH:
-				return 15f;
-			default:
-				return 0f;
+			return 0f;
 		}
+
+		return scent.m_ScentCategory switch
+		{
+			ScentRangeCategory.COOKED_MEAT => 5f,
+			ScentRangeCategory.COOKED_FISH => 5f,
+			ScentRangeCategory.GUTS => 20f,
+			ScentRangeCategory.QUARTER => 50f,
+			ScentRangeCategory.RAW_MEAT => 15f,
+			ScentRangeCategory.RAW_FISH => 15f,
+			_ => 0f,
+		};
 	}
 }

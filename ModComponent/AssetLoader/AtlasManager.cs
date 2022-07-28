@@ -11,14 +11,14 @@ internal static class AtlasManager
 
 	public static void LoadUiAtlas(Object asset)
 	{
-		GameObject gameObject = asset.TryCast<GameObject>();
+		GameObject? gameObject = asset.TryCast<GameObject>();
 		if (gameObject == null)
 		{
 			Logger.Log($"Asset called '{asset.name}' is not a GameObject as expected.");
 			return;
 		}
 
-		UIAtlas uiAtlas = gameObject.GetComponent<UIAtlas>();
+		UIAtlas? uiAtlas = gameObject.GetComponent<UIAtlas>();
 		if (uiAtlas == null)
 		{
 			Logger.Log($"Asset called '{asset.name}' does not contain a UIAtlast as expected.");
@@ -28,7 +28,7 @@ internal static class AtlasManager
 		Logger.Log($"Processing asset '{asset.name}' as UIAtlas.");
 
 		string[] sprites = uiAtlas.GetListOfSprites().ToArray();
-		foreach (var eachSprite in sprites)
+		foreach (string eachSprite in sprites)
 		{
 			if (knownSpriteAtlases.ContainsKey(eachSprite))
 			{
@@ -44,8 +44,7 @@ internal static class AtlasManager
 
 	internal static UIAtlas GetSpriteAtlas(string spriteName)
 	{
-		UIAtlas result = null;
-		knownSpriteAtlases.TryGetValue(spriteName, out result);
+		knownSpriteAtlases.TryGetValue(spriteName, out UIAtlas? result);
 		return result;
 	}
 }

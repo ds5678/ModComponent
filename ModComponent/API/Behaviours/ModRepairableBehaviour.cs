@@ -1,4 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
+using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class ModRepairableBehaviour : MonoBehaviour
 	/// <summary>
 	/// The audio to play while repairing.
 	/// </summary>
-	public string Audio;
+	public string Audio = string.Empty;
 
 	/// <summary>
 	/// How many in-game minutes does it take to repair this item?
@@ -26,19 +27,19 @@ public class ModRepairableBehaviour : MonoBehaviour
 	/// The name of the tools suitable for repair. At least one of those will be required for repairing.<br/>
 	/// Leave empty, if this item should be repairable without tools.
 	/// </summary>
-	public string[] RequiredTools;
+	public string[] RequiredTools = Array.Empty<string>();
 
 	/// <summary>
 	/// The name of the materials required for repair.
 	/// </summary>
-	public string[] MaterialNames;
+	public string[] MaterialNames = Array.Empty<string>();
 
 	/// <summary>
 	/// The number of the materials required for repair.
 	/// </summary>
-	public int[] MaterialCounts;
+	public int[] MaterialCounts = Array.Empty<int>();
 
-	public ModRepairableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+	public ModRepairableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
 	internal void InitializeBehaviour(ProxyObject dict, string className = "ModRepairableBehaviour")

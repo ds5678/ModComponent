@@ -2,6 +2,7 @@
 using Hinterland;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
+using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -13,22 +14,26 @@ public class ModRandomWeightedItemComponent : ModBaseComponent
 	/// <summary>
 	/// The names of the gear items that this could spawn. Must be the same length as "ItemWeights"
 	/// </summary>
-	public string[] ItemNames = new string[0];
+	public string[] ItemNames = Array.Empty<string>();
 
 	/// <summary>
 	/// The integer weights of the gear items that this could spawn. Must be the same length as "ItemNames"
 	/// </summary>
-	public int[] ItemWeights = new int[0];
+	public int[] ItemWeights = Array.Empty<int>();
 
-	public ModRandomWeightedItemComponent(System.IntPtr intPtr) : base(intPtr) { }
+	public ModRandomWeightedItemComponent(IntPtr intPtr) : base(intPtr) { }
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModRandomWeightedItemComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 	void Update()
 	{
-		if (Settings.instance.disableRandomItemSpawns) return;
+		if (Settings.instance.disableRandomItemSpawns)
+		{
+			return;
+		}
+
 		if (this.ItemNames == null || this.ItemNames.Length == 0)
 		{
 			Logger.LogWarning($"'{this.name}' had an invalid list of potential spawn items.");
@@ -49,7 +54,7 @@ public class ModRandomWeightedItemComponent : ModBaseComponent
 		}
 
 		int index = this.GetIndex();
-		GameObject prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
+		GameObject? prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
 		if (prefab == null)
 		{
 			Logger.LogWarning($"Could not use '{this.name}' to spawn random item '{this.ItemNames[index]}'");
@@ -59,15 +64,22 @@ public class ModRandomWeightedItemComponent : ModBaseComponent
 
 		GameObject gear = Instantiate(prefab, this.transform.position, this.transform.rotation);
 		gear.name = prefab.name;
-		DisableObjectForXPMode xpmode = gear?.GetComponent<DisableObjectForXPMode>();
-		if (xpmode != null) Destroy(xpmode);
+		DisableObjectForXPMode? xpmode = gear?.GetComponent<DisableObjectForXPMode>();
+		if (xpmode != null)
+		{
+			Destroy(xpmode);
+		}
+
 		Destroy(this.gameObject);
 	}
 
 	[HideFromIl2Cpp]
 	private int GetIndex()
 	{
-		if (this.ItemNames.Length == 1) return 0;
+		if (this.ItemNames.Length == 1)
+		{
+			return 0;
+		}
 
 		int randomValue = RandomUtils.Range(0, GetTotalWeight());
 		int runningTotal = 0;
@@ -75,8 +87,14 @@ public class ModRandomWeightedItemComponent : ModBaseComponent
 		foreach (int weight in this.ItemWeights)
 		{
 			runningTotal += weight;
-			if (runningTotal > randomValue) return count;
-			else count++;
+			if (runningTotal > randomValue)
+			{
+				return count;
+			}
+			else
+			{
+				count++;
+			}
 		}
 		Logger.LogError($"Bug found while running 'GetIndex' for '{this.name}'. For loop did not return a value.");
 		return ItemNames.Length - 1; //should never happen
@@ -85,7 +103,11 @@ public class ModRandomWeightedItemComponent : ModBaseComponent
 	[HideFromIl2Cpp]
 	private int GetTotalWeight()
 	{
-		if (this.ItemWeights == null) return 0;
+		if (this.ItemWeights == null)
+		{
+			return 0;
+		}
+
 		int result = 0;
 		foreach (int weight in this.ItemWeights)
 		{

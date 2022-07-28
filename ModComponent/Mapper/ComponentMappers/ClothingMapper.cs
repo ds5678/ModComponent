@@ -9,7 +9,10 @@ internal static class ClothingMapper
 	internal static void Configure(ModBaseComponent modComponent)
 	{
 		ModClothingComponent modClothingItem = modComponent.TryCast<ModClothingComponent>();
-		if (modClothingItem == null) return;
+		if (modClothingItem == null)
+		{
+			return;
+		}
 
 		ClothingItem clothingItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ClothingItem>(modClothingItem);
 
@@ -41,13 +44,11 @@ internal static class ClothingMapper
 
 	private static void ConfigureWolfIntimidation(ModClothingComponent modClothingItem)
 	{
-		if (modClothingItem.DecreaseAttackChance == 0 && modClothingItem.IncreaseFleeChance == 0)
+		if (modClothingItem.DecreaseAttackChance != 0 || modClothingItem.IncreaseFleeChance != 0)
 		{
-			return;
+			WolfIntimidationBuff wolfIntimidationBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<WolfIntimidationBuff>(modClothingItem);
+			wolfIntimidationBuff.m_DecreaseAttackChancePercentagePoints = modClothingItem.DecreaseAttackChance;
+			wolfIntimidationBuff.m_IncreaseFleePercentagePoints = modClothingItem.IncreaseFleeChance;
 		}
-
-		WolfIntimidationBuff wolfIntimidationBuff = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<WolfIntimidationBuff>(modClothingItem);
-		wolfIntimidationBuff.m_DecreaseAttackChancePercentagePoints = modClothingItem.DecreaseAttackChance;
-		wolfIntimidationBuff.m_IncreaseFleePercentagePoints = modClothingItem.IncreaseFleeChance;
 	}
 }

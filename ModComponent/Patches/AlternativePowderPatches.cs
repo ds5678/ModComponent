@@ -16,7 +16,10 @@ internal static class AlternativePowderPatches
 		private static bool Prefix(PlayerManager __instance, float amount, GearPowderType type)
 		{
 			ModPowderComponent.ModPowderType modPowderType = ModPowderComponent.GetPowderType(type);
-			if (modPowderType == ModPowderComponent.ModPowderType.Gunpowder) return true;
+			if (modPowderType == ModPowderComponent.ModPowderType.Gunpowder)
+			{
+				return true;
+			}
 
 			float num = amount;
 			foreach (GearItemObject gearItemObject in GameManager.GetInventoryComponent().m_Items)
@@ -28,9 +31,15 @@ internal static class AlternativePowderPatches
 				}
 			}
 
-			string prefabName = null;
-			if (modPowderType == ModPowderComponent.ModPowderType.Salt) prefabName = saltPrefabName;
-			else if (modPowderType == ModPowderComponent.ModPowderType.Yeast) prefabName = yeastPrefabName;
+			string? prefabName = null;
+			if (modPowderType == ModPowderComponent.ModPowderType.Salt)
+			{
+				prefabName = saltPrefabName;
+			}
+			else if (modPowderType == ModPowderComponent.ModPowderType.Yeast)
+			{
+				prefabName = yeastPrefabName;
+			}
 
 			if (!Hinterland::Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
 			{

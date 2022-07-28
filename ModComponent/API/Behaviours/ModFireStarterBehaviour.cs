@@ -29,7 +29,7 @@ public class ModFireStarterBehaviour : ModFireMakingBaseBehaviour
 	/// <summary>
 	/// What sound to play during usage. Not used for accelerants.
 	/// </summary>
-	public string OnUseSoundEvent;
+	public string OnUseSoundEvent = string.Empty;
 
 	/// <summary>
 	/// Set the condition to 0% after the fire starting finished (either successful or not).

@@ -5,7 +5,7 @@ namespace ModComponent.API.Modifications;
 [MelonLoader.RegisterTypeInIl2Cpp]
 public class AddTag : MonoBehaviour
 {
-	public string Tag;
+	public string Tag = "";
 
 	public void Awake()
 	{

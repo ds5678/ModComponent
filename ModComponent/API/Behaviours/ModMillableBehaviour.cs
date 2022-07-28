@@ -1,4 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
+using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -20,12 +21,12 @@ public class ModMillableBehaviour : MonoBehaviour
 	/// <summary>
 	/// The gear required to restore this item from a ruined condition.
 	/// </summary>
-	public string[] RestoreRequiredGear;
+	public string[] RestoreRequiredGear = Array.Empty<string>();
 
 	/// <summary>
 	/// The units of the gear required to restore this item from a ruined condition.
 	/// </summary>
-	public int[] RestoreRequiredGearUnits;
+	public int[] RestoreRequiredGearUnits = Array.Empty<int>();
 
 	/// <summary>
 	/// The number of minutes it takes to repair this item.
@@ -35,19 +36,19 @@ public class ModMillableBehaviour : MonoBehaviour
 	/// <summary>
 	/// The gear required to repair this item.
 	/// </summary>
-	public string[] RepairRequiredGear;
+	public string[] RepairRequiredGear = Array.Empty<string>();
 
 	/// <summary>
 	/// The units of the gear required to repair this item.
 	/// </summary>
-	public int[] RepairRequiredGearUnits;
+	public int[] RepairRequiredGearUnits = Array.Empty<int>();
 
 	/// <summary>
 	/// The skill associated with repairing this item.
 	/// </summary>
 	public ModSkillType Skill = ModSkillType.None;
 
-	public ModMillableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+	public ModMillableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
 	internal void InitializeBehaviour(ProxyObject dict, string className = "ModMillableBehaviour")
@@ -59,6 +60,6 @@ public class ModMillableBehaviour : MonoBehaviour
 		this.RecoveryDurationMinutes = dict.GetVariant(className, "RecoveryDurationMinutes");
 		this.RestoreRequiredGear = dict.GetStringArray(className, "RestoreRequiredGear");
 		this.RestoreRequiredGearUnits = dict.GetIntArray(className, "RestoreRequiredGearUnits");
-		this.Skill = dict.GetEnum<ModComponent.API.ModSkillType>(className, "Skill");
+		this.Skill = dict.GetEnum<ModSkillType>(className, "Skill");
 	}
 }

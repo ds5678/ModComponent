@@ -13,7 +13,10 @@ internal static class TinderMapper
 	public static void Configure(GameObject prefab)
 	{
 		ModTinderBehaviour modBurnableComponent = ComponentUtils.GetComponentSafe<ModTinderBehaviour>(prefab);
-		if (modBurnableComponent == null) return;
+		if (modBurnableComponent == null)
+		{
+			return;
+		}
 
 		FuelSourceItem fuelSourceItem = ComponentUtils.GetOrCreateComponent<FuelSourceItem>(modBurnableComponent);
 		fuelSourceItem.m_BurnDurationHours = 0.02f;

@@ -60,27 +60,21 @@ internal static class CookableMapper
 
 	private static string GetDefaultCookAudio(ModCookableComponent modCookableComponent)
 	{
-		switch (modCookableComponent.Type)
+		return modCookableComponent.Type switch
 		{
-			case ModCookableComponent.CookableType.Grub:
-				return "Play_BoilingLiquidThickHeavy";
-			case ModCookableComponent.CookableType.Meat:
-				return "Play_FryingHeavy";
-			default:
-				return "Play_BoilingLiquidLight";
-		}
+			ModCookableComponent.CookableType.Grub => "Play_BoilingLiquidThickHeavy",
+			ModCookableComponent.CookableType.Meat => "Play_FryingHeavy",
+			_ => "Play_BoilingLiquidLight",
+		};
 	}
 
 	private static string GetDefaultStartCookingAudio(ModCookableComponent modCookableComponent)
 	{
-		switch (modCookableComponent.Type)
+		return modCookableComponent.Type switch
 		{
-			case ModCookableComponent.CookableType.Grub:
-				return "Play_AddSlopToPot";
-			case ModCookableComponent.CookableType.Meat:
-				return "Play_AddMeatPan";
-			default:
-				return "Play_AddWaterToPot";
-		}
+			ModCookableComponent.CookableType.Grub => "Play_AddSlopToPot",
+			ModCookableComponent.CookableType.Meat => "Play_AddMeatPan",
+			_ => "Play_AddWaterToPot",
+		};
 	}
 }

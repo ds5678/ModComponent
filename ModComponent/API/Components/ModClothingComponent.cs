@@ -7,7 +7,7 @@ using UnhollowerBaseLib.Attributes;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModClothingComponent : ModBaseComponent
+public partial class ModClothingComponent : ModBaseComponent
 {
 	/// <summary>
 	/// The body region this clothing item can be worn.
@@ -120,12 +120,12 @@ public class ModClothingComponent : ModBaseComponent
 	/// Base name of the texture to represent this clothing item in the paper doll view.<br/>
 	/// All required actual texture paths will be derived from this name.
 	/// </summary>
-	public string MainTexture;
+	public string MainTexture = "";
 
 	/// <summary>
 	/// Name of the blend texture used for the paper doll view.
 	/// </summary>
-	public string BlendTexture;
+	public string BlendTexture = "";
 
 	/// <summary>
 	/// Drawing layer (as in drawing order) to be used for this clothing item.<br/>
@@ -140,32 +140,38 @@ public class ModClothingComponent : ModBaseComponent
 	/// Use 'Namespace.TypeName,AssemblyName', e.g. 'ClothingPack.SkiGogglesImplementation,Clothing-Pack'.<br/>
 	/// Leave empty if this item needs no special game logic.
 	/// </summary>
-	public string ImplementationType;
+	public string ImplementationType = "";
 
 	/// <summary>
 	/// An instance of the implementation that contains OnPutOn and OnTakeOff.
 	/// </summary>
-	public object Implementation;
+	public object Implementation = "";
 
 	/// <summary>
 	/// The action that runs when a custom clothing item is put on.
 	/// </summary>
-	public Action OnPutOn;
+	public Action? OnPutOn;
 
 	/// <summary>
 	/// The action that runs when a custom clothing item is taken off.
 	/// </summary>
-	public Action OnTakeOff;
+	public Action? OnTakeOff;
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModClothingComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 
-		if (string.IsNullOrEmpty(ImplementationType)) return;
+		if (string.IsNullOrEmpty(ImplementationType))
+		{
+			return;
+		}
 
 		Type implementationType = TypeResolver.Resolve(ImplementationType, true);
 		object implementation = Activator.CreateInstance(implementationType);
-		if (implementation == null) return;
+		if (implementation == null)
+		{
+			return;
+		}
 
 		Implementation = implementation;
 
@@ -174,62 +180,25 @@ public class ModClothingComponent : ModBaseComponent
 	}
 
 	[HideFromIl2Cpp]
-	private Action CreateImplementationActionDelegate(string methodName)
+	private Action? CreateImplementationActionDelegate(string methodName)
 	{
 		MethodInfo methodInfo = Implementation.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-		if (methodInfo == null) return null;
-
-		return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
+		return methodInfo != null 
+			? (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo) 
+			: null;
 	}
 
 	public ModClothingComponent(IntPtr intPtr) : base(intPtr) { }
-
-	public enum BodyRegion
-	{
-		Head,
-		Hands,
-		Chest,
-		Legs,
-		Feet,
-		Accessory,
-	}
-
-	public enum Layer
-	{
-		Base,
-		Mid,
-		Top,
-		Top2,
-	}
-
-	public enum FootwearType
-	{
-		None,
-		Boots,
-		Deerskin,
-		Shoes,
-	}
-
-	public enum MovementSounds
-	{
-		None,
-		HeavyNylon,
-		LeatherHide,
-		LightCotton,
-		LightNylon,
-		SoftCloth,
-		Wool,
-	}
 
 	[HideFromIl2Cpp]
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModClothingComponent")
 	{
 		base.InitializeComponent(dict, className);
-		this.Region = dict.GetEnum<ModClothingComponent.BodyRegion>(className, "Region");
-		this.MinLayer = dict.GetEnum<ModClothingComponent.Layer>(className, "MinLayer");
-		this.MaxLayer = dict.GetEnum<ModClothingComponent.Layer>(className, "MaxLayer");
-		this.MovementSound = dict.GetEnum<ModClothingComponent.MovementSounds>(className, "MovementSound");
-		this.Footwear = dict.GetEnum<ModClothingComponent.FootwearType>(className, "Footwear");
+		this.Region = dict.GetEnum<BodyRegion>(className, "Region");
+		this.MinLayer = dict.GetEnum<Layer>(className, "MinLayer");
+		this.MaxLayer = dict.GetEnum<Layer>(className, "MaxLayer");
+		this.MovementSound = dict.GetEnum<MovementSounds>(className, "MovementSound");
+		this.Footwear = dict.GetEnum<FootwearType>(className, "Footwear");
 		this.DaysToDecayWornOutside = dict.GetVariant(className, "DaysToDecayWornOutside");
 		this.DaysToDecayWornInside = dict.GetVariant(className, "DaysToDecayWornInside");
 		this.Warmth = dict.GetVariant(className, "Warmth");

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModCookableComponent : ModBaseComponent
+public partial class ModCookableComponent : ModBaseComponent
 {
 	/// <summary>
 	/// Can this be cooked/heated?<br/>
@@ -45,33 +45,26 @@ public class ModCookableComponent : ModBaseComponent
 	/// Convert the item into this item when cooking completes. <br/>
 	/// Leave empty to only heat the item without converting it.
 	/// </summary>
-	public GameObject CookingResult;
+	public GameObject? CookingResult;
 
 	/// <summary>
 	/// Sound to use when cooking/heating the item. <br/>
 	/// Leave empty for a sensible default.
 	/// </summary>
-	public string CookingAudio;
+	public string CookingAudio = "";
 
 	/// <summary>
 	/// Sound to use when putting the item into a pot or on a stove. <br/>
 	/// Leave empty for a sensible default.
 	/// </summary>
-	public string StartCookingAudio;
+	public string StartCookingAudio = "";
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModCookableComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 	public ModCookableComponent(IntPtr intPtr) : base(intPtr) { }
-
-	public enum CookableType
-	{
-		Meat,
-		Grub,
-		Liquid,
-	}
 
 	[HideFromIl2Cpp]
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModCookableComponent")
@@ -92,6 +85,6 @@ public class ModCookableComponent : ModBaseComponent
 		}
 		this.CookingUnitsRequired = dict.GetVariant(className, "CookingUnitsRequired");
 		this.CookingWaterRequired = dict.GetVariant(className, "CookingWaterRequired");
-		this.Type = dict.GetEnum<ModCookableComponent.CookableType>(className, "Type");
+		this.Type = dict.GetEnum<CookableType>(className, "Type");
 	}
 }

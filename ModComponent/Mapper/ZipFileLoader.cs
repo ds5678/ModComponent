@@ -13,7 +13,7 @@ namespace ModComponent.Mapper;
 
 internal static class ZipFileLoader
 {
-	internal static readonly List<byte[]> hashes = new List<byte[]>();
+	internal static readonly List<byte[]> hashes = new();
 
 	internal static void Initialize()
 	{
@@ -45,12 +45,12 @@ internal static class ZipFileLoader
 	private static void LoadZipFile(string zipFilePath)
 	{
 		Logger.LogGreen($"Reading zip file at: '{zipFilePath}'");
-		var fileStream = File.OpenRead(zipFilePath);
+		FileStream fileStream = File.OpenRead(zipFilePath);
 
 		hashes.Add(SHA256.Create().ComputeHash(fileStream));
 		fileStream.Position = 0;
 
-		var zipInputStream = new ZipInputStream(fileStream);
+		ZipInputStream zipInputStream = new ZipInputStream(fileStream);
 		ZipEntry entry;
 		while ((entry = zipInputStream.GetNextEntry()) != null)
 		{
@@ -58,34 +58,37 @@ internal static class ZipFileLoader
 			string filename = Path.GetFileName(internalPath);
 			FileType fileType = GetFileType(filename);
 			if (fileType == FileType.other)
-				continue;
-
-
-			using (var unzippedFileStream = new MemoryStream())
 			{
-				int size = 0;
-				byte[] buffer = new byte[4096];
-				while (true)
+				continue;
+			}
+
+			using MemoryStream unzippedFileStream = new MemoryStream();
+			int size = 0;
+			byte[] buffer = new byte[4096];
+			while (true)
+			{
+				size = zipInputStream.Read(buffer, 0, buffer.Length);
+				if (size > 0)
 				{
-					size = zipInputStream.Read(buffer, 0, buffer.Length);
-					if (size > 0)
-						unzippedFileStream.Write(buffer, 0, size);
-					else
-						break;
+					unzippedFileStream.Write(buffer, 0, size);
 				}
-				if (!TryHandleFile(zipFilePath, internalPath, fileType, unzippedFileStream))
-					return;
+				else
+				{
+					break;
+				}
+			}
+			if (!TryHandleFile(zipFilePath, internalPath, fileType, unzippedFileStream))
+			{
+				return;
 			}
 		}
 	}
 
 	private static Encoding GetEncoding(MemoryStream memoryStream)
 	{
-		using (var reader = new StreamReader(memoryStream, true))
-		{
-			reader.Peek();
-			return reader.CurrentEncoding;
-		}
+		using StreamReader reader = new StreamReader(memoryStream, true);
+		reader.Peek();
+		return reader.CurrentEncoding;
 	}
 
 	private static string ReadToString(MemoryStream memoryStream)
@@ -96,12 +99,36 @@ internal static class ZipFileLoader
 
 	private static FileType GetFileType(string filename)
 	{
-		if (String.IsNullOrWhiteSpace(filename)) return FileType.other;
-		if (filename.EndsWith(".unity3d")) return FileType.unity3d;
-		if (filename.EndsWith(".json")) return FileType.json;
-		if (filename.EndsWith(".txt")) return FileType.txt;
-		if (filename.EndsWith(".dll")) return FileType.dll;
-		if (filename.EndsWith(".bnk")) return FileType.bnk;
+		if (string.IsNullOrWhiteSpace(filename))
+		{
+			return FileType.other;
+		}
+
+		if (filename.EndsWith(".unity3d", StringComparison.Ordinal))
+		{
+			return FileType.unity3d;
+		}
+
+		if (filename.EndsWith(".json", StringComparison.Ordinal))
+		{
+			return FileType.json;
+		}
+
+		if (filename.EndsWith(".txt", StringComparison.Ordinal))
+		{
+			return FileType.txt;
+		}
+
+		if (filename.EndsWith(".dll", StringComparison.Ordinal))
+		{
+			return FileType.dll;
+		}
+
+		if (filename.EndsWith(".bnk", StringComparison.Ordinal))
+		{
+			return FileType.bnk;
+		}
+
 		return FileType.other;
 	}
 
@@ -198,7 +225,7 @@ internal static class ZipFileLoader
 
 	private static void LogItemPackInformation(string jsonText)
 	{
-		var dict = JSON.Load(jsonText) as ProxyObject;
+		ProxyObject? dict = (ProxyObject)JSON.Load(jsonText);
 		string modName = dict["Name"];
 		string version = dict["Version"];
 		Logger.Log($"Found: {modName} {version}");

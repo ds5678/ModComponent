@@ -4,17 +4,8 @@ using UnhollowerBaseLib.Attributes;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModCollectibleComponent : ModBaseComponent
+public partial class ModCollectibleComponent : ModBaseComponent
 {
-	public enum Alignment
-	{
-		Automatic,
-		Left,
-		Center,
-		Right,
-		Justified
-	}
-
 	/// <summary>
 	/// The localization id for the hud message displayed after this item is picked up.
 	/// </summary>

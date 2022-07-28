@@ -7,8 +7,8 @@ namespace ModComponent;
 internal static class Logger
 {
 	private static bool reflectionSuccessful;
-	private static MethodInfo method_Internal_Error;
-	private static MethodInfo method_RunErrorCallbacks;
+	private static MethodInfo? method_Internal_Error;
+	private static MethodInfo? method_RunErrorCallbacks;
 
 	static Logger()
 	{
@@ -39,8 +39,8 @@ internal static class Logger
 		}
 
 		string txt = string.Format(message);
-		method_Internal_Error.Invoke(null, new object[] { namesection, txt });
-		method_RunErrorCallbacks.Invoke(null, new object[] { namesection, txt });
+		method_Internal_Error?.Invoke(null, new object[] { namesection, txt });
+		method_RunErrorCallbacks?.Invoke(null, new object[] { namesection, txt });
 	}
 
 

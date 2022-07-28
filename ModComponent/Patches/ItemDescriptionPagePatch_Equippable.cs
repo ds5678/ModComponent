@@ -10,7 +10,10 @@ internal static class ItemDescriptionPageGetEquipButtonLocalizationIdPatch
 {
 	public static void Postfix(GearItem gi, ref string __result)
 	{
-		if (__result != string.Empty) return;
+		if (!string.IsNullOrEmpty(__result))
+		{
+			return;
+		}
 
 		ModBaseComponent modComponent = ModComponent.Utils.ComponentUtils.GetModComponent(gi);
 		if (modComponent != null)

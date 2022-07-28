@@ -35,7 +35,10 @@ internal static class ConsoleWaitlist
 		{
 			RegisterConsoleGearName(displayName, prefabName);
 		}
-		else AddToWaitlist(displayName, prefabName);
+		else
+		{
+			AddToWaitlist(displayName, prefabName);
+		}
 	}
 
 	private static void RegisterConsoleGearName(string displayName, string prefabName)
@@ -52,7 +55,7 @@ internal static class ConsoleWaitlist
 		}
 	}
 
-	internal class ModConsoleName
+	internal struct ModConsoleName
 	{
 		public readonly string displayName;
 		public readonly string prefabName;

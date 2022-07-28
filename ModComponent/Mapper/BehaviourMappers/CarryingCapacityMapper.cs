@@ -13,7 +13,10 @@ internal static class CarryingCapacityMapper
 	public static void Configure(GameObject prefab)
 	{
 		ModCarryingCapacityBehaviour capacityComponent = ComponentUtils.GetComponentSafe<ModCarryingCapacityBehaviour>(prefab);
-		if (capacityComponent == null) return;
+		if (capacityComponent == null)
+		{
+			return;
+		}
 
 		CarryingCapacityBuff capacityBuff = ComponentUtils.GetOrCreateComponent<CarryingCapacityBuff>(capacityComponent);
 

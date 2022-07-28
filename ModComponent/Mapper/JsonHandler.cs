@@ -4,12 +4,14 @@ namespace ModComponent.Mapper;
 
 internal static class JsonHandler
 {
-	private static Dictionary<string, string> itemJsons = new Dictionary<string, string>();
+	private static readonly Dictionary<string, string> itemJsons = new();
 
 	public static void RegisterJsonText(string itemName, string text)
 	{
-		if (string.IsNullOrEmpty(text)) 
+		if (string.IsNullOrEmpty(text))
+		{
 			return;
+		}
 
 		if (itemJsons.ContainsKey(itemName))
 		{
@@ -26,6 +28,6 @@ internal static class JsonHandler
 	{
 		return itemJsons.TryGetValue(itemName.ToLower(), out string jsonData)
 			? jsonData
-                : throw new System.Exception($"Could not find json file for {itemName}");
+			: throw new System.Exception($"Could not find json file for {itemName}");
 	}
 }

@@ -9,8 +9,11 @@ internal static class ToolMapper
 {
 	internal static void Configure(ModBaseComponent modComponent)
 	{
-		ModToolComponent modToolComponent = modComponent as ModToolComponent;
-		if (modToolComponent == null) return;
+		ModToolComponent modToolComponent = modComponent.TryCast<ModToolComponent>();
+		if (modToolComponent == null)
+		{
+			return;
+		}
 
 		ToolsItem toolsItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
 
@@ -32,8 +35,6 @@ internal static class ToolMapper
 		ConfigureStruggleBonus(modToolComponent);
 	}
 
-
-
 	private static void ConfigureBodyHarvest(ModToolComponent modToolComponent)
 	{
 		if (!modToolComponent.CarcassHarvesting)
@@ -54,7 +55,7 @@ internal static class ToolMapper
 		BreakDownItem breakDownItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<BreakDownItem>(modToolComponent);
 		breakDownItem.m_BreakDownTimeModifier = modToolComponent.BreakDownTimeMultiplier;
 
-		string templateName = GetTemplateToolName(modToolComponent);
+		string? templateName = GetTemplateToolName(modToolComponent);
 		if (templateName != null)
 		{
 			AlternativeToolManager.AddToList(modToolComponent, templateName);
@@ -112,40 +113,24 @@ internal static class ToolMapper
 
 	private static StruggleBonus.StruggleWeaponType GetStruggleWeaponType(ModToolComponent modToolComponent)
 	{
-		switch (modToolComponent.ToolType)
+		return modToolComponent.ToolType switch
 		{
-			case ModToolComponent.ToolKind.Hatchet:
-				return StruggleBonus.StruggleWeaponType.Hatchet;
-
-			case ModToolComponent.ToolKind.Hammer:
-				return StruggleBonus.StruggleWeaponType.Hammer;
-
-			case ModToolComponent.ToolKind.Knife:
-				return StruggleBonus.StruggleWeaponType.Knife;
-
-			default:
-				return StruggleBonus.StruggleWeaponType.BareHands;
-		}
+			ModToolComponent.ToolKind.Hatchet => StruggleBonus.StruggleWeaponType.Hatchet,
+			ModToolComponent.ToolKind.Hammer => StruggleBonus.StruggleWeaponType.Hammer,
+			ModToolComponent.ToolKind.Knife => StruggleBonus.StruggleWeaponType.Knife,
+			_ => StruggleBonus.StruggleWeaponType.BareHands,
+		};
 	}
 
-	private static string GetTemplateToolName(ModToolComponent modToolComponent)
+	private static string? GetTemplateToolName(ModToolComponent modToolComponent)
 	{
-		switch (modToolComponent.ToolType)
+		return modToolComponent.ToolType switch
 		{
-			case ModToolComponent.ToolKind.HackSaw:
-				return "GEAR_Hacksaw";
-
-			case ModToolComponent.ToolKind.Hatchet:
-				return "GEAR_Hatchet";
-
-			case ModToolComponent.ToolKind.Hammer:
-				return "GEAR_Hammer";
-
-			case ModToolComponent.ToolKind.Knife:
-				return "GEAR_Knife";
-
-			default:
-				return null;
-		}
+			ModToolComponent.ToolKind.HackSaw => "GEAR_Hacksaw",
+			ModToolComponent.ToolKind.Hatchet => "GEAR_Hatchet",
+			ModToolComponent.ToolKind.Hammer => "GEAR_Hammer",
+			ModToolComponent.ToolKind.Knife => "GEAR_Knife",
+			_ => null,
+		};
 	}
 }

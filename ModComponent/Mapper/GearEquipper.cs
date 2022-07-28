@@ -9,15 +9,21 @@ internal static class GearEquipper
 {
 	public static void Equip(ModBaseEquippableComponent equippable)
 	{
-		if (equippable == null) return;
+		if (equippable == null)
+		{
+			return;
+		}
 
-		GameObject equippedModelPrefab = Resources.Load(equippable.EquippedModelPrefabName)?.Cast<GameObject>();
+		GameObject? equippedModelPrefab = Resources.Load(equippable.EquippedModelPrefabName)?.Cast<GameObject>();
 		if (equippedModelPrefab != null)
 		{
 			equippable.EquippedModel = Object.Instantiate(equippedModelPrefab, GameManager.GetWeaponCamera().transform);
 			equippable.EquippedModel.layer = vp_Layer.Weapon;
 		}
-		else Logger.Log($"The equippedModelPrefab for '{equippable.EquippedModelPrefabName}' was null.");
+		else
+		{
+			Logger.Log($"The equippedModelPrefab for '{equippable.EquippedModelPrefabName}' was null.");
+		}
 
 		equippable.OnEquipped?.Invoke();
 
@@ -27,13 +33,22 @@ internal static class GearEquipper
 
 	public static void Unequip(ModBaseEquippableComponent modComponent)
 	{
-		if (modComponent == null) return;
-		else GameManager.GetPlayerManagerComponent().UnequipItemInHandsSkipAnimation();
+		if (modComponent == null)
+		{
+			return;
+		}
+		else
+		{
+			GameManager.GetPlayerManagerComponent().UnequipItemInHandsSkipAnimation();
+		}
 	}
 
 	internal static void OnUnequipped(ModBaseEquippableComponent modComponent)
 	{
-		if (modComponent == null) return;
+		if (modComponent == null)
+		{
+			return;
+		}
 
 		if (modComponent.EquippedModel != null)
 		{

@@ -13,17 +13,21 @@ public class ModRandomItemComponent : ModBaseComponent
 	/// <summary>
 	/// The names of the gear items that this could spawn.
 	/// </summary>
-	public string[] ItemNames = new string[0];
+	public string[] ItemNames = System.Array.Empty<string>();
 
 	public ModRandomItemComponent(System.IntPtr intPtr) : base(intPtr) { }
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModRandomItemComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 	void Update()
 	{
-		if (Settings.instance.disableRandomItemSpawns) return;
+		if (Settings.instance.disableRandomItemSpawns)
+		{
+			return;
+		}
+
 		if (this.ItemNames == null || this.ItemNames.Length == 0)
 		{
 			Logger.LogWarning($"'{this.name}' had an invalid list of potential spawn items.");
@@ -32,7 +36,7 @@ public class ModRandomItemComponent : ModBaseComponent
 		}
 
 		int index = RandomUtils.Range(0, this.ItemNames.Length);
-		GameObject prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
+		GameObject? prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
 		if (prefab == null)
 		{
 			Logger.LogWarning($"Could not use '{this.name}' to spawn random item '{this.ItemNames[index]}'");
@@ -42,8 +46,12 @@ public class ModRandomItemComponent : ModBaseComponent
 
 		GameObject gear = Instantiate(prefab, this.transform.position, this.transform.rotation);
 		gear.name = prefab.name;
-		DisableObjectForXPMode xpmode = gear?.GetComponent<DisableObjectForXPMode>();
-		if (xpmode != null) Destroy(xpmode);
+		DisableObjectForXPMode? xpmode = gear?.GetComponent<DisableObjectForXPMode>();
+		if (xpmode != null)
+		{
+			Destroy(xpmode);
+		}
+
 		Destroy(this.gameObject);
 	}
 

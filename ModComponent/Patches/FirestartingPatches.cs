@@ -10,12 +10,21 @@ internal static class FireManager_PlayerStartFire
 {
 	internal static void Postfix(FireStarterItem starter, bool __result)
 	{
-		if (!__result) return;
+		if (!__result)
+		{
+			return;
+		}
 
 		ModFireStarterBehaviour modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponentSafe<ModFireStarterBehaviour>(starter);
-		if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse) return;
+		if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse)
+		{
+			return;
+		}
 
 		GearItem gearItem = starter.GetComponent<GearItem>();
-		if (gearItem != null) gearItem.BreakOnUse();
+		if (gearItem != null)
+		{
+			gearItem.BreakOnUse();
+		}
 	}
 }

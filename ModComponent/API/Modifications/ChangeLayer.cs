@@ -16,7 +16,7 @@ public class ChangeLayer : MonoBehaviour
 
 	public void Start()
 	{
-		CopyFieldHandler.UpdateFieldValues<ChangeLayer>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 		this.Invoke("SetLayer", 1);
 	}
 

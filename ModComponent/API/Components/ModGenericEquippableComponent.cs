@@ -9,7 +9,7 @@ public class ModGenericEquippableComponent : ModBaseEquippableComponent
 
 	protected override void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModGenericEquippableComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 		base.Awake();
 	}
 }

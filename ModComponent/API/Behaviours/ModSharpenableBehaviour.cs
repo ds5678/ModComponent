@@ -1,4 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
+using System;
 using UnhollowerBaseLib.Attributes;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class ModSharpenableBehaviour : MonoBehaviour
 	/// Which tools can be used to sharpen this item, e.g. 'GEAR_SharpeningStone'. <br/>
 	/// Leave empty to make this sharpenable without tools.
 	/// </summary>
-	public string[] Tools;
+	public string[] Tools = Array.Empty<string>();
 
 	/// <summary>
 	/// How many in-game minutes does it take to sharpen this item at minimum skill.
@@ -36,9 +37,9 @@ public class ModSharpenableBehaviour : MonoBehaviour
 	/// <summary>
 	/// The sound to play while sharpening. Leave empty for a sensible default.
 	/// </summary>
-	public string Audio;
+	public string Audio = "";
 
-	public ModSharpenableBehaviour(System.IntPtr intPtr) : base(intPtr) { }
+	public ModSharpenableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
 	[HideFromIl2Cpp]
 	internal void InitializeBehaviour(ProxyObject dict, string className = "ModSharpenableBehaviour")

@@ -40,38 +40,47 @@ public static class ModUtils
 
 	public static T[] NotNull<T>(T[] array)
 	{
-		if (array == null) return new T[0];
-		else return array;
+		return array ?? Array.Empty<T>();
 	}
 
 	public static void PlayAudio(string audioName)
 	{
-		if (audioName != null) GameAudioManager.PlaySound(audioName, InterfaceManager.GetSoundEmitter());
+		if (audioName != null)
+		{
+			GameAudioManager.PlaySound(audioName, InterfaceManager.GetSoundEmitter());
+		}
 	}
 
-
-
-	internal static Delegate CreateDelegate(Type delegateType, object target, string methodName)
+	internal static Delegate? CreateDelegate(Type delegateType, object target, string methodName)
 	{
 		MethodInfo methodInfo = target.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-		if (methodInfo == null) return null;
-		else return Delegate.CreateDelegate(delegateType, target, methodInfo);
+		return methodInfo == null 
+			? null 
+			: Delegate.CreateDelegate(delegateType, target, methodInfo);
 	}
 
-	public static GameObject GetChild(GameObject gameObject, string childName)
+	public static GameObject? GetChild(this GameObject gameObject, string childName)
 	{
-		if (string.IsNullOrEmpty(childName)) return null;
-		return gameObject?.transform?.FindChild(childName)?.gameObject;
+		return string.IsNullOrEmpty(childName)
+			|| gameObject == null
+			|| gameObject.transform == null
+			? null
+			: gameObject.transform.FindChild(childName).GetGameObject();
 	}
 
-	public static GameObject GetParent(GameObject gameObject)
+	public static GameObject? GetParent(this GameObject gameObject)
 	{
-		return gameObject?.transform?.parent?.gameObject;
+		return gameObject == null
+			|| gameObject.transform == null
+			|| gameObject.transform.parent == null
+			? null
+			: gameObject.transform.parent.gameObject;
 	}
 
-	public static GameObject GetSibling(GameObject gameObject, string siblingName)
+	public static GameObject? GetSibling(this GameObject gameObject, string siblingName)
 	{
-		return GetChild(GetParent(gameObject), siblingName);
+		GameObject? parent = gameObject.GetParent();
+		return parent == null ? null : parent.GetChild(siblingName);
 	}
 
 	/// <summary>
@@ -80,26 +89,36 @@ public static class ModUtils
 	/// <param name="parent"></param>
 	/// <param name="childName"></param>
 	/// <returns></returns>
-	public static GameObject GetInChildren(GameObject parent, string childName)
+	public static GameObject? GetInChildren(GameObject parent, string childName)
 	{
-		if (string.IsNullOrEmpty(childName)) return null;
+		if (string.IsNullOrEmpty(childName))
+		{
+			return null;
+		}
+
 		Transform transform = parent.transform;
 		for (int i = 0; i < transform.childCount; i++)
 		{
 			GameObject child = transform.GetChild(i).gameObject;
-			if (child.name == childName) return child;
+			if (child.name == childName)
+			{
+				return child;
+			}
 			else if (child.transform.childCount > 0)
 			{
-				GameObject grandChild = GetInChildren(child, childName);
-				if (grandChild != null) return grandChild;
+				GameObject? grandChild = GetInChildren(child, childName);
+				if (grandChild != null)
+				{
+					return grandChild;
+				}
 			}
 		}
 		return null;
 	}
 
-	internal static T GetItem<T>(string name, string reference = null) where T : UnityEngine.Component
+	internal static T GetItem<T>(string name, string? reference = null) where T : Component
 	{
-		GameObject gameObject = Resources.Load(name).TryCast<GameObject>();
+		GameObject? gameObject = Resources.Load(name).TryCast<GameObject>();
 		if (gameObject == null)
 		{
 			throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
@@ -114,7 +133,7 @@ public static class ModUtils
 		return targetType;
 	}
 
-	internal static T[] GetItems<T>(string[] names, string reference = null) where T : UnityEngine.Component
+	internal static T[] GetItems<T>(string[] names, string? reference = null) where T : Component
 	{
 		T[] result = new T[names.Length];
 
@@ -126,7 +145,7 @@ public static class ModUtils
 		return result;
 	}
 
-	internal static T GetMatchingItem<T>(string name, string reference = null) where T : UnityEngine.Component
+	internal static T? GetMatchingItem<T>(string name, string? reference = null) where T : Component
 	{
 		try
 		{
@@ -135,19 +154,19 @@ public static class ModUtils
 		catch (ArgumentException e)
 		{
 			Logger.LogError(e.Message);
-			return default(T);
+			return default;
 		}
 	}
 
-	internal static T[] GetMatchingItems<T>(string[] names, string reference = null) where T : UnityEngine.Component
+	internal static T[] GetMatchingItems<T>(string[] names, string? reference = null) where T : Component
 	{
 		names = NotNull(names);
 
-		List<T> values = new List<T>();
+		List<T> values = new();
 
 		for (int i = 0; i < names.Length; i++)
 		{
-			var matchingItem = GetMatchingItem<T>(names[i], reference);
+			T? matchingItem = GetMatchingItem<T>(names[i], reference);
 			if (matchingItem != null)
 			{
 				values.Add(matchingItem);

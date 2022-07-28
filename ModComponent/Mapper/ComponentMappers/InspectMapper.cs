@@ -8,7 +8,10 @@ internal static class InspectMapper
 {
 	internal static void Configure(ModBaseComponent modComponent)
 	{
-		if (!modComponent.InspectOnPickup) return;
+		if (!modComponent.InspectOnPickup)
+		{
+			return;
+		}
 
 		Inspect inspect = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<Inspect>(modComponent);
 		inspect.m_DistanceFromCamera = modComponent.InspectDistance;

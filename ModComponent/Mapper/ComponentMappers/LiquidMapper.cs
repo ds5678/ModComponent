@@ -8,8 +8,11 @@ internal static class LiquidMapper
 {
 	internal static void Configure(ModBaseComponent modComponent)
 	{
-		ModLiquidComponent modLiquidComponent = modComponent.TryCast<ModLiquidComponent>();
-		if (modLiquidComponent == null) return;
+		ModLiquidComponent? modLiquidComponent = modComponent.TryCast<ModLiquidComponent>();
+		if (modLiquidComponent == null)
+		{
+			return;
+		}
 
 		LiquidItem liquidItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<LiquidItem>(modComponent);
 		liquidItem.m_LiquidCapacityLiters = modLiquidComponent.LiquidCapacityLiters;

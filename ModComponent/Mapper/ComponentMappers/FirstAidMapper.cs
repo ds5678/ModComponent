@@ -9,7 +9,10 @@ internal static class FirstAidMapper
 	internal static void Configure(ModBaseComponent modComponent)
 	{
 		ModFirstAidComponent modFirstAidComponent = modComponent.TryCast<ModFirstAidComponent>();
-		if (modFirstAidComponent == null) return;
+		if (modFirstAidComponent == null)
+		{
+			return;
+		}
 
 		FirstAidItem firstAidItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FirstAidItem>(modFirstAidComponent);
 

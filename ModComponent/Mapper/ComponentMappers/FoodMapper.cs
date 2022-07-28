@@ -10,8 +10,11 @@ internal static class FoodMapper
 {
 	internal static void Configure(ModBaseComponent modComponent)
 	{
-		ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
-		if (modFoodComponent == null) return;
+		ModFoodComponent? modFoodComponent = modComponent.TryCast<ModFoodComponent>();
+		if (modFoodComponent == null)
+		{
+			return;
+		}
 
 		FoodItem foodItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FoodItem>(modFoodComponent);
 

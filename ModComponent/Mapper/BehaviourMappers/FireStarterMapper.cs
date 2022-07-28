@@ -10,7 +10,10 @@ internal static class FireStarterMapper
 	internal static void Configure(ModBaseComponent modComponent)
 	{
 		ModFireStarterBehaviour modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponentSafe<ModFireStarterBehaviour>(modComponent);
-		if (modFireStarterComponent == null) return;
+		if (modFireStarterComponent == null)
+		{
+			return;
+		}
 
 		FireStarterItem fireStarterItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<FireStarterItem>(modFireStarterComponent);
 

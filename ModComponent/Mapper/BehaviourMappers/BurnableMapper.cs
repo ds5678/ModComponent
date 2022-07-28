@@ -13,7 +13,10 @@ internal static class BurnableMapper
 	public static void Configure(GameObject prefab)
 	{
 		ModBurnableBehaviour modBurnableComponent = ComponentUtils.GetComponentSafe<ModBurnableBehaviour>(prefab);
-		if (modBurnableComponent == null) return;
+		if (modBurnableComponent == null)
+		{
+			return;
+		}
 
 		FuelSourceItem fuelSourceItem = ComponentUtils.GetOrCreateComponent<FuelSourceItem>(modBurnableComponent);
 		fuelSourceItem.m_BurnDurationHours = modBurnableComponent.BurningMinutes / 60f;

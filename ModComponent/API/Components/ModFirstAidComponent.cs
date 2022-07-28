@@ -6,19 +6,19 @@ using UnhollowerBaseLib.Attributes;
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
-public class ModFirstAidComponent : ModBaseComponent
+public partial class ModFirstAidComponent : ModBaseComponent
 {
 	/// <summary>
 	/// Localization key to be used to show a description text while using the item. <br/>
 	/// Should be something like 'Taking Antibiotics', 'Applying Bandage', etc.
 	/// </summary>
-	public string ProgressBarMessage;
+	public string ProgressBarMessage = "";
 
 	/// <summary>
 	/// Localization key to be used to indicate what action is possible with this item. <br/>
 	/// E.g 'Take Antibiotics', 'Apply Bandage'. This is probably not used.
 	/// </summary>
-	public string RemedyText;
+	public string RemedyText = "";
 
 	/// <summary>
 	/// Amount of condition instantly restored after using this item.
@@ -44,22 +44,14 @@ public class ModFirstAidComponent : ModBaseComponent
 	/// <summary>
 	/// Sound to play when using the item.
 	/// </summary>
-	public string UseAudio;
+	public string UseAudio = "";
 
 	void Awake()
 	{
-		CopyFieldHandler.UpdateFieldValues<ModFirstAidComponent>(this);
+		CopyFieldHandler.UpdateFieldValues(this);
 	}
 
 	public ModFirstAidComponent(IntPtr intPtr) : base(intPtr) { }
-
-	public enum FirstAidKind
-	{
-		Antibiotics,
-		Bandage,
-		Disinfectant,
-		PainKiller,
-	}
 
 	[HideFromIl2Cpp]
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModFirstAidComponent")
@@ -68,7 +60,7 @@ public class ModFirstAidComponent : ModBaseComponent
 		this.ProgressBarMessage = dict.GetVariant(className, "ProgressBarMessage");
 		this.RemedyText = dict.GetVariant(className, "RemedyText");
 		this.InstantHealing = dict.GetVariant(className, "InstantHealing");
-		this.FirstAidType = dict.GetEnum<ModFirstAidComponent.FirstAidKind>(className, "FirstAidType");
+		this.FirstAidType = dict.GetEnum<FirstAidKind>(className, "FirstAidType");
 		this.TimeToUseSeconds = dict.GetVariant(className, "TimeToUseSeconds");
 		this.UnitsPerUse = dict.GetVariant(className, "UnitsPerUse");
 		this.UseAudio = dict.GetVariant(className, "UseAudio");
