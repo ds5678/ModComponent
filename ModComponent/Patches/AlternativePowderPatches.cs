@@ -7,7 +7,7 @@ namespace ModComponent.Patches;
 
 internal static class AlternativePowderPatches
 {
-	[HarmonyPatch(typeof(PlayerManager), "AddPowderToInventory")]
+	[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.AddPowderToInventory))]
 	private static class PlayerManager_AddPowderToInventory
 	{
 		const string saltPrefabName = "GEAR_ModSalt";

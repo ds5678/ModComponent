@@ -46,7 +46,7 @@ internal static class ConsoleWaitlist
 		ConsoleManager.AddCustomGearName(displayName.ToLower(), prefabName.ToLower());
 	}
 
-	[HarmonyPatch(typeof(ConsoleManager), "Initialize")]
+	[HarmonyPatch(typeof(ConsoleManager), nameof(ConsoleManager.Initialize))]
 	internal static class UpdateConsoleCommands
 	{
 		private static void Postfix()

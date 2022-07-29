@@ -5,7 +5,7 @@ using ModComponent.Mapper;
 
 namespace ModComponent.Patches;
 
-[HarmonyPatch(typeof(GameManager), "Awake")]
+[HarmonyPatch(typeof(GameManager), nameof(GameManager.Awake))]
 internal static class GameManager_Awake
 {
 	private static void Postfix()

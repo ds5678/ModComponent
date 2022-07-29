@@ -5,7 +5,7 @@ using ModComponent.API.Behaviours;
 
 namespace ModComponent.Patches;
 
-[HarmonyPatch(typeof(FireManager), "PlayerStartFire")]//Exists
+[HarmonyPatch(typeof(FireManager), nameof(FireManager.PlayerStartFire))]//Exists
 internal static class FireManager_PlayerStartFire
 {
 	internal static void Postfix(FireStarterItem starter, bool __result)

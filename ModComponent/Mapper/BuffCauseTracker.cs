@@ -28,7 +28,7 @@ internal static class BuffCauseTracker
 	}
 }
 
-[HarmonyPatch(typeof(FatigueBuff), "Apply")]//Exists
+[HarmonyPatch(typeof(FatigueBuff), nameof(FatigueBuff.Apply))]//Exists
 internal static class FagtigueBuffApplyPatch
 {
 	public static void Postfix(FatigueBuff __instance)
@@ -45,7 +45,7 @@ internal static class FagtigueBuffApplyPatch
 	}
 }
 
-[HarmonyPatch(typeof(AfflictionButton), "SetCauseAndEffect")]//positive caller count
+[HarmonyPatch(typeof(AfflictionButton), nameof(AfflictionButton.SetCauseAndEffect))]//positive caller count
 internal static class AfflictionButtonSetCauseAndEffectPatch
 {
 	public static void Prefix(ref string causeStr, AfflictionType affType)

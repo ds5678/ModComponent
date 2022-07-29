@@ -5,7 +5,7 @@ using ModComponent.AssetLoader;
 
 namespace ModComponent.Patches;
 
-[HarmonyPatch(typeof(GameAudioManager), "Start")]
+[HarmonyPatch(typeof(GameAudioManager), nameof(GameAudioManager.Start))]
 internal static class GameAudioManager_LoadSoundBanksPath
 {
 	internal static void Postfix()

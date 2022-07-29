@@ -6,7 +6,7 @@ using ModComponent.Mapper;
 
 namespace ModComponent.Patches;
 
-[HarmonyPatch(typeof(PlayerManager), "PutOnClothingItem")]//not inlined
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.PutOnClothingItem))]//not inlined
 internal static class PlayerManager_PutOnClothingItem
 {
 	private static void Prefix(PlayerManager __instance, GearItem gi, ClothingLayer layerToPutOn)
@@ -30,7 +30,7 @@ internal static class PlayerManager_PutOnClothingItem
 	}
 }
 
-[HarmonyPatch(typeof(PlayerManager), "TakeOffClothingItem")]//Not inlined
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.TakeOffClothingItem))]//Not inlined
 internal static class PlayerManager_TakeOffClothingItem
 {
 	internal static void Postfix(GearItem gi)
@@ -40,7 +40,7 @@ internal static class PlayerManager_TakeOffClothingItem
 	}
 }
 
-[HarmonyPatch(typeof(ClothingSlot), "CheckForChangeLayer")]
+[HarmonyPatch(typeof(ClothingSlot), nameof(ClothingSlot.CheckForChangeLayer))]
 internal static class ClothingSlot_CheckForChangeLayer
 {
 	private static bool Prefix(ClothingSlot __instance)

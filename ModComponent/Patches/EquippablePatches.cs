@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ModComponent.Patches;
 
-[HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsInternal")]//Not inlined
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.UnequipItemInHandsInternal))]//Not inlined
 internal static class PlayerManager_UnequipItemInHandsInternalPatch
 {
 	internal static void Postfix(PlayerManager __instance)
@@ -17,7 +17,7 @@ internal static class PlayerManager_UnequipItemInHandsInternalPatch
 	}
 }
 
-[HarmonyPatch(typeof(PlayerManager), "UnequipItemInHandsSkipAnimation")]//Not inlined
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.UnequipItemInHandsSkipAnimation))]//Not inlined
 internal static class PlayerManager_UnequipItemInHandsSkipAnimation
 {
 	internal static void Prefix(PlayerManager __instance)
@@ -26,7 +26,7 @@ internal static class PlayerManager_UnequipItemInHandsSkipAnimation
 	}
 }
 
-[HarmonyPatch(typeof(PlayerManager), "EquipItem")]//Exists
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.EquipItem))]//Exists
 internal static class PlayerManager_EquipItem
 {
 	internal static void Prefix(PlayerManager __instance, GearItem gi)
@@ -43,7 +43,7 @@ internal static class PlayerManager_EquipItem
 	}
 }
 
-[HarmonyPatch(typeof(PlayerManager), "SetControlMode")]//Exists
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.SetControlMode))]//Exists
 internal static class PlayerManagerSetControlModePatch
 {
 	private static PlayerControlMode lastMode;
@@ -63,7 +63,7 @@ internal static class PlayerManagerSetControlModePatch
 	}
 }
 
-[HarmonyPatch(typeof(PlayerManager), "UseInventoryItem")]//Exists
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.UseInventoryItem))]//Exists
 internal static class PlayerManagerUseInventoryItemPatch
 {
 	internal static bool Prefix(PlayerManager __instance, GearItem gi)
@@ -94,7 +94,7 @@ internal static class PlayerManagerUseInventoryItemPatch
 	}
 }
 
-[HarmonyPatch(typeof(InputManager), "ProcessFireAction")]
+[HarmonyPatch(typeof(InputManager), nameof(InputManager.ProcessFireAction))]
 internal static class InputManagerProcessFireActionPatch
 {
 	public static bool Prefix(MonoBehaviour context)
@@ -117,7 +117,7 @@ internal static class InputManagerProcessFireActionPatch
 }
 
 
-[HarmonyPatch(typeof(InputManager), "ExecuteAltFire")]
+[HarmonyPatch(typeof(InputManager), nameof(InputManager.ExecuteAltFire))]
 internal static class InputManagerExecuteAltFirePatch
 {
 	public static bool Prefix()
@@ -139,7 +139,7 @@ internal static class InputManagerExecuteAltFirePatch
 	}
 }
 
-[HarmonyPatch(typeof(EquipItemPopup), "AllowedToHideAmmoPopup")]//Exists
+[HarmonyPatch(typeof(EquipItemPopup), nameof(EquipItemPopup.AllowedToHideAmmoPopup))]//Exists
 internal static class EquipItemPopup_AllowedToHideAmmoPopup
 {
 	internal static void Postfix(ref bool __result)
@@ -153,7 +153,7 @@ internal static class EquipItemPopup_AllowedToHideAmmoPopup
 	}
 }
 
-[HarmonyPatch(typeof(Panel_Loading), "Enable")]//Exists
+[HarmonyPatch(typeof(Panel_Loading), nameof(Panel_Loading.Enable))]//Exists
 internal static class PanelLoadingEnablePatch
 {
 	public static void Prefix(bool enable)
@@ -166,7 +166,7 @@ internal static class PanelLoadingEnablePatch
 	}
 }
 
-[HarmonyPatch(typeof(PlayerManager), "ItemCanEquipInHands")]//Positive Caller Count
+[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.ItemCanEquipInHands))]//Positive Caller Count
 internal static class PlayerManager_ItemCanEquipInHands
 {
 	private static void Postfix(GearItem gi, ref bool __result)

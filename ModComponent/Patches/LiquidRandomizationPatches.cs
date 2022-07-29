@@ -7,7 +7,7 @@ namespace ModComponent.Patches;
 internal class LiquidItemPatch
 {
 	//make water containers able to have randomized initial quantities
-	[HarmonyPatch(typeof(LiquidItem), "Awake")]
+	[HarmonyPatch(typeof(LiquidItem), nameof(LiquidItem.Awake))]
 	internal static class LiquidItem_Awake
 	{
 		private static void Postfix(LiquidItem __instance)
