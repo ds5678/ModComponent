@@ -4,6 +4,7 @@
 		<LangVersion>Latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -11,15 +12,6 @@
 		<MelonLoaderPath>$(TheLongDarkPath)\MelonLoader</MelonLoaderPath>
 		<ManagedPath>$(MelonLoaderPath)\Managed</ManagedPath>
 		<ModsPath>$(TheLongDarkPath)\Mods</ModsPath>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<AssemblySearchPaths>
-			$(AssemblySearchPaths);
-			$(MelonLoaderPath);
-			$(ManagedPath);
-			$(ModsPath);
-		</AssemblySearchPaths>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,6 +29,21 @@
 		<Reference Include="UnityEngine.CoreModule"/>
 		<Reference Include="UnityEngine.TerrainModule"/>
 	</ItemGroup>
+
+	<PropertyGroup>
+		<AssemblySearchPaths>
+			$(AssemblySearchPaths);
+			$(MelonLoaderPath);
+			$(ManagedPath);
+			$(ModsPath);
+		</AssemblySearchPaths>
+	</PropertyGroup>
+
+	<ItemDefinitionGroup>
+		<Reference>
+			<Private>False</Private>
+		</Reference>
+	</ItemDefinitionGroup>
 
 	<ItemGroup>
 		<PackageReference Include="IsExternalInit" Version="1.0.3">
