@@ -15,7 +15,7 @@ internal class Implementation : MelonMod
 	}
 
 	public override void OnInitializeMelon()
-    {
+	{
 		Logger.LogDebug("Debug Compilation");
 		Logger.LogNotDebug("Release Compilation");
 

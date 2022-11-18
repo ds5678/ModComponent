@@ -46,7 +46,7 @@ static class ResourcePatches
 	//Hinterland stores many of its assets in asset bundles
 	//This allows us to enable external asset loading in key locations
 	//For example, paperdoll textures are loaded from asset bundles
-	[HarmonyPatch(typeof(AssetBundle), "LoadAsset", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
+	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAsset), new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
 	internal static class AssetBundle_LoadAsset
 	{
 		private static bool Prefix(ref string name, ref Object __result)
@@ -67,25 +67,25 @@ static class ResourcePatches
 	}
 
 	//Just for testing
-	/*[HarmonyPatch(typeof(UnityEngine.AssetBundle), "LoadAssetAsync", new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
-        internal static class AssetBundle_LoadAssetAsync
-        {
-            private static void Postfix(string name, Il2CppSystem.Type type,AssetBundle __instance)
-            {
-                Implementation.Log("Tried to asyncronously load '{0}' of type '{1}' from '{2}'", name, type.ToString(),__instance.name);
-            }
-        }
+	/*[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAssetAsync), new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
+	internal static class AssetBundle_LoadAssetAsync
+	{
+		private static void Postfix(string name, Il2CppSystem.Type type,AssetBundle __instance)
+		{
+			Logger.Log($"Tried to asyncronously load '{name}' of type '{type}' from '{__instance.name}'");
+		}
+	}
 
-        [HarmonyPatch(typeof(UnityEngine.AssetBundle), "LoadAllAssets", new System.Type[] { typeof(Il2CppSystem.Type) })]
-        internal static class AssetBundle_LoadAllAssets
-        {
-            private static void Postfix(Il2CppSystem.Type type, AssetBundle __instance, UnhollowerBaseLib.Il2CppReferenceArray<UnityEngine.Object> __result)
-            {
-                Implementation.Log("Tried to load all assets of type '{0}' from '{1}'", type.ToString(), __instance.name);
-                foreach(var obj in __result)
-                {
-                    Implementation.Log("Loaded '{0}'", obj.name);
-                }
-            }
-        }*/
+	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAllAssets), new System.Type[] { typeof(Il2CppSystem.Type) })]
+	internal static class AssetBundle_LoadAllAssets
+	{
+		private static void Postfix(Il2CppSystem.Type type, AssetBundle __instance, UnhollowerBaseLib.Il2CppReferenceArray<UnityEngine.Object> __result)
+		{
+			Logger.Log($"Tried to load all assets of type '{type}' from '{__instance.name}'");
+			foreach(var obj in __result)
+			{
+				Logger.Log($"Loaded '{obj.name}'");
+			}
+		}
+	}*/
 }
