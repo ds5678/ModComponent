@@ -50,16 +50,9 @@ internal static class ModAssetBundleManager
 		return result;
 	}
 
-	public static bool IsKnownAsset(string name)
+	public static bool IsKnownAsset(string? name)
 	{
-		if (name == null)
-		{
-			return false;
-		}
-		else
-		{
-			return GetFullAssetName(name) != null;
-		}
+		return !string.IsNullOrEmpty(GetFullAssetName(name));
 	}
 
 	public static Object LoadAsset(string name)
@@ -191,9 +184,13 @@ internal static class ModAssetBundleManager
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns>a full asset</returns>
-	public static string GetFullAssetName(string name)
+	public static string GetFullAssetName(string? name)
 	{
-		string lowerCaseName = name.ToLowerInvariant();
+		if (string.IsNullOrEmpty(name))
+		{
+			return "";
+		}
+		string lowerCaseName = name!.ToLowerInvariant();
 		if (knownAssetNames.ContainsKey(lowerCaseName))
 		{
 			return lowerCaseName;
