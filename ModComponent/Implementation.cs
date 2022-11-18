@@ -14,8 +14,8 @@ internal class Implementation : MelonMod
 		instance = this;
 	}
 
-	public override void OnApplicationStart()
-	{
+	public override void OnInitializeMelon()
+    {
 		Logger.LogDebug("Debug Compilation");
 		Logger.LogNotDebug("Release Compilation");
 

@@ -18,7 +18,7 @@ static class ResourcePatches
 			MethodInfo[] methods = typeof(Resources).GetMethods();
 			foreach (MethodInfo m in methods)
 			{
-				if (m.Name == "Load" && m.ReturnType == typeof(Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
+				if (m.Name == nameof(Resources.Load) && m.ReturnType == typeof(Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
 				{
 					return m;
 				}

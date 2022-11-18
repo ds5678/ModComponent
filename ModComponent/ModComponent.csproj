@@ -28,6 +28,7 @@
 		<Reference Include="UnityEngine.AssetBundleModule"/>
 		<Reference Include="UnityEngine.CoreModule"/>
 		<Reference Include="UnityEngine.TerrainModule"/>
+		<Reference Include="ValueTupleBridge"/>
 	</ItemGroup>
 
 	<PropertyGroup>
