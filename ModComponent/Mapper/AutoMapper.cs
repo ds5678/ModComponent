@@ -1,4 +1,5 @@
-﻿using ModComponent.API.Components;
+﻿using MelonLoader;
+using ModComponent.API.Components;
 using ModComponent.AssetLoader;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ internal static class AutoMapper
 	private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new();
 
 	private static void AutoMapPrefab(string prefabName)
-	{
+	{		
 		UnityEngine.Object? loadedObject = Resources.Load(prefabName);
 		if (loadedObject == null)
 		{
@@ -39,15 +40,15 @@ internal static class AutoMapper
 
 	private static void LoadAssetBundle(string relativePath)
 	{
-		LoadAssetBundle(ModAssetBundleManager.GetAssetBundle(relativePath));
+        LoadAssetBundle(ModAssetBundleManager.GetAssetBundle(relativePath));
 	}
 	private static void LoadAssetBundle(AssetBundle assetBundle)
 	{
 		string[] assetNames = assetBundle.GetAllAssetNames();
 		foreach (string eachAssetName in assetNames)
-		{
-			//Logger.Log(eachAssetName);
-			if (eachAssetName.EndsWith(".prefab"))
+		{          
+            //Logger.Log(eachAssetName);
+            if (eachAssetName.EndsWith(".prefab"))
 			{
 				AutoMapPrefab(eachAssetName);
 			}

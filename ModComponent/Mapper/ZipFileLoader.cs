@@ -198,7 +198,8 @@ internal static class ZipFileLoader
 			else if (internalPath.StartsWith(@"blueprints/"))
 			{
 				Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
-				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
+				//CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
+				// zombie was here
 			}
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
@@ -238,7 +239,8 @@ internal static class ZipFileLoader
 			try
 			{
 				Logger.Log($"Reading txt from zip at '{internalPath}'");
-				GearSpawner.SpawnManager.ParseSpawnInformation(text);
+				// zombie was here
+				// GearSpawner.SpawnManager.ParseSpawnInformation(text);
 				return true;
 			}
 			catch (Exception e)

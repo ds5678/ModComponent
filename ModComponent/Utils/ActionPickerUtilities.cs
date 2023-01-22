@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ internal static partial class ActionPickerUtilities
 {
 	public static void ShowCustomActionPicker(GameObject objectInteractedWith, List<ActionPickerData> actionList)
 	{
-		Panel_ActionPicker panel = InterfaceManager.m_Panel_ActionPicker;
+		Panel_ActionPicker panel = UnityEngine.Object.FindObjectOfType<Panel_ActionPicker>(true);
 		if (panel == null || InterfaceManager.IsOverlayActiveCached())
 		{
 			return;
@@ -17,7 +16,7 @@ internal static partial class ActionPickerUtilities
 
 		if (panel.m_ActionPickerItemDataList == null)
 		{
-			panel.m_ActionPickerItemDataList = new Il2CppSystem.Collections.Generic.List<Panel_ActionPicker.ActionPickerItemData>();
+			panel.m_ActionPickerItemDataList = new Il2CppSystem.Collections.Generic.List<ActionPickerItemData>();
 		}
 		else
 		{
@@ -29,7 +28,8 @@ internal static partial class ActionPickerUtilities
 			panel.m_ActionPickerItemDataList.Add(element);
 		}
 
-		InterfaceManager.m_Panel_ActionPicker.m_ObjectInteractedWith = objectInteractedWith;
-		InterfaceManager.m_Panel_ActionPicker.EnableWithCurrentList();
+		// Zombie was here
+		panel.m_ObjectInteractedWith = objectInteractedWith;
+		panel.EnableWithCurrentList();
 	}
 }

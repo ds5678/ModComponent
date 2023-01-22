@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using ModComponent.API.Components;
 using UnityEngine;
 
@@ -17,7 +16,7 @@ internal static class GearEquipper
 		GameObject? equippedModelPrefab = Resources.Load(equippable.EquippedModelPrefabName)?.Cast<GameObject>();
 		if (equippedModelPrefab != null)
 		{
-			equippable.EquippedModel = Object.Instantiate(equippedModelPrefab, GameManager.GetWeaponCamera().transform);
+			equippable.EquippedModel = UnityEngine.Object.Instantiate(equippedModelPrefab, GameManager.GetWeaponCamera().transform);
 			equippable.EquippedModel.layer = vp_Layer.Weapon;
 		}
 		else
@@ -52,7 +51,7 @@ internal static class GearEquipper
 
 		if (modComponent.EquippedModel != null)
 		{
-			Object.Destroy(modComponent.EquippedModel);
+            UnityEngine.Object.Destroy(modComponent.EquippedModel);
 			modComponent.EquippedModel = null;
 		}
 

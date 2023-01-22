@@ -55,13 +55,13 @@ internal static class ModAssetBundleManager
 		return !string.IsNullOrEmpty(GetFullAssetName(name));
 	}
 
-	public static Object LoadAsset(string name)
+	public static UnityEngine.Object LoadAsset(string name)
 	{
 		string fullAssetName = GetFullAssetName(name);
 
 		if (knownAssetNames.TryGetValue(fullAssetName, out AssetBundle assetBundle))
 		{
-			Object result = ModComponent.Utils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
+            UnityEngine.Object result = ModComponent.Utils.AssetBundleUtils.LoadAsset(assetBundle, fullAssetName);
 			return result;
 		}
 
@@ -253,14 +253,14 @@ internal static class ModAssetBundleManager
 
 			if (assetName == ASSET_NAME_LOCALIZATION)
 			{
-				Object asset = assetBundle.LoadAsset(eachAssetName);
+                UnityEngine.Object asset = assetBundle.LoadAsset(eachAssetName);
 				LocalizationUtilities.LocalizationManager.LoadLocalization(asset.Cast<TextAsset>(), eachAssetName);
 				continue;
 			}
 
 			if (assetName.EndsWith(ASSET_NAME_SUFFIX))
 			{
-				Object asset = assetBundle.LoadAsset(eachAssetName);
+                UnityEngine.Object asset = assetBundle.LoadAsset(eachAssetName);
 				AtlasManager.LoadUiAtlas(asset);
 				continue;
 			}

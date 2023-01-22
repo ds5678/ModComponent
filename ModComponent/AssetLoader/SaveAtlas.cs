@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using System;
 using UnityEngine;
 

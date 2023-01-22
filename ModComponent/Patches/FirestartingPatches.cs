@@ -1,14 +1,20 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
 using ModComponent.API.Behaviours;
 
 namespace ModComponent.Patches;
+//[HarmonyLib.HarmonyPatch(typeof(GameAudioManager), "PlayMusic", new Type[] { typeof(string), typeof(GameObject) })]
 
-[HarmonyPatch(typeof(FireManager), nameof(FireManager.PlayerStartFire))]//Exists
-internal static class FireManager_PlayerStartFire
+//Fire fire, FireStarterItem starter, FuelSourceItem tinder, FuelSourceItem fuel, FireStarterItem accelerant, Action<bool> onDoneStartingFire
+
+// Yeah I don't know and I don't care for now
+// btw Zombie was here
+
+/*
+[HarmonyPatch(typeof(FireManager), "PlayerStartFire")]
+public class FireManager_PlayerStartFire
 {
-	internal static void Postfix(FireStarterItem starter, bool __result)
+	public static void Postfix(FireStarterItem starter, bool __result)
 	{
 		if (!__result)
 		{
@@ -27,4 +33,6 @@ internal static class FireManager_PlayerStartFire
 			gearItem.BreakOnUse();
 		}
 	}
+
 }
+*/

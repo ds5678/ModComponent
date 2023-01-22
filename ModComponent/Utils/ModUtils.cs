@@ -1,9 +1,9 @@
-﻿extern alias Hinterland;
-using Hinterland;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Il2Cpp;
+using MelonLoader;
 
 namespace ModComponent.Utils;
 
@@ -117,29 +117,32 @@ public static class ModUtils
 	}
 
 	internal static T GetItem<T>(string name, string? reference = null) where T : Component
-	{
-		GameObject? gameObject = Resources.Load(name).TryCast<GameObject>();
-		if (gameObject == null)
+	{        
+        GameObject? gameObject = Resources.Load(name).TryCast<GameObject>();
+    
+        if (gameObject == null)
 		{
-			throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
+            throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
 		}
 
-		T targetType = ComponentUtils.GetComponentSafe<T>(gameObject);
+        T targetType = ComponentUtils.GetComponentSafe<T>(gameObject);
 		if (targetType == null)
 		{
 			throw new ArgumentException("'" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + " is not a '" + typeof(T).Name + "'.");
 		}
 
-		return targetType;
+        return targetType;
 	}
 
 	internal static T[] GetItems<T>(string[] names, string? reference = null) where T : Component
 	{
-		T[] result = new T[names.Length];
+
+        T[] result = new T[names.Length];
 
 		for (int i = 0; i < names.Length; i++)
 		{
-			result[i] = GetItem<T>(names[i], reference);
+
+            result[i] = GetItem<T>(names[i], reference);
 		}
 
 		return result;

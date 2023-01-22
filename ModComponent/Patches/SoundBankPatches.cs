@@ -1,6 +1,5 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
 using ModComponent.AssetLoader;
 
 namespace ModComponent.Patches;

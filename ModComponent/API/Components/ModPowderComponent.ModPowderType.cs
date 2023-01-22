@@ -1,4 +1,4 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 
 namespace ModComponent.API.Components;
 

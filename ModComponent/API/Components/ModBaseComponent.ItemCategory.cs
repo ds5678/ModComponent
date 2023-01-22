@@ -11,5 +11,5 @@ public abstract partial class ModBaseComponent
 		Food,
 		Material,
 		Tool
-	}
+    }
 }

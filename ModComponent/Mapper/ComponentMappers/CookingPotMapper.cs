@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using ModComponent.API.Components;
 using UnityEngine;
 
@@ -48,7 +47,7 @@ internal static class CookingPotMapper
 		cookingPotItem.m_SnowMesh = modCookingPotComponent.SnowMesh;
 		cookingPotItem.m_WaterMesh = modCookingPotComponent.WaterMesh;
 
-		GameObject grubMesh = Object.Instantiate(template.m_GrubMeshFilter.gameObject, cookingPotItem.transform);
+		GameObject grubMesh = UnityEngine.Object.Instantiate(template.m_GrubMeshFilter.gameObject, cookingPotItem.transform);
 		cookingPotItem.m_GrubMeshFilter = grubMesh.GetComponent<MeshFilter>();
 		cookingPotItem.m_GrubMeshRenderer = grubMesh.GetComponent<MeshRenderer>();
 

@@ -18,7 +18,7 @@ static class ResourcePatches
 			MethodInfo[] methods = typeof(Resources).GetMethods();
 			foreach (MethodInfo m in methods)
 			{
-				if (m.Name == nameof(Resources.Load) && m.ReturnType == typeof(Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
+				if (m.Name == nameof(Resources.Load) && m.ReturnType == typeof(UnityEngine.Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
 				{
 					return m;
 				}
@@ -26,7 +26,7 @@ static class ResourcePatches
 			Logger.LogError("Resources.Load not found for patch.");
 			return null;
 		}
-		internal static bool Prefix(ref string path, ref Object __result)
+		internal static bool Prefix(ref string path, ref UnityEngine.Object __result)
 		{
 			if (!ModAssetBundleManager.IsKnownAsset(path))
 			{
@@ -49,7 +49,7 @@ static class ResourcePatches
 	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAsset), new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
 	internal static class AssetBundle_LoadAsset
 	{
-		private static bool Prefix(ref string name, ref Object __result)
+		private static bool Prefix(ref string name, ref UnityEngine.Object __result)
 		{
 			if (!ModAssetBundleManager.IsKnownAsset(name))
 			{

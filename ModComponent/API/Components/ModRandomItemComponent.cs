@@ -1,8 +1,7 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
-using UnhollowerBaseLib.Attributes;
+using Il2CppInterop; using Il2CppInterop.Runtime.Attributes;
 using UnityEngine;
 
 namespace ModComponent.API.Components;

@@ -1,7 +1,7 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
 using ModComponent.API.Components;
+using Il2CppTLD.Gear;
 
 namespace ModComponent.Patches;
 
@@ -41,12 +41,15 @@ internal static class AlternativePowderPatches
 				prefabName = yeastPrefabName;
 			}
 
-			if (!Hinterland::Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
+			if (!Il2Cpp.Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
 			{
 				while (num > 0f)
 				{
-					GearItem gearItem2 = __instance.InstantiateItemInPlayerInventory(prefabName, 1);
-					if (gearItem2 && gearItem2.m_PowderItem && gearItem2.m_PowderItem.m_Type == type)
+                    // Zombie was here
+                    //GearItem gearItem2 = __instance.InstantiateItemInPlayerInventory(prefabName, 1);
+                    GearItem gearItem2 = __instance.InstantiateItemInPlayerInventory(new AssetReferenceGearItem(prefabName), 1);
+
+                    if (gearItem2 && gearItem2.m_PowderItem && gearItem2.m_PowderItem.m_Type == type)
 					{
 						gearItem2.m_PowderItem.m_WeightKG = 0f;
 						num = gearItem2.m_PowderItem.Add(num);

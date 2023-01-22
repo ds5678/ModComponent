@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MelonLoader;
+using System;
 using System.Linq;
 
 namespace ModComponent.Utils;
@@ -11,8 +12,8 @@ public static class EnumUtils
 	}
 
 	public static T TranslateEnumValue<T, E>(E value) where T : Enum where E : Enum
-	{
-		return (T)Enum.Parse(typeof(T), Enum.GetName(typeof(E), value));
+	{ 
+        return (T)Enum.Parse(typeof(T), Enum.GetName(typeof(E), value));
 	}
 
 	public static T GetMaxValue<T>() where T : Enum

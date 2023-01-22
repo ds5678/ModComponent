@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 
 namespace ModComponent.Utils;
 
@@ -17,22 +16,8 @@ public static class PlayerUtils
 
 	public static PlayerGender GetPlayerGender()
 	{
-		if (GameManager.GetPlayerManagerComponent() == null)
-		{
-			return PlayerGender.Unknown;
-		}
-
-		if (InterfaceManager.m_Panel_OptionsMenu?.m_State == null)
-		{
-			return PlayerGender.Unknown;
-		}
-
-		if (GameManager.GetPlayerManagerComponent().m_VoicePersona != InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona)
-		{
-			return PlayerGender.Unknown;
-		}
-
-		if (InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona == VoicePersona.Female)
+		// Zombie was here	
+        if (PlayerManager.m_VoicePersona == VoicePersona.Female)
 		{
 			return PlayerGender.Female;
 		}

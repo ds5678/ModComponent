@@ -1,5 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
-using UnhollowerBaseLib.Attributes;
+using Il2CppInterop; using Il2CppInterop.Runtime.Attributes;
 
 namespace ModComponent.API.Components;
 

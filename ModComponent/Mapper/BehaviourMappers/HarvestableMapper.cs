@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+using MelonLoader;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Utils;
@@ -23,16 +23,17 @@ internal static class HarvestableMapper
 		harvest.m_Audio = modHarvestableComponent.Audio;
 		harvest.m_DurationMinutes = modHarvestableComponent.Minutes;
 
-		if (modHarvestableComponent.YieldNames.Length != modHarvestableComponent.YieldCounts.Length)
+        if (modHarvestableComponent.YieldNames.Length != modHarvestableComponent.YieldCounts.Length)
 		{
 			throw new ArgumentException("YieldNames and YieldCounts do not have the same length on gear item '" + modHarvestableComponent.name + "'.");
 		}
 
-		harvest.m_YieldGear = ModUtils.GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
+        harvest.m_YieldGear = ModUtils.GetItems<GearItem>(modHarvestableComponent.YieldNames, modHarvestableComponent.name);
 		harvest.m_YieldGearUnits = modHarvestableComponent.YieldCounts;
 
-		harvest.m_AppliedSkillType = SkillType.None;
+        harvest.m_AppliedSkillType = SkillType.None;
 		harvest.m_RequiredTools = ModUtils.GetItems<ToolsItem>(modHarvestableComponent.RequiredToolNames, modHarvestableComponent.name);
 		harvest.m_GunpowderYield = 0f;
-	}
+
+    }
 }
