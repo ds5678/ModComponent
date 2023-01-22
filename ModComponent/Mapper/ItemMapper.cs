@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Mapper.BehaviourMappers;
@@ -8,6 +7,9 @@ using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Il2CppTLD.Gear;
+using UnityEngine.Playables;
+using MelonLoader;
 
 namespace ModComponent.Mapper;
 
@@ -115,99 +117,120 @@ internal static class ItemMapper
 	private static void ConfigureGearItem(ModBaseComponent modComponent)
 	{
 		GearItem gearItem = ComponentUtils.GetOrCreateComponent<GearItem>(modComponent);
+       
+        gearItem.m_GearItemData = new GearItemData();
+        
+        gearItem.GearItemData.m_Type = GetGearType(modComponent);
+       
+		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
+        
+        gearItem.GearItemData.m_MaxHP = modComponent.MaxHP;
+        
+        gearItem.GearItemData.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
+        
+        gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, ModBaseComponent.StartingCondition>(modComponent.InitialCondition), false);
+        // OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
+     
+        gearItem.GearItemData.m_LocalizedName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
+        gearItem.GearItemData.m_LocalizedDescription = NameUtils.CreateLocalizedString(modComponent.DescriptionLocalizatonId);
 
-		gearItem.m_Type = GetGearType(modComponent);
-		gearItem.m_WeightKG = modComponent.WeightKG;
-		gearItem.m_MaxHP = modComponent.MaxHP;
-		gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
-		gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, ModBaseComponent.StartingCondition>(modComponent.InitialCondition), false);
-		// OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
 
-		gearItem.m_LocalizedDisplayName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
-		gearItem.m_LocalizedDescription = NameUtils.CreateLocalizedString(modComponent.DescriptionLocalizatonId);
 
-		gearItem.m_PickUpAudio = modComponent.PickUpAudio;
-		gearItem.m_StowAudio = modComponent.StowAudio;
-		gearItem.m_PutBackAudio = modComponent.PickUpAudio;
-		gearItem.m_WornOutAudio = modComponent.WornOutAudio;
+        /* Zombies doesn't do WWISE
+		Il2CppAK.Wwise.Event foo = new Il2CppAK.Wwise.Event();
+               
+        gearItem.GearItemData.m_PickupAudio = modComponent.PickUpAudio;
+        gearItem.GearItemData.m_StowAudio = modComponent.StowAudio;
+        gearItem.GearItemData.m_PutBackAudio = modComponent.PickUpAudio;
+        gearItem.GearItemData.m_WornOutAudio = modComponent.WornOutAudio;*/
 
-		gearItem.m_ConditionTableType = GetConditionTableType(modComponent);
-		gearItem.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
-
-		gearItem.Awake();
+        gearItem.GearItemData.m_PickupAudio = null;
+        gearItem.GearItemData.m_StowAudio = null;
+        gearItem.GearItemData.m_PutBackAudio = null;
+        gearItem.GearItemData.m_WornOutAudio = null;
+        gearItem.GearItemData.m_ConditionType = GetConditionTableType(modComponent);
+        gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
+      
+        gearItem.Awake();
 	}
 
-	private static ConditionTableManager.ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
+	private static ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
 	{
 		ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
 		if (modFoodComponent != null)
 		{
 			if (modFoodComponent.Canned)
 			{
-				return ConditionTableManager.ConditionTableType.CannedFood;
+                return ConditionTableType.CannedFood;
 			}
 
 			if (modFoodComponent.Meat)
 			{
-				return ConditionTableManager.ConditionTableType.Meat;
+				return ConditionTableType.Meat;
 			}
 
 			if (!modFoodComponent.Natural && !modFoodComponent.Drink)
 			{
-				return ConditionTableManager.ConditionTableType.DryFood;
+				return ConditionTableType.DryFood;
 			}
 
-			return ConditionTableManager.ConditionTableType.Unknown;
+			return ConditionTableType.Unknown;
 		}
 
-		return ConditionTableManager.ConditionTableType.Unknown;
+		return ConditionTableType.Unknown;
 	}
 
-	private static GearTypeEnum GetGearType(ModBaseComponent modComponent)
-	{
-		if (modComponent.InventoryCategory != ModBaseComponent.ItemCategory.Auto)
-		{
-			return EnumUtils.TranslateEnumValue<GearTypeEnum, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
+	private static GearType GetGearType(ModBaseComponent modComponent)
+	{        
+        if (modComponent.InventoryCategory != ModBaseComponent.ItemCategory.Auto)
+		{       
+            return EnumUtils.TranslateEnumValue<GearType, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
 		}
 
-		if (modComponent is ModToolComponent)
+        if (modComponent is ModToolComponent)
 		{
-			return GearTypeEnum.Tool;
+			return GearType.Tool;
 		}
 
-		if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == ModLiquidComponent.LiquidKind.Water)
+        if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == ModLiquidComponent.LiquidKind.Water)
 		{
-			return GearTypeEnum.Food;
+			return GearType.Food;
 		}
 
-		if (modComponent is ModClothingComponent)
+        if (modComponent is ModClothingComponent)
 		{
-			return GearTypeEnum.Clothing;
+			return GearType.Clothing;
 		}
 
-		if (ComponentUtils.GetComponentSafe<ModFireMakingBaseBehaviour>(modComponent) != null || ComponentUtils.GetComponentSafe<ModBurnableBehaviour>(modComponent) != null)
+        if (ComponentUtils.GetComponentSafe<ModFireMakingBaseBehaviour>(modComponent) != null || ComponentUtils.GetComponentSafe<ModBurnableBehaviour>(modComponent) != null)
 		{
-			return GearTypeEnum.Firestarting;
+			return GearType.Firestarting;
 		}
 
-		return GearTypeEnum.Other;
+        return GearType.Other;
 	}
 
 	private static void PostProcess(ModBaseComponent modComponent)
 	{
-		modComponent.gameObject.layer = vp_Layer.Gear;
+        modComponent.gameObject.layer = vp_Layer.Gear;
 
-		GearItem gearItem = modComponent.GetComponent<GearItem>();
+        GearItem gearItem = modComponent.GetComponent<GearItem>();
 		gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
 
-		GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
-		MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
 
-		foreach (MeshRenderer? eachMeshRenderer in gearItem.m_MeshRenderers)
+        // fuck it
+        // zombie was here
+
+		/*
+        GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
+        MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
+        
+
+        foreach (MeshRenderer? eachMeshRenderer in gearItem.m_MeshRenderers)
 		{
 			foreach (Material? eachMaterial in eachMeshRenderer.materials)
-			{
-				if (eachMaterial.shader.name == "Standard")
+			{            
+                if (eachMaterial.shader.name == "Standard")
 				{
 					eachMaterial.shader = meshRenderer.material.shader;
 					eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
@@ -219,7 +242,7 @@ internal static class ItemMapper
 				}
 			}
 		}
-
+		*/
 		ConsoleWaitlist.MaybeRegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name);
 
 		UnityEngine.Object.DontDestroyOnLoad(modComponent.gameObject);

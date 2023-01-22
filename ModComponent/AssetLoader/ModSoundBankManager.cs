@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -79,12 +78,15 @@ internal static class ModSoundBankManager
 	}
 	private static void LoadSoundBank(byte[] data, string? soundBankPath = null)
 	{
+        // Zombie was here
+        /*
 		// allocate memory and copy file contents to aligned address
 		IntPtr allocated = Marshal.AllocHGlobal(data.Length + MEMORY_ALIGNMENT - 1);
 		IntPtr aligned = new IntPtr((allocated.ToInt64() + MEMORY_ALIGNMENT - 1) / MEMORY_ALIGNMENT * MEMORY_ALIGNMENT);
 		Marshal.Copy(data, 0, aligned, data.Length);
 
-		AKRESULT result = AkSoundEngine.LoadBank(aligned, (uint)data.Length, out uint bankID);
+        AKRESULT result = AkSoundEngine.LoadBank(aligned, (uint)data.Length, out uint bankID);
+        
 		if (result != AKRESULT.AK_Success)
 		{
 			if (string.IsNullOrEmpty(soundBankPath))
@@ -99,5 +101,6 @@ internal static class ModSoundBankManager
 			Logger.Log($"Result was {result}.");
 			Marshal.FreeHGlobal(allocated);
 		}
-	}
+		*/
+    }
 }

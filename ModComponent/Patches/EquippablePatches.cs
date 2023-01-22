@@ -1,6 +1,5 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
 using ModComponent.API.Components;
 using ModComponent.Mapper;
 using ModComponent.Utils;

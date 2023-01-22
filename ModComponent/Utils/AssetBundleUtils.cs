@@ -1,5 +1,9 @@
-﻿using Il2CppSystem;
+﻿using Il2Cpp;
+using Il2CppSystem;
 using UnityEngine;
+using Il2CppInterop;
+using Il2CppInterop.Runtime.Injection;
+using Il2CppInterop.Runtime;
 
 namespace ModComponent.Utils;
 
@@ -13,19 +17,19 @@ public static class AssetBundleUtils
 	/// </summary>
 	public static UnityEngine.Object LoadAsset(AssetBundle assetBundle, string name)
 	{
-		return LoadAsset(assetBundle, name, UnhollowerRuntimeLib.Il2CppType.Of<UnityEngine.Object>());
+		return LoadAsset(assetBundle, name, Il2CppType.Of<UnityEngine.Object>());
 	}
 	/// <summary>
 	/// Loads an asset without triggering the AssetLoader patches
 	/// </summary>
 	public static T? LoadAsset<T>(AssetBundle assetBundle, string name) where T : UnityEngine.Object
 	{
-		return LoadAsset(assetBundle, name, UnhollowerRuntimeLib.Il2CppType.Of<T>())?.TryCast<T>();
+		return LoadAsset(assetBundle, name, Il2CppType.Of<T>())?.TryCast<T>();
 	}
 	/// <summary>
 	/// Loads an asset without triggering the AssetLoader patches
 	/// </summary>
-	public static UnityEngine.Object LoadAsset(AssetBundle assetBundle, string name, Type type)
+	public static UnityEngine.Object LoadAsset(AssetBundle assetBundle, string name, Il2CppSystem.Type type)
 	{
 		if (assetBundle == null)
 		{

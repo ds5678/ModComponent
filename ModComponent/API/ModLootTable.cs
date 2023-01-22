@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using Il2CppSystem.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +17,8 @@ internal class ModLootTable : LootTable
 		//Set variable values here
 
 		int len = System.Math.Min(prefabNames.Length, weights.Length);
-		m_Prefabs = new List<GameObject>();
-		m_Weights = new List<int>();
+		m_Prefabs = new Il2CppSystem.Collections.Generic.List<GameObject>();
+		m_Weights = new Il2CppSystem.Collections.Generic.List<int>();
 		for (int i = 0; i < len; i++)
 		{
 			GameObject? go = Resources.Load(prefabNames[i])?.TryCast<GameObject>();

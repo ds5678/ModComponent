@@ -1,5 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using UnityEngine;
 
 namespace ModComponent.API.Modifications;
