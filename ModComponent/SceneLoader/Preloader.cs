@@ -1,6 +1,6 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
+
 using ModComponent.Utils;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ public static class Preloader
 		else
 		{
 			gameManagerObjectPrefab = new GameObject();
-			Object.DontDestroyOnLoad(gameManagerObjectPrefab);
+			UnityEngine.Object.DontDestroyOnLoad(gameManagerObjectPrefab);
 			gameManagerObjectPrefab.SetActive(false);
 			gameManagerObjectPrefab.name = gameManager.name;
 
@@ -38,7 +38,7 @@ public static class Preloader
 		else
 		{
 			Logger.Log("instantiate");
-			Object.Instantiate(gameManagerObjectPrefab).SetActive(true);
+			UnityEngine.Object.Instantiate(gameManagerObjectPrefab).SetActive(true);
 		}
 	}
 

@@ -1,6 +1,6 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
+
 using System.Collections.Generic;
 
 namespace ModComponent.Mapper;
@@ -40,7 +40,7 @@ internal static class FagtigueBuffApplyPatch
 		}
 		else
 		{
-			BuffCauseTracker.SetCause(AfflictionType.ReducedFatigue, gearItem.m_LocalizedDisplayName.Text());
+			BuffCauseTracker.SetCause(AfflictionType.ReducedFatigue, gearItem.DisplayName);
 		}
 	}
 }

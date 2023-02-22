@@ -1,12 +1,9 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Mapper.BehaviourMappers;
 using ModComponent.Mapper.ComponentMappers;
 using ModComponent.Utils;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModComponent.Mapper;
@@ -116,81 +113,81 @@ internal static class ItemMapper
 	{
 		GearItem gearItem = ComponentUtils.GetOrCreateComponent<GearItem>(modComponent);
 
-		gearItem.m_Type = GetGearType(modComponent);
-		gearItem.m_WeightKG = modComponent.WeightKG;
-		gearItem.m_MaxHP = modComponent.MaxHP;
-		gearItem.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
+		gearItem.GearItemData.m_Type = GetGearType(modComponent);
+		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
+		gearItem.GearItemData.m_MaxHP = modComponent.MaxHP;
+		gearItem.GearItemData.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
 		gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, ModBaseComponent.StartingCondition>(modComponent.InitialCondition), false);
 		// OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
 
-		gearItem.m_LocalizedDisplayName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
-		gearItem.m_LocalizedDescription = NameUtils.CreateLocalizedString(modComponent.DescriptionLocalizatonId);
+		gearItem.GearItemData.m_LocalizedName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
+		gearItem.GearItemData.m_LocalizedDescription = NameUtils.CreateLocalizedString(modComponent.DescriptionLocalizatonId);
 
-		gearItem.m_PickUpAudio = modComponent.PickUpAudio;
-		gearItem.m_StowAudio = modComponent.StowAudio;
-		gearItem.m_PutBackAudio = modComponent.PickUpAudio;
-		gearItem.m_WornOutAudio = modComponent.WornOutAudio;
+		gearItem.GearItemData.m_PickupAudio = ModUtils.GetWwiseEventFromString(modComponent.PickUpAudio);
+		gearItem.GearItemData.m_StowAudio = ModUtils.GetWwiseEventFromString(modComponent.StowAudio);
+		gearItem.GearItemData.m_PutBackAudio = ModUtils.GetWwiseEventFromString(modComponent.PickUpAudio);
+		gearItem.GearItemData.m_WornOutAudio = ModUtils.GetWwiseEventFromString(modComponent.WornOutAudio);
 
-		gearItem.m_ConditionTableType = GetConditionTableType(modComponent);
-		gearItem.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
+		gearItem.GearItemData.m_ConditionType = GetConditionTableType(modComponent);
+		gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
 
 		gearItem.Awake();
 	}
 
-	private static ConditionTableManager.ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
+	private static Il2CppTLD.Gear.ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
 	{
 		ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
 		if (modFoodComponent != null)
 		{
 			if (modFoodComponent.Canned)
 			{
-				return ConditionTableManager.ConditionTableType.CannedFood;
+				return Il2CppTLD.Gear.ConditionTableType.CannedFood;
 			}
 
 			if (modFoodComponent.Meat)
 			{
-				return ConditionTableManager.ConditionTableType.Meat;
+				return Il2CppTLD.Gear.ConditionTableType.Meat;
 			}
 
 			if (!modFoodComponent.Natural && !modFoodComponent.Drink)
 			{
-				return ConditionTableManager.ConditionTableType.DryFood;
+				return Il2CppTLD.Gear.ConditionTableType.DryFood;
 			}
 
-			return ConditionTableManager.ConditionTableType.Unknown;
+			return Il2CppTLD.Gear.ConditionTableType.Unknown;
 		}
 
-		return ConditionTableManager.ConditionTableType.Unknown;
+		return Il2CppTLD.Gear.ConditionTableType.Unknown;
 	}
 
-	private static GearTypeEnum GetGearType(ModBaseComponent modComponent)
+	private static Il2CppTLD.Gear.GearType GetGearType(ModBaseComponent modComponent)
 	{
 		if (modComponent.InventoryCategory != ModBaseComponent.ItemCategory.Auto)
 		{
-			return EnumUtils.TranslateEnumValue<GearTypeEnum, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
+			return Il2CppTLD.Gear.GearType.Other;
 		}
 
 		if (modComponent is ModToolComponent)
 		{
-			return GearTypeEnum.Tool;
+			return Il2CppTLD.Gear.GearType.Tool;
 		}
 
 		if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == ModLiquidComponent.LiquidKind.Water)
 		{
-			return GearTypeEnum.Food;
+			return Il2CppTLD.Gear.GearType.Food;
 		}
 
 		if (modComponent is ModClothingComponent)
 		{
-			return GearTypeEnum.Clothing;
+			return Il2CppTLD.Gear.GearType.Clothing;
 		}
 
 		if (ComponentUtils.GetComponentSafe<ModFireMakingBaseBehaviour>(modComponent) != null || ComponentUtils.GetComponentSafe<ModBurnableBehaviour>(modComponent) != null)
 		{
-			return GearTypeEnum.Firestarting;
+			return Il2CppTLD.Gear.GearType.Firestarting;
 		}
 
-		return GearTypeEnum.Other;
+		return Il2CppTLD.Gear.GearType.Other;
 	}
 
 	private static void PostProcess(ModBaseComponent modComponent)

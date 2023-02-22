@@ -1,7 +1,8 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
+
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace ModComponent.Mapper;
 
@@ -43,7 +44,8 @@ internal static class ConsoleWaitlist
 
 	private static void RegisterConsoleGearName(string displayName, string prefabName)
 	{
-		ConsoleManager.AddCustomGearName(displayName.ToLower(), prefabName.ToLower());
+		ConsoleManager.m_SearchStringToGearNames.Add(displayName,prefabName);
+//		ConsoleManager.AddCustomGearName(displayName.ToLower(), prefabName.ToLower());
 	}
 
 	[HarmonyPatch(typeof(ConsoleManager), nameof(ConsoleManager.Initialize))]

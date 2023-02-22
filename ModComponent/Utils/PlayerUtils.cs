@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 
 namespace ModComponent.Utils;
 
@@ -22,17 +22,12 @@ public static class PlayerUtils
 			return PlayerGender.Unknown;
 		}
 
-		if (InterfaceManager.m_Panel_OptionsMenu?.m_State == null)
+		if (InterfaceManager.GetPanel<Panel_OptionsMenu>()?.State == null)
 		{
 			return PlayerGender.Unknown;
 		}
 
-		if (GameManager.GetPlayerManagerComponent().m_VoicePersona != InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona)
-		{
-			return PlayerGender.Unknown;
-		}
-
-		if (InterfaceManager.m_Panel_OptionsMenu.m_State.m_VoicePersona == VoicePersona.Female)
+		if (PlayerManager.m_VoicePersona == VoicePersona.Female)
 		{
 			return PlayerGender.Female;
 		}

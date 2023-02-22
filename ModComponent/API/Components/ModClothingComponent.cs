@@ -2,7 +2,7 @@
 using ModComponent.Utils;
 using System;
 using System.Reflection;
-using UnhollowerBaseLib.Attributes;
+using Il2CppInterop.Runtime.Attributes;
 
 namespace ModComponent.API.Components;
 

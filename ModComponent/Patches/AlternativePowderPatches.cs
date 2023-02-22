@@ -1,6 +1,6 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
+
 using ModComponent.API.Components;
 
 namespace ModComponent.Patches;
@@ -22,9 +22,9 @@ internal static class AlternativePowderPatches
 			}
 
 			float num = amount;
-			foreach (GearItemObject gearItemObject in GameManager.GetInventoryComponent().m_Items)
+			foreach (Il2CppTLD.Gear.GearItemObject gearItemObject in GameManager.GetInventoryComponent().m_Items)
 			{
-				GearItem gearItem = gearItemObject;
+				GearItem gearItem = gearItemObject.m_GearItem;
 				if (gearItem && gearItem.m_PowderItem && gearItem.m_PowderItem.m_Type == type)
 				{
 					num = gearItem.m_PowderItem.Add(num);
@@ -41,11 +41,12 @@ internal static class AlternativePowderPatches
 				prefabName = yeastPrefabName;
 			}
 
-			if (!Hinterland::Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
+			if (Il2Cpp.Utils.IsZero(num, 0.0001f) && !string.IsNullOrEmpty(prefabName))
 			{
 				while (num > 0f)
 				{
-					GearItem gearItem2 = __instance.InstantiateItemInPlayerInventory(prefabName, 1);
+					GearItem tempGi = GearItem.LoadGearItemPrefab(prefabName);
+					GearItem gearItem2 = __instance.InstantiateItemInPlayerInventory(tempGi, 1);
 					if (gearItem2 && gearItem2.m_PowderItem && gearItem2.m_PowderItem.m_Type == type)
 					{
 						gearItem2.m_PowderItem.m_WeightKG = 0f;

@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 
 namespace ModComponent.Utils;
 

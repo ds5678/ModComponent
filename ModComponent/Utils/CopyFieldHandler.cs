@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Il2CppInterop.Runtime;
+using UnityEngine;
 using static ModComponent.Utils.NameUtils;
 
 namespace ModComponent.Utils;
@@ -44,7 +45,7 @@ public static class CopyFieldHandler
 
 	internal static void CopyFieldsIl2Cpp<T>(T copyTo, T copyFrom) where T : Il2CppSystem.Object
 	{
-		Il2CppSystem.Type typeOfT = UnhollowerRuntimeLib.Il2CppType.Of<T>();
+		Il2CppSystem.Type typeOfT = Il2CppType.Of<T>();
 		Il2CppSystem.Reflection.FieldInfo[] fieldInfos = typeOfT.GetFields();
 		foreach (Il2CppSystem.Reflection.FieldInfo fieldInfo in fieldInfos)
 		{

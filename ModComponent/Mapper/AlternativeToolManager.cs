@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 using ModComponent.API.Components;
 using System.Collections.Generic;
 using UnityEngine;

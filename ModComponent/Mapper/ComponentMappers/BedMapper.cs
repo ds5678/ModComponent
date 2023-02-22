@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 using ModComponent.API.Components;
 using ModComponent.Utils;
 using UnityEngine;
@@ -18,7 +18,7 @@ internal static class BedMapper
 
 		Bed bed = ComponentUtils.GetOrCreateComponent<Bed>(modBedComponent);
 
-		bed.m_LocalizedDisplayName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
+		bed.name = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId).Text();
 		bed.m_ConditionPercentGainPerHour = modBedComponent.ConditionGainPerHour;
 		bed.m_UinterruptedRestPercentGainPerHour = modBedComponent.AdditionalConditionGainPerHour;
 		bed.m_WarmthBonusCelsius = modBedComponent.WarmthBonusCelsius;

@@ -1,6 +1,6 @@
-﻿extern alias Hinterland;
+﻿using Il2Cpp;
 using HarmonyLib;
-using Hinterland;
+
 using ModComponent.API.Behaviours;
 
 namespace ModComponent.Patches;
@@ -8,12 +8,12 @@ namespace ModComponent.Patches;
 [HarmonyPatch(typeof(FireManager), nameof(FireManager.PlayerStartFire))]//Exists
 internal static class FireManager_PlayerStartFire
 {
-	internal static void Postfix(FireStarterItem starter, bool __result)
+	internal static void Postfix(FireStarterItem starter)
 	{
-		if (!__result)
-		{
-			return;
-		}
+		//if (!__result)
+		//{
+		//	return;
+		//}
 
 		ModFireStarterBehaviour modFireStarterComponent = ModComponent.Utils.ComponentUtils.GetComponentSafe<ModFireStarterBehaviour>(starter);
 		if (modFireStarterComponent == null || !modFireStarterComponent.RuinedAfterUse)

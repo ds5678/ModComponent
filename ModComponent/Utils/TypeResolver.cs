@@ -1,4 +1,5 @@
-﻿namespace ModComponent.Utils;
+﻿using Il2CppInterop.Runtime;
+namespace ModComponent.Utils;
 
 internal class TypeResolver
 {
@@ -34,7 +35,7 @@ internal class TypeResolver
 		System.Type result = System.Type.GetType(name, false);
 		if (result != null)
 		{
-			return UnhollowerRuntimeLib.Il2CppType.From(result, false);
+			return Il2CppType.From(result, false);
 		}
 
 		System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
@@ -43,7 +44,7 @@ internal class TypeResolver
 			result = eachAssembly.GetType(name, false);
 			if (result != null)
 			{
-				return UnhollowerRuntimeLib.Il2CppType.From(result, false);
+				return Il2CppType.From(result, false);
 			}
 		}
 
@@ -64,7 +65,7 @@ internal class TypeResolver
 		}
 		else
 		{
-			return type.IsSubclassOf(UnhollowerRuntimeLib.Il2CppType.Of<UnityEngine.MonoBehaviour>());
+			return type.IsSubclassOf(Il2CppType.Of<UnityEngine.MonoBehaviour>());
 		}
 	}
 }

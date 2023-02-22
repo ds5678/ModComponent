@@ -1,59 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<!--This is an xml comment. Comments have no impact on compiling.-->
+
 	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
+		<!--This is the .NET version the mod will be compiled with. Don't change it.-->
+		<TargetFramework>net6.0</TargetFramework>
+
+		<!--This tells the compiler to use the latest C# version.-->
 		<LangVersion>Latest</LangVersion>
+
+		<!--This adds global usings for a few common System namespaces.-->
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!--This enables nullable annotation and analysis. It's good coding form.-->
 		<Nullable>enable</Nullable>
+
+		<!--This tells the compiler to use assembly attributes instead of generating its own.-->
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<DebugType>none</DebugType>
+
+		<!--PDB files give line numbers in stack traces (errors). This is useful for debugging. There are 3 options:-->
+		<!--full has a pdb file created beside the dll.-->
+		<!--embedded has the pdb data embedded within the dll. This is useful because bug reports will then have line numbers.-->
+		<!--none skips creation of pdb data.-->
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<TheLongDarkPath>E:\Games\TLD400</TheLongDarkPath>
-		<MelonLoaderPath>$(TheLongDarkPath)\MelonLoader</MelonLoaderPath>
-		<ManagedPath>$(MelonLoaderPath)\Managed</ManagedPath>
-		<ModsPath>$(TheLongDarkPath)\Mods</ModsPath>
-	</PropertyGroup>
-
+	<!--This is the of packages that the mod references.-->
 	<ItemGroup>
-		<Reference Include="0Harmony"/>
-		<Reference Include="Assembly-CSharp"><Aliases>Hinterland</Aliases></Reference>
-		<Reference Include="CraftingRevisions"/>
-		<Reference Include="GearSpawner"/>
-		<Reference Include="Il2Cppmscorlib"/>
-		<Reference Include="Il2CppSystem"/>
-		<Reference Include="LocalizationUtilities"/>
-		<Reference Include="MelonLoader"/>
-		<Reference Include="ModSettings"/>
-		<Reference Include="UnhollowerBaseLib"/>
-		<Reference Include="UnityEngine.AssetBundleModule"/>
-		<Reference Include="UnityEngine.CoreModule"/>
-		<Reference Include="UnityEngine.TerrainModule"/>
-		<Reference Include="ValueTupleBridge"/>
+		<!--This package contains almost everything a person could possibly need to reference while modding.-->
+		<PackageReference Include="ds5678.Modding.TLD.Il2CppAssemblies.Windows" Version="2.6.0" />
+		<PackageReference Include="ds5678.Modding.TLD.ModSettings" Version="1.9.0" />
+		<!--The package version here in this template may be outdated and need to be updated. Visual Studio can update package versions automatically.-->
+		<!--If the mod references any other mods (such as ModSettings), that NuGet package will also need to be listed here.-->
 	</ItemGroup>
-
-	<PropertyGroup>
-		<AssemblySearchPaths>
-			$(AssemblySearchPaths);
-			$(MelonLoaderPath);
-			$(ManagedPath);
-			$(ModsPath);
-		</AssemblySearchPaths>
-	</PropertyGroup>
-
-	<ItemDefinitionGroup>
-		<Reference>
-			<Private>False</Private>
-		</Reference>
-	</ItemDefinitionGroup>
-
+	
 	<ItemGroup>
-		<PackageReference Include="IsExternalInit" Version="1.0.3">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Nullable" Version="1.3.1">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+	  <Reference Include="CraftingRevisions">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\CraftingRevisions.dll</HintPath>
+	  </Reference>
+	  <Reference Include="GearSpawner">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\GearSpawner.dll</HintPath>
+	  </Reference>
+	  <Reference Include="LocalizationUtilities">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\LocalizationUtilities.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
+	
 </Project>

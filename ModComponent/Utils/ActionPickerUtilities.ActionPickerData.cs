@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 using System;
 
 namespace ModComponent.Utils;
@@ -17,9 +17,9 @@ internal static partial class ActionPickerUtilities
 			LocID = locId;
 			Callback = callback;
 		}
-		public static implicit operator Panel_ActionPicker.ActionPickerItemData(ActionPickerData data)
+		public static implicit operator ActionPickerItemData(ActionPickerData data)
 		{
-			return new Panel_ActionPicker.ActionPickerItemData(data.SpriteName, data.LocID, data.Callback);
+			return new ActionPickerItemData(data.SpriteName, data.LocID, data.Callback);
 		}
 	}
 }

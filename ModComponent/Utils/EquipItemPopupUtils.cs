@@ -1,6 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
-using System;
+﻿using Il2Cpp;
 
 namespace ModComponent.Utils;
 
@@ -8,11 +6,11 @@ public static class EquipItemPopupUtils
 {
 	public static void ShowItemPopups(String primaryAction, String secondaryAction, bool showAmmo, bool showReload, bool showHolster)
 	{
-		EquipItemPopup equipItemPopup = InterfaceManager.m_Panel_HUD.m_EquipItemPopup;
+		EquipItemPopup equipItemPopup = InterfaceManager.GetPanel<Panel_HUD>().m_EquipItemPopup;
 		ShowItemIcons(equipItemPopup, primaryAction, secondaryAction, showAmmo);
 		equipItemPopup.OnOverlappingDecalChange(true);
 
-		if (Hinterland::Utils.IsGamepadActive())
+		if (Il2Cpp.Utils.IsGamepadActive())
 		{
 			//Logger.Log("Gamepad active");
 			equipItemPopup.m_ButtonPromptFire.ShowPromptForKey(primaryAction, "Fire");

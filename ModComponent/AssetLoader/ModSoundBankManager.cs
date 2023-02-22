@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,7 +84,7 @@ internal static class ModSoundBankManager
 		IntPtr aligned = new IntPtr((allocated.ToInt64() + MEMORY_ALIGNMENT - 1) / MEMORY_ALIGNMENT * MEMORY_ALIGNMENT);
 		Marshal.Copy(data, 0, aligned, data.Length);
 
-		AKRESULT result = AkSoundEngine.LoadBank(aligned, (uint)data.Length, out uint bankID);
+		AKRESULT result = AkSoundEngine.LoadBankMemoryCopy(aligned, (uint)data.Length, out uint bankID);
 		if (result != AKRESULT.AK_Success)
 		{
 			if (string.IsNullOrEmpty(soundBankPath))

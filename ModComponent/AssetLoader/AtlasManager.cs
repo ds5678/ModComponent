@@ -1,6 +1,4 @@
-﻿extern alias Hinterland;
-using Hinterland;
-using System.Collections.Generic;
+﻿using Il2Cpp;
 using UnityEngine;
 
 namespace ModComponent.AssetLoader;
@@ -9,7 +7,7 @@ internal static class AtlasManager
 {
 	private static Dictionary<string, UIAtlas> knownSpriteAtlases = new Dictionary<string, UIAtlas>();
 
-	public static void LoadUiAtlas(Object asset)
+	public static void LoadUiAtlas(UnityEngine.Object asset)
 	{
 		GameObject? gameObject = asset.TryCast<GameObject>();
 		if (gameObject == null)

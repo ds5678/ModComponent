@@ -1,5 +1,5 @@
-﻿extern alias Hinterland;
-using Hinterland;
+﻿using Il2Cpp;
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -174,5 +174,24 @@ public static class ModUtils
 		}
 
 		return values.ToArray();
+	}
+
+	internal static Il2CppAK.Wwise.Event GetWwiseEventFromString(string eventName)
+	{
+		if (eventName == null)
+		{
+			return null;
+		}
+		uint eventId = AkSoundEngine.GetIDFromString(eventName);
+		if (eventId <= 0 || eventId >= 4294967295)
+		{
+			return null;
+		}
+
+		Il2CppAK.Wwise.Event newEvent = new();
+		newEvent.WwiseObjectReference = new WwiseEventReference();
+		newEvent.WwiseObjectReference.objectName = eventName;
+		newEvent.WwiseObjectReference.id = eventId;
+		return newEvent;
 	}
 }
