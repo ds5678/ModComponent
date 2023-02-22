@@ -10,7 +10,7 @@ namespace ModComponent.API.Components;
 public partial class ModPowderComponent : ModBaseComponent
 {
 	/// <summary>
-	/// The type of powder this container holds. "Gunpowder", "Salt", or "Yeast"
+	/// The type of powder this container holds. "Gunpowder"
 	/// </summary>
 	public ModPowderType PowderType = ModPowderType.Gunpowder;
 
@@ -44,20 +44,13 @@ public partial class ModPowderComponent : ModBaseComponent
 		return modPowderType switch
 		{
 			ModPowderType.Gunpowder => GearPowderType.Gunpowder,
-			ModPowderType.Salt => EnumUtils.GetMaxValue<GearPowderType>() + 1,
-			ModPowderType.Yeast => EnumUtils.GetMaxValue<GearPowderType>() + 2,
 			_ => GearPowderType.Gunpowder,
 		};
 	}
 
 	internal static ModPowderType GetPowderType(GearPowderType gearPowderType)
 	{
-		GearPowderType maxValue = EnumUtils.GetMaxValue<GearPowderType>();
-		return gearPowderType == maxValue + 1
-			? ModPowderType.Salt
-			: gearPowderType == maxValue + 2 
-				? ModPowderType.Yeast 
-				: ModPowderType.Gunpowder;
+		return ModPowderType.Gunpowder;
 	}
 
 	public ModPowderComponent(System.IntPtr intPtr) : base(intPtr) { }

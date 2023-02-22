@@ -6,8 +6,6 @@ public partial class ModPowderComponent
 {
 	public enum ModPowderType
 	{
-		Gunpowder,
-		Salt,
-		Yeast
+		Gunpowder
 	}
 }
