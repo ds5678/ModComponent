@@ -164,7 +164,7 @@ internal static class ItemMapper
 	{
 		if (modComponent.InventoryCategory != ModBaseComponent.ItemCategory.Auto)
 		{
-			return Il2CppTLD.Gear.GearType.Other;
+			return EnumUtils.TranslateEnumValue<Il2CppTLD.Gear.GearType, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
 		}
 
 		if (modComponent is ModToolComponent)
