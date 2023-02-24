@@ -1,4 +1,5 @@
-using Il2Cpp;
+﻿using Il2Cpp;
+using Il2CppTLD.Gear;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Mapper.BehaviourMappers;
@@ -113,6 +114,17 @@ internal static class ItemMapper
 	{
 		GearItem gearItem = ComponentUtils.GetOrCreateComponent<GearItem>(modComponent);
 
+		// patch to add in gearItem.GearItemData
+		if (gearItem.GearItemData == null)
+		{
+			Il2CppTLD.Gear.GearItemData gid = ScriptableObject.CreateInstance<GearItemData>();
+			gearItem.m_GearItemData = gid;
+		}
+
+		gearItem.name = modComponent.name;
+		gearItem.GearItemData.name = modComponent.name;
+		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
+
 		gearItem.GearItemData.m_Type = GetGearType(modComponent);
 		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
 		gearItem.GearItemData.m_MaxHP = modComponent.MaxHP;
@@ -130,64 +142,65 @@ internal static class ItemMapper
 
 		gearItem.GearItemData.m_ConditionType = GetConditionTableType(modComponent);
 		gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
-
+		
 		gearItem.Awake();
+
 	}
 
-	private static Il2CppTLD.Gear.ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
+	private static ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
 	{
 		ModFoodComponent modFoodComponent = modComponent.TryCast<ModFoodComponent>();
 		if (modFoodComponent != null)
 		{
 			if (modFoodComponent.Canned)
 			{
-				return Il2CppTLD.Gear.ConditionTableType.CannedFood;
+				return ConditionTableType.CannedFood;
 			}
 
 			if (modFoodComponent.Meat)
 			{
-				return Il2CppTLD.Gear.ConditionTableType.Meat;
+				return ConditionTableType.Meat;
 			}
 
 			if (!modFoodComponent.Natural && !modFoodComponent.Drink)
 			{
-				return Il2CppTLD.Gear.ConditionTableType.DryFood;
+				return ConditionTableType.DryFood;
 			}
 
-			return Il2CppTLD.Gear.ConditionTableType.Unknown;
+			return ConditionTableType.Unknown;
 		}
 
-		return Il2CppTLD.Gear.ConditionTableType.Unknown;
+		return ConditionTableType.Unknown;
 	}
 
-	private static Il2CppTLD.Gear.GearType GetGearType(ModBaseComponent modComponent)
+	private static GearType GetGearType(ModBaseComponent modComponent)
 	{
 		if (modComponent.InventoryCategory != ModBaseComponent.ItemCategory.Auto)
 		{
-			return EnumUtils.TranslateEnumValue<Il2CppTLD.Gear.GearType, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
+			return EnumUtils.TranslateEnumValue<GearType, ModBaseComponent.ItemCategory>(modComponent.InventoryCategory);
 		}
 
 		if (modComponent is ModToolComponent)
 		{
-			return Il2CppTLD.Gear.GearType.Tool;
+			return GearType.Tool;
 		}
 
 		if (modComponent is ModFoodComponent || modComponent is ModCookableComponent || (modComponent as ModLiquidComponent)?.LiquidType == ModLiquidComponent.LiquidKind.Water)
 		{
-			return Il2CppTLD.Gear.GearType.Food;
+			return GearType.Food;
 		}
 
 		if (modComponent is ModClothingComponent)
 		{
-			return Il2CppTLD.Gear.GearType.Clothing;
+			return GearType.Clothing;
 		}
 
 		if (ComponentUtils.GetComponentSafe<ModFireMakingBaseBehaviour>(modComponent) != null || ComponentUtils.GetComponentSafe<ModBurnableBehaviour>(modComponent) != null)
 		{
-			return Il2CppTLD.Gear.GearType.Firestarting;
+			return GearType.Firestarting;
 		}
 
-		return Il2CppTLD.Gear.GearType.Other;
+		return GearType.Other;
 	}
 
 	private static void PostProcess(ModBaseComponent modComponent)
