@@ -1,4 +1,4 @@
-﻿using Il2Cpp;
+using Il2Cpp;
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Mapper.BehaviourMappers;
@@ -193,11 +193,10 @@ internal static class ItemMapper
 	private static void PostProcess(ModBaseComponent modComponent)
 	{
 		modComponent.gameObject.layer = vp_Layer.Gear;
-
 		GearItem gearItem = modComponent.GetComponent<GearItem>();
 		gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
 
-		GameObject template = Resources.Load<GameObject>("GEAR_CoffeeCup");
+		GameObject template = GearItem.LoadGearItemPrefab("GEAR_CoffeeCup").gameObject;
 		MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
 
 		foreach (MeshRenderer? eachMeshRenderer in gearItem.m_MeshRenderers)

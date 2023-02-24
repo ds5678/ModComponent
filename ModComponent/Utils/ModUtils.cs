@@ -118,7 +118,7 @@ public static class ModUtils
 
 	internal static T GetItem<T>(string name, string? reference = null) where T : Component
 	{
-		GameObject? gameObject = Resources.Load(name).TryCast<GameObject>();
+		GameObject? gameObject = GearItem.LoadGearItemPrefab(name).gameObject;
 		if (gameObject == null)
 		{
 			throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");

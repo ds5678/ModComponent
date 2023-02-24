@@ -63,7 +63,7 @@ internal static class FoodMapper
 
 			if (modFoodComponent.Canned)
 			{
-				foodItem.m_GearPrefabHarvestAfterFinishEatingNormal = Resources.Load<GameObject>("GEAR_RecycledCan");
+				foodItem.m_GearPrefabHarvestAfterFinishEatingNormal = GearItem.LoadGearItemPrefab("GEAR_RecycledCan").gameObject;
 			}
 		}
 
