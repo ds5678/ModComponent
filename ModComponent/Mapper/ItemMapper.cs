@@ -208,15 +208,15 @@ internal static class ItemMapper
 					eachMaterial.shader = meshRenderer.material.shader;
 					eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
 
-					if (eachMaterial.GetTexture("_dmg_texture") == null)
-					{
-						eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
-					}
+					//if (eachMaterial.GetTexture("_dmg_texture") == null)
+					//{
+					//	eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
+					//}
 				}
 			}
 		}
 
-		ConsoleWaitlist.MaybeRegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name);
+		ConsoleWaitlist.MaybeRegisterConsoleGearName(modComponent.GetEffectiveConsoleName(), modComponent.name, gearItem.GearItemData.m_Type);
 
 		UnityEngine.Object.DontDestroyOnLoad(modComponent.gameObject);
 	}
