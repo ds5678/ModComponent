@@ -1,4 +1,5 @@
-﻿using Il2Cpp;
+﻿using Harmony;
+using Il2Cpp;
 
 using System;
 using System.Collections.Generic;
@@ -54,8 +55,8 @@ public static class ModUtils
 	internal static Delegate? CreateDelegate(Type delegateType, object target, string methodName)
 	{
 		MethodInfo methodInfo = target.GetType().GetMethod(methodName, BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-		return methodInfo == null 
-			? null 
+		return methodInfo == null
+			? null
 			: Delegate.CreateDelegate(delegateType, target, methodInfo);
 	}
 
@@ -176,22 +177,39 @@ public static class ModUtils
 		return values.ToArray();
 	}
 
-	internal static Il2CppAK.Wwise.Event GetWwiseEventFromString(string eventName)
+	internal static Il2CppAK.Wwise.Event? GetWwiseEventFromString(string eventName)
 	{
 		if (eventName == null)
 		{
+			MelonLoader.MelonLogger.Warning("Wwise string eventName = null (" + eventName + ")");
 			return null;
 		}
-		uint eventId = AkSoundEngine.GetIDFromString(eventName);
-		if (eventId <= 0 || eventId >= 4294967295)
+		//uint eventId = AkSoundEngine.GetIDFromString(eventName);
+
+		uint eventId = GetAKEventIdFromString(eventName);
+		if (eventId == 0U)
 		{
+			MelonLoader.MelonLogger.Warning("Wwise uint eventId outside range (" + eventName + "|" + eventId + ")");
 			return null;
 		}
 
 		Il2CppAK.Wwise.Event newEvent = new();
-		newEvent.WwiseObjectReference = new WwiseEventReference();
+		newEvent.WwiseObjectReference = ScriptableObject.CreateInstance<WwiseEventReference>();
 		newEvent.WwiseObjectReference.objectName = eventName;
 		newEvent.WwiseObjectReference.id = eventId;
 		return newEvent;
+	}
+
+	internal static uint GetAKEventIdFromString(string eventName)
+	{
+		Type type = typeof(Il2CppAK.EVENTS);
+		foreach (PropertyInfo prop in type.GetProperties(BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance))
+		{
+			if (prop.Name.ToLower() == eventName.ToLower())
+			{
+				return Convert.ToUInt32(prop.GetValue(null)?.ToString());
+			}
+		}
+		return 0U;
 	}
 }

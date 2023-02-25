@@ -198,7 +198,7 @@ internal static class ZipFileLoader
 			else if (internalPath.StartsWith(@"blueprints/"))
 			{
 				Logger.Log($"Reading blueprint json from zip at '{internalPath}'");
-				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text, false);
+				CraftingRevisions.BlueprintManager.AddBlueprintFromJson(text);
 			}
 			else if (internalPath.StartsWith(@"localizations/"))
 			{

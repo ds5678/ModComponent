@@ -121,8 +121,6 @@ internal static class ItemMapper
 			gearItem.m_GearItemData = gid;
 		}
 
-		gearItem.name = modComponent.name;
-		gearItem.GearItemData.name = modComponent.name;
 		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
 
 		gearItem.GearItemData.m_Type = GetGearType(modComponent);
@@ -137,12 +135,12 @@ internal static class ItemMapper
 
 		gearItem.GearItemData.m_PickupAudio = ModUtils.GetWwiseEventFromString(modComponent.PickUpAudio);
 		gearItem.GearItemData.m_StowAudio = ModUtils.GetWwiseEventFromString(modComponent.StowAudio);
-		gearItem.GearItemData.m_PutBackAudio = ModUtils.GetWwiseEventFromString(modComponent.PickUpAudio);
+		gearItem.GearItemData.m_PutBackAudio = ModUtils.GetWwiseEventFromString(modComponent.PutBackAudio);
 		gearItem.GearItemData.m_WornOutAudio = ModUtils.GetWwiseEventFromString(modComponent.WornOutAudio);
 
 		gearItem.GearItemData.m_ConditionType = GetConditionTableType(modComponent);
 		gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
-		
+
 		gearItem.Awake();
 
 	}
@@ -221,10 +219,10 @@ internal static class ItemMapper
 					eachMaterial.shader = meshRenderer.material.shader;
 					eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
 
-					//if (eachMaterial.GetTexture("_dmg_texture") == null)
-					//{
-					//	eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
-					//}
+					if (eachMaterial.GetTexture("_dmg_texture") == null)
+					{
+						eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
+					}
 				}
 			}
 		}

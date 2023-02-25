@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+using HarmonyLib;
+using Il2Cpp;
 using ModComponent.AssetLoader;
 using System.Reflection;
 using UnityEngine;
@@ -66,26 +67,24 @@ static class ResourcePatches
 		}
 	}
 
-	//Just for testing
-	/*[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAssetAsync), new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
-	internal static class AssetBundle_LoadAssetAsync
+	[HarmonyPatch(typeof(Il2Cpp.GearItem), nameof(Il2Cpp.GearItem.LoadGearItemPrefab), new Type[] { typeof(string) })]
+	internal static class GearItem_LoadGearItemPrefab
 	{
-		private static void Postfix(string name, Il2CppSystem.Type type,AssetBundle __instance)
+		private static void Prefix(string name)
 		{
-			Logger.Log($"Tried to asyncronously load '{name}' of type '{type}' from '{__instance.name}'");
+			bool isKnown = ModAssetBundleManager.IsKnownAsset(name);
+			//			MelonLoader.MelonLogger.Warning("GearItem_LoadGearItemPrefab_PRE | " + name + " | " + isKnown);
+		}
+		private static void Postfix(string name, ref Il2Cpp.GearItem __result)
+		{
+			bool isKnown = ModAssetBundleManager.IsKnownAsset(name);
+			//			MelonLoader.MelonLogger.Warning("GearItem_LoadGearItemPrefab_POST | " + name + " | " + isKnown);
+			if (isKnown == true && __result == null)
+			{
+				__result = ModAssetBundleManager.LoadAsset(name).Cast<GameObject>().GetComponent<GearItem>();
+//				MelonLoader.MelonLogger.Warning("GearItem_LoadGearItemPrefab_POST LoadAsset | " + __result.name);
+			}
 		}
 	}
 
-	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAllAssets), new System.Type[] { typeof(Il2CppSystem.Type) })]
-	internal static class AssetBundle_LoadAllAssets
-	{
-		private static void Postfix(Il2CppSystem.Type type, AssetBundle __instance, UnhollowerBaseLib.Il2CppReferenceArray<UnityEngine.Object> __result)
-		{
-			Logger.Log($"Tried to load all assets of type '{type}' from '{__instance.name}'");
-			foreach(var obj in __result)
-			{
-				Logger.Log($"Loaded '{obj.name}'");
-			}
-		}
-	}*/
 }

@@ -20,9 +20,9 @@ internal class Implementation : MelonMod
 		Logger.LogNotDebug("Release Compilation");
 
 		Settings.instance.AddToModSettings("ModComponent");
-
 		ZipFileLoader.Initialize();
 
 		AutoMapper.LoadPendingAssetBundles();
+
 	}
 }
