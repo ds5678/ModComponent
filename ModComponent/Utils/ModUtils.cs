@@ -184,7 +184,6 @@ public static class ModUtils
 
 		if (eventName == null || eventName == "")
 		{
-			MelonLoader.MelonLogger.Warning("Wwise string eventName = null (" + eventName + ")");
 			return emptyEvent;
 		}
 		//uint eventId = AkSoundEngine.GetIDFromString(eventName);
@@ -192,7 +191,6 @@ public static class ModUtils
 		uint eventId = GetAKEventIdFromString(eventName);
 		if (eventId == 0U)
 		{
-			MelonLoader.MelonLogger.Warning("Wwise uint eventId outside range (" + eventName + "|" + eventId + ")");
 			return emptyEvent;
 		}
 
