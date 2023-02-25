@@ -121,7 +121,7 @@ internal static class ItemMapper
 			gearItem.m_GearItemData = gid;
 		}
 
-		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
+		//gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
 
 		gearItem.GearItemData.m_Type = GetGearType(modComponent);
 		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
