@@ -179,10 +179,13 @@ public static class ModUtils
 
 	internal static Il2CppAK.Wwise.Event? GetWwiseEventFromString(string eventName)
 	{
-		if (eventName == null)
+		Il2CppAK.Wwise.Event emptyEvent = new();
+		emptyEvent.WwiseObjectReference = ScriptableObject.CreateInstance<WwiseEventReference>();
+
+		if (eventName == null || eventName == "")
 		{
 			MelonLoader.MelonLogger.Warning("Wwise string eventName = null (" + eventName + ")");
-			return null;
+			return emptyEvent;
 		}
 		//uint eventId = AkSoundEngine.GetIDFromString(eventName);
 
@@ -190,7 +193,7 @@ public static class ModUtils
 		if (eventId == 0U)
 		{
 			MelonLoader.MelonLogger.Warning("Wwise uint eventId outside range (" + eventName + "|" + eventId + ")");
-			return null;
+			return emptyEvent;
 		}
 
 		Il2CppAK.Wwise.Event newEvent = new();
