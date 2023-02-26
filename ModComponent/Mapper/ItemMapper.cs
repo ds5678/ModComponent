@@ -6,6 +6,8 @@ using ModComponent.Mapper.BehaviourMappers;
 using ModComponent.Mapper.ComponentMappers;
 using ModComponent.Utils;
 using UnityEngine;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ModComponent.Mapper;
 
@@ -121,8 +123,11 @@ internal static class ItemMapper
 			gearItem.m_GearItemData = gid;
 		}
 
-		//gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
 
+		string guid = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(modComponent.name))).Replace("-", "");
+		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(guid.ToLower());
+
+		gearItem.m_DisplayNameOverrideLocID = modComponent.name;
 		gearItem.GearItemData.m_Type = GetGearType(modComponent);
 		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
 		gearItem.GearItemData.m_MaxHP = modComponent.MaxHP;
@@ -142,6 +147,7 @@ internal static class ItemMapper
 		gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
 
 		gearItem.Awake();
+
 
 	}
 
