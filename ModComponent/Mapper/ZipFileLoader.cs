@@ -84,17 +84,9 @@ internal static class ZipFileLoader
 		}
 	}
 
-	private static Encoding GetEncoding(MemoryStream memoryStream)
-	{
-		using StreamReader reader = new StreamReader(memoryStream, true);
-		reader.Peek();
-		return reader.CurrentEncoding;
-	}
-
 	private static string ReadToString(MemoryStream memoryStream)
 	{
-		Encoding encoding = GetEncoding(memoryStream);
-		return encoding.GetString(memoryStream.ToArray());
+		return Encoding.UTF8.GetString(memoryStream.ToArray());
 	}
 
 	private static FileType GetFileType(string filename)
