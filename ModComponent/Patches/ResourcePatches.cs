@@ -1,5 +1,4 @@
 using HarmonyLib;
-using Il2Cpp;
 using ModComponent.AssetLoader;
 using System.Reflection;
 using UnityEngine;
@@ -8,83 +7,91 @@ namespace ModComponent.Patches;
 
 static class ResourcePatches
 {
+	#region Resources.Load
 	// Hinterland loads assets by calling Resources.Load which ignores external AssetBundles
 	// so we need to patch Resources.Load to redirect specific calls to load from the AssetBundle instead
 	// Most of the gear items are in the resources
 	[HarmonyPatch]
-	internal static class Resources_Load
+	internal static class Resources_Load1
 	{
 		static MethodBase? TargetMethod()
 		{
-			MethodInfo[] methods = typeof(Resources).GetMethods();
-			foreach (MethodInfo m in methods)
+			MethodInfo? targetMethod = typeof(Resources)
+				.GetMethods()
+				.FirstOrDefault(
+					m => m.Name == nameof(Resources.Load)
+					&& m.ReturnType == typeof(UnityEngine.Object)
+					&& !m.IsGenericMethod
+					&& m.GetParameters().Length == 1
+					);
+			if (targetMethod is null)
 			{
-				if (m.Name == nameof(Resources.Load) && m.ReturnType == typeof(UnityEngine.Object) && !m.IsGenericMethod && m.GetParameters().Length == 1)
-				{
-					return m;
-				}
+				MelonLoader.MelonLogger.Error("Resources.Load 1 not found for patch.");
+				return null;
 			}
-			Logger.LogError("Resources.Load not found for patch.");
-			return null;
+
+			return targetMethod;
 		}
-		internal static bool Prefix(ref string path, ref UnityEngine.Object __result)
+		internal static void Prefix(string path, ref bool __runOriginal)
 		{
-			if (!ModAssetBundleManager.IsKnownAsset(path))
+			if (ModAssetBundleManager.IsKnownAsset(path))
 			{
-				return true;
+				__runOriginal = false;
 			}
-
-			__result = ModAssetBundleManager.LoadAsset(path);
-			if (__result == null)
+		}
+		internal static void Postfix(string path, ref UnityEngine.Object __result, ref bool __runOriginal)
+		{
+			if (ModAssetBundleManager.IsKnownAsset(path))
 			{
-				Logger.LogWarning("Resources.Load failed to load the external asset");
+				MelonLoader.MelonLogger.Warning("Resources.Load 1 | " + path + " | IsKnown | null:" + (__result == null));
+				__result = ModAssetBundleManager.LoadAsset(path);
+				__runOriginal = false;
 			}
-
-			return false;
 		}
 	}
-
-	//Hinterland stores many of its assets in asset bundles
-	//This allows us to enable external asset loading in key locations
-	//For example, paperdoll textures are loaded from asset bundles
-	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAsset), new System.Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
-	internal static class AssetBundle_LoadAsset
+	[HarmonyPatch]
+	internal static class Resources_Load2
 	{
-		private static bool Prefix(ref string name, ref UnityEngine.Object __result)
+		static MethodBase? TargetMethod()
 		{
-			if (!ModAssetBundleManager.IsKnownAsset(name))
+			MethodInfo? targetMethod = typeof(Resources)
+				.GetMethods()
+				.FirstOrDefault(
+					m => m.Name == nameof(Resources.Load)
+					&& m.ReturnType == typeof(UnityEngine.Object)
+					&& !m.IsGenericMethod
+					&& m.GetParameters().Length == 2
+					);
+			if (targetMethod is null)
 			{
-				return true;
+				MelonLoader.MelonLogger.Error("Resources.Load 2 not found for patch.");
+				return null;
 			}
 
-			__result = ModAssetBundleManager.LoadAsset(name);
-			if (__result == null)
+			return targetMethod;
+		}
+		internal static void Prefix(string path, ref bool __runOriginal)
+		{
+			if (ModAssetBundleManager.IsKnownAsset(path))
 			{
-				Logger.LogWarning($"AssetBundle.LoadAsset failed to load the external asset '{name}'");
+				__runOriginal = false;
 			}
-
-			return false;
+		}
+		internal static void Postfix(string path, ref UnityEngine.Object __result, ref bool __runOriginal)
+		{
+			if (ModAssetBundleManager.IsKnownAsset(path))
+			{
+				MelonLoader.MelonLogger.Warning("Resources.Load 2 | " + path + " | IsKnown | null:" + (__result == null));
+				__result = ModAssetBundleManager.LoadAsset(path);
+				__runOriginal = false;
+			}
 		}
 	}
+	#endregion
 
-	[HarmonyPatch(typeof(Il2Cpp.GearItem), nameof(Il2Cpp.GearItem.LoadGearItemPrefab), new Type[] { typeof(string) })]
-	internal static class GearItem_LoadGearItemPrefab
-	{
-		private static void Prefix(string name)
-		{
-			bool isKnown = ModAssetBundleManager.IsKnownAsset(name);
-			//			MelonLoader.MelonLogger.Warning("GearItem_LoadGearItemPrefab_PRE | " + name + " | " + isKnown);
-		}
-		private static void Postfix(string name, ref Il2Cpp.GearItem __result)
-		{
-			bool isKnown = ModAssetBundleManager.IsKnownAsset(name);
-			//			MelonLoader.MelonLogger.Warning("GearItem_LoadGearItemPrefab_POST | " + name + " | " + isKnown);
-			if (isKnown == true && __result == null)
-			{
-				__result = ModAssetBundleManager.LoadAsset(name).Cast<GameObject>().GetComponent<GearItem>();
-//				MelonLoader.MelonLogger.Warning("GearItem_LoadGearItemPrefab_POST LoadAsset | " + __result.name);
-			}
-		}
-	}
+
+
+
+
 
 }
