@@ -77,8 +77,7 @@ internal static class ConsoleWaitlist
 		{
 			ConsoleManager.m_ComponentNameToGearNames.Add(addToKey, list);
 		}
-		ConsoleManager.m_ComponentNameToGearNames.TryGetValue(addToKey, out list);
-		list.Add(prefabName);
+		ConsoleManager.m_ComponentNameToGearNames[addToKey].Add(prefabName);
 
 
 		// add the gearitem to the console (add,gear_add) autocomplete list
