@@ -139,7 +139,6 @@ internal static class ItemMapper
 		gearItem.GearItemData.m_CoverFlowDamageTexture = new AssetReferenceTexture2D(modComponent.name);
 		gearItem.GearItemData.m_CoverFlowMainTexture = new AssetReferenceTexture2D(modComponent.name);
 		gearItem.GearItemData.m_CoverFlowOpenedTexture = new AssetReferenceTexture2D(modComponent.name);
-		gearItem.m_DisplayNameOverrideLocID = modComponent.name;
 		gearItem.GearItemData.m_Type = GetGearType(modComponent);
 		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
 		gearItem.GearItemData.m_MaxHP = modComponent.MaxHP;
