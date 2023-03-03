@@ -154,6 +154,11 @@ internal static class ItemMapper
 		gearItem.GearItemData.m_StowAudio = ModUtils.GetWwiseEventFromString(modComponent.StowAudio);
 		gearItem.GearItemData.m_PutBackAudio = ModUtils.GetWwiseEventFromString(modComponent.PutBackAudio);
 		gearItem.GearItemData.m_WornOutAudio = ModUtils.GetWwiseEventFromString(modComponent.WornOutAudio);
+		Cookable? cookable = ModComponent.Utils.ComponentUtils.GetComponentSafe<Cookable>(modComponent);
+		if (cookable != null)
+		{
+			gearItem.GearItemData.m_CookingSlotPlacementAudio = ModUtils.GetWwiseEventFromString(cookable.m_PutInPotAudio);
+		}
 
 		gearItem.GearItemData.m_ConditionType = GetConditionTableType(modComponent);
 		gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
