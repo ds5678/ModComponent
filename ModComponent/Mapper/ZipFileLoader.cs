@@ -195,7 +195,7 @@ internal static class ZipFileLoader
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
 				Logger.Log($"Reading json localization from zip at '{internalPath}'");
-				LocalizationUtilities.LocalizationManager.LoadJSONLocalization(text);
+				LocalizationUtilities.LocalizationManager.LoadJsonLocalization(text);
 			}
 			else if (internalPath.ToLowerInvariant() == "buildinfo.json")
 			{
