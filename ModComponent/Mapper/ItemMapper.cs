@@ -8,6 +8,7 @@ using ModComponent.Utils;
 using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
@@ -124,9 +125,20 @@ internal static class ItemMapper
 		}
 
 
-		string guid = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(modComponent.name))).Replace("-", "");
-		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(guid.ToLower());
+		//		string guid = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(modComponent.name.ToLower()))).Replace("-", "");
+		//		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(guid.ToLower());
+		//		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name.ToLower());
+		//MelonLoader.MelonLogger.Warning("added AssetReferenceGearItem | "+ modComponent.name.ToLower()+" | "+ guid.ToLower());
+		//if (!gearItemAssets.ContainsKey(guid.ToLower()))
+		//{
+		//	gearItemAssets.Add(guid.ToLower(), modComponent.name.ToLower());
+		//}
+		//		gearItemRefs.Add(modComponent.name, guid.ToLower());
 
+		gearItem.GearItemData.m_CoverFlowBlendTexture = new AssetReferenceTexture2D(modComponent.name);
+		gearItem.GearItemData.m_CoverFlowDamageTexture = new AssetReferenceTexture2D(modComponent.name);
+		gearItem.GearItemData.m_CoverFlowMainTexture = new AssetReferenceTexture2D(modComponent.name);
+		gearItem.GearItemData.m_CoverFlowOpenedTexture = new AssetReferenceTexture2D(modComponent.name);
 		gearItem.m_DisplayNameOverrideLocID = modComponent.name;
 		gearItem.GearItemData.m_Type = GetGearType(modComponent);
 		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
@@ -225,10 +237,10 @@ internal static class ItemMapper
 					eachMaterial.shader = meshRenderer.material.shader;
 					eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
 
-					if (eachMaterial.GetTexture("_dmg_texture") == null)
-					{
-						eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
-					}
+					//if (eachMaterial.GetTexture("_dmg_texture") == null)
+					//{
+					//	eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
+					//}
 				}
 			}
 		}
@@ -237,4 +249,13 @@ internal static class ItemMapper
 
 		UnityEngine.Object.DontDestroyOnLoad(modComponent.gameObject);
 	}
+
+	//public static string GetGearNameFromAssetRef(string assetRef)
+	//{
+	//	if (gearItemAssets.ContainsKey(assetRef))
+	//	{
+	//		return gearItemAssets[assetRef];
+	//	}
+	//	return null;
+	//}
 }

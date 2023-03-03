@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
 
 namespace ModComponent.AssetLoader;
@@ -281,6 +278,7 @@ internal static class ModAssetBundleManager
 			stringBuilder.Append(" => ");
 			stringBuilder.Append(eachAssetName);
 			stringBuilder.Append("\n");
+
 		}
 
 		Logger.Log(stringBuilder.ToString().Trim());

@@ -5,15 +5,6 @@ using ModComponent.AssetLoader;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.ResourceManagement;
-using UnityEngine.ResourceManagement.ResourceLocations;
-using static Il2Cpp.Panel_Debug;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.AddressableAssets.ResourceLocators;
-using UnityEngine.AddressableAssets.Initialization;
-using static Unity.VisualScripting.Member;
-using UnityEngine.Playables;
 
 namespace ModComponent.Patches;
 
@@ -63,7 +54,7 @@ static class ResourcePatches
 		}
 		internal static void Postfix(string path, ref UnityEngine.Object __result, ref bool __runOriginal)
 		{
-			if (ModAssetBundleManager.IsKnownAsset(path))
+			if (ModAssetBundleManager.IsKnownAsset(path) && __result == null)
 			{
 				//PatchDebugMsg("Resources.Load1_POSTFIX | " + path + " | IsKnown | null:" + (__result == null));
 				__result = ModAssetBundleManager.LoadAsset(path);
@@ -98,7 +89,7 @@ static class ResourcePatches
 		}
 		internal static void Postfix(string path, ref UnityEngine.Object __result, ref bool __runOriginal)
 		{
-			if (ModAssetBundleManager.IsKnownAsset(path))
+			if (ModAssetBundleManager.IsKnownAsset(path) && __result == null)
 			{
 				//PatchDebugMsg("Resources.Load2_POSTFIX | " + path + " | IsKnown | null:" + (__result == null));
 				__result = ModAssetBundleManager.LoadAsset(path);
@@ -108,51 +99,24 @@ static class ResourcePatches
 	}
 	#endregion
 
-	#region AssetBundle.LoadAssetAsync
-	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAssetAsync), new Type[] { typeof(string) })]
-	internal static class AssetBundle_LoadAssetAsync1
+	#region GearItem.LoadGearItemPrefab
+	[HarmonyPatch(typeof(GearItem), nameof(GearItem.LoadGearItemPrefab), new Type[] { typeof(string) })]
+	internal static class LoadGearItemPrefab
 	{
 		internal static void Prefix(string name, ref bool __runOriginal)
 		{
-			//PatchDebugMsg("AssetBundle.LoadAssetAsync1_PREFIX");
-		}
-		internal static void Postfix(string name, ref AssetBundleRequest __result, ref bool __runOriginal)
-		{
-			//PatchDebugMsg("AssetBundle.LoadAssetAsync1_POSTFIX | " + name + " | null:" + (__result == null));
-		}
-	}
-	[HarmonyPatch(typeof(AssetBundle), nameof(AssetBundle.LoadAssetAsync), new Type[] { typeof(string), typeof(Il2CppSystem.Type) })]
-	internal static class AssetBundle_LoadAssetAsync2
-	{
-		internal static void Prefix(string name, Il2CppSystem.Type type, ref bool __runOriginal)
-		{
-			//PatchDebugMsg("AssetBundle.LoadAssetAsync2_PREFIX");
-		}
-		internal static void Postfix(string name, Il2CppSystem.Type type, ref AssetBundleRequest __result, ref bool __runOriginal)
-		{
-			//PatchDebugMsg("AssetBundle.LoadAssetAsync2_POSTFIX | " + name + " | " + type.ToString() + " |null:" + (__result == null));
-		}
-	}
-	#endregion
-
-	#region GearItemCoverflow.SetGearItem
-#warning Not sure what this method does, but let's skip it for now (suppress error) :) - STBlade
-	[HarmonyPatch(typeof(GearItemCoverflow), nameof(GearItemCoverflow.SetGearItem), new Type[] { typeof(GearItem), typeof(string), typeof(bool) })]
-	internal static class LoadAllAssetsAsync
-	{
-		internal static void Prefix(GearItem gi, string gearPrefabName, ref bool __runOriginal)
-		{
-			//			PatchDebugMsg("GearItemCoverflow.SetGearItem_PREFIX | " + gearPrefabName);
-			if (ModAssetBundleManager.IsKnownAsset(gearPrefabName))
+						PatchDebugMsg("LoadGearItemPrefab_PREFIX | " + name);
+			if (ModAssetBundleManager.IsKnownAsset(name))
 			{
 				__runOriginal = false;
 			}
 		}
-		internal static void Postfix(GearItem gi, string gearPrefabName, ref bool __runOriginal)
+		internal static void Postfix(string name, ref bool __runOriginal, ref GearItem __result)
 		{
-			//			PatchDebugMsg("GearItemCoverflow.SetGearItem_POSTFIX | " + gearPrefabName);
-			if (ModAssetBundleManager.IsKnownAsset(gearPrefabName))
+			PatchDebugMsg("LoadGearItemPrefab_POSTFIX | " + name + " | " + (__result != null));
+			if (ModAssetBundleManager.IsKnownAsset(name) && __result == null)
 			{
+				__result = ModAssetBundleManager.LoadAsset(name).Cast<GameObject>().transform.Cast<GearItem>();
 				__runOriginal = false;
 			}
 		}
@@ -161,11 +125,11 @@ static class ResourcePatches
 
 	#region TextureCache.GetAddressableTexture
 	[HarmonyPatch(typeof(TextureCache), nameof(TextureCache.GetAddressableTexture), new Type[] { typeof(string) })]
-	internal static class GetAddressableTexture
+	internal static class GetAddressableTexture1
 	{
 		internal static void Prefix(string name, ref bool __runOriginal)
 		{
-			//PatchDebugMsg("GetAddressableTexture_PREFIX | " + name);
+			//			PatchDebugMsg("GetAddressableTexture1_PREFIX | " + name);
 			if (ModAssetBundleManager.IsKnownAsset(name))
 			{
 				__runOriginal = false;
@@ -173,13 +137,63 @@ static class ResourcePatches
 		}
 		internal static void Postfix(string name, ref bool __runOriginal, ref Texture2D __result)
 		{
-			//PatchDebugMsg("GetAddressableTexture_POSTFIX | " + name + " | " + (__result != null));
+			//PatchDebugMsg("GetAddressableTexture1_POSTFIX | " + name + " | " + (__result != null));
 			if (ModAssetBundleManager.IsKnownAsset(name) && __result == null)
 			{
 				__result = ModAssetBundleManager.LoadAsset(name).Cast<Texture2D>();
 				TextureCache.CacheTexture(__result, name);
 				__runOriginal = false;
 			}
+		}
+	}
+	[HarmonyPatch(typeof(TextureCache), nameof(TextureCache.GetAddressableTexture), new Type[] { typeof(AssetReferenceTexture2D) })]
+	internal static class GetAddressableTexture2
+	{
+		internal static void Prefix(AssetReferenceTexture2D assetReference, ref bool __runOriginal)
+		{
+			//PatchDebugMsg("GetAddressableTexture2_PREFIX | " + assetReference.m_AssetGUID);
+			if (ModAssetBundleManager.IsKnownAsset(assetReference.m_AssetGUID))
+			{
+				__runOriginal = false;
+			}
+		}
+		internal static void Postfix(AssetReferenceTexture2D assetReference, ref bool __runOriginal, ref Texture2D __result)
+		{
+			//PatchDebugMsg("GetAddressableTexture2_POSTFIX | " + assetReference.m_AssetGUID + " | " + (__result != null));
+			if (ModAssetBundleManager.IsKnownAsset(assetReference.m_AssetGUID) && __result == null)
+			{
+				__result = ModAssetBundleManager.LoadAsset(assetReference.m_AssetGUID).Cast<Texture2D>();
+				TextureCache.CacheTexture(__result, assetReference.m_AssetGUID);
+				__runOriginal = false;
+			}
+		}
+	}
+	#endregion
+
+	#region GearItemCoverflow.SetGearItem
+	[HarmonyPatch(typeof(GearItemCoverflow), nameof(GearItemCoverflow.SetGearItem), new Type[] { typeof(GearItem), typeof(string), typeof(bool) })]
+	internal static class SetGearItem
+	{
+		internal static void Prefix(GearItem gi, ref bool __runOriginal)
+		{
+			//PatchDebugMsg("SetGearItem_PREFIX | "+ gi.name + " |" + gi.GearItemData.CoverFlowBlendTexture.AssetGUID + "|" + gi.GearItemData.CoverFlowDamageTexture.AssetGUID + "|" + gi.GearItemData.CoverFlowMainTexture.AssetGUID + "|" + gi.GearItemData.CoverFlowOpenedTexture.AssetGUID);
+			if (ModAssetBundleManager.IsKnownAsset(gi.name))
+			{
+				__runOriginal = false;
+			}
+		}
+		internal static void Postfix(GearItemCoverflow __instance, GearItem gi, ref bool __runOriginal)
+		{
+			//PatchDebugMsg("SetGearItem_POSTFIX | " + gi.name);
+
+			if (ModAssetBundleManager.IsKnownAsset(gi.name))
+			{
+				__instance.m_Texture.enabled = true;
+				__instance.m_TextureWithDamage.enabled = false;
+				__instance.m_Texture.mainTexture = Il2Cpp.Utils.GetGearCoverflowTexture(gi);
+				__runOriginal = false;
+			}
+
 		}
 	}
 	#endregion
