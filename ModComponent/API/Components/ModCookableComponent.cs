@@ -3,6 +3,9 @@ using ModComponent.Utils;
 using System;
 using Il2CppInterop.Runtime.Attributes;
 using UnityEngine;
+using Il2CppTLD.AddressableAssets;
+using UnityEngine.AddressableAssets;
+using Il2Cpp;
 
 namespace ModComponent.API.Components;
 
@@ -81,7 +84,10 @@ public partial class ModCookableComponent : ModBaseComponent
 		}
 		else
 		{
-			this.CookingResult = Resources.Load(dict.GetVariant(className, "CookingResult")).Cast<GameObject>();
+			string assetName = dict.GetVariant(className, "CookingResult").ToString();
+			//MelonLoader.MelonLogger.Warning("Cookable - " + assetName);
+			this.CookingResult = Addressables.LoadAssetAsync<GameObject>(assetName).WaitForCompletion();
+			//MelonLoader.MelonLogger.Warning("Cookable - " + this.CookingResult.ToString());
 		}
 		this.CookingUnitsRequired = dict.GetVariant(className, "CookingUnitsRequired");
 		this.CookingWaterRequired = dict.GetVariant(className, "CookingWaterRequired");

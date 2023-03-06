@@ -3,6 +3,7 @@
 using ModComponent.API.Components;
 using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper.ComponentMappers;
 
@@ -28,7 +29,8 @@ internal static class CookableMapper
 		cookable.m_CookAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modCookableComponent.CookingAudio, GetDefaultCookAudio(modCookableComponent));
 		cookable.m_PutInPotAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modCookableComponent.StartCookingAudio, GetDefaultStartCookingAudio(modCookableComponent));
 
-		Cookable template = ModComponent.Utils.ComponentUtils.GetComponentSafe<Cookable>(GearItem.LoadGearItemPrefab("GEAR_PinnacleCanPeaches").gameObject);
+		GameObject? cookableObject = Addressables.LoadAssetAsync<GameObject>("GEAR_PinnacleCanPeaches").WaitForCompletion().Cast<GameObject>();
+		Cookable template = ModComponent.Utils.ComponentUtils.GetComponentSafe<Cookable>(cookableObject);
 		cookable.m_MeshPotStyle = template?.m_MeshPotStyle;
 		cookable.m_MeshCanStyle = template?.m_MeshCanStyle;
 		cookable.m_LiquidMeshRenderer = template?.m_LiquidMeshRenderer;

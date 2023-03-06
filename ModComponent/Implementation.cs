@@ -1,5 +1,11 @@
 ﻿using MelonLoader;
 using ModComponent.Mapper;
+using ModComponent.Utils;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using Il2Cpp;
+using UnityEngine.AddressableAssets.ResourceLocators;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace ModComponent;
 
@@ -20,9 +26,25 @@ internal class Implementation : MelonMod
 		Logger.LogNotDebug("Release Compilation");
 
 		Settings.instance.AddToModSettings("ModComponent");
+
 		ZipFileLoader.Initialize();
 
-		AutoMapper.LoadPendingAssetBundles();
+		AssetBundleProcessor.PreloadAssetBundles();
+
+		AssetBundleProcessor.LoadCatalogs();
+
+		AssetBundleProcessor.TestCatalogs();
+
+		AssetBundleProcessor.MapPrefabs();
+
+//		Application.Quit();
+
 
 	}
+
+	public override void OnApplicationQuit()
+	{
+		AssetBundleProcessor.CleanupTempFolder();
+	}
+
 }

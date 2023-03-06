@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<!--This is an xml comment. Comments have no impact on compiling.-->
-
+<PropertyGroup>
+        <!--This needs to be changed for the mod to compile.-->
+        <TheLongDarkPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark</TheLongDarkPath>
+    </PropertyGroup>
+	
 	<PropertyGroup>
 		<!--This is the .NET version the mod will be compiled with. Don't change it.-->
 		<TargetFramework>net6.0</TargetFramework>
@@ -44,5 +48,9 @@
 	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\LocalizationUtilities.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
+	
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy /y /d  &quot;$(TargetPath)&quot; &quot;$(TheLongDarkPath)\Mods&quot;" />
+	</Target>
 	
 </Project>

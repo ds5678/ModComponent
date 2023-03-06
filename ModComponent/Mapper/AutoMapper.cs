@@ -1,8 +1,7 @@
 ﻿using ModComponent.API.Components;
 using ModComponent.AssetLoader;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
@@ -17,9 +16,9 @@ internal static class AutoMapper
 	/// </summary>
 	private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new();
 
-	private static void AutoMapPrefab(string prefabName)
+	internal static void AutoMapPrefab(string prefabName)
 	{
-		UnityEngine.Object? loadedObject = Resources.Load(prefabName);
+		UnityEngine.Object? loadedObject = Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
 		if (loadedObject == null)
 		{
 			throw new Exception($"{prefabName} could not be loaded with Resources.Load");
@@ -28,7 +27,7 @@ internal static class AutoMapper
 		GameObject? prefab = loadedObject.TryCast<GameObject>();
 		if (prefab == null)
 		{
-			throw new NullReferenceException("In AutoMapper.AutoMapPrefab, loaded object was not a GameObject.");
+			throw new NullReferenceException($"In AutoMapper.AutoMapPrefab, {prefabName} loaded object was not a GameObject.");
 		}
 
 		if (prefab.name.StartsWith("GEAR_"))
@@ -41,7 +40,7 @@ internal static class AutoMapper
 	{
 		LoadAssetBundle(ModAssetBundleManager.GetAssetBundle(relativePath));
 	}
-	private static void LoadAssetBundle(AssetBundle assetBundle)
+	internal static void LoadAssetBundle(AssetBundle assetBundle)
 	{
 		string[] assetNames = assetBundle.GetAllAssetNames();
 		foreach (string eachAssetName in assetNames)

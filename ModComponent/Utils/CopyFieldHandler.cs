@@ -1,5 +1,6 @@
 ﻿using Il2CppInterop.Runtime;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using static ModComponent.Utils.NameUtils;
 
 namespace ModComponent.Utils;
@@ -9,7 +10,7 @@ public static class CopyFieldHandler
 	public static void UpdateFieldValues<T>(T componentToUpdate) where T : Component
 	{
 		string? gearName = NormalizeName(componentToUpdate.name);
-		GameObject? prefab = Resources.Load(gearName)?.TryCast<GameObject>();
+		GameObject? prefab = Addressables.LoadAssetAsync<GameObject>(gearName).WaitForCompletion()?.TryCast<GameObject>();
 		if (prefab == null)
 		{
 			Logger.Log("While copying fields for '{0}', the prefab was null.");

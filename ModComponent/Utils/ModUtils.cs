@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Utils;
 
@@ -119,7 +120,7 @@ public static class ModUtils
 
 	internal static T GetItem<T>(string name, string? reference = null) where T : Component
 	{
-		GameObject? gameObject = GearItem.LoadGearItemPrefab(name).gameObject;
+		GameObject? gameObject = Addressables.LoadAssetAsync<GameObject>(name).WaitForCompletion().Cast<GameObject>();
 		if (gameObject == null)
 		{
 			throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");

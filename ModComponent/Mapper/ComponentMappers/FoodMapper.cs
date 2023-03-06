@@ -3,6 +3,7 @@
 using ModComponent.API;
 using ModComponent.API.Components;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper.ComponentMappers;
 
@@ -63,7 +64,7 @@ internal static class FoodMapper
 
 			if (modFoodComponent.Canned)
 			{
-				foodItem.m_GearPrefabHarvestAfterFinishEatingNormal = GearItem.LoadGearItemPrefab("GEAR_RecycledCan").gameObject;
+				foodItem.m_GearPrefabHarvestAfterFinishEatingNormal = Addressables.LoadAssetAsync<GameObject>("GEAR_RecycledCan").WaitForCompletion().Cast<GameObject>();
 			}
 		}
 

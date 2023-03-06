@@ -1,7 +1,10 @@
 ﻿using Il2Cpp;
 using HarmonyLib;
+using UnityEngine;
+using ModComponent.AssetLoader;
 
 using ModComponent.Mapper;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Patches;
 

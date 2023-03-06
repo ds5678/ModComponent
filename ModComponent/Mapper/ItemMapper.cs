@@ -18,7 +18,7 @@ internal static class ItemMapper
 
 	public static void Map(string prefabName)
 	{
-		UnityEngine.Object @object = Resources.Load(prefabName);
+		UnityEngine.Object @object = Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
 		if (@object == null)
 		{
 			throw new ArgumentException($"Prefab {prefabName} not found");
@@ -127,13 +127,7 @@ internal static class ItemMapper
 
 		//		string guid = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(modComponent.name.ToLower()))).Replace("-", "");
 		//		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(guid.ToLower());
-		//		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name.ToLower());
-		//MelonLoader.MelonLogger.Warning("added AssetReferenceGearItem | "+ modComponent.name.ToLower()+" | "+ guid.ToLower());
-		//if (!gearItemAssets.ContainsKey(guid.ToLower()))
-		//{
-		//	gearItemAssets.Add(guid.ToLower(), modComponent.name.ToLower());
-		//}
-		//		gearItemRefs.Add(modComponent.name, guid.ToLower());
+		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
 
 		gearItem.GearItemData.m_CoverFlowBlendTexture = new AssetReferenceTexture2D(modComponent.name);
 		gearItem.GearItemData.m_CoverFlowDamageTexture = new AssetReferenceTexture2D(modComponent.name);
@@ -229,7 +223,8 @@ internal static class ItemMapper
 		GearItem gearItem = modComponent.GetComponent<GearItem>();
 		gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
 
-		GameObject template = GearItem.LoadGearItemPrefab("GEAR_CoffeeCup").gameObject;
+		
+		GameObject template = Addressables.LoadAssetAsync<GameObject>("GEAR_CoffeeCup").WaitForCompletion().Cast<GameObject>();
 		MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
 
 		foreach (MeshRenderer? eachMeshRenderer in gearItem.m_MeshRenderers)

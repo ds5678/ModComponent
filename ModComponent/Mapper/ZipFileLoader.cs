@@ -1,5 +1,7 @@
-﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
+﻿using Il2Cpp;
+using MelonLoader.ICSharpCode.SharpZipLib.Zip;
 using MelonLoader.TinyJSON;
+using MelonLoader.Utils;
 using ModComponent.Utils;
 using System;
 using System.Collections.Generic;
@@ -8,13 +10,14 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
 internal static class ZipFileLoader
 {
 	internal static readonly List<byte[]> hashes = new();
-
+	
 	internal static void Initialize()
 	{
 		LoadZipFilesInDirectory(FileUtils.GetModsFolderPath(), false);
@@ -96,7 +99,7 @@ internal static class ZipFileLoader
 			return FileType.other;
 		}
 
-		if (filename.EndsWith(".unity3d", StringComparison.Ordinal))
+		if (filename.EndsWith(".unity3d", StringComparison.Ordinal) || filename.EndsWith(".bundle", StringComparison.Ordinal))
 		{
 			return FileType.unity3d;
 		}
@@ -194,8 +197,15 @@ internal static class ZipFileLoader
 			}
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
-				Logger.Log($"Reading json localization from zip at '{internalPath}'");
-				LocalizationUtilities.LocalizationManager.LoadJsonLocalization(text);
+				// change emthod to ensure we go via the BOM fixed methods..
+				TextAsset textAsset = new(text);
+				LocalizationUtilities.LocalizationManager.LoadLocalization(textAsset, internalPath);
+			}
+			else if (internalPath.StartsWith(@"bundle/"))
+			{
+				Logger.Log($"Reading json catalog from zip at '{internalPath}'");
+				string catalogFilename = Path.GetFileName(internalPath);
+				AssetBundleProcessor.WriteCatalogToDisk(catalogFilename, text);
 			}
 			else if (internalPath.ToLowerInvariant() == "buildinfo.json")
 			{
@@ -251,15 +261,14 @@ internal static class ZipFileLoader
 	private static bool TryHandleUnity3d(string zipFilePath, string internalPath, byte[] data)
 	{
 		string fullPath = Path.Combine(zipFilePath, internalPath);
-		if (internalPath.StartsWith(@"auto-mapped/"))
+		if (internalPath.StartsWith(@"bundle/"))
 		{
 			Logger.Log($"Loading asset bundle from zip at '{internalPath}'");
+
 			try
 			{
-				AssetBundle assetBundle = AssetBundle.LoadFromMemory(data);
-				string relativePath = FileUtils.GetPathRelativeToModsFolder(fullPath);
-				ModComponent.AssetLoader.ModAssetBundleManager.RegisterAssetBundle(relativePath, assetBundle);
-				AutoMapper.AddAssetBundle(relativePath, zipFilePath);
+				string bundleFilename = Path.GetFileName(internalPath);
+				AssetBundleProcessor.WriteAssettBundleToDisk(bundleFilename, data);
 				return true;
 			}
 			catch (Exception e)
@@ -270,7 +279,7 @@ internal static class ZipFileLoader
 		}
 		else
 		{
-			PackManager.SetItemPackNotWorking(zipFilePath, $"Asset bundle not in the auto-mapped folder: '{fullPath}'");
+			PackManager.SetItemPackNotWorking(zipFilePath, $"Asset bundle not in the bundle folder: '{fullPath}'");
 			return false;
 		}
 	}

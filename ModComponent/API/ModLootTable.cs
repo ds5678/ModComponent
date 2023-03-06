@@ -1,6 +1,7 @@
 ﻿using Il2Cpp;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.API;
 
@@ -21,7 +22,7 @@ internal class ModLootTable : LootTable
 		m_Weights = new Il2CppCollections.List<int>();
 		for (int i = 0; i < len; i++)
 		{
-			GameObject? go = Resources.Load(prefabNames[i])?.TryCast<GameObject>();
+			GameObject? go = Addressables.LoadAssetAsync<GameObject>(prefabNames[i]).WaitForCompletion()?.TryCast<GameObject>();
 			if (go == null || weights[i] <= 0)
 			{
 				continue;

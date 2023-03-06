@@ -1,5 +1,9 @@
 ﻿using Il2CppInterop.Runtime;
+using MelonLoader.Utils;
+using ModComponent.AssetLoader; 
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityPlugin;
 
 namespace ModComponent.Utils;
 
@@ -45,4 +49,16 @@ public static class AssetBundleUtils
 		}
 		return assetBundle.LoadAsset_Internal(name, type);
 	}
+
+	
+
+	
+
+
+
+
+
+
+
+
 }

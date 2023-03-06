@@ -3,6 +3,7 @@
 using ModComponent.API.Components;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
@@ -34,7 +35,7 @@ internal static class AlternativeToolManager
 
 	private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
 	{
-		GameObject original = Resources.Load(templateName).Cast<GameObject>();
+		GameObject original = Addressables.LoadAssetAsync<GameObject>(templateName).WaitForCompletion().Cast<GameObject>();
 		if (original == null)
 		{
 			return;

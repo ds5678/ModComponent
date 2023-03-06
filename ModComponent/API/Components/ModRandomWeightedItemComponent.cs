@@ -5,6 +5,7 @@ using ModComponent.Utils;
 using System;
 using Il2CppInterop.Runtime.Attributes;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.API.Components;
 
@@ -54,7 +55,7 @@ public class ModRandomWeightedItemComponent : ModBaseComponent
 		}
 
 		int index = this.GetIndex();
-		GameObject? prefab = Resources.Load(this.ItemNames[index])?.Cast<GameObject>();
+		GameObject? prefab = Addressables.LoadAssetAsync<GameObject>(this.ItemNames[index]).WaitForCompletion()?.Cast<GameObject>();
 		if (prefab == null)
 		{
 			Logger.LogWarning($"Could not use '{this.name}' to spawn random item '{this.ItemNames[index]}'");
