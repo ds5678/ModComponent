@@ -6,11 +6,11 @@ First, Install the "**Addressables**" unity package.\
 Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Settings**"\
 You will ge tthe following prompt.\
 Click "**Create Addressables Settings**"\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/create_settings.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/create_settings.png)
 
 You will then get this prompt\
 Go ahead and "**Convert**"\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/convert_bundle.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/convert_bundle.png)
 
 Once that is completed\
 Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Groups**"\
@@ -18,30 +18,30 @@ Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Groups**
 
 Remove any **Localization** files in the bundle (they are now added into the .modcomponent zip file)\
 Right click on the group and select "**Simplify Andressable Names**"\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/simplify_names.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/simplify_names.png)
 
 The list should look like this once it's done.\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/simplify_done.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/simplify_done.png)
 
 Goto **Window** -> **Asset Management** -> **Addressables** -> **Profiles**\
 Change **Local** from **Built-in** to **Custom**\
-And change **BuildPath** & **LoadPath** to **.\AssetBundles\**\
+And change **BuildPath** & **LoadPath** to **.\AssetBundles\\** \
 (any folder will work honestly, this is where the built files will end up)\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/default_profile.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/default_profile.png)
 
 Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Settings**"\
 And under **Catalog** change **Player Version Override** to your preferred name\
 (this will change the naming of the bundle files, *must not conflict with other bundles)\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/override_name.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/override_name.png)
 
 Under **Build** change **Shader Bundle Naming Prefix** to **Custom**\
 Set the **Custom Prefix** to the same as **Player Version Override** (as above)\
 (this will change the naming of the shaders bundle file, *must not conflict with other bundles)\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/shader_naming.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/shader_naming.png)
 
 Under **Content Update** make sure **Build & Load Paths** is set to "**Local**"\
 (the values will inherit from the default profile we changed)\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/build_remote_catalog.png)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/build_remote_catalog.png)
 
 Select the asset group from the **Addressables Groups** window\
 And then in the inspector change **Bundle Naming Mode** to **Filename** (makes filenames cleaner)
@@ -61,8 +61,8 @@ Then copy your localization files into **localizations** \
 
 Then modifiy any blueprints you might have from the old format to the new CraftingRevisions format\
 **OLD**\
-![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/blueprint_changes.png)\
-**NEW**\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/blueprint_changes.png)
+**NEW**
 
 ## Congrats, you have now converted your ModComponent bundle.
 
