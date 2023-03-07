@@ -182,6 +182,8 @@ internal static class ZipFileLoader
 
 	private static bool TryHandleJson(string zipFilePath, string internalPath, string text)
 	{
+		string bundleName = Path.GetFileNameWithoutExtension(zipFilePath);
+
 		try
 		{
 			string filenameNoExtension = Path.GetFileNameWithoutExtension(internalPath);
@@ -205,7 +207,7 @@ internal static class ZipFileLoader
 			{
 				Logger.Log($"Reading json catalog from zip at '{internalPath}'");
 				string catalogFilename = Path.GetFileName(internalPath);
-				AssetBundleProcessor.WriteCatalogToDisk(catalogFilename, text);
+				AssetBundleProcessor.WriteCatalogToDisk(bundleName,catalogFilename, text);
 			}
 			else if (internalPath.ToLowerInvariant() == "buildinfo.json")
 			{
@@ -260,6 +262,7 @@ internal static class ZipFileLoader
 
 	private static bool TryHandleUnity3d(string zipFilePath, string internalPath, byte[] data)
 	{
+		string bundleName = Path.GetFileNameWithoutExtension(zipFilePath);
 		string fullPath = Path.Combine(zipFilePath, internalPath);
 		if (internalPath.StartsWith(@"bundle/"))
 		{
@@ -268,7 +271,7 @@ internal static class ZipFileLoader
 			try
 			{
 				string bundleFilename = Path.GetFileName(internalPath);
-				AssetBundleProcessor.WriteAssettBundleToDisk(bundleFilename, data);
+				AssetBundleProcessor.WriteAssettBundleToDisk(bundleName, bundleFilename, data);
 				return true;
 			}
 			catch (Exception e)

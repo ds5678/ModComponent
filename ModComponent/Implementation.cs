@@ -27,19 +27,7 @@ internal class Implementation : MelonMod
 
 		Settings.instance.AddToModSettings("ModComponent");
 
-		ZipFileLoader.Initialize();
-
-		AssetBundleProcessor.PreloadAssetBundles();
-
-		AssetBundleProcessor.LoadCatalogs();
-
-		AssetBundleProcessor.TestCatalogs();
-
-		AssetBundleProcessor.MapPrefabs();
-
-//		Application.Quit();
-
-
+		AssetBundleProcessor.Initialize();
 	}
 
 	public override void OnApplicationQuit()

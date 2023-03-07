@@ -16,18 +16,20 @@ internal static class AutoMapper
 	/// </summary>
 	private static readonly Dictionary<string, string> pendingAssetBundleZipFileMap = new();
 
-	internal static void AutoMapPrefab(string prefabName)
+	internal static void AutoMapPrefab(string bundlePath, string prefabName)
 	{
+		string bundleName = Path.GetFileNameWithoutExtension(bundlePath);
+
 		UnityEngine.Object? loadedObject = Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
 		if (loadedObject == null)
 		{
-			throw new Exception($"{prefabName} could not be loaded with Resources.Load");
+			throw new Exception($"({bundleName}) {prefabName} could not be loaded with Resources.Load");
 		}
 
 		GameObject? prefab = loadedObject.TryCast<GameObject>();
 		if (prefab == null)
 		{
-			throw new NullReferenceException($"In AutoMapper.AutoMapPrefab, {prefabName} loaded object was not a GameObject.");
+			throw new NullReferenceException($"In AutoMapper.AutoMapPrefab, ({bundleName}) {prefabName} loaded object was not a GameObject.");
 		}
 
 		if (prefab.name.StartsWith("GEAR_"))
@@ -48,7 +50,7 @@ internal static class AutoMapper
 			//Logger.Log(eachAssetName);
 			if (eachAssetName.EndsWith(".prefab"))
 			{
-				AutoMapPrefab(eachAssetName);
+				AutoMapPrefab(assetBundle.name, eachAssetName);
 			}
 		}
 	}

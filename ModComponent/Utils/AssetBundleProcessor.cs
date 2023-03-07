@@ -12,23 +12,52 @@ namespace ModComponent.Utils
 		internal readonly static string tempFolderName = "_ModComponentTemp";
 		internal readonly static string tempFolderPath = Path.Combine(MelonEnvironment.ModsDirectory, tempFolderName);
 
-		internal readonly static List<string> bundleFilePaths = new();
 		internal readonly static List<string> catalogFilePaths = new();
-
-		internal Dictionary<string, string> catalogBundleList = new();
-
+		internal readonly static Dictionary<string, List<string>> catalogBundleList = new();
 		internal readonly static Dictionary<string, string> catalogTestList = new();
 
+		internal readonly static List<string> bundleFilePaths = new();
 		internal readonly static List<string> bundleNames = new();
-		internal readonly static List<string> assetList = new();
+		internal readonly static Dictionary<string, List<string>> bundleAssetList = new();
 
+
+
+
+		internal static void Initialize()
+		{
+			// ensure temp foler exists
+			InitTempFolder();
+
+			// process .modcomponent files & writeout bundles/catalogs
+			ZipFileLoader.Initialize();
+
+			// preload the bundles, populate bundleNames & bundleAssetList
+			PreloadAssetBundles();
+
+			// load & test the catalogs in a loop (prevent one from breaking all)
+			LoadCatalogs();
+
+			// now lets map those prefabs
+			MapPrefabs();
+
+		}
 
 		internal static void InitTempFolder()
 		{
 			if (!Directory.Exists(tempFolderPath))
 			{
-				MelonLoader.MelonLogger.Warning("Creating temp folder ("+ tempFolderName + ")");
+				MelonLoader.MelonLogger.Msg("Creating temp folder (" + tempFolderName + ")");
 				Directory.CreateDirectory(tempFolderPath);
+			}
+		}
+
+		internal static void InitTempBundleFolder(string bundleName)
+		{
+			string bundleFolder = Path.Combine(tempFolderPath, bundleName);
+			if (!Directory.Exists(bundleFolder))
+			{
+				MelonLoader.MelonLogger.Msg("Creating temp bundle folder (" + bundleFolder + ")");
+				Directory.CreateDirectory(bundleFolder);
 			}
 		}
 
@@ -57,32 +86,37 @@ namespace ModComponent.Utils
 
 		internal static void PreloadAssetBundles()
 		{
-			InitTempFolder();
-
 			foreach (string bundleFilePath in bundleFilePaths)
 			{
+
+				if (bundleAssetList.ContainsKey(bundleFilePath))
+				{
+					continue;
+				}
+
 				if (bundleFilePath != null && File.Exists(bundleFilePath))
 				{
 					string bundleFileName = Path.GetFileName(bundleFilePath);
-					MelonLoader.MelonLogger.Warning("PreloadAssetBundles | " + bundleFileName);
+					MelonLoader.MelonLogger.Msg("Preloading (" + bundleFileName+")");
 
+					List<string> assetList = new();
 					AssetBundle ab = AssetBundle.LoadFromFile(bundleFilePath);
 					foreach (string assetName in ab.GetAllAssetNames())
 					{
 						assetList.Add(assetName);
 					}
-
+					bundleAssetList.Add(bundleFilePath, assetList);
 					bundleNames.Add(ab.name);
 					ab.Unload(true);
 				}
 			}
 		}
 
-		internal static void WriteAssettBundleToDisk(string filename, byte[] data)
+		internal static void WriteAssettBundleToDisk(string bundleName, string filename, byte[] data)
 		{
-			InitTempFolder();
+			InitTempBundleFolder(bundleName);
 
-			string bundleFilePath = Path.Combine(tempFolderPath, filename);
+			string bundleFilePath = Path.Combine(tempFolderPath, bundleName, filename);
 			if (File.Exists(bundleFilePath))
 			{
 				File.Delete(bundleFilePath);
@@ -90,23 +124,26 @@ namespace ModComponent.Utils
 			FileStream fs = File.Create(bundleFilePath);
 			fs.Write(data);
 			fs.Close();
-			MelonLoader.MelonLogger.Warning("Bundle Written | " + filename);
-			bundleFilePaths.Add(bundleFilePath);
+			MelonLoader.MelonLogger.Msg("Bundle Written (" + filename+")");
+			if (!bundleFilePath.Contains("unitybuiltinshaders")) {
+				bundleFilePaths.Add(bundleFilePath);
+			}
 		}
 
-		internal static void WriteCatalogToDisk(string filename, string data)
+		internal static void WriteCatalogToDisk(string bundleName, string filename, string data)
 		{
-			InitTempFolder();
+			InitTempBundleFolder(bundleName);
 
 			string catalogName = Path.GetFileNameWithoutExtension(filename);
 
-			string catalogFilePath = Path.Combine(tempFolderPath, filename);
+			string catalogFilePath = Path.Combine(tempFolderPath, bundleName, filename);
 			if (File.Exists(catalogFilePath))
 			{
 				File.Delete(catalogFilePath);
 			}
 
 			string firstAsset = null;
+			List<string> catalogBundles = new();
 			ModContentCatalog contentCatalog = System.Text.Json.JsonSerializer.Deserialize<ModContentCatalog>(data);
 			for (int i = 0; i < contentCatalog.m_InternalIds.Length; i++)
 			{
@@ -114,69 +151,149 @@ namespace ModComponent.Utils
 				string assetExtension = Path.GetExtension(line);
 				if (assetExtension == ".bundle" || assetExtension == ".unity3d")
 				{
-					contentCatalog.m_InternalIds[i] = Path.Combine(tempFolderPath, Path.GetFileName(line));
+					contentCatalog.m_InternalIds[i] = Path.Combine(tempFolderPath, bundleName, Path.GetFileName(line));
+					catalogBundles.Add(Path.GetFileName(line));
 				}
 				else if (firstAsset == null)
 				{
-					firstAsset = Path.GetFileName(line);
+					firstAsset = line;
 				}
 			}
+			if (!catalogName.Contains("unitybuiltinshaders")) {
+				catalogBundleList.Add(catalogFilePath, catalogBundles);
+			}
 			contentCatalog.m_LocatorId = catalogName;
-			MelonLoader.MelonLogger.Warning("Catalog m_InternalIds Patched | " + catalogName);
+			MelonLoader.MelonLogger.Msg("Catalog m_InternalIds Patched (" + catalogName + ")");
 
 			data = System.Text.Json.JsonSerializer.Serialize<ModContentCatalog>(contentCatalog);
 
 			File.WriteAllText(catalogFilePath, data);
-			MelonLoader.MelonLogger.Warning("Catalog Written | " + catalogName);
+			MelonLoader.MelonLogger.Msg("Catalog Written (" + catalogName + ")");
 			catalogFilePaths.Add(catalogFilePath);
-			catalogTestList.Add(catalogName, firstAsset);
+			if (firstAsset != null && !catalogName.Contains("unitybuiltinshaders"))
+			{
+				catalogTestList.Add(catalogFilePath, firstAsset);
+			}
 
 		}
 
 		internal static void LoadCatalogs()
 		{
-			foreach (string catalogFilePath in catalogFilePaths)
+			foreach (KeyValuePair<string, List<string>> item in catalogBundleList)
 			{
-				string catalogName = Path.GetFileNameWithoutExtension(catalogFilePath);
-				IResourceLocator catalogLocator = Addressables.LoadContentCatalogAsync(catalogFilePath).WaitForCompletion();
-				string loadState = (catalogLocator != null && catalogLocator.Keys != null) ? "PASSED" : "FAILED";
-				MelonLoader.MelonLogger.Warning("Catalog Loading (" + catalogName + ") " + loadState);
+				string catalogFilePath = item.Key;
+				if (item.Value != null && item.Value.Count > 0)
+				{
+
+					bool catalogLoaded = LoadCatalog(catalogFilePath);
+					if (catalogLoaded == true)
+					{
+						bool catalogTest = TestCatalog(catalogFilePath);
+					}
+
+				}
 			}
 		}
-
-		internal static void TestCatalogs()
+		internal static bool LoadCatalog(string catalogFilePath)
 		{
-			foreach (KeyValuePair<string, string> test in catalogTestList)
+			if (catalogFilePath == null || catalogFilePath == "")
 			{
-				
-				string catalogName = Path.GetFileNameWithoutExtension(test.Key);
-				string testAssetName = Path.GetFileNameWithoutExtension(test.Value);
-				string assetExtension = Path.GetExtension(test.Value);
+				MelonLoader.MelonLogger.Error("Catalog Loaded - No Catalog Path ");
+				return true;
+			}
 
-				if (assetExtension == ".png" || assetExtension == ".jpg")
+			string catalogName = Path.GetFileNameWithoutExtension(catalogFilePath);
+			string catalogExtension = Path.GetExtension(catalogFilePath);
+
+			if (catalogExtension != ".json")
+			{
+				MelonLoader.MelonLogger.Error("Catalog Failed - Invalid extension (" + catalogExtension + ")");
+				return true;
+			}
+
+			try
+			{
+				IResourceLocator catalogLocator = Addressables.LoadContentCatalogAsync(catalogFilePath).WaitForCompletion();
+				if (catalogLocator != null && catalogLocator.Keys != null)
 				{
-					Texture2D? testObject = Addressables.LoadAssetAsync<Texture2D>(testAssetName).WaitForCompletion();
-					string testPassed = (testObject != null && testObject.name != null) ? "PASSED (" + testObject.name + ")" : "FAILED (" + testAssetName + ")";
-					MelonLoader.MelonLogger.Warning("Catalog Test (" + catalogName + ") " + testPassed);
+					MelonLoader.MelonLogger.Msg(ConsoleColor.Green, "Catalog Loaded (" + catalogName + ") ");
+					return true;
 				}
-				if (assetExtension == ".prefab")
+			}
+			catch (Exception e)
+			{
+				MelonLoader.MelonLogger.Error("Catalog Failed (" + catalogName + ") " + e.ToString());
+				return false;
+			}
+			return false;
+		}
+
+		internal static bool TestCatalog(string catalogFilePath)
+		{
+			string catalogName = Path.GetFileNameWithoutExtension(catalogFilePath);
+
+			if (catalogTestList.ContainsKey(catalogFilePath))
+			{
+				try
 				{
-					GameObject? testObject = Addressables.LoadAssetAsync<GameObject>(testAssetName).WaitForCompletion();
-					string testPassed = (testObject != null && testObject.name != null) ? "PASSED (" + testObject.name + ")" : "FAILED (" + testAssetName + ")";
-					MelonLoader.MelonLogger.Warning("Catalog Test (" + catalogName + ") " + testPassed);
+					string testAssetPath = catalogTestList[catalogFilePath];
+					string assetExtension = Path.GetExtension(testAssetPath);
+					string testAssetName = Path.GetFileNameWithoutExtension(testAssetPath);
+
+					if (assetExtension == ".png" || assetExtension == ".jpg")
+					{
+						Texture2D? testObject = Addressables.LoadAssetAsync<Texture2D>(testAssetName).WaitForCompletion();
+						if (testObject != null && testObject.name != null)
+						{
+							MelonLoader.MelonLogger.Msg(ConsoleColor.Green, "Catalog Test (" + catalogName + ") (" + testAssetName + ") OK");
+							return true;
+						} else
+						{
+							MelonLoader.MelonLogger.Error("Catalog Test (" + catalogName + ") (" + testAssetName + ") Failed");
+							return false;
+						}
+
+					}
+					if (assetExtension == ".prefab")
+					{
+						GameObject? testObject = Addressables.LoadAssetAsync<GameObject>(testAssetName).WaitForCompletion();
+						if (testObject != null && testObject.name != null)
+						{
+							MelonLoader.MelonLogger.Msg(ConsoleColor.Green, "Catalog Test (" + catalogName + ") (" + testAssetName + ") OK");
+							return true;
+						}
+						else
+						{
+							MelonLoader.MelonLogger.Error("Catalog Test (" + catalogName + ") (" + testAssetName + ") Failed");
+							return false;
+						}
+					}
+					MelonLoader.MelonLogger.Error("Catalog Test Failed (" + catalogName + ") (" + testAssetName + assetExtension + ") Unknown asset extension");
+					return false;
 				}
-
-
+				catch (Exception e)
+				{
+					MelonLoader.MelonLogger.Error("Catalog Test Failed (" + catalogName + ") " + e.ToString());
+					return false;
+				}
+			}
+			else
+			{
+				MelonLoader.MelonLogger.Error("Catalog Test Failed (" + catalogName + ") No test found");
+				return false;
 			}
 		}
 
 		internal static void MapPrefabs()
 		{
-			foreach (string assetName in assetList)
+			foreach (KeyValuePair<string, List<string>> item in bundleAssetList)
 			{
-				if (assetName.ToLower().EndsWith(@".prefab"))
+				foreach (string assetName in item.Value)
 				{
-					AutoMapper.AutoMapPrefab(Path.GetFileNameWithoutExtension(assetName));
+					if (assetName.ToLower().EndsWith(@".prefab"))
+					{
+						AutoMapper.AutoMapPrefab(Path.GetFileNameWithoutExtension(item.Key), Path.GetFileNameWithoutExtension(assetName));
+					}
 				}
 			}
 		}
