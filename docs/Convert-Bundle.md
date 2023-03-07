@@ -34,12 +34,17 @@ And under **Catalog** change **Player Version Override** to your preferred name\
 (this will change the naming of the bundle files, *must not conflict with other bundles)\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/override_name.png)\
 
+Under **Build** change **Shader Bundle Naming Prefix** to **Custom**\
+Set the **Custom Prefix** to the same as **Player Version Override** (as above)\
+(this will change the naming of the shaders bundle file, *must not conflict with other bundles)\
+![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/shader_naming.png)\
+
 Under **Content Update** make sure **Build & Load Paths** is set to "**Local**"\
 (the values will inherit from the default profile we changed)\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/build_remote_catalog.png)\
 
 Select the asset group from the **Addressables Groups** window\
-And then in the inspector change **Bundle Naming Mode** to **Filename**\
+And then in the inspector change **Bundle Naming Mode** to **Filename** (makes filenames cleaner)
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/set_naming_mode.png)
 
 At the top of the **Addressables Groups** window\
