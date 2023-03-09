@@ -9,16 +9,16 @@ namespace ModComponent.Utils
 {
 	internal class AssetBundleProcessor
 	{
-		internal readonly static string tempFolderName = "_ModComponentTemp";
-		internal readonly static string tempFolderPath = Path.Combine(MelonEnvironment.ModsDirectory, tempFolderName);
+		internal static string tempFolderName { get; set; } = "_ModComponentTemp";
+		internal static string tempFolderPath { get; set; } = Path.Combine(MelonEnvironment.ModsDirectory, tempFolderName);
 
-		internal readonly static List<string> catalogFilePaths = new();
-		internal readonly static Dictionary<string, List<string>> catalogBundleList = new();
-		internal readonly static Dictionary<string, string> catalogTestList = new();
+		internal static List<string> catalogFilePaths { get; set; } = new();
+		internal static Dictionary<string, List<string>> catalogBundleList { get; set; } = new();
+		internal static Dictionary<string, string> catalogTestList { get; set; } = new();
 
-		internal readonly static List<string> bundleFilePaths = new();
-		internal readonly static List<string> bundleNames = new();
-		internal readonly static Dictionary<string, List<string>> bundleAssetList = new();
+		internal static List<string> bundleFilePaths { get; set; } = new();
+		internal static List<string> bundleNames { get; set; } = new();
+		internal static Dictionary<string, List<string>> bundleAssetList { get; set; } = new();
 
 
 
@@ -194,6 +194,7 @@ namespace ModComponent.Utils
 				}
 			}
 		}
+
 		internal static bool LoadCatalog(string catalogFilePath)
 		{
 			if (catalogFilePath == null || catalogFilePath == "")

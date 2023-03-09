@@ -125,8 +125,6 @@ internal static class ItemMapper
 		}
 
 
-		//		string guid = BitConverter.ToString(MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(modComponent.name.ToLower()))).Replace("-", "");
-		//		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(guid.ToLower());
 		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
 
 		gearItem.GearItemData.m_CoverFlowBlendTexture = new AssetReferenceTexture2D(modComponent.name);
@@ -157,8 +155,6 @@ internal static class ItemMapper
 		gearItem.GearItemData.m_ScentIntensity = ScentMapper.GetScentIntensity(modComponent);
 
 		gearItem.Awake();
-
-
 	}
 
 	private static ConditionTableType GetConditionTableType(ModBaseComponent modComponent)
@@ -235,11 +231,6 @@ internal static class ItemMapper
 				{
 					eachMaterial.shader = meshRenderer.material.shader;
 					eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
-
-					//if (eachMaterial.GetTexture("_dmg_texture") == null)
-					//{
-					//	eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
-					//}
 				}
 			}
 		}
@@ -249,12 +240,4 @@ internal static class ItemMapper
 		UnityEngine.Object.DontDestroyOnLoad(modComponent.gameObject);
 	}
 
-	//public static string GetGearNameFromAssetRef(string assetRef)
-	//{
-	//	if (gearItemAssets.ContainsKey(assetRef))
-	//	{
-	//		return gearItemAssets[assetRef];
-	//	}
-	//	return null;
-	//}
 }

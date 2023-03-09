@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using MelonLoader.Utils;
 
 namespace ModComponent.Utils;
 
@@ -7,12 +6,7 @@ public static class FileUtils
 {
 	public static string GetModsFolderPath()
 	{
-		return Path.Combine(MelonLoader.MelonUtils.GameDirectory, @"Mods");
-	}
-
-	public static string GetModComponentZipsFolderPath()
-	{
-		return Path.Combine(MelonLoader.MelonUtils.GameDirectory, @"Mods", @"ModComponentZips");
+		return MelonEnvironment.ModsDirectory;
 	}
 
 	internal static string GetRelativePath(string file, string directory)
