@@ -27,8 +27,6 @@ internal static class ClothingMapper
 		clothingItem.m_MaxLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, ModClothingComponent.Layer>(modClothingItem.MaxLayer);
 		clothingItem.m_MinLayer = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingLayer, ModClothingComponent.Layer>(modClothingItem.MinLayer);
 		clothingItem.m_FootwearType = ModComponent.Utils.EnumUtils.TranslateEnumValue<FootwearType, ModClothingComponent.FootwearType>(modClothingItem.Footwear);
-#warning m_WornMovementSoundCategory removed ?
-		//clothingItem.m_WornMovementSoundCategory = ModComponent.Utils.EnumUtils.TranslateEnumValue<ClothingMovementSound, ModClothingComponent.MovementSounds>(modClothingItem.MovementSound);
 
 		clothingItem.m_PaperDollTextureName = modClothingItem.MainTexture;
 		clothingItem.m_PaperDollBlendmapName = modClothingItem.BlendTexture;
