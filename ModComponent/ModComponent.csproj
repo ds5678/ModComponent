@@ -1,9 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<!--This is an xml comment. Comments have no impact on compiling.-->
-<PropertyGroup>
-        <!--This needs to be changed for the mod to compile.-->
-        <TheLongDarkPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark</TheLongDarkPath>
-    </PropertyGroup>
 	
 	<PropertyGroup>
 		<!--This is the .NET version the mod will be compiled with. Don't change it.-->
@@ -27,30 +23,36 @@
 		<!--none skips creation of pdb data.-->
 		<DebugType>embedded</DebugType>
 	</PropertyGroup>
+	
+	<!--This is for NuGet.-->
+	<PropertyGroup>
+		<Authors>ds5678</Authors>
+		<Version>6.0.0</Version>
+		<AssemblyVersion>6.0.0</AssemblyVersion>
+		<PackageId>ds5678.Modding.TLD.ModComponent</PackageId>
+		<PackageTags>MelonLoader Modding TLD Asset Loading Utility Mod</PackageTags>
+		<RepositoryUrl>https://github.com/ds5678/ModComponent</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/ds5678/ModComponent</PackageProjectUrl>
+		<Description>Library for The Long Dark that allows for asset bundle loading, blueprints and item spawns.</Description>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>bin\ModComponent.xml</DocumentationFile>
+		<NoWarn>1591</NoWarn>
+	</PropertyGroup>
 
 	<!--This is the of packages that the mod references.-->
 	<ItemGroup>
 		<!--This package contains almost everything a person could possibly need to reference while modding.-->
+		<PackageReference Include="ds5678.Modding.TLD.CraftingRevisions" Version="2.0.0" />
+		<PackageReference Include="ds5678.Modding.TLD.GearSpawner" Version="2.0.0" />
 		<PackageReference Include="ds5678.Modding.TLD.Il2CppAssemblies.Windows" Version="2.6.0" />
+		<PackageReference Include="ds5678.Modding.TLD.LocalizationUtilities" Version="2.0.0" />
 		<PackageReference Include="ds5678.Modding.TLD.ModSettings" Version="1.9.0" />
 		<!--The package version here in this template may be outdated and need to be updated. Visual Studio can update package versions automatically.-->
 		<!--If the mod references any other mods (such as ModSettings), that NuGet package will also need to be listed here.-->
 	</ItemGroup>
-	
-	<ItemGroup>
-	  <Reference Include="CraftingRevisions">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\CraftingRevisions.dll</HintPath>
-	  </Reference>
-	  <Reference Include="GearSpawner">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\GearSpawner.dll</HintPath>
-	  </Reference>
-	  <Reference Include="LocalizationUtilities">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\TheLongDark\Mods\LocalizationUtilities.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
-	
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="xcopy /y /d  &quot;$(TargetPath)&quot; &quot;$(TheLongDarkPath)\Mods&quot;" />
-	</Target>
 	
 </Project>
