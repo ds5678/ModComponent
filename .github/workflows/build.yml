@@ -29,13 +29,13 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: CraftingRevisions
+        name: ModComponent
         path: ./ModComponent/bin/Release/net6.0/ModComponent.dll
         if-no-files-found: error
         
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: CraftingRevisions_nupkg
+        name: ModComponent_nupkg
         path: ./ModComponent/bin/Release/*.nupkg
         if-no-files-found: error
