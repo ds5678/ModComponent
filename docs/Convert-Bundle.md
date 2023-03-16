@@ -3,7 +3,7 @@
 First, Install the "**Addressables**" unity package.\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/install_addressables_.png)
 
-Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Settings**"\
+Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Groups**"\
 You will ge tthe following prompt.\
 Click "**Create Addressables Settings**"\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/create_settings.png)
@@ -13,7 +13,6 @@ Go ahead and "**Convert**"\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/convert_bundle.png)
 
 Once that is completed\
-Goto "**Window**" -> "**Asset Management**" -> "**Addressables**" -> "**Groups**"\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/groups.png)\
 
 Remove any **Localization** files in the bundle (they are now added into the .modcomponent zip file)\
@@ -39,7 +38,8 @@ Set the **Custom Prefix** to the same as **Player Version Override** (as above)\
 (this will change the naming of the shaders bundle file, *must not conflict with other bundles)\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/shader_naming.png)
 
-Under **Content Update** make sure **Build & Load Paths** is set to "**Local**"\
+Under **Content Update** tick **Build Remote Catalog**
+Set **Build & Load Paths** to "**Local**"\
 (the values will inherit from the default profile we changed)\
 ![](https://raw.githubusercontent.com/dommrogers/ModComponent/master/Images/convert-bundle/build_remote_catalog.png)
 
