@@ -142,9 +142,19 @@ namespace ModComponent.Utils
 				File.Delete(catalogFilePath);
 			}
 
-			string firstAsset = null;
+			string? firstAsset = null;
 			List<string> catalogBundles = new();
-			ModContentCatalog contentCatalog = System.Text.Json.JsonSerializer.Deserialize<ModContentCatalog>(data);
+			ModContentCatalog? contentCatalog = System.Text.Json.JsonSerializer.Deserialize<ModContentCatalog>(data);
+			if (contentCatalog == null)
+			{
+				MelonLoader.MelonLogger.Error("Catalog Failed - Could not deserialize json (" + catalogName + ")");
+				return;
+			}
+			if (contentCatalog.m_InternalIds == null || contentCatalog.m_InternalIds.Length <= 0)
+			{
+				MelonLoader.MelonLogger.Error("Catalog Failed - InternalIds empty (" + catalogName + ")");
+				return;
+			}
 			for (int i = 0; i < contentCatalog.m_InternalIds.Length; i++)
 			{
 				string line = contentCatalog.m_InternalIds[i];
