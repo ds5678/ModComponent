@@ -1,6 +1,8 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using Il2Cpp;
+using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
+
 
 namespace ModComponent.API.Components;
 
@@ -11,7 +13,7 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// The type of the tool item. This determines for which actions it can be used.
 	/// E.g. 'Knife' for cutting, 'Hammer' for pounding, etc.
 	/// </summary>
-	public ToolKind ToolType = ToolKind.None;
+	public ToolsItem.CuttingToolType ToolType = ToolsItem.CuttingToolType.None;
 
 	/// <summary>
 	/// How many condition points per use does this tool item lose?
@@ -23,7 +25,7 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// <summary>
 	/// Can this item be used for crafting, repairing or both?
 	/// </summary>
-	public ToolUsage Usage = ToolUsage.All;
+	public ToolsItem.ToolType Usage = ToolsItem.ToolType.All;
 
 	/// <summary>
 	/// Bonus to the relevant skill when using this item. E.g. the sewing kit gives a bonus of +20.
@@ -158,9 +160,9 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModToolComponent")
 	{
 		base.InitializeComponent(dict, className);
-		this.ToolType = dict.GetEnum<ToolKind>(className, "ToolType");
+		this.ToolType = dict.GetEnum<ToolsItem.CuttingToolType>(className, "ToolType");
 		this.DegradeOnUse = dict.GetVariant(className, "DegradeOnUse");
-		this.Usage = dict.GetEnum<ToolUsage>(className, "Usage");
+		this.Usage = dict.GetEnum<ToolsItem.ToolType>(className, "Usage");
 		this.SkillBonus = dict.GetVariant(className, "SkillBonus");
 
 		this.CraftingTimeMultiplier = dict.GetVariant(className, "CraftingTimeMultiplier");

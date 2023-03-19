@@ -4,7 +4,6 @@ using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper.BehaviourMappers;
 
@@ -29,7 +28,7 @@ internal static class EvolveMapper
 
 	private static GearItem GetTargetItem(string targetItemName, string reference)
 	{
-		GameObject? targetItem = Addressables.LoadAssetAsync<GameObject>(targetItemName).WaitForCompletion()?.Cast<GameObject>();
+		GameObject? targetItem = AssetBundleUtils.LoadAsset<GameObject>(targetItemName);
 		if (targetItem != null && ComponentUtils.GetModComponent(targetItem) != null)
 		{
 			// if this a modded item, map it now (no harm if it was already mapped earlier)

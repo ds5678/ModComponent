@@ -1,4 +1,5 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using Il2Cpp;
+using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using System.Reflection;
@@ -18,14 +19,14 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// From innermost to outermost: Base, Mid, Top, Top2.<br/>
 	/// Examples: Legs + Base = Longjohns, Legs + Top = Pants; Feet + Mid = Socks, Feet + Top = Boots
 	/// </summary>
-	public Layer MinLayer;
+	public ClothingLayer MinLayer;
 
 	/// <summary>
 	/// The outermost layer at which the clothing item can be worn.<br/>
 	/// From innermost to outermost: Base, Mid, Top, Top2.<br/>
 	/// Examples: Legs + Base = Longjohns, Legs + Top = Pants; Feet + Mid = Socks, Feet + Top = Boots
 	/// </summary>
-	public Layer MaxLayer;
+	public ClothingLayer MaxLayer;
 
 	/// <summary>
 	/// The type of sound to make when moving while wearing this clothing item.
@@ -194,8 +195,8 @@ public partial class ModClothingComponent : ModBaseComponent
 	{
 		base.InitializeComponent(dict, className);
 		this.Region = dict.GetEnum<BodyRegion>(className, "Region");
-		this.MinLayer = dict.GetEnum<Layer>(className, "MinLayer");
-		this.MaxLayer = dict.GetEnum<Layer>(className, "MaxLayer");
+		this.MinLayer = dict.GetEnum<ClothingLayer>(className, "MinLayer");
+		this.MaxLayer = dict.GetEnum<ClothingLayer>(className, "MaxLayer");
 		this.MovementSound = dict.GetEnum<MovementSounds>(className, "MovementSound");
 		this.Footwear = dict.GetEnum<FootwearType>(className, "Footwear");
 		this.DaysToDecayWornOutside = dict.GetVariant(className, "DaysToDecayWornOutside");

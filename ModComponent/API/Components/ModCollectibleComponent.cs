@@ -1,4 +1,5 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using Il2Cpp;
+using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 
 namespace ModComponent.API.Components;
@@ -19,7 +20,7 @@ public partial class ModCollectibleComponent : ModBaseComponent
 	/// <summary>
 	/// The alignment of the narrative text. Options are "Automatic", "Left", "Center", "Right", and "Justified"
 	/// </summary>
-	public Alignment TextAlignment = Alignment.Automatic;
+	public NGUIText.Alignment TextAlignment = NGUIText.Alignment.Automatic;
 
 	public ModCollectibleComponent(System.IntPtr intPtr) : base(intPtr) { }
 
@@ -29,6 +30,6 @@ public partial class ModCollectibleComponent : ModBaseComponent
 		base.InitializeComponent(dict, className);
 		this.HudMessageLocalizationId = dict.GetVariant(className, "HudMessageLocalizationId");
 		this.NarrativeTextLocalizationId = dict.GetVariant(className, "NarrativeTextLocalizationId");
-		this.TextAlignment = dict.GetEnum<Alignment>(className, "TextAlignment");
+		this.TextAlignment = dict.GetEnum<NGUIText.Alignment>(className, "TextAlignment");
 	}
 }

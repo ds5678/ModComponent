@@ -1,4 +1,5 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using Il2Cpp;
+using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using UnityEngine;
@@ -78,7 +79,7 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	/// <summary>
 	/// The initial condition of the item when found or crafted.
 	/// </summary>
-	public StartingCondition InitialCondition;
+	public GearStartCondition InitialCondition;
 
 
 	/// <summary>
@@ -143,7 +144,7 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 		this.WeightKG = dict.GetVariant(inheritanceName, "WeightKG");
 		this.DaysToDecay = dict.GetVariant(inheritanceName, "DaysToDecay");
 		this.MaxHP = dict.GetVariant(inheritanceName, "MaxHP");
-		this.InitialCondition = dict.GetEnum<StartingCondition>(inheritanceName, "InitialCondition");
+		this.InitialCondition = dict.GetEnum<GearStartCondition>(inheritanceName, "InitialCondition");
 		this.InventoryCategory = dict.GetEnum<ItemCategory>(inheritanceName, "InventoryCategory");
 		this.PickUpAudio = dict.GetVariant(inheritanceName, "PickUpAudio");
 		this.PutBackAudio = dict.GetVariant(inheritanceName, "PutBackAudio");

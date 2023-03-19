@@ -1,5 +1,5 @@
 ﻿using Il2Cpp;
-
+using UnityEngine.Analytics;
 
 namespace ModComponent.Utils;
 
@@ -15,25 +15,25 @@ public static class PlayerUtils
 		GameManager.GetPlayerManagerComponent().m_FreezeMovement = false;
 	}
 
-	public static PlayerGender GetPlayerGender()
+	public static Gender GetPlayerGender()
 	{
 		if (GameManager.GetPlayerManagerComponent() == null)
 		{
-			return PlayerGender.Unknown;
+			return Gender.Unknown;
 		}
 
 		if (InterfaceManager.GetPanel<Panel_OptionsMenu>()?.State == null)
 		{
-			return PlayerGender.Unknown;
+			return Gender.Unknown;
 		}
 
 		if (PlayerManager.m_VoicePersona == VoicePersona.Female)
 		{
-			return PlayerGender.Female;
+			return Gender.Female;
 		}
 		else
 		{
-			return PlayerGender.Male;
+			return Gender.Male;
 		}
 	}
 }

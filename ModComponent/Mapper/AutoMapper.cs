@@ -1,7 +1,7 @@
 ﻿using ModComponent.API.Components;
 using ModComponent.AssetLoader;
+using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
@@ -20,7 +20,7 @@ internal static class AutoMapper
 	{
 		string bundleName = Path.GetFileNameWithoutExtension(bundlePath);
 
-		UnityEngine.Object? loadedObject = Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
+		UnityEngine.Object? loadedObject = AssetBundleUtils.LoadAsset<GameObject>(prefabName);
 		if (loadedObject == null)
 		{
 			throw new Exception($"({bundleName}) {prefabName} could not be loaded with Resources.Load");

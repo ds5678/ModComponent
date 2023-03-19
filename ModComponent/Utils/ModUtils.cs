@@ -1,12 +1,13 @@
 ﻿using Il2Cpp;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Utils;
 
 public static class ModUtils
 {
+	private static readonly Dictionary<string, uint> eventIds = new();
+
 	public static bool AlmostZero(float value)
 	{
 		return Mathf.Abs(value) < 0.001f;
@@ -116,7 +117,7 @@ public static class ModUtils
 
 	internal static T GetItem<T>(string name, string? reference = null) where T : Component
 	{
-		GameObject? gameObject = Addressables.LoadAssetAsync<GameObject>(name).WaitForCompletion().Cast<GameObject>();
+		GameObject? gameObject = AssetBundleUtils.LoadAsset<GameObject>(name);
 		if (gameObject == null)
 		{
 			throw new ArgumentException("Could not load '" + name + "'" + (reference != null ? " referenced by '" + reference + "'" : "") + ".");
@@ -174,40 +175,38 @@ public static class ModUtils
 		return values.ToArray();
 	}
 
-	internal static Il2CppAK.Wwise.Event? GetWwiseEventFromString(string eventName)
+	internal static Il2CppAK.Wwise.Event? MakeAudioEvent(string? eventName)
 	{
-		Il2CppAK.Wwise.Event emptyEvent = new();
-		emptyEvent.WwiseObjectReference = ScriptableObject.CreateInstance<WwiseEventReference>();
-
-		if (eventName == null || eventName == "")
+		if (string.IsNullOrEmpty(eventName) || GetAKEventIdFromString(eventName) == 0)
 		{
-			return emptyEvent;
-		}
-		//uint eventId = AkSoundEngine.GetIDFromString(eventName);
-
-		uint eventId = GetAKEventIdFromString(eventName);
-		if (eventId == 0U)
-		{
+			Il2CppAK.Wwise.Event emptyEvent = new();
+			emptyEvent.WwiseObjectReference = ScriptableObject.CreateInstance<WwiseEventReference>();
+			emptyEvent.WwiseObjectReference.objectName = "NULL_WWISEEVENT";
+			emptyEvent.WwiseObjectReference.id = GetAKEventIdFromString("NULL_WWISEEVENT");
 			return emptyEvent;
 		}
 
 		Il2CppAK.Wwise.Event newEvent = new();
 		newEvent.WwiseObjectReference = ScriptableObject.CreateInstance<WwiseEventReference>();
 		newEvent.WwiseObjectReference.objectName = eventName;
-		newEvent.WwiseObjectReference.id = eventId;
+		newEvent.WwiseObjectReference.id = GetAKEventIdFromString(eventName);
 		return newEvent;
 	}
 
-	internal static uint GetAKEventIdFromString(string eventName)
+	private static uint GetAKEventIdFromString(string eventName)
 	{
-		Type type = typeof(Il2CppAK.EVENTS);
-		foreach (PropertyInfo prop in type.GetProperties(BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance))
+		if (eventIds.Count == 0)
 		{
-			if (prop.Name.ToLower() == eventName.ToLower())
+			Type type = typeof(Il2CppAK.EVENTS);
+			foreach (PropertyInfo prop in type.GetProperties(BindingFlags.Static | BindingFlags.Public))
 			{
-				return Convert.ToUInt32(prop.GetValue(null)?.ToString());
+				string key = prop.Name.ToLowerInvariant();
+				uint value = (uint)prop.GetValue(null)!;
+				eventIds.Add(key, value);
 			}
 		}
-		return 0U;
+
+		eventIds.TryGetValue(eventName.ToLowerInvariant(), out uint id);
+		return id;
 	}
 }

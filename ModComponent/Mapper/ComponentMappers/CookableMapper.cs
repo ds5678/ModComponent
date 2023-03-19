@@ -1,7 +1,8 @@
 ﻿using Il2Cpp;
 using ModComponent.API.Components;
+using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using static Il2Cpp.Cookable;
 
 namespace ModComponent.Mapper.ComponentMappers;
 
@@ -17,7 +18,7 @@ internal static class CookableMapper
 
 		Cookable cookable = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<Cookable>(modCookableComponent);
 
-		cookable.m_CookableType = ModComponent.Utils.EnumUtils.TranslateEnumValue<Cookable.CookableType, ModCookableComponent.CookableType>(modCookableComponent.Type);
+		cookable.m_CookableType = modCookableComponent.Type;
 		cookable.m_CookTimeMinutes = modCookableComponent.CookingMinutes;
 		cookable.m_ReadyTimeMinutes = modCookableComponent.BurntMinutes;
 		cookable.m_NumUnitsRequired = modCookableComponent.CookingUnitsRequired;
@@ -27,7 +28,7 @@ internal static class CookableMapper
 		cookable.m_CookAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modCookableComponent.CookingAudio, GetDefaultCookAudio(modCookableComponent));
 		cookable.m_PutInPotAudio = ModComponent.Utils.ModUtils.DefaultIfEmpty(modCookableComponent.StartCookingAudio, GetDefaultStartCookingAudio(modCookableComponent));
 
-		GameObject? cookableObject = Addressables.LoadAssetAsync<GameObject>("GEAR_PinnacleCanPeaches").WaitForCompletion().Cast<GameObject>();
+		GameObject? cookableObject = AssetBundleUtils.LoadAsset<GameObject>("GEAR_PinnacleCanPeaches");
 		Cookable template = ModComponent.Utils.ComponentUtils.GetComponentSafe<Cookable>(cookableObject);
 		cookable.m_MeshPotStyle = template?.m_MeshPotStyle;
 		cookable.m_MeshCanStyle = template?.m_MeshCanStyle;
@@ -62,8 +63,8 @@ internal static class CookableMapper
 	{
 		return modCookableComponent.Type switch
 		{
-			ModCookableComponent.CookableType.Grub => "Play_BoilingLiquidThickHeavy",
-			ModCookableComponent.CookableType.Meat => "Play_FryingHeavy",
+			CookableType.Grub => "Play_BoilingLiquidThickHeavy",
+			CookableType.Meat => "Play_FryingHeavy",
 			_ => "Play_BoilingLiquidLight",
 		};
 	}
@@ -72,8 +73,8 @@ internal static class CookableMapper
 	{
 		return modCookableComponent.Type switch
 		{
-			ModCookableComponent.CookableType.Grub => "Play_AddSlopToPot",
-			ModCookableComponent.CookableType.Meat => "Play_AddMeatPan",
+			CookableType.Grub => "Play_AddSlopToPot",
+			CookableType.Meat => "Play_AddMeatPan",
 			_ => "Play_AddWaterToPot",
 		};
 	}

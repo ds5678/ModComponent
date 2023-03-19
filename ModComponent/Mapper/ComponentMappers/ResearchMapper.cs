@@ -18,7 +18,7 @@ internal static class ResearchMapper
 		researchItem.m_ReadAudio = modResearch.ReadAudio;
 		researchItem.m_SkillPoints = modResearch.SkillPoints;
 		researchItem.m_NoBenefitAtSkillLevel = modResearch.NoBenefitAtSkillLevel;
-		researchItem.m_SkillType = ModComponent.Utils.EnumUtils.TranslateEnumValue<SkillType, API.ModSkillType>(modResearch.SkillType);
+		researchItem.m_SkillType = modResearch.SkillType;
 		researchItem.m_TimeRequirementHours = modResearch.TimeRequirementHours;
 	}
 }

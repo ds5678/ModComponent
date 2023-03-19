@@ -16,7 +16,7 @@ internal static class ItemMapper
 
 	public static void Map(string prefabName)
 	{
-		UnityEngine.Object @object = Addressables.LoadAssetAsync<GameObject>(prefabName).WaitForCompletion();
+		UnityEngine.Object @object = AssetBundleUtils.LoadAsset<GameObject>(prefabName);
 		if (@object == null)
 		{
 			throw new ArgumentException($"Prefab {prefabName} not found");
@@ -133,20 +133,20 @@ internal static class ItemMapper
 		gearItem.GearItemData.m_BaseWeightKG = modComponent.WeightKG;
 		gearItem.GearItemData.m_MaxHP = modComponent.MaxHP;
 		gearItem.GearItemData.m_DailyHPDecay = GetDecayPerStep(modComponent.DaysToDecay, modComponent.MaxHP);
-		gearItem.OverrideGearCondition(EnumUtils.TranslateEnumValue<GearStartCondition, ModBaseComponent.StartingCondition>(modComponent.InitialCondition), false);
+		gearItem.OverrideGearCondition(modComponent.InitialCondition, false);
 		// OverrideGearCondition wanted to know if the item had been picked up yet; since Awake hadn't been called yet, I put false
 
 		gearItem.GearItemData.m_LocalizedName = NameUtils.CreateLocalizedString(modComponent.DisplayNameLocalizationId);
 		gearItem.GearItemData.m_LocalizedDescription = NameUtils.CreateLocalizedString(modComponent.DescriptionLocalizatonId);
 
-		gearItem.GearItemData.m_PickupAudio = ModUtils.GetWwiseEventFromString(modComponent.PickUpAudio);
-		gearItem.GearItemData.m_StowAudio = ModUtils.GetWwiseEventFromString(modComponent.StowAudio);
-		gearItem.GearItemData.m_PutBackAudio = ModUtils.GetWwiseEventFromString(modComponent.PutBackAudio);
-		gearItem.GearItemData.m_WornOutAudio = ModUtils.GetWwiseEventFromString(modComponent.WornOutAudio);
+		gearItem.GearItemData.m_PickupAudio = ModUtils.MakeAudioEvent(modComponent.PickUpAudio);
+		gearItem.GearItemData.m_StowAudio = ModUtils.MakeAudioEvent(modComponent.StowAudio);
+		gearItem.GearItemData.m_PutBackAudio = ModUtils.MakeAudioEvent(modComponent.PutBackAudio);
+		gearItem.GearItemData.m_WornOutAudio = ModUtils.MakeAudioEvent(modComponent.WornOutAudio);
 		Cookable? cookable = ModComponent.Utils.ComponentUtils.GetComponentSafe<Cookable>(modComponent);
 		if (cookable != null)
 		{
-			gearItem.GearItemData.m_CookingSlotPlacementAudio = ModUtils.GetWwiseEventFromString(cookable.m_PutInPotAudio);
+			gearItem.GearItemData.m_CookingSlotPlacementAudio = ModUtils.MakeAudioEvent(cookable.m_PutInPotAudio);
 		}
 
 		gearItem.GearItemData.m_ConditionType = GetConditionTableType(modComponent);
@@ -218,7 +218,7 @@ internal static class ItemMapper
 		gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
 
 		
-		GameObject template = Addressables.LoadAssetAsync<GameObject>("GEAR_CoffeeCup").WaitForCompletion().Cast<GameObject>();
+		GameObject template = AssetBundleUtils.LoadAsset<GameObject>("GEAR_CoffeeCup");
 		MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
 
 		foreach (MeshRenderer? eachMeshRenderer in gearItem.m_MeshRenderers)

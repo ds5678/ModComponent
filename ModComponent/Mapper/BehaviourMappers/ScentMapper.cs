@@ -19,7 +19,7 @@ internal static class ScentMapper
 		}
 
 		Scent scent = ComponentUtils.GetOrCreateComponent<Scent>(modScentComponent);
-		scent.m_ScentCategory = EnumUtils.TranslateEnumValue<ScentRangeCategory, ModScentBehaviour.ScentCategory>(modScentComponent.scentCategory);
+		scent.m_ScentCategory = modScentComponent.scentCategory;
 	}
 
 	internal static float GetScentIntensity(ModBaseComponent modComponent) => GetScentIntensity(ComponentUtils.GetGameObject(modComponent));

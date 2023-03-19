@@ -1,8 +1,8 @@
 ﻿using Il2Cpp;
 
 using ModComponent.API.Components;
+using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
@@ -34,7 +34,7 @@ internal static class AlternativeToolManager
 
 	private static void AddAlternativeTool(ModToolComponent modToolComponent, string templateName)
 	{
-		GameObject original = Addressables.LoadAssetAsync<GameObject>(templateName).WaitForCompletion().Cast<GameObject>();
+		GameObject original = AssetBundleUtils.LoadAsset<GameObject>(templateName);
 		if (original == null)
 		{
 			return;

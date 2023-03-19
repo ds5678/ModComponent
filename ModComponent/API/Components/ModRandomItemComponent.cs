@@ -3,7 +3,6 @@ using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.API.Components;
 
@@ -36,7 +35,7 @@ public class ModRandomItemComponent : ModBaseComponent
 		}
 
 		int index = RandomUtils.Range(0, this.ItemNames.Length);
-		GameObject? prefab = Addressables.LoadAssetAsync<GameObject>(this.ItemNames[index]).WaitForCompletion()?.Cast<GameObject>();
+		GameObject? prefab = AssetBundleUtils.LoadAsset<GameObject>(this.ItemNames[index]);
 		if (prefab == null)
 		{
 			Logger.LogWarning($"Could not use '{this.name}' to spawn random item '{this.ItemNames[index]}'");

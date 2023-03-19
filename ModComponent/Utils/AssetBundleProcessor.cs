@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets.ResourceLocators;
 
 namespace ModComponent.Utils
 {
-    internal class AssetBundleProcessor
+	internal class AssetBundleProcessor
 	{
 		internal static string tempFolderName { get; set; } = "_ModComponentTemp";
 		internal static string tempFolderPath { get; set; } = Path.Combine(MelonEnvironment.ModsDirectory, tempFolderName);
@@ -253,7 +253,7 @@ namespace ModComponent.Utils
 
 					if (assetExtension == ".png" || assetExtension == ".jpg")
 					{
-						Texture2D? testObject = Addressables.LoadAssetAsync<Texture2D>(testAssetName).WaitForCompletion();
+						Texture2D? testObject = AssetBundleUtils.LoadAsset<Texture2D>(testAssetName);
 						if (testObject != null && testObject.name != null)
 						{
 							MelonLoader.MelonLogger.Msg(ConsoleColor.Green, "Catalog Test (" + catalogName + ") (" + testAssetName + ") OK");
@@ -267,7 +267,7 @@ namespace ModComponent.Utils
 					}
 					if (assetExtension == ".prefab")
 					{
-						GameObject? testObject = Addressables.LoadAssetAsync<GameObject>(testAssetName).WaitForCompletion();
+						GameObject? testObject = AssetBundleUtils.LoadAsset<GameObject>(testAssetName);
 						if (testObject != null && testObject.name != null)
 						{
 							MelonLoader.MelonLogger.Msg(ConsoleColor.Green, "Catalog Test (" + catalogName + ") (" + testAssetName + ") OK");

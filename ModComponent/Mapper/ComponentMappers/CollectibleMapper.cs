@@ -19,7 +19,7 @@ internal static class CollectibleMapper
 		narrativeCollectible.m_JournalEntryNumber = 0;
 		narrativeCollectible.m_NarrativeTextLocID = modCollectible.NarrativeTextLocalizationId;
 		narrativeCollectible.m_ShowDuringInspect = true;
-		narrativeCollectible.m_TextAlignment = ModComponent.Utils.EnumUtils.TranslateEnumValue<NGUIText.Alignment, ModCollectibleComponent.Alignment>(modCollectible.TextAlignment);
+		narrativeCollectible.m_TextAlignment = modCollectible.TextAlignment;
 		narrativeCollectible.m_Type = NarrativeCollectibleItem.CollectibleType.Note;
 	}
 }

@@ -22,7 +22,7 @@ internal static class MillableMapper
 		millable.m_CanRestoreFromWornOut = modMillable.CanRestoreFromWornOut;
 		millable.m_RecoveryDurationMinutes = modMillable.RecoveryDurationMinutes;
 		millable.m_RepairDurationMinutes = modMillable.RepairDurationMinutes;
-		millable.m_Skill = EnumUtils.TranslateEnumValue<SkillType, API.ModSkillType>(modMillable.Skill);
+		millable.m_Skill = modMillable.Skill;
 		if (modMillable.RepairRequiredGear.Length != modMillable.RepairRequiredGearUnits.Length)
 		{
 			throw new ArgumentException("RepairRequiredGear and RepairRequiredGearUnits do not have the same length on gear item '" + modMillable.name + "'.");

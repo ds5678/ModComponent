@@ -11,7 +11,7 @@ public partial class ModPowderComponent : ModBaseComponent
 	/// <summary>
 	/// The type of powder this container holds. "Gunpowder"
 	/// </summary>
-	public ModPowderType PowderType = ModPowderType.Gunpowder;
+	public GearPowderType PowderType = GearPowderType.Gunpowder;
 
 	/// <summary>
 	/// The maximum weight this container can hold.
@@ -44,7 +44,7 @@ public partial class ModPowderComponent : ModBaseComponent
 	internal override void InitializeComponent(ProxyObject dict, string className = "ModPowderComponent")
 	{
 		base.InitializeComponent(dict, className);
-		this.PowderType = dict.GetEnum<ModPowderType>(className, "PowderType");
+		this.PowderType = dict.GetEnum<GearPowderType>(className, "PowderType");
 		this.CapacityKG = dict.GetVariant(className, "CapacityKG");
 		this.ChanceFull = dict.GetVariant(className, "ChanceFull");
 	}

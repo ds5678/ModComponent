@@ -1,4 +1,5 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using Il2Cpp;
+using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public class ModMillableBehaviour : MonoBehaviour
 	/// <summary>
 	/// The skill associated with repairing this item.
 	/// </summary>
-	public ModSkillType Skill = ModSkillType.None;
+	public SkillType Skill = SkillType.None;
 
 	public ModMillableBehaviour(IntPtr intPtr) : base(intPtr) { }
 
@@ -59,6 +60,6 @@ public class ModMillableBehaviour : MonoBehaviour
 		this.RecoveryDurationMinutes = dict.GetVariant(className, "RecoveryDurationMinutes");
 		this.RestoreRequiredGear = dict.GetStringArray(className, "RestoreRequiredGear");
 		this.RestoreRequiredGearUnits = dict.GetIntArray(className, "RestoreRequiredGearUnits");
-		this.Skill = dict.GetEnum<ModSkillType>(className, "Skill");
+		this.Skill = dict.GetEnum<SkillType>(className, "Skill");
 	}
 }

@@ -1,8 +1,8 @@
 ﻿using Il2Cpp;
 
 using ModComponent.API.Components;
+using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 
@@ -15,7 +15,7 @@ internal static class GearEquipper
 			return;
 		}
 
-		GameObject? equippedModelPrefab = Addressables.LoadAssetAsync<GameObject>(equippable.EquippedModelPrefabName).WaitForCompletion()?.Cast<GameObject>();
+		GameObject? equippedModelPrefab = AssetBundleUtils.LoadAsset<GameObject>(equippable.EquippedModelPrefabName);
 		if (equippedModelPrefab != null)
 		{
 			equippable.EquippedModel = UnityEngine.Object.Instantiate(equippedModelPrefab, GameManager.GetWeaponCamera().transform);

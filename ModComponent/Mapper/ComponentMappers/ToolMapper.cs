@@ -17,8 +17,8 @@ internal static class ToolMapper
 
 		ToolsItem toolsItem = ModComponent.Utils.ComponentUtils.GetOrCreateComponent<ToolsItem>(modToolComponent);
 
-		toolsItem.m_ToolType = ModComponent.Utils.EnumUtils.TranslateEnumValue<ToolsItem.ToolType, ModToolComponent.ToolUsage>(modToolComponent.Usage);
-		toolsItem.m_CuttingToolType = ModComponent.Utils.EnumUtils.TranslateEnumValue<ToolsItem.CuttingToolType, ModToolComponent.ToolKind>(modToolComponent.ToolType);
+		toolsItem.m_ToolType = modToolComponent.Usage;
+		toolsItem.m_CuttingToolType = modToolComponent.ToolType;
 
 		toolsItem.m_CraftingAndRepairSkillModifier = modToolComponent.SkillBonus;
 		toolsItem.m_CraftingAndRepairTimeModifier = modToolComponent.CraftingTimeMultiplier;
@@ -115,9 +115,9 @@ internal static class ToolMapper
 	{
 		return modToolComponent.ToolType switch
 		{
-			ModToolComponent.ToolKind.Hatchet => StruggleBonus.StruggleWeaponType.Hatchet,
-			ModToolComponent.ToolKind.Hammer => StruggleBonus.StruggleWeaponType.Hammer,
-			ModToolComponent.ToolKind.Knife => StruggleBonus.StruggleWeaponType.Knife,
+			ToolsItem.CuttingToolType.Hatchet => StruggleBonus.StruggleWeaponType.Hatchet,
+			ToolsItem.CuttingToolType.Hammer => StruggleBonus.StruggleWeaponType.Hammer,
+			ToolsItem.CuttingToolType.Knife => StruggleBonus.StruggleWeaponType.Knife,
 			_ => StruggleBonus.StruggleWeaponType.BareHands,
 		};
 	}
@@ -126,10 +126,10 @@ internal static class ToolMapper
 	{
 		return modToolComponent.ToolType switch
 		{
-			ModToolComponent.ToolKind.HackSaw => "GEAR_Hacksaw",
-			ModToolComponent.ToolKind.Hatchet => "GEAR_Hatchet",
-			ModToolComponent.ToolKind.Hammer => "GEAR_Hammer",
-			ModToolComponent.ToolKind.Knife => "GEAR_Knife",
+			ToolsItem.CuttingToolType.HackSaw => "GEAR_Hacksaw",
+			ToolsItem.CuttingToolType.Hatchet => "GEAR_Hatchet",
+			ToolsItem.CuttingToolType.Hammer => "GEAR_Hammer",
+			ToolsItem.CuttingToolType.Knife => "GEAR_Knife",
 			_ => null,
 		};
 	}

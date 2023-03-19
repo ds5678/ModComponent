@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using Il2Cpp;
-using ModComponent.API.Components;
 
 namespace ModComponent.Patches;
 

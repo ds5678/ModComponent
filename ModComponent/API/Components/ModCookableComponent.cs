@@ -2,7 +2,7 @@
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using static Il2Cpp.Cookable;
 
 namespace ModComponent.API.Components;
 
@@ -82,9 +82,7 @@ public partial class ModCookableComponent : ModBaseComponent
 		else
 		{
 			string assetName = dict.GetVariant(className, "CookingResult").ToString();
-			//MelonLoader.MelonLogger.Warning("Cookable - " + assetName);
-			this.CookingResult = Addressables.LoadAssetAsync<GameObject>(assetName).WaitForCompletion();
-			//MelonLoader.MelonLogger.Warning("Cookable - " + this.CookingResult.ToString());
+			this.CookingResult = AssetBundleUtils.LoadAsset<GameObject>(assetName);
 		}
 		this.CookingUnitsRequired = dict.GetVariant(className, "CookingUnitsRequired");
 		this.CookingWaterRequired = dict.GetVariant(className, "CookingWaterRequired");

@@ -1,5 +1,6 @@
 ﻿using Il2CppInterop.Runtime;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Utils;
 
@@ -45,4 +46,11 @@ public static class AssetBundleUtils
 		}
 		return assetBundle.LoadAsset_Internal(name, type);
 	}
+	/// <summary>
+	/// Load an asset from Addressables
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="assetName"></param>
+	/// <returns></returns>
+	public static T LoadAsset<T>(string assetName) => Addressables.LoadAssetAsync<T>(assetName).WaitForCompletion();
 }
