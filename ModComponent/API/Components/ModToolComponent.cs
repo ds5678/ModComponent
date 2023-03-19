@@ -3,7 +3,6 @@ using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
 
-
 namespace ModComponent.API.Components;
 
 [MelonLoader.RegisterTypeInIl2Cpp]
@@ -20,7 +19,6 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// Certains actions have their own time driven degrade value, e.g. DegradePerHourCrafting, which applies only for those actions.
 	/// </summary>
 	public float DegradeOnUse = 1;
-
 
 	/// <summary>
 	/// Can this item be used for crafting, repairing or both?
@@ -42,7 +40,6 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// </summary>
 	public float DegradePerHourCrafting;
 
-
 	/// <summary>
 	/// Can this tool be used to break down items? If not enabled, the other settings in this section will be ignored.
 	/// </summary>
@@ -54,7 +51,6 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// </summary>
 	public float BreakDownTimeMultiplier = 1;
 
-
 	/// <summary>
 	/// Can this tool item be used to open locked containers? If not enabled, the other settings in this section will be ignored.
 	/// </summary>
@@ -64,7 +60,6 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// Sound to play while forcing a lock. Leave empty for a sensible default.
 	/// </summary>
 	public string ForceLockAudio = "";
-
 
 	/// <summary>
 	/// Can this tool item be used to clear ice fishing holes? If not enabled, the other settings in this section will be ignored.
@@ -85,7 +80,6 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// Sound to play while clearing an ice fishing hole. Leave empty for a sensible default.
 	/// </summary>
 	public string IceFishingHoleAudio = "";
-
 
 	/// <summary>
 	/// Can this tool item be used to harvest carcasses? If not enabled, the other settings in this section will be ignored.
@@ -116,7 +110,6 @@ public partial class ModToolComponent : ModBaseEquippableComponent
 	/// How many condition points does the tool degrade while being used for harvesting carcasses?
 	/// </summary>
 	public float DegradePerHourHarvesting;
-
 
 	/// <summary>
 	/// Can this tool item be used during a struggle with wildlife? If not enabled, the other settings in this section will be ignored.

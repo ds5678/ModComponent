@@ -25,7 +25,6 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	/// </summary>
 	public string DescriptionLocalizatonId = "";
 
-
 	/// <summary>
 	/// The inventory category to be used for this item. <br/>
 	/// Leave at 'Auto' for a sensible default.
@@ -59,7 +58,6 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	/// </summary>
 	public string WornOutAudio = "";
 
-
 	/// <summary>
 	/// The weight of the item in kilograms.
 	/// </summary>
@@ -80,7 +78,6 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	/// The initial condition of the item when found or crafted.
 	/// </summary>
 	public GearStartCondition InitialCondition;
-
 
 	/// <summary>
 	/// Will the item be inspected when picked up? <br/>
@@ -107,7 +104,6 @@ public abstract partial class ModBaseComponent : MonoBehaviour
 	/// Offset from the center during inspect.
 	/// </summary>
 	public Vector3 InspectOffset = Vector3.zero;
-
 
 	/// <summary>
 	/// Model to show during inspect mode. <br/>

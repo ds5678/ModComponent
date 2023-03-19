@@ -38,7 +38,6 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// </summary>
 	public FootwearType Footwear;
 
-
 	/// <summary>
 	/// Number of days it takes for this clothing item to decay from 100% to 0% while being worn and outside. 0 means 'Does not decay from being worn'.
 	/// </summary>
@@ -48,7 +47,6 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// Number of days it takes for this clothing item to decay from 100% to 0% while being worn and inside. 0 means 'Does not decay from being worn'.
 	/// </summary>
 	public float DaysToDecayWornInside;
-
 
 	/// <summary>
 	/// Warmth bonus in degrees celsius when the clothing item is in perfect condition and completely dry.<br/>
@@ -84,7 +82,6 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// </summary>
 	public float Waterproofness;
 
-
 	/// <summary>
 	/// Decreases the chance that a wolf will attack. Only applies in certain situations.<br/>
 	/// 100 means 'guaranteed not to attack'; 0 means 'same as without the buff'
@@ -96,7 +93,6 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// 100 means 'guaranteed to flee'; 0 means 'same as without the buff'
 	/// </summary>
 	public int IncreaseFleeChance;
-
 
 	/// <summary>
 	/// Hours required to dry this clothing item next to a fire when it is completely wet.<br/>
@@ -115,7 +111,6 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// </summary>
 	public float HoursToFreeze;
 
-
 	/// <summary>
 	/// Base name of the texture to represent this clothing item in the paper doll view.<br/>
 	/// All required actual texture paths will be derived from this name.
@@ -133,7 +128,6 @@ public partial class ModClothingComponent : ModBaseComponent
 	/// Set to zero for the default value on that slot.
 	/// </summary>
 	public int DrawLayer;
-
 
 	/// <summary>
 	/// The name of the type implementing the specific game logic of this item.<br/>

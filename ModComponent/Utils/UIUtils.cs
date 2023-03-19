@@ -1,10 +1,9 @@
 ﻿using Il2Cpp;
-
 using UnityEngine;
 
 namespace ModComponent.Utils;
 
-public static class UIUtils
+internal static class UIUtils
 {
 	public static UITexture CreateOverlay(Texture2D texture)
 	{

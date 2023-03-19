@@ -7,7 +7,7 @@ namespace ModComponent.Utils;
 /// <summary>
 /// Alternative asset loading methods to avoid triggering the AssetLoader patches
 /// </summary>
-public static class AssetBundleUtils
+internal static class AssetBundleUtils
 {
 	/// <summary>
 	/// Loads an asset without triggering the AssetLoader patches

@@ -1,5 +1,4 @@
 ﻿using Il2Cpp;
-
 using ModComponent.API.Components;
 
 namespace ModComponent.Mapper.ComponentMappers;

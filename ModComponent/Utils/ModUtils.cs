@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModComponent.Utils;
 
-public static class ModUtils
+internal static class ModUtils
 {
 	private static readonly Dictionary<string, uint> eventIds = new();
 

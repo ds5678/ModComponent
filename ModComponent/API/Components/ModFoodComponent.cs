@@ -19,13 +19,11 @@ public class ModFoodComponent : ModCookableComponent
 	/// </summary>
 	public int DaysToDecayIndoors;
 
-
 	/// <summary>
 	/// For one complete item with all servings.<br/>
 	/// Calories remaining will scale with weight.
 	/// </summary>
 	public int Calories;
-
 
 	/// <summary>
 	/// Realtime seconds it takes to eat one item.
@@ -50,7 +48,6 @@ public class ModFoodComponent : ModCookableComponent
 	/// </summary>
 	public int ThirstEffect;
 
-
 	/// <summary>
 	/// Chance in percent to contract food poisoning from an item above 20% condition.
 	/// </summary>
@@ -61,13 +58,11 @@ public class ModFoodComponent : ModCookableComponent
 	/// </summary>
 	public int FoodPoisoningLowCondition;
 
-
 	/// <summary>
 	/// Parasite Risk increments in percent for each unit eaten.<br/>
 	/// Leave empty for no parasite risk.
 	/// </summary>
 	public float[] ParasiteRiskIncrements = Array.Empty<float>();
-
 
 	/// <summary>
 	/// Is the food item naturally occurring meat or plant?
@@ -103,7 +98,6 @@ public class ModFoodComponent : ModCookableComponent
 	/// </summary>
 	public bool Canned;
 
-
 	/// <summary>
 	/// Does this item require a tool for opening it?<br/>
 	/// If not enabled, the other settings in this section will be ignored.
@@ -130,7 +124,6 @@ public class ModFoodComponent : ModCookableComponent
 	/// </summary>
 	public bool OpeningWithSmashing;
 
-
 	/// <summary>
 	/// Does this item affect 'Condition' while sleeping?<br/>
 	/// If not enabled, the other settings in this section will be ignored.
@@ -146,7 +139,6 @@ public class ModFoodComponent : ModCookableComponent
 	/// Amount of in-game minutes the 'ConditionRestBonus' will be applied.
 	/// </summary>
 	public float ConditionRestMinutes = 360;
-
 
 	/// <summary>
 	/// Does this item affect 'Rest'?<br/>
@@ -166,7 +158,6 @@ public class ModFoodComponent : ModCookableComponent
 	/// </summary>
 	public int RestFactorMinutes = 60;
 
-
 	/// <summary>
 	/// Does this item affect 'Cold'?<br/>
 	/// If not enabled, the other settings in this section will be ignored.
@@ -184,7 +175,6 @@ public class ModFoodComponent : ModCookableComponent
 	/// Amount of in-game minutes the 'ColdFactor' will be applied.
 	/// </summary>
 	public int ColdFactorMinutes = 60;
-
 
 	/// <summary>
 	/// Does this item contain Alcohol?<br/>

@@ -2,7 +2,7 @@
 
 namespace ModComponent.Utils;
 
-public static class EquipItemPopupUtils
+internal static class EquipItemPopupUtils
 {
 	public static void ShowItemPopups(String primaryAction, String secondaryAction, bool showAmmo, bool showReload, bool showHolster)
 	{

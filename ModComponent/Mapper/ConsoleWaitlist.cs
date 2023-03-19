@@ -77,7 +77,6 @@ internal static class ConsoleWaitlist
 		}
 		ConsoleManager.m_ComponentNameToGearNames[addToKey].Add(prefabName);
 
-
 		// add the gearitem to the console (add,gear_add) autocomplete list
 		foreach (uConsoleCommandParameterSet cps in uConsoleAutoComplete.m_CommandParameterSets)
 		{
@@ -98,7 +97,7 @@ internal static class ConsoleWaitlist
 		}
 	}
 
-	internal struct ModConsoleName
+	internal readonly struct ModConsoleName
 	{
 		public readonly string displayName;
 		public readonly string prefabName;

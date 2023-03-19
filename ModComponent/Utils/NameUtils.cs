@@ -1,9 +1,8 @@
 ﻿using Il2Cpp;
 
-
 namespace ModComponent.Utils;
 
-public static class NameUtils
+internal static class NameUtils
 {
 	public static LocalizedString CreateLocalizedString(string key)
 	{

@@ -1,6 +1,5 @@
 ﻿using Il2Cpp;
 
-
 namespace ModComponent.Mapper;
 
 internal static class DefaultDrawLayers

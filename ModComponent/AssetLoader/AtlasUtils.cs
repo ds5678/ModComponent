@@ -1,6 +1,5 @@
 ﻿using Il2Cpp;
 
-
 namespace ModComponent.AssetLoader;
 
 internal static class AtlasUtils

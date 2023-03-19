@@ -117,7 +117,6 @@ public abstract class ModBaseEquippableComponent : ModBaseComponent
 		return (Action)Delegate.CreateDelegate(typeof(Action), Implementation, methodInfo);
 	}
 
-
 	protected virtual void Awake()
 	{
 		if (string.IsNullOrEmpty(ImplementationType))
@@ -160,7 +159,6 @@ public abstract class ModBaseEquippableComponent : ModBaseComponent
 		OnUpdate = CreateImplementationActionDelegate("OnUpdate");
 		OnLateUpdate = CreateImplementationActionDelegate("OnLateUpdate");
 		OnDisabled = CreateImplementationActionDelegate("OnDisabled");
-
 
 		FieldInfo? fieldInfo = implementationTypeMono?.GetField("EquippableModComponent", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		if (fieldInfo != null && fieldInfo.FieldType == typeof(ModBaseEquippableComponent))

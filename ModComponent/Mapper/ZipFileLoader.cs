@@ -1,5 +1,6 @@
 ﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
 using MelonLoader.TinyJSON;
+using MelonLoader.Utils;
 using ModComponent.Utils;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -11,10 +12,10 @@ namespace ModComponent.Mapper;
 internal static class ZipFileLoader
 {
 	internal static readonly List<byte[]> hashes = new();
-	
+
 	internal static void Initialize()
 	{
-		LoadZipFilesInDirectory(FileUtils.GetModsFolderPath(), false);
+		LoadZipFilesInDirectory(MelonEnvironment.ModsDirectory, false);
 	}
 
 	private static void LoadZipFilesInDirectory(string directory, bool recursive)

@@ -19,14 +19,11 @@ internal static class Logger
 	//Regular Messages show in white
 	internal static void Log(string message) => Implementation.instance.LoggerInstance.Msg(message);
 
-
 	//Warning Messages show in yellow
 	internal static void LogWarning(string message) => Implementation.instance.LoggerInstance.Warning(message);
 
-
 	//Error Messages show in red
 	internal static void LogError(string message) => Implementation.instance.LoggerInstance.Error(message);
-
 
 	//This is for when item packs error while loading.
 	internal static void LogItemPackError(string namesection, string message)
@@ -42,14 +39,11 @@ internal static class Logger
 		method_RunErrorCallbacks?.Invoke(null, new object[] { namesection, txt });
 	}
 
-
 	//Blue Messages
 	internal static void LogBlue(string message) => Implementation.instance.LoggerInstance.Msg(ConsoleColor.Blue, message);
 
-
 	//Green Messages
 	internal static void LogGreen(string message) => Implementation.instance.LoggerInstance.Msg(ConsoleColor.Green, message);
-
 
 	//Debug Messages show only when in debug mode
 	internal static void LogDebug(string message)

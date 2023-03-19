@@ -1,4 +1,5 @@
 ﻿using Il2Cpp;
+using MelonLoader.Utils;
 using System.Runtime.InteropServices;
 
 namespace ModComponent.AssetLoader;
@@ -13,7 +14,7 @@ internal static class ModSoundBankManager
 
 	public static void RegisterSoundBank(string relativePath)
 	{
-		string modDirectory = ModComponent.Utils.FileUtils.GetModsFolderPath();
+		string modDirectory = MelonEnvironment.ModsDirectory;
 		string soundBankPath = Path.Combine(modDirectory, relativePath);
 		if (!File.Exists(soundBankPath))
 		{

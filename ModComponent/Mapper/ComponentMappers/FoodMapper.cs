@@ -1,5 +1,4 @@
 ﻿using Il2Cpp;
-
 using ModComponent.API;
 using ModComponent.API.Components;
 using ModComponent.Utils;

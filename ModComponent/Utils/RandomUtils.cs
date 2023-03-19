@@ -2,7 +2,7 @@
 
 namespace ModComponent.Utils;
 
-public static class RandomUtils
+internal static class RandomUtils
 {
 	private static readonly RNGCryptoServiceProvider cryptoRandom = new RNGCryptoServiceProvider();
 

@@ -43,7 +43,6 @@ public class ModBedComponent : ModBaseComponent
 	/// </summary>
 	public float WolfAttackModifier;
 
-
 	/// <summary>
 	/// Sound to be played when beginning to sleep in this bed. <br/>
 	/// Leave empty for a sensible default.
@@ -55,7 +54,6 @@ public class ModBedComponent : ModBaseComponent
 	/// Leave empty for a sensible default.
 	/// </summary>
 	public string CloseAudio = "";
-
 
 	/// <summary>
 	/// Optional game object to be used for representing the bed in a 'packed' state.

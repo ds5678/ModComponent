@@ -115,7 +115,6 @@ internal static class InputManagerProcessFireActionPatch
 	}
 }
 
-
 [HarmonyPatch(typeof(InputManager), nameof(InputManager.ExecuteAltFire))]
 internal static class InputManagerExecuteAltFirePatch
 {

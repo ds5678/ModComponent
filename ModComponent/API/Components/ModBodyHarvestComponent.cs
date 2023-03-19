@@ -17,7 +17,6 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// </summary>
 	public string HarvestAudio = "";
 
-
 	/// <summary>
 	/// The name of the object prefab for the guts.
 	/// </summary>
@@ -32,8 +31,6 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// The weight of the gut before the player harvests it.
 	/// </summary>
 	public float GutWeightKgPerUnit;
-
-
 
 	/// <summary>
 	/// The name of the object prefab for the hide.
@@ -50,8 +47,6 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// </summary>
 	public float HideWeightKgPerUnit;
 
-
-
 	/// <summary>
 	/// The name of the object prefab for the raw meat.
 	/// </summary>
@@ -66,7 +61,6 @@ public class ModBodyHarvestComponent : ModBaseComponent
 	/// The maximum amount of meat in each harvest.
 	/// </summary>
 	public float MeatAvailableMaxKG;
-
 
 	/// <summary>
 	/// Can this be quartered?
@@ -102,12 +96,10 @@ public class ModBodyHarvestComponent : ModBaseComponent
 
 	public float QuarterPrefabSpawnRadius;
 
-
 	void Awake()
 	{
 		CopyFieldHandler.UpdateFieldValues(this);
 	}
-
 
 	public ModBodyHarvestComponent(System.IntPtr intPtr) : base(intPtr) { }
 

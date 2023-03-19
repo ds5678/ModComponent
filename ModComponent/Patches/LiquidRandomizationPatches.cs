@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using Il2Cpp;
 
-
 namespace ModComponent.Patches;
 
 internal class LiquidItemPatch

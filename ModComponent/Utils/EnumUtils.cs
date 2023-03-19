@@ -1,6 +1,6 @@
 ﻿namespace ModComponent.Utils;
 
-public static class EnumUtils
+internal static class EnumUtils
 {
 	public static T ParseEnum<T>(string text) where T : Enum
 	{

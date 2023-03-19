@@ -1,5 +1,4 @@
 ﻿using Il2Cpp;
-
 using ModComponent.API.Components;
 using ModComponent.Utils;
 using UnityEngine;

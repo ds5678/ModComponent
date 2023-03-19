@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModComponent.Utils;
 
-public static class ComponentUtils
+internal static class ComponentUtils
 {
 	[return: NotNullIfNotNull("component")]
 	public static T? GetComponentSafe<T>(this Component? component) where T : Component

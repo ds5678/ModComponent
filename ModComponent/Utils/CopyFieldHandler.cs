@@ -4,7 +4,7 @@ using static ModComponent.Utils.NameUtils;
 
 namespace ModComponent.Utils;
 
-public static class CopyFieldHandler
+internal static class CopyFieldHandler
 {
 	public static void UpdateFieldValues<T>(T componentToUpdate) where T : Component
 	{

@@ -122,7 +122,6 @@ internal static class ItemMapper
 			gearItem.m_GearItemData = gid;
 		}
 
-
 		gearItem.GearItemData.m_PrefabReference = new AssetReferenceGearItem(modComponent.name);
 
 		gearItem.GearItemData.m_CoverFlowBlendTexture = new AssetReferenceTexture2D(modComponent.name);
@@ -217,7 +216,6 @@ internal static class ItemMapper
 		GearItem gearItem = modComponent.GetComponent<GearItem>();
 		gearItem.m_SkinnedMeshRenderers = ModUtils.NotNull<SkinnedMeshRenderer>(gearItem.m_SkinnedMeshRenderers);
 
-		
 		GameObject template = AssetBundleUtils.LoadAsset<GameObject>("GEAR_CoffeeCup");
 		MeshRenderer meshRenderer = template.GetComponentInChildren<MeshRenderer>();
 

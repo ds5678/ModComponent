@@ -55,7 +55,6 @@ internal static class AutoMapper
 		}
 	}
 
-
 	internal static void MapModComponent(GameObject prefab)
 	{
 		if (prefab == null)

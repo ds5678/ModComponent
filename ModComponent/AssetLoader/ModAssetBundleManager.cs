@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using MelonLoader.Utils;
+using System.Text;
 using UnityEngine;
 
 namespace ModComponent.AssetLoader;
@@ -82,7 +83,7 @@ internal static class ModAssetBundleManager
 			return;
 		}
 
-		string modDirectory = ModComponent.Utils.FileUtils.GetModsFolderPath();
+		string modDirectory = MelonEnvironment.ModsDirectory;
 		string fullPath = Path.Combine(modDirectory, relativePath);
 
 		if (File.Exists(fullPath))
@@ -278,7 +279,6 @@ internal static class ModAssetBundleManager
 			stringBuilder.Append(" => ");
 			stringBuilder.Append(eachAssetName);
 			stringBuilder.Append("\n");
-
 		}
 
 		Logger.Log(stringBuilder.ToString().Trim());

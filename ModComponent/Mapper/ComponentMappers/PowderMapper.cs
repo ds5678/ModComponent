@@ -1,5 +1,4 @@
 ﻿using Il2Cpp;
-
 using ModComponent.API.Components;
 using ModComponent.Utils;
 
@@ -16,7 +15,7 @@ internal static class PowderMapper
 		}
 
 		PowderItem powderItem = ComponentUtils.GetOrCreateComponent<PowderItem>(modComponent);
-		powderItem.m_Type = GearPowderType.Gunpowder;
+		powderItem.m_Type = modPowderComponent.PowderType;
 		powderItem.m_WeightLimitKG = modPowderComponent.CapacityKG;
 		powderItem.m_WeightKG = modPowderComponent.CapacityKG;
 	}

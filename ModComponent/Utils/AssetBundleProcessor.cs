@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 
-
 namespace ModComponent.Utils
 {
 	internal class AssetBundleProcessor
@@ -19,9 +18,6 @@ namespace ModComponent.Utils
 		internal static List<string> bundleFilePaths { get; set; } = new();
 		internal static List<string> bundleNames { get; set; } = new();
 		internal static Dictionary<string, List<string>> bundleAssetList { get; set; } = new();
-
-
-
 
 		internal static void Initialize()
 		{

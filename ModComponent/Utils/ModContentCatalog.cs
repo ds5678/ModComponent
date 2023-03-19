@@ -1,6 +1,6 @@
 ﻿namespace ModComponent.Utils;
 
-public class ModContentCatalog
+internal sealed class ModContentCatalog
 {
 	public string? m_LocatorId { get; set; }
 	public ModObjectInitializationData? m_InstanceProviderData { get; set; }
@@ -14,17 +14,4 @@ public class ModContentCatalog
 	public string? m_ExtraDataString { get; set; }
 	public ModSerializedType[]? m_resourceTypes { get; set; }
 	public string[]? m_InternalIdPrefixes { get; set; }
-}
-
-public class ModObjectInitializationData
-{
-	public string? m_Id { get; set; }
-	public ModSerializedType? m_ObjectType { get; set; }
-	public string? m_Data { get; set; }
-}
-
-public class ModSerializedType
-{
-	public string? m_AssemblyName { get; set; }
-	public string? m_ClassName { get; set; }
 }
