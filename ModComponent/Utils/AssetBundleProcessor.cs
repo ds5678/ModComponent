@@ -1,13 +1,13 @@
 ﻿using MelonLoader.Utils;
+using ModComponent.Mapper;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
-using UnityEngine;
-using ModComponent.Mapper;
 
 
 namespace ModComponent.Utils
 {
-	internal class AssetBundleProcessor
+    internal class AssetBundleProcessor
 	{
 		internal static string tempFolderName { get; set; } = "_ModComponentTemp";
 		internal static string tempFolderPath { get; set; } = Path.Combine(MelonEnvironment.ModsDirectory, tempFolderName);

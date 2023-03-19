@@ -1,6 +1,4 @@
-﻿using Il2Cpp;
-
-namespace ModComponent.API.Components;
+﻿namespace ModComponent.API.Components;
 
 public partial class ModPowderComponent
 {

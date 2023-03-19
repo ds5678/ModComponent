@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ModComponent.Mapper;
+﻿namespace ModComponent.Mapper;
 
 internal static class JsonHandler
 {

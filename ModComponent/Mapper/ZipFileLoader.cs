@@ -1,16 +1,10 @@
-﻿using Il2Cpp;
-using MelonLoader.ICSharpCode.SharpZipLib.Zip;
+﻿using MelonLoader.ICSharpCode.SharpZipLib.Zip;
 using MelonLoader.TinyJSON;
-using MelonLoader.Utils;
 using ModComponent.Utils;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 

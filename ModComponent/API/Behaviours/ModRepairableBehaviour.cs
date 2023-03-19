@@ -1,6 +1,5 @@
-﻿using MelonLoader.TinyJSON;
-using System;
-using Il2CppInterop.Runtime.Attributes;
+﻿using Il2CppInterop.Runtime.Attributes;
+using MelonLoader.TinyJSON;
 using UnityEngine;
 
 namespace ModComponent.API.Behaviours;

@@ -1,7 +1,5 @@
 ﻿using MelonLoader.TinyJSON;
 using ModComponent.Utils;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ModComponent.API;

@@ -24,7 +24,7 @@ internal static class ModAssetBundleManager
 	/// Key: The relative path within the Mods folder to the asset bundle file<br/>
 	/// Value: The cooresponding loaded asset bundle
 	/// </summary>
-	internal static readonly Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
+	private static readonly Dictionary<string, AssetBundle> knownAssetBundles = new Dictionary<string, AssetBundle>();
 	/// <summary>
 	/// Key: A short asset name such as "gear_gascan.prefab"<br/>
 	/// Value: The cooresponding full asset name such as "assets/prefabs/gear_gascan.prefab"
@@ -34,7 +34,7 @@ internal static class ModAssetBundleManager
 	/// Key: A full asset name such as "assets/prefabs/gear_gascan.prefab"<br/>
 	/// Value: The asset bundle containing the asset
 	/// </summary>
-	internal static readonly Dictionary<string, AssetBundle> knownAssetNames = new Dictionary<string, AssetBundle>();
+	private static readonly Dictionary<string, AssetBundle> knownAssetNames = new Dictionary<string, AssetBundle>();
 
 	/// <summary>
 	/// Gets the asset bundle from the bank of loaded asset bundles
@@ -187,15 +187,13 @@ internal static class ModAssetBundleManager
 		{
 			return "";
 		}
-		string lowerCaseName = name!.ToLowerInvariant();
+		string lowerCaseName = name.ToLowerInvariant();
 		if (knownAssetNames.ContainsKey(lowerCaseName))
 		{
-			MelonLoader.MelonLogger.Warning("knownAssetNames " + lowerCaseName);
 			return lowerCaseName;
 		}
 		else if (knownAssetMappedNames.ContainsKey(lowerCaseName))
 		{
-			MelonLoader.MelonLogger.Warning("knownAssetMappedNames " + lowerCaseName);
 			return knownAssetMappedNames[lowerCaseName];
 		}
 		else
@@ -283,7 +281,7 @@ internal static class ModAssetBundleManager
 
 		}
 
-		//Logger.Log(stringBuilder.ToString().Trim());
+		Logger.Log(stringBuilder.ToString().Trim());
 	}
 
 	/// <summary>

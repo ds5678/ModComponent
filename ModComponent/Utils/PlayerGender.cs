@@ -1,6 +1,4 @@
-﻿using Il2Cpp;
-
-namespace ModComponent.Utils;
+﻿namespace ModComponent.Utils;
 
 public enum PlayerGender
 {

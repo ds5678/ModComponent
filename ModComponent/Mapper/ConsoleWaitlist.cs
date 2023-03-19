@@ -1,8 +1,6 @@
-﻿using Il2Cpp;
-using HarmonyLib;
+﻿using HarmonyLib;
+using Il2Cpp;
 using Il2CppTLD.Gear;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace ModComponent.Mapper;
 

@@ -1,7 +1,5 @@
 ﻿using Il2Cpp;
 
-using System;
-
 namespace ModComponent.Utils;
 
 internal static partial class ActionPickerUtilities

@@ -3,7 +3,6 @@
 using ModComponent.API.Behaviours;
 using ModComponent.API.Components;
 using ModComponent.Utils;
-using System;
 
 namespace ModComponent.Mapper.BehaviourMappers;
 

@@ -1,8 +1,7 @@
 ﻿using Il2Cpp;
-
+using Il2CppInterop.Runtime.Attributes;
 using MelonLoader.TinyJSON;
 using ModComponent.Utils;
-using Il2CppInterop.Runtime.Attributes;
 
 namespace ModComponent.API.Components;
 
@@ -37,20 +36,6 @@ public partial class ModPowderComponent : ModBaseComponent
 				powderItem.m_WeightKG = powderItem.m_WeightLimitKG * RandomUtils.Range(0.125f, 1f);
 			}
 		}
-	}
-
-	internal static GearPowderType GetPowderType(ModPowderType modPowderType)
-	{
-		return modPowderType switch
-		{
-			ModPowderType.Gunpowder => GearPowderType.Gunpowder,
-			_ => GearPowderType.Gunpowder,
-		};
-	}
-
-	internal static ModPowderType GetPowderType(GearPowderType gearPowderType)
-	{
-		return ModPowderType.Gunpowder;
 	}
 
 	public ModPowderComponent(System.IntPtr intPtr) : base(intPtr) { }

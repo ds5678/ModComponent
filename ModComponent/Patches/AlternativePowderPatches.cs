@@ -1,6 +1,5 @@
-﻿using Il2Cpp;
-using HarmonyLib;
-
+﻿using HarmonyLib;
+using Il2Cpp;
 using ModComponent.API.Components;
 
 namespace ModComponent.Patches;
@@ -12,8 +11,7 @@ internal static class AlternativePowderPatches
 	{
 		private static bool Prefix(PlayerManager __instance, float amount, GearPowderType type)
 		{
-			ModPowderComponent.ModPowderType modPowderType = ModPowderComponent.GetPowderType(type);
-			if (modPowderType == ModPowderComponent.ModPowderType.Gunpowder)
+			if (type == GearPowderType.Gunpowder)
 			{
 				return true;
 			}

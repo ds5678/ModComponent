@@ -1,5 +1,4 @@
 ﻿using ModComponent.Utils;
-using System;
 
 namespace ModComponent.API.Components;
 

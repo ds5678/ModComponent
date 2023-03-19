@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace ModComponent.Utils;
+﻿namespace ModComponent.Utils;
 
 public static class EnumUtils
 {

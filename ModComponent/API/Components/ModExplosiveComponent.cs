@@ -1,7 +1,6 @@
 ﻿using Il2Cpp;
-
-using ModComponent.Utils;
 using Il2CppInterop.Runtime.Attributes;
+using ModComponent.Utils;
 using UnityEngine;
 
 namespace ModComponent.API.Components;
