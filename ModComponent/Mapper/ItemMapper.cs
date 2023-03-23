@@ -227,6 +227,10 @@ internal static class ItemMapper
 				{
 					eachMaterial.shader = meshRenderer.material.shader;
 					eachMaterial.shaderKeywords = meshRenderer.material.shaderKeywords;
+					if (eachMaterial.GetTexture("_dmg_texture") == null)
+					{
+						eachMaterial.SetTexture("_dmg_texture", eachMaterial.GetTexture("_MainTex"));
+					}
 				}
 			}
 		}
