@@ -5,7 +5,6 @@ using ModComponent.Utils;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using UnityEngine;
 
 namespace ModComponent.Mapper;
 
@@ -87,6 +86,18 @@ internal static class ZipFileLoader
 		return Encoding.UTF8.GetString(memoryStream.ToArray());
 	}
 
+	private static string ReadToJsonString(MemoryStream memoryStream)
+	{
+		const byte leftCurlyBracket = (byte)'{';
+		byte[] bytes = memoryStream.ToArray();
+		int index = Array.IndexOf(bytes, leftCurlyBracket);
+		if (index < 0)
+		{
+			throw new ArgumentException("MemoryStream has no Json content.", nameof(memoryStream));
+		}
+		return Encoding.UTF8.GetString(new ReadOnlySpan<byte>(bytes, index, bytes.Length - index));
+	}
+
 	private static FileType GetFileType(string filename)
 	{
 		if (string.IsNullOrWhiteSpace(filename))
@@ -127,7 +138,7 @@ internal static class ZipFileLoader
 		switch (fileType)
 		{
 			case FileType.json:
-				return TryHandleJson(zipFilePath, internalPath, ReadToString(unzippedFileStream));
+				return TryHandleJson(zipFilePath, internalPath, ReadToJsonString(unzippedFileStream));
 			case FileType.unity3d:
 				return TryHandleUnity3d(zipFilePath, internalPath, unzippedFileStream.ToArray());
 			case FileType.txt:
@@ -195,8 +206,7 @@ internal static class ZipFileLoader
 			else if (internalPath.StartsWith(@"localizations/"))
 			{
 				// change emthod to ensure we go via the BOM fixed methods..
-				TextAsset textAsset = new(text);
-				LocalizationUtilities.LocalizationManager.LoadLocalization(textAsset, internalPath);
+				LocalizationUtilities.LocalizationManager.LoadJsonLocalization(text);
 			}
 			else if (internalPath.StartsWith(@"bundle/"))
 			{
